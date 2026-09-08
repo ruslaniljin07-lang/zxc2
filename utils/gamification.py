@@ -47,13 +47,21 @@ def get_status_color(streak):
 
 
 def calculate_xp_for_next_level(xp):
+    """Сколько XP не хватает до следующего уровня (для совместимости)."""
+    _, need = level_progress(xp)
+    return need
+
+
+def level_progress(xp):
+    """Возвращает (xp_накоплено_в_текущем_уровне, xp_нужно_до_следующего)."""
+    left = xp
     level = 0
-    xp_for_next = 100
-    while xp >= xp_for_next:
-        xp -= xp_for_next
+    need = 100
+    while left >= need:
+        left -= need
         level += 1
-        xp_for_next = 100 * (level + 1) ** 2
-    return xp_for_next - xp
+        need = 100 * (level + 1) ** 2
+    return left, need
 
 
 def check_streak_rewards(user):

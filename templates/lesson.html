@@ -1,87 +1,111 @@
 {% extends 'base.html' %}
 {% block title %}{{ lesson.title }} — Codigo{% endblock %}
 
-{% block extra_css %}
-<style>
-    #codeEditor {
-        font-family: 'Consolas', 'Courier New', monospace;
-        font-size: 14px;
-        tab-size: 4;
-    }
-    .output-box {
-        background: #2d2d2d;
-        color: #d4d4d4;
-        border-radius: 8px;
-        padding: 1rem;
-        min-height: 100px;
-        overflow-x: auto;
-        font-family: 'Consolas', 'Courier New', monospace;
-        font-size: 13px;
-        white-space: pre-wrap;
-    }
-    .hint-box {
-        background: #fff3cd;
-        border-left: 4px solid #ffc107;
-        padding: 1rem;
-        margin-top: 1rem;
-        border-radius: 4px;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">{{ lesson.title }}</h3>
-            </div>
-            <div class="card-body">
-                <p class="text-muted">{{ lesson.description }}</p>
+<div class="page-head">
+    <span class="kicker">Урок #{{ lesson.id }}</span>
+    <h1>{{ lesson.title }}</h1>
+    <p>{{ lesson.description }}</p>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+        {% if progress %}
+            {% if progress.completed %}
+                <span class="pill done"><i class="bi bi-check2-circle"></i> Завершено</span>
+            {% else %}
+                <span class="pill wip"><i class="bi bi-hourglass-split"></i> В процессе</span>
+            {% endif %}
+            <span class="pill idle">Попыток: {{ progress.attempts }}</span>
+        {% else %}
+            <span class="pill idle">Ещё не начат</span>
+        {% endif %}
+        <span class="xp-chip"><i class="bi bi-star"></i> +{{ lesson.xp_reward }} XP за прохождение</span>
+    </div>
+</div>
 
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card mb-4">
+            <div class="card-body p-4 p-lg-5">
                 {% if lesson.theory %}
-                    <div class="alert alert-info mt-3">
-                        <h5><i class="bi bi-info-circle"></i> Теория</h5>
-                        <ul class="mb-0">
+                <details class="theory-box" {% if not progress or not progress.completed %}open{% endif %}>
+                    <summary><i class="bi bi-journal-code"></i> Теория — прочитай перед заданием</summary>
+                    <div class="theory-inner">
+                        <ul>
                             {% for point in lesson.theory %}
                                 <li>{{ point }}</li>
                             {% endfor %}
                         </ul>
                     </div>
+                </details>
                 {% endif %}
 
-                {% if progress %}
-                    <div class="mb-2">
-                        {% if progress.completed %}
-                            <span class="badge bg-success">✅ Завершено</span>
-                        {% else %}
-                            <span class="badge bg-warning text-dark">В процессе</span>
-                        {% endif %}
-                        <span class="badge bg-secondary">Попыток: {{ progress.attempts }}</span>
+                <label class="form-label" for="codeEditor">Твой код</label>
+                <div class="pyeditor" data-pyeditor data-min-lines="30">
+                    <div class="pe-toolbar">
+                        <span class="pe-file">main.py</span>
                     </div>
-                {% endif %}
-
-                <h5 class="mt-4 mb-2">💻 Ваш код</h5>
-                <textarea id="codeEditor" class="form-control" rows="12">{{ initial_code }}</textarea>
-
-                {% if hints %}
-                    <div class="hint-box">
-                        <strong>💡 Подсказка:</strong>
-                        <p class="mb-0">{{ hints }}</p>
+                    <div class="pe-body">
+                        <div class="pe-canvas">
+                            <div class="pe-gutter"></div>
+                            <div class="pe-pane">
+                                <pre class="pe-highlight"></pre>
+                                <textarea id="codeEditor" class="pe-input" rows="30" spellcheck="false" wrap="off">{{ initial_code }}</textarea>
+                            </div>
+                        </div>
                     </div>
-                {% endif %}
+                </div>
 
-                <div class="d-flex justify-content-between mt-3">
-                    <button id="runBtn" class="btn btn-success">
-                        <i class="bi bi-play-circle"></i> Проверить
-                    </button>
-                    <button id="resetBtn" class="btn btn-outline-secondary" type="button">
-                        <i class="bi bi-arrow-clockwise"></i> Сбросить
+                <div id="hintBox" class="hint-note mt-3" {% if not hint %}style="display:none"{% endif %}>
+                    <strong><i class="bi bi-lightbulb-fill"></i> Подсказка:</strong>
+                    <p class="mb-0 mt-1" id="hintText">{{ hint or '' }}</p>
+                </div>
+
+                <div id="solutionBox" class="solution-note mt-3" {% if not solution %}style="display:none"{% endif %}>
+                    <strong><i class="bi bi-key-fill"></i> Полное решение:</strong>
+                    <pre class="code-block mt-2 mb-2" id="solutionCode">{{ solution or '' }}</pre>
+                    <button id="applySolution" class="btn btn-ghost btn-sm" type="button">
+                        <i class="bi bi-box-arrow-in-down"></i> Вставить в редактор
                     </button>
                 </div>
 
-                <div id="outputBox" class="output-box mt-3" style="display: none;"></div>
+                <div class="d-flex justify-content-between align-items-center mt-4 gap-2 flex-wrap">
+                    <button id="resetBtn" class="btn btn-ghost" type="button">
+                        <i class="bi bi-arrow-counterclockwise"></i> Сбросить
+                    </button>
+                    <button id="runBtn" class="btn btn-success btn-lg">
+                        <i class="bi bi-play-circle"></i> Проверить задание
+                    </button>
+                </div>
+
+                <div id="outputBox" class="term mt-4" style="display: none;">
+                    <span class="term-title">// РЕЗУЛЬТАТ</span>
+                </div>
             </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            {% if prev_lesson %}
+                <a class="btn-prev-task" href="{{ url_for('lesson', lesson_id=prev_lesson.id) }}">
+                    <i class="bi bi-arrow-left"></i> Предыдущее задание
+                </a>
+            {% else %}
+                <span class="btn-prev-task" style="opacity:.45; cursor:default;">
+                    <i class="bi bi-arrow-left"></i> Предыдущее задание
+                </span>
+            {% endif %}
+
+            <a class="np-all" href="{{ url_for('lessons') }}">
+                <i class="bi bi-grid"></i> Все уроки
+            </a>
+
+            {% if next_lesson %}
+                <a class="btn-next-task" href="{{ url_for('lesson', lesson_id=next_lesson.id) }}">
+                    Следующее задание <i class="bi bi-arrow-right"></i>
+                </a>
+            {% else %}
+                <span class="btn-next-task" style="opacity:.5; cursor:default;">
+                    Следующее задание <i class="bi bi-arrow-right"></i>
+                </span>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -89,45 +113,104 @@
 
 {% block extra_js %}
 <script>
-    document.getElementById('resetBtn').addEventListener('click', function() {
-    var code = {{ initial_code | tojson }};
-    document.getElementById('codeEditor').value = code;
-    document.getElementById('outputBox').style.display = 'none';
-});
+(function() {
+    var resetBtn = document.getElementById('resetBtn');
+    var runBtn = document.getElementById('runBtn');
+    var editor = document.getElementById('codeEditor');
+    var output = document.getElementById('outputBox');
+    var INITIAL = {{ initial_code | tojson }};
+    var lastSolution = {{ (solution or '') | tojson }};
 
-document.getElementById('runBtn').addEventListener('click', function() {
-    const code = document.getElementById('codeEditor').value;
-    const output = document.getElementById('outputBox');
-    output.style.display = 'block';
-    output.textContent = 'Выполнение...';
-
-    fetch('/lesson/{{ lesson.id }}', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'code=' + encodeURIComponent(code)
-    })
-    .then(r => r.json())
-    .then(data => {
-        let html = '';
-        if (data.stdout) {
-            html += '<span style="color:#569cd6">Output:</span>\n' + data.stdout + '\n\n';
-        }
-        if (data.stderr) {
-            html += '<span style="color:#f44747">Error:</span>\n' + data.stderr + '\n\n';
-        }
-        if (data.hint) {
-            html += '<span style="color:#ffcc00">💡 Подсказка:</span> ' + data.hint + '\n\n';
-        }
-        if (data.success) {
-            html += '<span style="color:#4ec9b0">✅ Урок пройден!</span>';
-        } else {
-            html += '<span style="color:#f44747">❌ Проверка не пройдена</span>';
-        }
-        output.textContent = html;
-    })
-    .catch(err => {
-        output.textContent = 'Ошибка: ' + err.message;
+    resetBtn.addEventListener('click', function() {
+        editor.value = INITIAL;
+        output.style.display = 'none';
+        // перерисовать подсветку и высоту редактора после сброса
+        editor.dispatchEvent(new Event('input'));
     });
-});
+
+    // экранируем вывод, чтобы <, > и html не ломали результат
+    function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    runBtn.addEventListener('click', function() {
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Выполнение...';
+        output.style.display = 'block';
+        output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\nПроверяем код…';
+
+        fetch('/lesson/{{ lesson.id }}', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'code=' + encodeURIComponent(editor.value)
+        })
+        .then(function(r) {
+            var ct = r.headers.get('Content-Type') || '';
+            if (!ct.includes('application/json')) {
+                throw new Error('session');
+            }
+            return r.json();
+        })
+        .then(function(data) {
+            var html = '<span class="term-title">// РЕЗУЛЬТАТ</span>';
+            if (data.stdout) {
+                html += '\n<span class="t-out">Output:</span>\n' + esc(data.stdout) + '\n';
+            }
+            if (data.stderr) {
+                html += '\n<span class="t-err">Error:</span>\n' + esc(data.stderr) + '\n';
+            }
+            if (data.hint) {
+                html += '\n<span class="t-hint">💡 Подсказка:</span> ' + esc(data.hint) + '\n';
+            }
+            if (data.success) {
+                html += '\n<span class="t-ok">✅ Урок пройден, отлично!</span>';
+                if (data.new_achievements && data.new_achievements.length) {
+                    html += '\n<span class="t-hint">🏆 Новое достижение: ' + esc(data.new_achievements.join(', ')) + '</span>';
+                }
+                if (typeof data.level === 'number') {
+                    html += '\n<span class="t-out">Уровень: ' + data.level + ' · XP: ' + data.xp + '</span>';
+                }
+            } else {
+                html += '\n<span class="t-err">❌ Проверка не пройдена — попробуй ещё раз</span>';
+            }
+            output.innerHTML = html;
+
+            // прогресс подсказок: с 3-й ошибки — лампочка, с 4-й — решение
+            if (data.success) {
+                document.getElementById('hintBox').style.display = 'none';
+                document.getElementById('solutionBox').style.display = 'none';
+            } else if (typeof data.attempts === 'number') {
+                if (data.attempts >= 3 && data.hint) {
+                    document.getElementById('hintBox').style.display = 'block';
+                    document.getElementById('hintText').textContent = data.hint;
+                }
+                if (data.attempts >= 4 && data.solution) {
+                    lastSolution = data.solution;
+                    document.getElementById('solutionBox').style.display = 'block';
+                    document.getElementById('solutionCode').textContent = data.solution;
+                }
+            }
+
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить задание';
+        })
+        .catch(function(err) {
+            var msg = err.message === 'session'
+                ? 'Сессия истекла — обнови страницу и войди заново.'
+                : err.message;
+            output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\n<span class="t-err">Ошибка: ' + msg + '</span>';
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить задание';
+        });
+    });
+
+    // кнопка "Вставить в редактор" под полным решением
+    document.getElementById('applySolution').addEventListener('click', function() {
+        if (!lastSolution) return;
+        editor.value = lastSolution;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
+    });
+})();
 </script>
 {% endblock %}

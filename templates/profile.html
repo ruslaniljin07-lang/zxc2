@@ -2,44 +2,57 @@
 {% block title %}Профиль — Codigo{% endblock %}
 
 {% block content %}
+<div class="page-head">
+    <span class="kicker">Профиль</span>
+    <h1>{{ user.username }}</h1>
+    <p>{{ user.email }}</p>
+    <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="pill accent">{{ status_emoji }} {{ status_name }}</span>
+        <span class="pill idle"><i class="bi bi-fire"></i> Серия: {{ user.streak_count }} дн.</span>
+    </div>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-lg-8">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">👤 Профиль: {{ user.username }}</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h4>{{ user.username }} {{ status_emoji }} {{ status_name }}</h4>
-                        <p class="text-muted">{{ user.email }}</p>
-                        <p><strong>Уровень:</strong> {{ user.level }}</p>
-                        <p><strong>XP:</strong> {{ user.xp }}</p>
-                        <p><strong>Streak:</strong> {{ user.streak_count }} дней 🔥</p>
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 class="mb-3"><i class="bi bi-person-badge me-2 text-primary"></i>Основное</h5>
+                        <p class="mb-2 text-muted"><strong class="text-success">Уровень:</strong> {{ user.level }}</p>
+                        <p class="mb-2 text-muted"><strong class="text-success">XP:</strong> {{ user.xp }}</p>
+                        <p class="mb-0 text-muted"><strong class="text-success">Серия дней:</strong> {{ user.streak_count }} 🔥</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="mb-3"><i class="bi bi-graph-up me-2 text-primary"></i>Цифры</h5>
+                        <p class="mb-2 text-muted">Уроков начато: <strong>{{ progress_records|length }}</strong></p>
+                        <p class="mb-2 text-muted">Достижений открыто: <strong>{{ earned_ids|length }} / {{ achievements|length }}</strong></p>
+                        <p class="mb-0 text-muted">Тестов пройдено: <strong>{{ test_results|length }}</strong></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card shadow mb-4">
-            <div class="card-header bg-success text-white">
-                <h4 class="mb-0">🏆 Достижения ({{ earned_ids|length }}/{{ achievements|length }})</h4>
+        <div class="card mb-4">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-trophy"></i></span>
+                <span>Достижения ({{ earned_ids|length }}/{{ achievements|length }})</span>
             </div>
             <div class="card-body">
                 <div class="row">
                     {% for ach in achievements %}
                         <div class="col-md-4 col-lg-3 mb-3 text-center">
-                            <div class="card h-100">
-                                <div class="card-body">
+                            <div class="card h-100" style="background:var(--bg-soft);">
+                                <div class="card-body p-3">
                                     {% if ach.id in earned_ids %}
                                         <span class="display-5">{{ ach.icon }}</span>
-                                        <h6 class="mt-2">{{ ach.name }}</h6>
-                                        <small class="text-muted">{{ ach.description }}</small>
-                                        <small class="text-success d-block mt-1">+{ ach.xp_reward } XP</small>
+                                        <h6 class="mt-2 mb-1">{{ ach.name }}</h6>
+                                        <small class="text-muted d-block">{{ ach.description }}</small>
+                                        <small class="text-success d-block mt-1 fw-bold">+{{ ach.xp_reward }} XP</small>
                                     {% else %}
                                         <span class="display-5 text-muted">🔒</span>
-                                        <h6 class="mt-2 text-muted">{{ ach.name }}</h6>
-                                        <small class="text-muted">Не достигнуто</small>
+                                        <h6 class="mt-2 mb-1 text-muted">{{ ach.name }}</h6>
+                                        <small class="text-muted d-block">Не достигнуто</small>
                                     {% endif %}
                                 </div>
                             </div>
@@ -48,11 +61,11 @@
                 </div>
             </div>
         </div>
-
-        {% if progress_records %}
-            <div class="card shadow mb-4">
-                <div class="card-header bg-info text-white">
-                    <h4 class="mb-0">📚 Прогресс уроков</h4>
+{% if progress_records %}
+            <div class="card mb-4">
+                <div class="card-header iconized">
+                    <span class="head-icon"><i class="bi bi-book"></i></span>
+                    <span>Прогресс уроков</span>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
@@ -70,9 +83,9 @@
                                     <td>{{ progress.attempts }}</td>
                                     <td>
                                         {% if progress.completed %}
-                                            <span class="badge bg-success">✅ Завершено</span>
+                                            <span class="pill done"><i class="bi bi-check2-circle"></i> Завершено</span>
                                         {% else %}
-                                            <span class="badge bg-warning text-dark">В процессе</span>
+                                            <span class="pill wip"><i class="bi bi-hourglass-split"></i> В процессе</span>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -84,9 +97,10 @@
         {% endif %}
 
         {% if test_results %}
-            <div class="card shadow">
-                <div class="card-header bg-warning text-dark">
-                    <h4 class="mb-0">📝 Результаты тестов</h4>
+            <div class="card mb-4">
+                <div class="card-header iconized">
+                    <span class="head-icon"><i class="bi bi-journal-check"></i></span>
+                    <span>Результаты тестов</span>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">

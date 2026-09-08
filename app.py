@@ -11,8 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from utils.code_checker import check_code, run_sandbox_code
 from utils.gamification import (get_status_emoji, get_status_name,
-                                get_status_color, calculate_xp_for_next_level,
-                                check_streak_rewards)
+                                get_status_color, check_streak_rewards,
+                                level_progress)
 from utils.level_engine import TEST_QUESTIONS, determine_level
 
 from models import (db, User, TestResult, LessonProgress, StreakReward,
@@ -47,6 +47,68 @@ def _find_lesson(lesson_id):
     return None
 
 
+def recalc_level(user):
+    """Уровень растёт вместе с XP (та же формула, что в прогресс-баре).
+    Уровень никогда не понижается: тест может дать стартовый уровень."""
+    xp = user.xp
+    level = 0
+    need = 100
+    while xp >= need:
+        xp -= need
+        level += 1
+        need = 100 * (level + 1) ** 2
+    if level > user.level:
+        user.level = level
+    return user.level
+
+
+def grant_achievements(user):
+    """Проверяет условия достижений и выдаёт те, что выполнены.
+    Возвращает список новых достижений (каждое даёт бонусный XP)."""
+    achieved_ids = {ua.achievement_id for ua in
+                    UserAchievement.query.filter_by(user_id=user.id)}
+    completed = LessonProgress.query.filter_by(
+        user_id=user.id, completed=True).count()
+    has_test = TestResult.query.filter_by(user_id=user.id).count() > 0
+    first_try = LessonProgress.query.filter_by(
+        user_id=user.id, completed=True, attempts=1).count() > 0
+    total_lessons = sum(len(m.get('lessons', []))
+                        for m in LESSONS_DATA.get('modules', []))
+
+    new = []
+    for ach in Achievement.query.all():
+        if ach.id in achieved_ids:
+            continue
+        ct = ach.condition_type or ''
+        cv = ach.condition_value or 1
+        got = False
+        if ct == 'register':
+            got = True
+        elif ct == 'test':
+            got = has_test
+        elif ct == 'lesson':
+            got = completed >= 1
+        elif ct == 'all_lessons':
+            got = completed >= total_lessons
+        elif ct == '10_correct':
+            got = completed >= cv
+        elif ct == 'first_try':
+            got = first_try
+        elif ct.startswith('streak_'):
+            got = user.streak_count >= cv
+        if not got:
+            continue
+        db.session.add(UserAchievement(user_id=user.id,
+                                       achievement_id=ach.id))
+        user.xp += ach.xp_reward or 0
+        new.append(ach)
+    # Уровень всегда пересчитываем по накопленному XP и сразу сохраняем:
+    # иначе открытие дашборда/профиля не поднимает уровень от уже набранных XP.
+    recalc_level(user)
+    db.session.commit()
+    return new
+
+
 @app.route('/')
 def index():
     if current_user.is_authenticated:
@@ -75,6 +137,11 @@ def register():
             flash('Пользователь с таким именем уже существует', 'danger')
             return render_template('register.html')
 
+        existing_email = User.query.filter_by(email=email).first()
+        if existing_email:
+            flash('Пользователь с такой почтой уже зарегистрирован', 'danger')
+            return render_template('register.html')
+
         user = User(
             username=username,
             email=email,
@@ -82,8 +149,14 @@ def register():
             xp=0, level=0, streak_count=0,
             last_login=datetime.now()
         )
-        db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except Exception:
+            db.session.rollback()
+            flash('Не удалось зарегистрировать пользователя', 'danger')
+            return render_template('register.html')
+        grant_achievements(user)
         flash('Регистрация прошла успешно! Войдите в аккаунт.', 'success')
         return redirect(url_for('login'))
 
@@ -101,6 +174,7 @@ def login():
             login_user(user)
             user.last_login = datetime.now()
             db.session.commit()
+            grant_achievements(user)
             flash('Добро пожаловать!', 'success')
             return redirect(url_for('dashboard'))
 
@@ -121,17 +195,31 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    grant_achievements(current_user)
     streak = current_user.streak_count
     status_emoji = get_status_emoji(streak)
     status_name = get_status_name(streak)
     status_color = get_status_color(streak)
-    xp_to_next = calculate_xp_for_next_level(current_user.xp)
+    level_xp, xp_to_next = level_progress(current_user.xp)
+    # достижения пользователя для карточки на дашборде
+    ua_rows = UserAchievement.query.filter_by(
+        user_id=current_user.id).all()
+    earned_achievements = []
+    if ua_rows:
+        ach_ids = [r.achievement_id for r in ua_rows]
+        achs = Achievement.query.filter(
+            Achievement.id.in_(ach_ids)).all()
+        earned_achievements = [{'icon': a.icon, 'name': a.name,
+                                'xp': a.xp_reward}
+                               for a in achs]
 
     return render_template('dashboard.html',
                            streak=streak, status_emoji=status_emoji,
                            status_name=status_name, status_color=status_color,
                            xp=current_user.xp, xp_to_next=xp_to_next,
-                           level=current_user.level, user=current_user)
+                           level_xp=level_xp, level=current_user.level,
+                           user=current_user,
+                           earned_achievements=earned_achievements)
 
 
 @app.route('/test', methods=['GET', 'POST'])
@@ -158,12 +246,33 @@ def test():
         current_user.xp += score * 20
         current_user.streak_count += 1
         check_streak_rewards(current_user)
+        recalc_level(current_user)
         db.session.commit()
+        grant_achievements(current_user)
         flash('Тест пройден! Счёт: {}/5. Уровень: {}'.format(score, level),
               'success')
         return redirect(url_for('dashboard'))
 
     return render_template('test.html', questions=TEST_QUESTIONS)
+
+
+@app.route('/lessons')
+@login_required
+def lessons():
+    progress_map = {
+        p.lesson_id: p for p in LessonProgress.query.filter_by(
+            user_id=current_user.id
+        ).all()
+    }
+    total = sum(
+        1 for mod in LESSONS_DATA.get('modules', [])
+        for _ in mod.get('lessons', [])
+    )
+    done = sum(1 for p in progress_map.values() if p.completed)
+    return render_template('lessons.html',
+                           modules=LESSONS_DATA.get('modules', []),
+                           progress_map=progress_map,
+                           total=total, done=done)
 
 
 @app.route('/lesson/<int:lesson_id>', methods=['GET', 'POST'])
@@ -173,6 +282,13 @@ def lesson(lesson_id):
     if not lesson:
         flash('Урок не найден', 'danger')
         return redirect(url_for('dashboard'))
+
+    # собрать плоский список уроков для навигации
+    all_lessons = [l for m in LESSONS_DATA.get('modules', []) for l in m.get('lessons', [])]
+    order_ids = [l['id'] for l in all_lessons]
+    cur_idx = next((i for i, lid in enumerate(order_ids) if lid == lesson_id), -1)
+    prev_lesson = all_lessons[cur_idx - 1] if cur_idx > 0 else None
+    next_lesson = all_lessons[cur_idx + 1] if 0 <= cur_idx < len(order_ids) - 1 else None
 
     if request.method == 'POST':
         user_code = request.form.get('code', '')
@@ -187,6 +303,7 @@ def lesson(lesson_id):
                 user_id=current_user.id, lesson_id=lesson_id,
                 completed=False, attempts=0, best_code=''
             )
+            db.session.add(progress)
         progress.attempts += 1
 
         if result['success']:
@@ -194,40 +311,54 @@ def lesson(lesson_id):
             progress.best_code = user_code
             current_user.xp += lesson.get('xp_reward', 50)
             check_streak_rewards(current_user)
+            recalc_level(current_user)
             db.session.commit()
+            new_achievements = grant_achievements(current_user)
             return jsonify({
                 'success': True,
                 'stdout': result['stdout'],
-                'stderr': result['stderr']
+                'stderr': result['stderr'],
+                'level': current_user.level,
+                'xp': current_user.xp,
+                'new_achievements': [a.name for a in new_achievements]
             })
         else:
             db.session.commit()
+            # прогрессивные подсказки: 1-я и 2-я ошибки — без подсказок,
+            # с 3-й ошибки — лампочка с подсказкой, с 4-й — полное решение
             hint = None
-            if progress.attempts >= 2 and lesson.get('hints'):
-                hint = lesson['hints'][min(
-                    progress.attempts - 2,
-                    len(lesson['hints']) - 1
-                )]
+            solution = None
+            attempts = progress.attempts
+            if attempts >= 3 and lesson.get('hints'):
+                hint = lesson['hints'][0]
+            if attempts >= 4:
+                solution = lesson.get('solution') or lesson.get('initial_code', '')
             return jsonify({
                 'success': False,
                 'stdout': result['stdout'],
                 'stderr': result['stderr'],
-                'hint': hint
+                'attempts': attempts,
+                'hint': hint,
+                'solution': solution
             })
 
     progress = LessonProgress.query.filter_by(
         user_id=current_user.id, lesson_id=lesson_id
     ).first()
-    initial_code = (progress.best_code
-                    if progress and progress.best_code
-                    else lesson.get('initial_code', ''))
-    hints = []
-    if progress and progress.attempts >= 2:
-        hints = lesson.get('hints', [])
+    # начальный код не показываем: ученик пишет решение сам.
+    # Восстанавливаем только его собственный сохранённый код (best_code)
+    initial_code = progress.best_code if (progress and progress.best_code) else ''
+    # прогрессивные подсказки при повторном открытии урока:
+    # с 3-й попытки — подсказка, с 4-й — полное решение
+    attempts = progress.attempts if progress else 0
+    hint = lesson['hints'][0] if (attempts >= 3 and lesson.get('hints')) else None
+    solution = (lesson.get('solution') or lesson.get('initial_code', '')) \
+        if attempts >= 4 else None
 
     return render_template('lesson.html', lesson=lesson,
-                           initial_code=initial_code, hints=hints,
-                           progress=progress)
+                           initial_code=initial_code, hint=hint,
+                           solution=solution, progress=progress,
+                           prev_lesson=prev_lesson, next_lesson=next_lesson)
 
 
 @app.route('/sandbox', methods=['GET', 'POST'])
@@ -235,7 +366,11 @@ def lesson(lesson_id):
 def sandbox():
     output = None
     if request.method == 'POST':
-        code = request.form.get('code', '')
+        # фронт шлёт JSON, подстрахуемся и читаем form-data тоже
+        if request.is_json:
+            code = (request.get_json(silent=True) or {}).get('code', '')
+        else:
+            code = request.form.get('code', '')
         result = run_sandbox_code(code)
         output = {
             'success': result['success'],
@@ -249,6 +384,7 @@ def sandbox():
 @app.route('/profile')
 @login_required
 def profile():
+    grant_achievements(current_user)
     achievements = UserAchievement.query.filter_by(
         user_id=current_user.id
     ).all()

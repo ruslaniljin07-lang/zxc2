@@ -2,16 +2,19 @@
 {% block title %}Доска лидеров — Codigo{% endblock %}
 
 {% block content %}
+<div class="page-head">
+    <span class="kicker">Соревнование</span>
+    <h1>Доска лидеров</h1>
+    <p>Лучшие ученики по количеству XP. Займи своё место в топе!</p>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-lg-8">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-warning text-dark text-center">
-                <h3 class="mb-0">🏆 Доска лидеров</h3>
-            </div>
+        <div class="card mb-4">
             <div class="table-responsive">
                 {% if entries %}
                 <table class="table table-hover mb-0">
-                    <thead class="table-dark">
+                    <thead class="table-dark" style="background:var(--surface-2);">
                         <tr>
                             <th>#</th>
                             <th>Пользователь</th>
@@ -21,20 +24,20 @@
                     </thead>
                     <tbody>
                         {% for entry in entries %}
-                            <tr>
+                            <tr {% if entry.user_id == current_user.id %}style="background:var(--primary-soft);"{% endif %}>
                                 <td>
                                     {% if entry.rank == 1 %}
-                                        🥇 {{ entry.rank }}
+                                        <span class="pill accent">🥇 1</span>
                                     {% elif entry.rank == 2 %}
-                                        🥈 {{ entry.rank }}
+                                        <span class="pill accent">🥈 2</span>
                                     {% elif entry.rank == 3 %}
-                                        🥉 {{ entry.rank }}
+                                        <span class="pill accent">🥉 3</span>
                                     {% else %}
                                         {{ entry.rank }}
                                     {% endif %}
                                 </td>
-                                <td>{{ entry.user.username }}</td>
-                                <td><strong>{{ entry.xp }}</strong></td>
+                                <td><strong>{{ entry.user.username }}</strong>{% if entry.user_id == current_user.id %} <span class="pill idle">ты</span>{% endif %}</td>
+                                <td><span class="xp-chip">{{ entry.xp }} XP</span></td>
                                 <td>
                                     {{ entry.last_updated.strftime('%d.%m.%Y') if entry.last_updated else '-' }}
                                 </td>
@@ -43,7 +46,7 @@
                     </tbody>
                 </table>
                 {% else %}
-                <div class="text-center p-4">
+                <div class="text-center p-5">
                     <p class="text-muted mb-0">Пока нет участников. Будь первым!</p>
                 </div>
                 {% endif %}

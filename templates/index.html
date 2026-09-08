@@ -2,39 +2,49 @@
 {% block title %}Codigo — Учимся программировать онлайн{% endblock %}
 
 {% block content %}
-<div class="text-center py-5">
-    <h1 class="display-4 fw-bold mb-3">🎓 Добро пожаловать в Codigo</h1>
-    <p class="lead text-muted mb-4">
-        Интерактивное обучение программированию на Python<br>
-        с системой стикеров, уровнями и достижениями
-    </p>
-    {% if not current_user.is_authenticated %}
-        <div class="d-grid gap-2 col-6 mx-auto">
-            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
-                <i class="bi bi-box-arrow-in-right"></i> Войти
-            </a>
-            <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg">
-                <i class="bi bi-person-plus"></i> Регистрация
-            </a>
+<div class="row justify-content-center">
+    <div class="col-lg-8 text-center">
+        <div class="page-head">
+            <span class="kicker">Обучение Python</span>
+            <h1 style="font-size:2.8rem;">Добро пожаловать в <span class="mark-brace">{</span>Codigo<span class="mark-brace">}</span></h1>
+            <p class="mt-3" style="font-size:1.2rem;">
+                Интерактивные уроки по программированию на Python — с проверкой кода,
+                уровнями и наградами. Никакой скучной теории: читай и сразу пиши код.
+            </p>
         </div>
-    {% else %}
-        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">
-            <i class="bi bi-speedometer2"></i> Перейти в дашборд
-        </a>
-    {% endif %}
 
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-4 text-center">
-            <h3>📝 Тест</h3>
-            <p>Определите ваш уровень знаний Python</p>
+        {% if not current_user.is_authenticated %}
+            <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-xl">
+                    <i class="bi bi-box-arrow-in-right"></i> Войти
+                </a>
+                <a href="{{ url_for('register') }}" class="btn btn-ghost btn-xl">
+                    <i class="bi bi-person-plus"></i> Регистрация
+                </a>
+            </div>
+        {% else %}
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-xl mb-4">
+                <i class="bi bi-speedometer2"></i> Перейти в дашборд
+            </a>
+        {% endif %}
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap mt-2">
+            <span class="pill accent"><i class="bi bi-pencil-square"></i> Входной тест</span>
+            <span class="pill accent"><i class="bi bi-book"></i> Уроки с проверкой кода</span>
+            <span class="pill accent"><i class="bi bi-terminal"></i> Песочница</span>
+            <span class="pill accent"><i class="bi bi-trophy"></i> Достижения</span>
         </div>
-        <div class="col-md-4 text-center">
-            <h3>📚 Уроки</h3>
-            <p>Интерактивные уроки с проверкой кода</p>
-        </div>
-        <div class="col-md-4 text-center">
-            <h3>💻 Песочница</h3>
-            <p>Практикуйтесь в безопасной среде</p>
+
+        <div class="card mt-5">
+            <div class="card-body p-4 p-lg-5">
+                <h5 class="mb-3">Как это работает</h5>
+                <ol class="text-start mb-0" style="line-height:2;">
+                    <li>Зарегистрируйся и пройди входной тест, чтобы узнать свой уровень.</li>
+                    <li>Выбирай уроки в любом порядке — тебя никто никуда не торопит.</li>
+                    <li>Пиши код прямо в браузере и нажимай «Проверить задание».</li>
+                    <li>Получай XP, крути серии дней и открывай достижения.</li>
+                </ol>
+            </div>
         </div>
     </div>
 </div>

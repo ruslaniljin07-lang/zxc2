@@ -2,65 +2,335 @@
 {% block title %}Шпаргалка — Codigo{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-info text-white text-center">
-                <h3 class="mb-0">📄 Шпаргалка Python</h3>
+<div class="page-head">
+    <span class="kicker">Шпаргалка</span>
+    <h1>Всё для решения задач</h1>
+    <p>Слева — компактная памятка: синтаксис и примеры. Справа — зачем это нужно и где применяется в жизни и на работе.</p>
+</div>
+
+<!-- Тема 1 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-braces"></i></span>
+                <span>1. Переменные и print()</span>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5><i class="bi bi-laptop"></i> Переменные</h5>
-                        <pre class="bg-dark text-white p-2 rounded"><code># Переменные
-name = "Артур"
-age = 100
-is_student = True</code></pre>
+                <pre class="code-block"><span class="cm"># создаём переменные</span>
+name = <span class="st">"Артур"</span>
+age = <span class="nu">100</span>
 
-                        <h5 class="mt-4">📊 Типы данных</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">int — целые числа: <code>42</code></li>
-                            <li class="list-group-item">float — дробные: <code>3.14</code></li>
-                            <li class="list-group-item">str — строки: <code>"Привет"</code></li>
-                            <li class="list-group-item">bool — True/False</li>
-                            <li class="list-group-item">list — списки: <code>[1, 2, 3]</code></li>
-                            <li class="list-group-item">dict — словари: <code>{"a": 1}</code></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5><i class="bi bi-gear"></i> Управляющие конструкции</h5>
-                        <pre class="bg-dark text-white p-2 rounded"><code># Условия
-if x > 5:
-    print("Больше")
-elif x == 5:
-    print("Равно")
-else:
-    print("Меньше")
+<span class="cm"># выводим на экран</span>
+<span class="fn">print</span>(name)
+<span class="fn">print</span>(<span class="st">"Возраст:"</span>, age)
 
-# Циклы
-for i in range(5):
-    print(i)
+<span class="cm"># f-строка: подставляем значения</span>
+<span class="fn">print</span>(<span class="st">f"Меня зовут {name}, мне {age}"</span>)</pre>
+                <p class="text-muted mb-0 mt-2">Знак <code>=</code> — это «положи значение в переменную».</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Переменные хранят данные: имя, числа, итоги. Без них каждая программа — просто разовое действие. С ними одна запись пригодится в сотне мест.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Любая программа: от консольных скриптов до веб-сервисов. Простой пример — калькулятор стоимости заказа: цена, количество и скидка лежат в переменных, а print выводит чек.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">print() — твой первый способ поговорить с компьютером. Умеешь выводить — умеешь проверять всё, что пишешь.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-while x < 10:
-    x += 1
+<!-- Тема 2 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-keyboard"></i></span>
+                <span>2. Ввод данных input()</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block"><span class="cm"># input() всегда даёт СТРОКУ</span>
+name = <span class="fn">input</span>()
 
-# Функции
-def greet(name):
-    return f"Привет, {name}!"
+<span class="cm"># чтобы считать число — оберни в int()</span>
+age = <span class="fn">int</span>(<span class="fn">input</span>())
+height = <span class="fn">float</span>(<span class="fn">input</span>())
 
-print(greet("Артур"))</code></pre>
+<span class="fn">print</span>(age + <span class="nu">1</span>)  <span class="cm"># числа можно складывать</span></pre>
+                <p class="text-muted mb-0 mt-2">Ошибка <code>ValueError</code>? Значит, ввели не число.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Программа становится интерактивной: спрашивает у человека и работает с его ответом. Это мостик между кодом и реальным миром.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Формы регистрации, игры с запросом имени, боты в мессенджерах, программы-викторины. В любом тесте на ЕГЭ и олимпиадах ввод — стандарт.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Программа, которая читает данные — уже не игрушка, а инструмент. Свой первый интерактивный диалог ты соберёшь прямо сейчас.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <h5 class="mt-4">🔁 Списки и методы</h5>
-                        <pre class="bg-dark text-white p-2 rounded"><code># Работа со списками
-fruits = ["apple", "banana", "cherry"]
-fruits.append("date")
-fruits.remove("banana")
-for fruit in fruits:
-    print(fruit)</code></pre>
-                    </div>
-                </div>
+<!-- Тема 3 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-signpost-split"></i></span>
+                <span>3. Условия if / elif / else</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block">x = <span class="nu">7</span>
+
+<span class="kw">if</span> x > <span class="nu">10</span>:
+    <span class="fn">print</span>(<span class="st">"много"</span>)
+<span class="kw">elif</span> x == <span class="nu">7</span>:
+    <span class="fn">print</span>(<span class="st">"семь!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"мало"</span>)
+
+<span class="cm"># сравнения: ==  !=  >  <  >=  <=</span>
+<span class="kw">if</span> x > <span class="nu">0</span> <span class="kw">and</span> x % <span class="nu">2</span> == <span class="nu">0</span>:
+    <span class="fn">print</span>(<span class="st">"чётное положительное"</span>)</pre>
+                <p class="text-muted mb-0 mt-2">Не забывай двоеточие <code>:</code> и отступы (4 пробела).</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+<!-- Тема 4 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-arrow-repeat"></i></span>
+                <span>4. Циклы for и while</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block"><span class="cm"># for — повтори N раз</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">5</span>):
+    <span class="fn">print</span>(i)          <span class="cm"># 0 1 2 3 4</span>
+
+<span class="fn">print</span>(<span class="fn">range</span>(<span class="nu">1</span>, <span class="nu">11</span>))   <span class="cm"># от 1 до 10</span>
+
+<span class="cm"># while — пока условие верно</span>
+n = <span class="nu">3</span>
+<span class="kw">while</span> n > <span class="nu">0</span>:
+    <span class="fn">print</span>(n)
+    n -= <span class="nu">1</span>   <span class="cm"># не забудь изменить n!</span></pre>
+                <p class="text-muted mb-0 mt-2"><code>break</code> — выйти, <code>continue</code> — следующий шаг.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Повторять действия без копипасты. Обработать тысячу строк — три строчки цикла, а не тысяча копий кода.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Обработка таблиц и логов, генерация отчётов, проверка каждого товара в корзине, парсеры сайтов. Бухгалтерия, аналитика, админки — всё на циклах.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Ты перестаёшь «переписывать» — начинаешь «объяснять машине, что делать». Это и есть мышление программиста. Колёсики циклов крутят весь код вокруг тебя.</p>
+            </div>
+        </div>
+<!-- Тема 5 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-list-ul"></i></span>
+                <span>5. Списки</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block">fruits = [<span class="st">"яблоко"</span>, <span class="st">"банан"</span>]
+
+fruits.<span class="fn">append</span>(<span class="st">"груша"</span>)   <span class="cm"># добавить</span>
+<span class="fn">print</span>(<span class="fn">len</span>(fruits))        <span class="cm"># сколько</span>
+<span class="fn">print</span>(fruits[<span class="nu">0</span>])          <span class="cm"># первый</span>
+
+<span class="kw">for</span> fruit <span class="kw">in</span> fruits:
+    <span class="fn">print</span>(fruit)
+
+nums = [<span class="nu">3</span>, <span class="nu">1</span>, <span class="nu">4</span>]
+<span class="fn">print</span>(<span class="fn">sum</span>(nums))    <span class="cm"># 8</span>
+<span class="fn">print</span>(<span class="fn">max</span>(nums))    <span class="cm"># 4</span>
+<span class="fn">print</span>(<span class="nu">5</span> <span class="kw">in</span> nums)    <span class="cm"># False</span></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Хранить коллекцию: пусть будет не одна переменная, а много элементов под одной «полкой». Обрабатывать всё разом проще.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Корзина покупок, список студентов, логи сервера, очередь задач. Почти любая обработка данных начинается со списка.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Списки — это база. Разобрался со списками — половина ЕГЭ по информатике перестаёт пугать. Плюс это самый «рабочий» инструмент аналитика.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Тема 6 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-type"></i></span>
+                <span>6. Строки</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block">s = <span class="st">"Hello World"</span>
+
+<span class="fn">print</span>(<span class="fn">len</span>(s))       <span class="cm"># 11</span>
+<span class="fn">print</span>(s.<span class="fn">upper</span>())   <span class="cm"># HELLO</span>
+<span class="fn">print</span>(s.<span class="fn">split</span>())   <span class="cm"># ["Hello","World"]</span>
+<span class="fn">print</span>(s[<span class="nu">0</span>])         <span class="cm"># первый символ</span>
+<span class="fn">print</span>(s[::-<span class="nu">1</span>])      <span class="cm"># наоборот</span>
+<span class="fn">print</span>(<span class="st">" "</span>.<span class="fn">join</span>([<span class="st">"a"</span>,<span class="st">"b"</span>]))</pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Мир — это тексты: почта, отчёты, сайты, документы. Строки позволяют чистить, резать, склеивать и искать в них.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Парсинг данных, лог-файлы, проверка email, боты, SEO-анализ. Каждая веб-страница — гигантская строка до обработки.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+<!-- Тема 7 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-subtract"></i></span>
+                <span>7. Функции def / return</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block"><span class="cm"># def — объявляем, return — возвращаем</span>
+<span class="kw">def</span> <span class="fn">square</span>(x):
+    <span class="kw">return</span> x * x
+
+<span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="kw">return</span> <span class="st">f"Привет, {name}!"</span>
+
+result = <span class="fn">square</span>(<span class="nu">5</span>)
+<span class="fn">print</span>(result)      <span class="cm"># 25</span></pre>
+                <p class="text-muted mb-0 mt-2">Функция без <code>return</code> возвращает <code>None</code>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Один раз написал — используешь везде. Код становится короче, а баги — заметнее, ведь логика живёт в одном месте.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Библиотеки, API, структура любого серьёзного проекта. «Перевести рубли в доллары», «проверить пароль», «посчитать метрику» — это всё функции.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Умение дробить задачу на маленькие функции — золотой навык. Это и есть DRY: Don't Repeat Yourself. Наниматели ищут именно такой код.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Тема 8 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-bug"></i></span>
+                <span>8. Ошибки try / except</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block"><span class="kw">try</span>:
+    n = <span class="fn">int</span>(<span class="fn">input</span>())
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    n = <span class="nu">0</span>          <span class="cm"># запасной вариант</span>
+<span class="fn">print</span>(n)
+
+<span class="kw">try</span>:
+    <span class="fn">print</span>(<span class="nu">10</span> / <span class="nu">0</span>)
+<span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"На ноль делить нельзя"</span>)</pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Программа не должна «падать» при ошибке. try/except ловит проблему и делает так, чтобы работа продолжилась по-умному.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Любой ввод от пользователя, работа с сетью и файлами, внешние сервисы. В продакшене без обработки ошибок — никуда.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Ошибка — не конец, а сигнал, что подумать ещё раз. Программист, который спокойно пишет except, выглядит в разы надёжнее новичка, который нервничает на каждом исключении.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Тема 9 -->
+<div class="row g-4 cs-topic">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header iconized">
+                <span class="head-icon"><i class="bi bi-lightning-charge"></i></span>
+                <span>9. Генераторы и модули</span>
+            </div>
+            <div class="card-body">
+                <pre class="code-block"><span class="cm"># список в одну строку</span>
+squares = [x ** <span class="nu">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">5</span>)]
+evens = [x <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">10</span>) <span class="kw">if</span> x % <span class="nu">2</span> == <span class="nu">0</span>]
+
+<span class="kw">import</span> math
+<span class="fn">print</span>(math.<span class="fn">sqrt</span>(<span class="nu">16</span>))    <span class="cm"># 4.0</span>
+
+<span class="kw">import</span> random
+n = random.<span class="fn">randint</span>(<span class="nu">1</span>, <span class="nu">10</span>)</pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card h-100 cs-explain">
+            <div class="card-body">
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Кратко строить списки фильтрами и пользоваться готовыми решениями из модулей вместо изобретения велосипеда.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Аналитика (посчитать среднее в одну строку), случайные данные для тестов, математические расчёты, научные вычисления.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Это «профессиональный вкус»: писать мощно и лаконично. Такой код читается как стих — и именно его разбирают на собеседованиях.</p>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+                <p class="mb-0">Строки — самая частая сущность в реальном коде. Один-два приёма на срезы — и задачи, где «наоборот/убрать/заменить», решаются в три строчки.</p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+                <h6 class="cs-q">🎯 Зачем это нужно</h6>
+                <p class="mb-2">Программа принимает решения. Без if код просто выполняет строчки по порядку — с if он «думает» и реагирует на ситуацию.</p>
+                <h6 class="cs-q">💼 Где применяется</h6>
+                <p class="mb-2">Проверка пароля, скидки по возрасту, правила модерации, фильтры поиска. В реальной работе «если покупатель накопил 1000 баллов — начисли бонус» — тоже if.</p>
+                <h6 class="cs-q">🌱 Мотивация</h6>
+                <p class="mb-0">Задачи на if — самые частые в ЕГЭ. Один раз понял — зубришь приёмы, а не код. Твой мозг уже так думает, осталось перевести на Python.</p>
+            </div>
+        </div>
+    </div>
+</div>

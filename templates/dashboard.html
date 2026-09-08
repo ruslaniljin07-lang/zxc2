@@ -1,94 +1,86 @@
 {% extends 'base.html' %}
 {% block title %}Дашборд — Codigo{% endblock %}
 
-{% block extra_css %}
-<style>
-    .status-badge {
-        font-size: 2rem;
-        background: linear-gradient(135deg, {{ status_color }}, #8e44ad);
-        color: white !important;
-        padding: 0.5rem 1.5rem;
-        border-radius: 50px;
-    }
-    .xp-bar {
-        height: 25px;
-        background: #ecf0f1;
-        border-radius: 15px;
-        overflow: hidden;
-    }
-    .xp-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #f1c40f, #e74c3c);
-        transition: width 0.5s ease;
-    }
-    .streak-counter {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #e74c3c;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="text-center mb-5">
-    <div class="streak-counter">{{ streak }} 🔥</div>
-    <h3 class="mt-2">Дней подряд</h3>
-    <span class="badge status-badge mt-2">{{ status_emoji }} {{ status_name }}</span>
+<div class="page-head text-center">
+    <span class="kicker">Личный кабинет</span>
+    <h1>Привет, {{ current_user.username }}!</h1>
+    <p>Продолжай в том же духе — каждый день маленький шаг к большим результатам.</p>
+    <div class="d-flex justify-content-center align-items-center gap-4 mt-3 flex-wrap">
+        <span class="streak-big">{{ streak }} 🔥</span>
+        <span class="pill accent" style="font-size:.95rem;">{{ status_emoji }} {{ status_name }}</span>
+    </div>
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow mb-4">
-            <div class="card-body text-center">
-                <h5>Уровень: {{ level }}</h5>
-                <p class="text-muted">XP: {{ xp }} / {{ xp_to_next + xp }}</p>
-                <div class="xp-bar">
-                    <div class="xp-fill" style="width: {{ xp }}%"></div>
+<div class="row justify-content-center mb-4">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Уровень {{ level }}</h5>
+                    <span class="text-muted">{{ level_xp }} / {{ level_xp + xp_to_next }} XP</span>
                 </div>
-                <p class="text-end mt-1">
-                    До следующего уровня: {{ xp_to_next }} XP
-                </p>
+                <div class="xp-meter">
+                    <div class="xp-fill" style="width: {{ (level_xp / (level_xp + xp_to_next) * 100) if (level_xp + xp_to_next) > 0 else 0 }}%"></div>
+                </div>
+                <p class="text-end mt-2 mb-0 text-muted">До следующего уровня: <strong class="text-warning">{{ xp_to_next }} XP</strong></p>
             </div>
         </div>
 
-        <div class="row text-center">
+        {% if earned_achievements %}
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Достижения ({{ earned_achievements|length }})</h5>
+                    <a href="{{ url_for('profile') }}" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-right"></i> Все</a>
+                </div>
+                <div class="d-flex flex-wrap gap-3">
+                    {% for ach in earned_achievements %}
+                        <div class="ach-chip" title="{{ ach.name }} (+{{ ach.xp }} XP)">
+                            <span class="ach-icon">{{ ach.icon }}</span>
+                            <span class="ach-name">{{ ach.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row g-3 text-center">
             <div class="col-4">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4>{{ user.test_results | length if user.test_results|length > 0 else 0 }}</h4>
-                        <p class="text-muted mb-0">Тестов пройдено</p>
-                    </div>
+                <div class="stat-block">
+                    <div class="stat-num">{{ user.test_results | length if user.test_results|length > 0 else 0 }}</div>
+                    <div class="stat-lbl">Тестов пройдено</div>
                 </div>
             </div>
             <div class="col-4">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4>{{ user.lesson_progress | length }}</h4>
-                        <p class="text-muted mb-0">Уроков пройдено</p>
-                    </div>
+                <div class="stat-block">
+                    <div class="stat-num">{{ user.lesson_progress | length }}</div>
+                    <div class="stat-lbl">Уроков начато</div>
                 </div>
             </div>
             <div class="col-4">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h4>{{ user_xp or 0 }}</h4>
-                        <p class="text-muted mb-0">Всего XP</p>
-                    </div>
+                <div class="stat-block">
+                    <div class="stat-num text-warning">{{ user.xp }}</div>
+                    <div class="stat-lbl">Всего XP</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="text-center mt-4">
-    <a href="{{ url_for('test') }}" class="btn btn-outline-primary me-2">
-        📝 Пройти тест
-    </a>
-    <a href="{{ url_for('lesson', lesson_id=1) }}" class="btn btn-outline-success me-2">
-        📚 Уроки
-    </a>
-    <a href="{{ url_for('sandbox') }}" class="btn btn-outline-warning me-2">
-        💻 Песочница
-    </a>
+<div class="text-center mt-5">
+    <p class="text-muted mb-3">Куда дальше?</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="{{ url_for('lessons') }}" class="btn btn-primary btn-xl">
+            <i class="bi bi-book"></i> Выбрать урок
+        </a>
+        <a href="{{ url_for('test') }}" class="btn btn-ghost btn-xl">
+            <i class="bi bi-pencil-square"></i> Пройти тест
+        </a>
+        <a href="{{ url_for('sandbox') }}" class="btn btn-ghost btn-xl">
+            <i class="bi bi-terminal"></i> Песочница
+        </a>
+    </div>
 </div>
 {% endblock %}

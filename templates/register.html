@@ -4,30 +4,32 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white text-center">
-                <h4 class="mb-0">📝 Регистрация</h4>
-            </div>
-            <div class="card-body">
+        <div class="page-head text-center">
+            <span class="kicker">Начинаем!</span>
+            <h1>Создать аккаунт</h1>
+            <p>Пару полей — и ты в игре. Это займёт меньше минуты.</p>
+        </div>
+        <div class="card">
+            <div class="card-body p-4">
                 <form method="POST">
                     <div class="mb-3">
-                        <label class="form-label">Имя пользователя</label>
-                        <input type="text" name="username" class="form-control" required>
+                        <label class="form-label" for="username">Имя пользователя</label>
+                        <input type="text" name="username" id="username" class="form-control" required autofocus>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Пароль</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <label class="form-label" for="password">Пароль</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Подтвердите пароль</label>
-                        <input type="password" name="confirm" class="form-control" required>
+                    <div class="mb-4">
+                        <label class="form-label" for="confirm">Подтверди пароль</label>
+                        <input type="password" name="confirm" id="confirm" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">
-                        Зарегистрироваться
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="bi bi-person-plus"></i> Зарегистрироваться
                     </button>
                 </form>
             </div>
