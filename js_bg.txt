@@ -1,0 +1,32 @@
+﻿function initCodeBackground() {
+    var bg = document.getElementById('codeBg');
+    if (!bg) return;
+
+    var cols = Math.max(3, Math.min(8, Math.floor(window.innerWidth / 220)));
+    for (var i = 0; i < cols; i++) {
+        var col = document.createElement('div');
+        col.className = 'code-col ' + (i % 2 === 0 ? 'up' : 'down');
+        col.style.left = (i * (100 / cols)).toFixed(2) + '%';
+
+        var parts = [];
+        for (var k = 0; k < 9; k++) {
+            parts.push(CODE_SNIPPETS[(i * 5 + k * 3) % CODE_SNIPPETS.length]);
+        }
+        var text = parts.join('\n');
+
+        // два одинаковых блока для бесшовной прокрутки
+        var block1 = document.createElement('div');
+        block1.className = 'code-col-inner';
+        block1.textContent = text;
+        var block2 = document.createElement('div');
+        block2.className = 'code-col-inner';
+        block2.textContent = text;
+
+        col.appendChild(block1);
+        col.appendChild(block2);
+
+        col.style.animationDuration = (22 + i * 5) + 's';
+        col.style.animationDelay = '-' + (i * 2.6) + 's';
+        bg.appendChild(col);
+    }
+}
