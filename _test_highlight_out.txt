@@ -1,0 +1,16 @@
+﻿OK  python      kw=2 str=1 com=2 num=1
+OK  javascript  kw=3 str=2 com=1 num=1
+OK  typescript  kw=3 str=1 com=0 num=0
+OK  java        kw=7 str=1 com=1 num=1
+OK  cpp         kw=4 str=1 com=1 num=2
+OK  csharp      kw=4 str=1 com=0 num=0
+OK  go          kw=3 str=1 com=1 num=1
+OK  rust        kw=3 str=2 com=1 num=0
+OK  php         kw=1 str=1 com=1 num=1
+╨Т╨б╨Х ╨п╨Ч╨л╨Ъ╨Ш: ╨┐╨╛╨┤╤Б╨▓╨╡╤В╨║╨░ ╨╜╨╡ ╤В╨╡╤А╤П╨╡╤В ╨╕ ╨╜╨╡ ╨╕╤Б╨║╨░╨╢╨░╨╡╤В ╨║╨╛╨┤
+
+[2] ╨Ш╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П ╤А╨╡╨┤╨░╨║╤В╨╛╤А╨░ ╨┐╨╛ data-codeeditor
+   ╨┐╨╛╨┤╤Б╨▓╨╡╤В╨║╨░ ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨░: ╨┤╨░
+   ╤Б╤В╤А╨╛╨║ ╨▓ ╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╨╕:   20
+   ╨║╨╛╨┤ ╤Б╨╛╤Е╤А╨░╨╜╤С╨╜:        ╨┤╨░
+╨а╨Х╨Ф╨Р╨Ъ╨в╨Ю╨а: ╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П ╨┐╨╛ data-codeeditor ╤А╨░╨▒╨╛╤В╨░╨╡╤В

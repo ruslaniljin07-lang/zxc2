@@ -1,0 +1,103 @@
+   1| <!DOCTYPE html>
+   2| <html lang="ru">
+   3| <head>
+   4|     <meta charset="UTF-8">
+   5|     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   6|     <title>{% block title %}Codigo{% endblock %}</title>
+   7|     <link rel="preconnect" href="https://fonts.googleapis.com">
+   8|     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   9|     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  10|     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  11|     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  12|     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=18">
+  13|     {% block extra_css %}{% endblock %}
+  14| </head>
+  15| <body>
+  16| <div class="code-bg" id="codeBg" aria-hidden="true"></div>
+  17| <header class="nav-shell">
+  18|     <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+  19|         <div class="container">
+  20|             <a class="navbar-brand brand-mark" href="{{ url_for('index') }}">
+  21|                 <span class="mark-brace">{</span>&nbsp;Codigo&nbsp;<span class="mark-label">_</span><span class="mark-brace">}</span>
+  22|             </a>
+  23|             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+  24|                     data-bs-target="#navbarNav" aria-controls="navbarNav"
+  25|                     aria-expanded="false" aria-label="Меню">
+  26|                 <span class="navbar-toggler-icon"></span>
+  27|             </button>
+  28|             <div id="navbarNav" class="collapse navbar-collapse">
+  29|                 <ul class="navbar-nav me-auto">
+  30|                     {% if current_user.is_authenticated %}
+  31|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Дашборд</a></li>
+  32|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'test' %}active{% endif %}" href="{{ url_for('test') }}">Тест</a></li>
+  33|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint in ('lessons','lesson') %}active{% endif %}" href="{{ url_for('lessons') }}">Уроки</a></li>
+  34|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'sandbox' %}active{% endif %}" href="{{ url_for('sandbox') }}">Песочница</a></li>
+  35|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'cheat_sheet' %}active{% endif %}" href="{{ url_for('cheat_sheet') }}">Шпаргалка</a></li>
+  36|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'leaderboard' %}active{% endif %}" href="{{ url_for('leaderboard') }}">Лидеры</a></li>
+  37|                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}">Профиль</a></li>
+  38|                     {% endif %}
+  39|                 </ul>
+  40|                 <ul class="navbar-nav ms-auto align-items-center">
+  41|                     {% if current_user.is_authenticated %}
+  42|                         <li class="nav-item me-2">
+  43|                             <a class="nav-link user-chip" href="{{ url_for('profile') }}">
+  44|                                 <span class="chip-avatar">{{ current_user.username[0]|upper or '?' }}</span>
+  45|                                 <span>{{ current_user.username }}</span>
+  46|                             </a>
+  47|                         </li>
+  48|                         <li class="nav-item">
+  49|                             <a class="btn btn-nav-ghost btn-sm" href="{{ url_for('logout') }}">
+  50|                                 <i class="bi bi-box-arrow-left"></i> Выйти
+  51|                             </a>
+  52|                         </li>
+  53|                     {% else %}
+  54|                         <li class="nav-item me-1">
+  55|                             <a class="btn btn-nav-ghost btn-sm" href="{{ url_for('login') }}">Вход</a>
+  56|                         </li>
+  57|                         <li class="nav-item">
+  58|                             <a class="btn btn-primary btn-sm" href="{{ url_for('register') }}">Регистрация</a>
+  59|                         </li>
+  60|                     {% endif %}
+  61|                 </ul>
+  62|             </div>
+  63|         </div>
+  64|     </nav>
+  65| </header>
+  66| 
+  67| <main class="container mt-4" style="min-height:60vh;">
+  68|     {% with messages = get_flashed_messages(with_categories=true) %}
+  69|         {% if messages %}
+  70|             {% for category, message in messages %}
+  71|                 <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+  72|                     {{ message }}
+  73|                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+  74|                 </div>
+  75|             {% endfor %}
+  76|         {% endif %}
+  77|     {% endwith %}
+  78| 
+  79|     {% block content %}{% endblock %}
+  80| </main>
+  81| 
+  82| <footer class="footer-shell">
+  83|     <div class="container">
+  84|         <div class="foot-brand"><span class="mark-brace">{</span>&nbsp;Codigo&nbsp;<span class="mark-brace">}</span></div>
+  85|     </div>
+  86| </footer>
+  87| 
+  88| <div class="sounddock" id="soundDock">
+  89|     <button type="button" class="float-btn on" id="musicBtn" title="Фоновая музыка"
+  90|             aria-label="Фоновая музыка">
+  91|         <i class="bi bi-music-note-beamed"></i>
+  92|     </button>
+  93|     <button type="button" class="float-btn" id="soundsBtn" title="Звуки кликов"
+  94|             aria-label="Звуки кликов">
+  95|         <i class="bi bi-volume-up"></i>
+  96|     </button>
+  97| </div>
+  98| 
+  99| <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ 100| <script src="{{ url_for('static', filename='script.js') }}?v=14"></script>
+ 101| {% block extra_js %}{% endblock %}
+ 102| </body>
+ 103| </html>

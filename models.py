@@ -14,11 +14,24 @@ class User(UserMixin, db.Model):
     level = db.Column(db.Integer, default=0)
     streak_count = db.Column(db.Integer, default=0)
     last_login = db.Column(db.DateTime, default=datetime.now)
+    current_language = db.Column(db.String(20), default='python')
+
+class LanguageProgress(db.Model):
+    __tablename__ = 'language_progress'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)
+    xp = db.Column(db.Integer, default=0)
+    level = db.Column(db.Integer, default=0)
+    started_at = db.Column(db.DateTime, default=datetime.now)
+    completed = db.Column(db.Boolean, default=False)
+    user = db.relationship('User', backref='language_progress')
 
 class TestResult(db.Model):
     __tablename__ = 'test_results'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)
     score = db.Column(db.Integer, default=0)
     level = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, default=datetime.now)
@@ -27,10 +40,23 @@ class LessonProgress(db.Model):
     __tablename__ = 'lesson_progress'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)
     lesson_id = db.Column(db.Integer, nullable=False)
+    module_id = db.Column(db.Integer, nullable=False)
     completed = db.Column(db.Boolean, default=False)
     attempts = db.Column(db.Integer, default=0)
     best_code = db.Column(db.Text, default='')
+
+class TaskProgress(db.Model):
+    __tablename__ = 'task_progress'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)
+    lesson_id = db.Column(db.Integer, nullable=False, default=0)
+    task_id = db.Column(db.Integer, nullable=False)
+    completed = db.Column(db.Boolean, default=False)
+    code = db.Column(db.Text, default='')
+    attempts = db.Column(db.Integer, default=0)
 
 class StreakReward(db.Model):
     __tablename__ = 'streak_rewards'
@@ -51,6 +77,7 @@ class Achievement(db.Model):
     xp_reward = db.Column(db.Integer, default=10)
     condition_type = db.Column(db.String(50))
     condition_value = db.Column(db.Integer)
+    language = db.Column(db.String(20), default='all')
 
 class UserAchievement(db.Model):
     __tablename__ = 'user_achievements'
@@ -64,7 +91,8 @@ class LeaderboardEntry(db.Model):
     __tablename__ = 'leaderboard'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)
     rank = db.Column(db.Integer)
     xp = db.Column(db.Integer)
     last_updated = db.Column(db.DateTime, default=datetime.now)
-    user = db.relationship('User', backref='leaderboard_entry', lazy='joined')
+    user = db.relationship('User', backref='leaderboard_entries', lazy='joined')

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Задача #{{ task.id }} — {{ lang_info.name }}{% endblock %}
+
+{% block content %}
+<div class="lesson-header">
+    <a class="back-link" href="{{ url_for('language_tasks', lang_code=lang_code) }}">← Все задачи</a>
+    <div class="lang-switch">
+        {% for l in languages if l.code != lang_code %}
+        <a class="lang-pill" href="{{ url_for('language_tasks', lang_code=l.code) }}"
+           title="Перейти к задачам {{ l.name }}">{{ l.icon }} {{ l.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="lesson-layout">
+    <div class="lesson-main">
+        <div class="task-head">
+            <span class="task-num">#{{ task.id }}</span>
+            <span class="diff {{ task.difficulty }}">
+                {% if task.difficulty == 'easy' %}🟢 лёгкая
+                {% elif task.difficulty == 'medium' %}🟡 средняя
+                {% else %}🔴 сложная{% endif %}
+            </span>
+            {% if progress and progress.completed %}<span class="task-check">✅ решена</span>{% endif %}
+        </div>
+        <h1>{{ task.title }}</h1>
+        <p class="task-full-desc">{{ task.description }}</p>
+        {% if task.example %}
+        <div class="example-box">
+            <strong>Пример:</strong>
+            <pre>{{ task.example }}</pre>
+        </div>
+        {% endif %}
+
+        <div class="editor-block">
+            <label class="form-label" for="codeEditor">Твой код</label>
+            <div class="pyeditor" {% if lang_code == 'javascript' %}data-jseditor{% elif lang_code == 'java' %}data-javaeditor{% elif lang_code == 'cpp' %}data-cppeditor{% else %}data-pyeditor{% endif %} data-min-lines="30">
+                <div class="pe-toolbar">
+                    <span class="pe-file">{{ file_name }}</span>
+                </div>
+                <div class="pe-body">
+                    <div class="pe-canvas">
+                        <div class="pe-gutter"></div>
+                        <div class="pe-pane">
+                            <pre class="pe-highlight"></pre>
+                            <textarea id="codeEditor" class="pe-input" rows="30" spellcheck="false" wrap="off">{{ initial_code }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hintBox" class="hint-note mt-3" {% if not hint %}style="display:none"{% endif %}>
+                <strong><i class="bi bi-lightbulb-fill"></i> Подсказка:</strong>
+                <p class="mb-0 mt-1" id="hintText">{{ hint or '' }}</p>
+            </div>
+
+            <div id="solutionBox" class="solution-note mt-3" {% if not solution %}style="display:none"{% endif %}>
+                <strong><i class="bi bi-key-fill"></i> Полное решение:</strong>
+                <pre class="code-block mt-2 mb-2" id="solutionCode">{{ solution or '' }}</pre>
+                <button id="applySolution" class="btn btn-ghost btn-sm" type="button">
+                    <i class="bi bi-box-arrow-in-down"></i> Вставить в редактор
+                </button>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4 gap-2 flex-wrap">
+                <button id="resetBtn" class="btn btn-ghost" type="button">
+                    <i class="bi bi-arrow-counterclockwise"></i> Сбросить
+                </button>
+                <button id="runBtn" class="btn btn-success btn-lg">
+                    <i class="bi bi-play-circle"></i> Проверить
+                </button>
+            </div>
+
+            <div id="outputBox" class="term mt-4" style="display: none;">
+                <span class="term-title">// РЕЗУЛЬТАТ</span>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            {% if prev_task %}
+            <a class="btn-prev-task" href="{{ url_for('solve_task', lang_code=lang_code, task_id=prev_task.id) }}">← Предыдущая</a>
+            {% endif %}
+            <a class="np-all" href="{{ url_for('language_tasks', lang_code=lang_code) }}">Все задачи</a>
+            {% if next_task %}
+            <a class="btn-next-task" href="{{ url_for('solve_task', lang_code=lang_code, task_id=next_task.id) }}">Следующая →</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script nonce="{{ csp_nonce() }}">
+(function() {
+    var resetBtn = document.getElementById('resetBtn');
+    var runBtn = document.getElementById('runBtn');
+    var editor = document.getElementById('codeEditor');
+    var output = document.getElementById('outputBox');
+    var INITIAL = {{ initial_code | tojson }};
+    var lastSolution = {{ (solution or '') | tojson }};
+
+    resetBtn.addEventListener('click', function() {
+        editor.value = INITIAL;
+        output.style.display = 'none';
+        editor.dispatchEvent(new Event('input'));
+    });
+
+    // экранируем вывод, чтобы <, > и html не ломали результат
+    function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    runBtn.addEventListener('click', function() {
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Выполнение...';
+        output.style.display = 'block';
+        output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\nПроверяем код…';
+
+        fetch('{{ url_for("solve_task", lang_code=lang_code, task_id=task.id) }}', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'code=' + encodeURIComponent(editor.value)
+        })
+        .then(function(r) {
+            var ct = r.headers.get('Content-Type') || '';
+            if (!ct.includes('application/json')) {
+                throw new Error('session');
+            }
+            return r.json();
+        })
+        .then(function(data) {
+            var html = '<span class="term-title">// РЕЗУЛЬТАТ</span>';
+            if (data.stdout) {
+                html += '\n<span class="t-out">Output:</span>\n' + esc(data.stdout) + '\n';
+            }
+            if (data.stderr) {
+                html += '\n<span class="t-err">Error:</span>\n' + esc(data.stderr) + '\n';
+            }
+            if (data.hint) {
+                html += '\n<span class="t-hint">💡 Подсказка:</span> ' + esc(data.hint) + '\n';
+            }
+            if (data.success) {
+                html += '\n<span class="t-ok">✅ Задача решена, отлично!</span>';
+                if (data.xp_gained) {
+                    html += '\n<span class="t-out">+' + data.xp_gained + ' XP · Уровень: ' + data.level + ' · XP: ' + data.xp + '</span>';
+                }
+                if (data.new_achievements && data.new_achievements.length) {
+                    html += '\n<span class="t-hint">🏆 Новое достижение: ' + esc(data.new_achievements.join(', ')) + '</span>';
+                }
+            } else {
+                html += '\n<span class="t-err">❌ Проверка не пройдена — попробуй ещё раз</span>';
+            }
+            output.innerHTML = html;
+
+            // прогресс подсказок: с 3-й ошибки — лампочка, с 4-й — решение
+            if (data.success) {
+                document.getElementById('hintBox').style.display = 'none';
+                document.getElementById('solutionBox').style.display = 'none';
+            } else if (typeof data.attempts === 'number') {
+                if (data.attempts >= 3 && data.hint) {
+                    document.getElementById('hintBox').style.display = 'block';
+                    document.getElementById('hintText').textContent = data.hint;
+                }
+                if (data.attempts >= 4 && data.solution) {
+                    lastSolution = data.solution;
+                    document.getElementById('solutionBox').style.display = 'block';
+                    document.getElementById('solutionCode').textContent = data.solution;
+                }
+            }
+
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить';
+        })
+        .catch(function(err) {
+            var msg = err.message === 'session'
+                ? 'Сессия истекла — обнови страницу и войди заново.'
+                : err.message;
+            output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\n<span class="t-err">Ошибка: ' + msg + '</span>';
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить';
+        });
+    });
+
+    // кнопка "Вставить в редактор" под полным решением
+    document.getElementById('applySolution').addEventListener('click', function() {
+        if (!lastSolution) return;
+        editor.value = lastSolution;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
+    });
+})();
+</script>
+{% endblock %}

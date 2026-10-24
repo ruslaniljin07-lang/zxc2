@@ -1,0 +1,645 @@
+{
+ "php": {
+  "name": "PHP",
+  "icon": "🟡",
+  "color": "#777BB4",
+  "description": "Язык веб-разработки: на PHP работает большинство сайтов, он отлично подходит для серверной части.",
+  "difficulty": "Лёгкий старт",
+  "final_project": "Обработчик формы обратной связи",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы PHP",
+    "description": "Теги PHP, переменные и типы",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Первая программа",
+      "description": "Тег <?php и echo",
+      "theory": [
+       "PHP-код вставляется между <?php и ?> (закрывающий тег не обязателен).",
+       "Переменные начинаются со знака $ — тип определяется сам.",
+       "echo выводит текст, каждый оператор заканчивается точкой с запятой."
+      ],
+      "examples": [
+       {
+        "title": "Привет, мир",
+        "code": "<?php\necho \"Привет, мир!\";",
+        "explanation": "echo — самая простая команда вывода в PHP."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1,
+        "title": "Первый вывод",
+        "description": "Выведи строку: PHP — это просто!",
+        "difficulty": "easy",
+        "initial_code": "<?php\n// выведи строку через echo\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "PHP — это просто!",
+         "require": [
+          "echo",
+          "PHP — это просто!"
+         ]
+        },
+        "hints": [
+         "Напиши echo \"PHP — это просто!\";",
+         "Не забудь точку с запятой в конце строки."
+        ],
+        "solution": "<?php\necho \"PHP — это просто!\";",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как вывести текст в PHP?",
+        "options": [
+         "print()",
+         "echo",
+         "console.log()",
+         "cout <<"
+        ],
+        "correct": 1
+       },
+       {
+        "question": "Как начинается PHP-файл?",
+        "options": [
+         "<?php",
+         "<php>",
+         "#php",
+         "package php;"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "<?php\necho \"текст\";\n// комментарий\n/* многострочный комментарий */",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 2,
+      "title": "Переменные и типы",
+      "description": "Переменные со знаком $",
+      "theory": [
+       "Переменная объявляется так: $name = \"Аня\";",
+       "Основные типы: int, float, string, bool, array.",
+       "Склейка строк — точка, в двойных кавычках переменные подставляются."
+      ],
+      "examples": [
+       {
+        "title": "Переменные",
+        "code": "<?php\n$name = \"Артур\";\n$age = 25;\necho \"Меня зовут {$name}, мне {$age}\";",
+        "explanation": "Фигурные скобки помогают подставить переменную."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2,
+        "title": "Переменная года",
+        "description": "Создай переменную $year со значением 2026 и выведи её.",
+        "difficulty": "easy",
+        "initial_code": "<?php\n// объяви $year\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "2026",
+         "require": [
+          "$year = 2026",
+          "echo $year"
+         ]
+        },
+        "hints": [
+         "Объяви переменную: $year = 2026;",
+         "Выведи её командой echo $year;"
+        ],
+        "solution": "<?php\n$year = 2026;\necho $year;",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как в PHP обозначается переменная?",
+        "options": [
+         "$name",
+         "name",
+         "@name",
+         "var name"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Чем склеиваются строки?",
+        "options": [
+         "точкой .",
+         "плюсом +",
+         "запятой",
+         "амперсандом &"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "$name = \"Аня\";\n$age = 25;\n$price = 199.9;\n$ok = true;\n$items = [1, 2, 3];\necho \"Привет, {$name}!\";",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что означает $ в начале имени?",
+       "options": [
+        "признак переменной",
+        "оператор",
+        "комментарий",
+        "конец строки"
+       ],
+       "correct": 0,
+       "explain": "Без $ интерпретатор не поймёт, что это переменная."
+      },
+      {
+       "question": "Как закончить оператор?",
+       "options": [
+        "точкой с запятой ;",
+        "точкой .",
+        "двоеточием :",
+        "ничем"
+       ],
+       "correct": 0,
+       "explain": "Иначе получите синтаксическую ошибку."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Условия и циклы",
+    "description": "if, elseif и циклы",
+    "lessons": [
+     {
+      "id": 3,
+      "title": "Условия",
+      "description": "if / else и elseif",
+      "theory": [
+       "Условие пишется в круглых скобках, тело — в фигурных.",
+       "elseif даёт цепочку проверок.",
+       "Логика: && (и), || (или), ! (не)."
+      ],
+      "examples": [
+       {
+        "title": "if / else",
+        "code": "<?php\n$n = 10;\nif ($n > 0) {\n    echo \"положительное\";\n} else {\n    echo \"отрицательное\";\n}",
+        "explanation": "PHP не требуется объявлять тип переменной."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3,
+        "title": "Большое число",
+        "description": "Если $n = 12 больше 10 — выведи «большое», иначе «маленькое».",
+        "difficulty": "medium",
+        "initial_code": "<?php\n$n = 12;\n// проверь условие\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "большое",
+         "require": [
+          "if ($n > 10)",
+          "echo"
+         ]
+        },
+        "hints": [
+         "Условие: $n > 10.",
+         "В блоках выведи нужный текст."
+        ],
+        "solution": "<?php\n$n = 12;\nif ($n > 10) {\n    echo \"большое\";\n} else {\n    echo \"маленькое\";\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой оператор сравнения строгий?",
+        "options": [
+         "===",
+         "==",
+         "=",
+         "eq"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Как записать «и»?",
+        "options": [
+         "&&",
+         "and()",
+         "&",
+         "+"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "if ($n > 0) { ... } elseif ($n === 0) { ... } else { ... }\n$text = $n > 0 ? \"плюс\" : \"минус\";",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 4,
+      "title": "Циклы",
+      "description": "for, while и foreach",
+      "theory": [
+       "for ($i = 0; $i < 5; $i++) — счётчик с тремя секциями.",
+       "foreach перебирает массивы.",
+       "while и do..while работают по условию."
+      ],
+      "examples": [
+       {
+        "title": "Счётчик",
+        "code": "<?php\nfor ($i = 1; $i <= 3; $i++) {\n    echo $i . \" \";\n}",
+        "explanation": "Секции for разделяются точкой с запятой."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 4,
+        "title": "Числа от 1 до 5",
+        "description": "Выведи числа от 1 до 5 через пробел в одной строке.",
+        "difficulty": "medium",
+        "initial_code": "<?php\n// выведи числа от 1 до 5\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "1 2 3 4 5",
+         "require": [
+          "for ($i = 1",
+          "echo"
+         ]
+        },
+        "hints": [
+         "Используй for ($i = 1; $i <= 5; $i++).",
+         "После каждого числа, кроме последнего, выводи пробел."
+        ],
+        "solution": "<?php\nfor ($i = 1; $i <= 5; $i++) {\n    echo $i;\n    if ($i < 5) echo \" \";\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой цикл перебирает массив?",
+        "options": [
+         "foreach",
+         "for",
+         "while",
+         "repeat"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает break?",
+        "options": [
+         "выходит из цикла",
+         "пропускает итерацию",
+         "перезапускает цикл",
+         "ничего"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "for ($i = 0; $i < 5; $i++) { ... }\nforeach ($items as $item) { ... }\nwhile ($условие) { ... }\nbreak / continue",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Сколько секций у цикла for?",
+       "options": [
+        "три",
+        "две",
+        "одна",
+        "четыре"
+       ],
+       "correct": 0,
+       "explain": "Инициализация, условие и шаг."
+      },
+      {
+       "question": "Что делает var_dump?",
+       "options": [
+        "печатает структуру и тип переменной",
+        "удаляет переменную",
+        "сортирует массив",
+        "считает длину"
+       ],
+       "correct": 0,
+       "explain": "Незаменимо при отладке."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Массивы и функции",
+    "description": "Массивы, count и свои функции",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Массивы",
+      "description": "Индексные массивы и count",
+      "theory": [
+       "Массив создаётся так: $nums = [3, 6, 9];",
+       "count($nums) — количество элементов.",
+       "array_sum складывает элементы, sort сортирует массив."
+      ],
+      "examples": [
+       {
+        "title": "Сумма массива",
+        "code": "<?php\n$nums = [3, 6, 9];\n$sum = 0;\nforeach ($nums as $n) {\n    $sum += $n;\n}\necho $sum;",
+        "explanation": "foreach перебирает значения массива."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 5,
+        "title": "Сумма массива",
+        "description": "Дан массив $nums = [3, 6, 9] — выведи сумму его элементов.",
+        "difficulty": "medium",
+        "initial_code": "<?php\n$nums = [3, 6, 9];\n// посчитай сумму\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "18",
+         "require": [
+          "$nums = [3, 6, 9]",
+          "foreach"
+         ]
+        },
+        "hints": [
+         "Пройди массив циклом foreach.",
+         "Складывай значения в переменную-накопитель."
+        ],
+        "solution": "<?php\n$nums = [3, 6, 9];\n$sum = 0;\nforeach ($nums as $n) {\n    $sum += $n;\n}\necho $sum;",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как узнать количество элементов массива?",
+        "options": [
+         "count($nums)",
+         "$nums.length",
+         "len($nums)",
+         "size($nums)"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Как создать массив?",
+        "options": [
+         "$a = [1, 2, 3];",
+         "$a = (1, 2, 3);",
+         "array a = 1,2,3;",
+         "a = [1, 2];"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "$nums = [1, 2, 3];\n$nums[] = 4;\ncount($nums)\narray_sum($nums)\nsort($nums);\n$user = [\"name\" => \"Аня\", \"age\" => 25];",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 6,
+      "title": "Функции",
+      "description": "function, аргументы и return",
+      "theory": [
+       "Функция объявляется словом function.",
+       "Параметры перечисляются в скобках: function add($a, $b).",
+       "return возвращает значение, тип не объявляется."
+      ],
+      "examples": [
+       {
+        "title": "Функция сложения",
+        "code": "<?php\nfunction add($a, $b) {\n    return $a + $b;\n}\necho add(3, 4);",
+        "explanation": "Вызов функции может стоять прямо внутри echo."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 6,
+        "title": "Функция double",
+        "description": "Напиши функцию double($n), возвращающую $n * 2, и выведи double(7).",
+        "difficulty": "hard",
+        "initial_code": "<?php\n// объяви функцию double и выведи double(7)\n",
+        "check": {
+         "type": "stdout_php",
+         "expected": "14",
+         "require": [
+          "function double",
+          "return"
+         ]
+        },
+        "hints": [
+         "Объяви функцию до её вызова.",
+         "Умножь параметр на 2 и верни результат через return."
+        ],
+        "solution": "<?php\nfunction double($n) {\n    return $n * 2;\n}\necho double(7);",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить функцию в PHP?",
+        "options": [
+         "function add($a, $b)",
+         "def add(a, b)",
+         "func add(a int)",
+         "void add(a, b)"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает return?",
+        "options": [
+         "возвращает значение",
+         "печатает значение",
+         "завершает программу",
+         "объявляет переменную"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "function add($a, $b) {\n    return $a + $b;\n}\necho add(3, 4);\nfunction greet(string $name): string { ... }",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что делает array_sum?",
+       "options": [
+        "складывает элементы массива",
+        "сортирует массив",
+        "фильтрует массив",
+        "создаёт массив"
+       ],
+       "correct": 0,
+       "explain": "А count даёт количество элементов."
+      },
+      {
+       "question": "Нужно ли указывать тип параметра?",
+       "options": [
+        "нет, но можно указать",
+        "да, обязательно",
+        "только для строк",
+        "только для чисел"
+       ],
+       "correct": 0,
+       "explain": "PHP динамический, но типы поддерживает."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в PHP?",
+    "options": [
+     "print()",
+     "echo",
+     "console.log()",
+     "cout <<"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Как начинается PHP-файл?",
+    "options": [
+     "<?php",
+     "<php>",
+     "#php",
+     "package php;"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как обозначается переменная?",
+    "options": [
+     "$name",
+     "name",
+     "@name",
+     "var name"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Чем склеиваются строки?",
+    "options": [
+     "точкой .",
+     "плюсом +",
+     "запятой",
+     "&"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой цикл перебирает массив?",
+    "options": [
+     "foreach",
+     "for",
+     "while",
+     "repeat"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как создать массив?",
+    "options": [
+     "$a = [1, 2, 3];",
+     "$a = (1, 2, 3);",
+     "array a = 1,2,3;",
+     "a = [1, 2];"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить функцию?",
+    "options": [
+     "function add($a, $b)",
+     "def add(a, b)",
+     "func add(a int)",
+     "void add(a, b)"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что делает count($nums)?",
+    "options": [
+     "возвращает количество элементов",
+     "сумму элементов",
+     "сортирует",
+     "создаёт массив"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "<?php\necho \"Привет\";\n// комментарий",
+    "note": "Закрывающий тег ?> в конце файла не обязателен."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "$name = \"Аня\";\n$age = 25;\n$price = 199.9;\n$ok = true;\necho \"Привет, {$name}!\";",
+    "note": "Тип переменной определяется по значению."
+   },
+   {
+    "title": "Строки",
+    "icon": "📝",
+    "code": "$name = \"Аня\";\nstrlen($name);              // 6 — байты\nmb_strlen($name);           // 3 — символы\nstrtoupper($name);\nstr_replace(\"А\", \"О\", $name);\n$msg = \"Привет, {$name}!\";  // интерполяция в двойных кавычках",
+    "note": "Для юникода бери mb_* функции: обычные считают байты, а не символы."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if ($n > 0) { ... } elseif ($n === 0) { ... } else { ... }\n$text = $n > 0 ? \"плюс\" : \"минус\";",
+    "note": "=== сравнивает без приведения типов."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for ($i = 0; $i < 5; $i++) { ... }\nforeach ($items as $item) { ... }\nwhile ($условие) { ... }",
+    "note": "foreach работает и со значениями, и с ключами."
+   },
+   {
+    "title": "Массивы",
+    "icon": "📚",
+    "code": "$nums = [1, 2, 3];\n$nums[] = 4;\ncount($nums)\narray_sum($nums)\n$user = [\"name\" => \"Аня\"];",
+    "note": "Массивы бывают индексные и ассоциативные."
+   },
+   {
+    "title": "Функции",
+    "icon": "🧩",
+    "code": "function add($a, $b) {\n    return $a + $b;\n}\n\necho add(3, 4);",
+    "note": "Типы параметров можно указывать, но не обязательно."
+   },
+   {
+    "title": "Классы",
+    "icon": "🏛️",
+    "code": "class User {\n    public $name;\n\n    public function __construct($name) {\n        $this->name = $name;\n    }\n\n    public function hello() {\n        return \"Привет, {$this->name}\";\n    }\n}\n\n$u = new User(\"Аня\");\necho $u->hello();",
+    "note": "Стрелка -> обращается к свойствам и методам объекта."
+   },
+   {
+    "title": "Ошибки",
+    "icon": "🛡️",
+    "code": "try {\n    $n = intdiv(10, 0);\n} catch (DivisionByZeroError $e) {\n    echo \"Ошибка: \" . $e->getMessage();\n} finally {\n    echo \"всегда\";\n}",
+    "note": "Исключения ловят через try/catch, как в других языках."
+   },
+   {
+    "title": "Подключение файлов",
+    "icon": "🧰",
+    "code": "require 'config.php';     // обязательный файл\ninclude 'header.php';     // необязательный\nrequire_once 'db.php';    // подключить только один раз",
+    "note": "require падает с ошибкой, если файла нет, include — только предупреждает."
+   }
+  ]
+ }
+}

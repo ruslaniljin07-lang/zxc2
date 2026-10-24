@@ -1,0 +1,1779 @@
+{
+ "sql": {
+  "name": "SQL",
+  "icon": "🗄️",
+  "color": "#4A9EFF",
+  "description": "Язык запросов к базе данных: учись извлекать данные, считать и соединять таблицы.",
+  "difficulty": "Начальный-средний",
+  "final_project": "Своя аналитика магазина: отчёт по продажам, лучшие товары и активность клиентов.",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы",
+    "description": "Уровень модуля: Лёгкий",
+    "difficulty": "easy",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Основы. Все товары",
+      "description": "Выведи название и цены всех товаров.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи название и цены всех товаров.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Все товары»",
+        "code": "SELECT name, price FROM products;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 101,
+        "title": "Все товары",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи название и цены всех товаров.",
+        "initial_code": "-- Выведи название и цены всех товаров.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, price FROM products;",
+         "columns": [
+          "name",
+          "price"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, price FROM products;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 2,
+      "title": "Основы. Самый дорогой товар",
+      "description": "Выведи название самого дорогого товара.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи название самого дорогого товара.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Самый дорогой товар»",
+        "code": "SELECT name FROM products ORDER BY price DESC LIMIT 1;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 201,
+        "title": "Самый дорогой товар",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи название самого дорогого товара.",
+        "initial_code": "-- Выведи название самого дорогого товара.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products ORDER BY price DESC LIMIT 1;",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products ORDER BY price DESC LIMIT 1;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 3,
+      "title": "Основы. Товары дешевле 500",
+      "description": "Выведи названия товаров с ценой меньше 500.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи названия товаров с ценой меньше 500.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары дешевле 500»",
+        "code": "SELECT name FROM products WHERE price < 500;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 301,
+        "title": "Товары дешевле 500",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи названия товаров с ценой меньше 500.",
+        "initial_code": "-- Выведи названия товаров с ценой меньше 500.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products WHERE price < 500;",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products WHERE price < 500;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 4,
+      "title": "Основы. Три самых дешёвых",
+      "description": "Выведи три самых дешёвых товара и их цены.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи три самых дешёвых товара и их цены.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Три самых дешёвых»",
+        "code": "SELECT name, price FROM products ORDER BY price ASC LIMIT 3;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 401,
+        "title": "Три самых дешёвых",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи три самых дешёвых товара и их цены.",
+        "initial_code": "-- Выведи три самых дешёвых товара и их цены.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, price FROM products ORDER BY price ASC LIMIT 3;",
+         "columns": [
+          "name",
+          "price"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, price FROM products ORDER BY price ASC LIMIT 3;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     }
+    ],
+    "test": {
+     "title": "Тест: Основы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Основы»?",
+       "options": [
+        "присваивание переменной",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: присваивание переменной, условие if, цикл for."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "4",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 4 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Фильтрация",
+    "description": "Уровень модуля: Средний",
+    "difficulty": "medium",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Фильтрация. Товары из Москвы",
+      "description": "Выведи имена покупателей из Москвы.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи имена покупателей из москвы.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары из Москвы»",
+        "code": "SELECT name FROM customers WHERE city = 'Москва';",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 501,
+        "title": "Товары из Москвы",
+        "topic": "Фильтрация",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи имена покупателей из Москвы.",
+        "initial_code": "-- Выведи имена покупателей из Москвы.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM customers WHERE city = 'Москва';",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM customers WHERE city = 'Москва';"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 10
+     },
+     {
+      "id": 6,
+      "title": "Фильтрация. Электроника",
+      "description": "Выведи названия товаров из категории «Электроника».",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи названия товаров из категории «электроника».",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Электроника»",
+        "code": "SELECT name FROM products WHERE category = 'Электроника';",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 601,
+        "title": "Электроника",
+        "topic": "Фильтрация",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи названия товаров из категории «Электроника».",
+        "initial_code": "-- Выведи названия товаров из категории «Электроника».\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products WHERE category = 'Электроника';",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products WHERE category = 'Электроника';"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 10
+     },
+     {
+      "id": 7,
+      "title": "Фильтрация. Товары на складе",
+      "description": "Выведи товары, которых осталось меньше 30 штук.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи товары, которых осталось меньше 30 штук.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары на складе»",
+        "code": "SELECT name, stock FROM products WHERE stock < 30;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 701,
+        "title": "Товары на складе",
+        "topic": "Фильтрация",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи товары, которых осталось меньше 30 штук.",
+        "initial_code": "-- Выведи товары, которых осталось меньше 30 штук.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, stock FROM products WHERE stock < 30;",
+         "columns": [
+          "name",
+          "stock"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, stock FROM products WHERE stock < 30;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 10
+     },
+     {
+      "id": 8,
+      "title": "Фильтрация. Не мебель",
+      "description": "Выведи товары, которые не относятся к мебели.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи товары, которые не относятся к мебели.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Не мебель»",
+        "code": "SELECT name FROM products WHERE category <> 'Мебель';",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 801,
+        "title": "Не мебель",
+        "topic": "Фильтрация",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи товары, которые не относятся к мебели.",
+        "initial_code": "-- Выведи товары, которые не относятся к мебели.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products WHERE category <> 'Мебель';",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products WHERE category <> 'Мебель';"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 10
+     },
+     {
+      "id": 9,
+      "title": "Фильтрация. Дорогие и редкие",
+      "description": "Выведи товары дороже 5000, которых меньше 30.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи товары дороже 5000, которых меньше 30.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Дорогие и редкие»",
+        "code": "SELECT name, price, stock FROM products WHERE price > 5000 AND stock < 30;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 901,
+        "title": "Дорогие и редкие",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи товары дороже 5000, которых меньше 30.",
+        "initial_code": "-- Выведи товары дороже 5000, которых меньше 30.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, price, stock FROM products WHERE price > 5000 AND stock < 30;",
+         "columns": [
+          "name",
+          "price",
+          "stock"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, price, stock FROM products WHERE price > 5000 AND stock < 30;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     },
+     {
+      "id": 10,
+      "title": "Фильтрация. Цена от 1000 до 5000",
+      "description": "Выведи товары с ценой от 1000 до 5000 включительно.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи товары с ценой от 1000 до 5000 включительно.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Цена от 1000 до 5000»",
+        "code": "SELECT name, price FROM products WHERE price BETWEEN 1000 AND 5000;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1001,
+        "title": "Цена от 1000 до 5000",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи товары с ценой от 1000 до 5000 включительно.",
+        "initial_code": "-- Выведи товары с ценой от 1000 до 5000 включительно.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, price FROM products WHERE price BETWEEN 1000 AND 5000;",
+         "columns": [
+          "name",
+          "price"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, price FROM products WHERE price BETWEEN 1000 AND 5000;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     },
+     {
+      "id": 11,
+      "title": "Фильтрация. Москва или Казань",
+      "description": "Выведи покупателей из Москвы и Казани.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи покупателей из москвы и казани.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Москва или Казань»",
+        "code": "SELECT name, city FROM customers WHERE city IN ('Москва', 'Казань');",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1101,
+        "title": "Москва или Казань",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи покупателей из Москвы и Казани.",
+        "initial_code": "-- Выведи покупателей из Москвы и Казани.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, city FROM customers WHERE city IN ('Москва', 'Казань');",
+         "columns": [
+          "name",
+          "city"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, city FROM customers WHERE city IN ('Москва', 'Казань');"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     },
+     {
+      "id": 12,
+      "title": "Фильтрация. Товары на букву Т",
+      "description": "Найди товары, название которых начинается с буквы «Т».",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: найди товары, название которых начинается с буквы «т».",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары на букву Т»",
+        "code": "SELECT name FROM products WHERE name LIKE 'Т%';",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1201,
+        "title": "Товары на букву Т",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Найди товары, название которых начинается с буквы «Т».",
+        "initial_code": "-- Найди товары, название которых начинается с буквы «Т».\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products WHERE name LIKE 'Т%';",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products WHERE name LIKE 'Т%';"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     },
+     {
+      "id": 13,
+      "title": "Фильтрация. Товары со словом «ь»",
+      "description": "Найди товары, в названии которых есть мягкий знак.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: найди товары, в названии которых есть мягкий знак.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары со словом «ь»»",
+        "code": "SELECT name FROM products WHERE name LIKE '%ь%';",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1301,
+        "title": "Товары со словом «ь»",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Найди товары, в названии которых есть мягкий знак.",
+        "initial_code": "-- Найди товары, в названии которых есть мягкий знак.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name FROM products WHERE name LIKE '%ь%';",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name FROM products WHERE name LIKE '%ь%';"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     },
+     {
+      "id": 14,
+      "title": "Фильтрация. Молодые покупатели",
+      "description": "Выведи покупателей младше 30 лет с их городами.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «фильтрация». Разберём её на задании: выведи покупателей младше 30 лет с их городами.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Молодые покупатели»",
+        "code": "SELECT name, age FROM customers WHERE age < 30 ORDER BY age;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1401,
+        "title": "Молодые покупатели",
+        "topic": "Фильтрация",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи покупателей младше 30 лет с их городами.",
+        "initial_code": "-- Выведи покупателей младше 30 лет с их городами.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT name, age FROM customers WHERE age < 30 ORDER BY age;",
+         "columns": [
+          "name",
+          "age"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT name, age FROM customers WHERE age < 30 ORDER BY age;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Фильтрация",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Фильтрация",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Фильтрация»?",
+       "options": [
+        "присваивание переменной",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: присваивание переменной, условие if, цикл for."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "10",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 10 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Агрегаты",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 15,
+      "title": "Агрегаты. Сколько всего товаров",
+      "description": "Посчитай количество товаров в каталоге.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: посчитай количество товаров в каталоге.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сколько всего товаров»",
+        "code": "SELECT COUNT(*) AS total FROM products;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1501,
+        "title": "Сколько всего товаров",
+        "topic": "Агрегаты",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Посчитай количество товаров в каталоге.",
+        "initial_code": "-- Посчитай количество товаров в каталоге.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT COUNT(*) AS total FROM products;",
+         "columns": [
+          "total"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT COUNT(*) AS total FROM products;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 10
+     },
+     {
+      "id": 16,
+      "title": "Агрегаты. Средняя цена",
+      "description": "Посчитай среднюю цену товара.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: посчитай среднюю цену товара.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Средняя цена»",
+        "code": "SELECT AVG(price) AS avg_price FROM products;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1601,
+        "title": "Средняя цена",
+        "topic": "Агрегаты",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Посчитай среднюю цену товара.",
+        "initial_code": "-- Посчитай среднюю цену товара.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT AVG(price) AS avg_price FROM products;",
+         "columns": [
+          "avg_price"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT AVG(price) AS avg_price FROM products;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 10
+     },
+     {
+      "id": 17,
+      "title": "Агрегаты. Сумма остатков",
+      "description": "Посчитай общее количество товаров на складах.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: посчитай общее количество товаров на складах.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма остатков»",
+        "code": "SELECT SUM(stock) AS total_stock FROM products;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1701,
+        "title": "Сумма остатков",
+        "topic": "Агрегаты",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Посчитай общее количество товаров на складах.",
+        "initial_code": "-- Посчитай общее количество товаров на складах.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT SUM(stock) AS total_stock FROM products;",
+         "columns": [
+          "total_stock"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT SUM(stock) AS total_stock FROM products;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 10
+     },
+     {
+      "id": 18,
+      "title": "Агрегаты. Минимальная и максимальная цена",
+      "description": "Выведи самую низкую и самую высокую цены.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: выведи самую низкую и самую высокую цены.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Минимальная и максимальная цена»",
+        "code": "SELECT MIN(price) AS min_price, MAX(price) AS max_price FROM products;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1801,
+        "title": "Минимальная и максимальная цена",
+        "topic": "Агрегаты",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи самую низкую и самую высокую цены.",
+        "initial_code": "-- Выведи самую низкую и самую высокую цены.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT MIN(price) AS min_price, MAX(price) AS max_price FROM products;",
+         "columns": [
+          "min_price",
+          "max_price"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT MIN(price) AS min_price, MAX(price) AS max_price FROM products;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     },
+     {
+      "id": 19,
+      "title": "Агрегаты. Товаров в каждой категории",
+      "description": "Для каждой категории выведи количество товаров.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: для каждой категории выведи количество товаров.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товаров в каждой категории»",
+        "code": "SELECT category, COUNT(*) AS n FROM products GROUP BY category;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1901,
+        "title": "Товаров в каждой категории",
+        "topic": "Агрегаты",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Для каждой категории выведи количество товаров.",
+        "initial_code": "-- Для каждой категории выведи количество товаров.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT category, COUNT(*) AS n FROM products GROUP BY category;",
+         "columns": [
+          "category",
+          "n"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT category, COUNT(*) AS n FROM products GROUP BY category;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     },
+     {
+      "id": 20,
+      "title": "Агрегаты. Покупатели по городам",
+      "description": "Сколько покупателей в каждом городе?",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: сколько покупателей в каждом городе?",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Покупатели по городам»",
+        "code": "SELECT city, COUNT(*) AS n FROM customers GROUP BY city;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2001,
+        "title": "Покупатели по городам",
+        "topic": "Агрегаты",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Сколько покупателей в каждом городе?",
+        "initial_code": "-- Сколько покупателей в каждом городе?\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT city, COUNT(*) AS n FROM customers GROUP BY city;",
+         "columns": [
+          "city",
+          "n"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT city, COUNT(*) AS n FROM customers GROUP BY city;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     },
+     {
+      "id": 21,
+      "title": "Агрегаты. Средний возраст по городам",
+      "description": "Средний возраст покупателей в каждом городе.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: средний возраст покупателей в каждом городе.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Средний возраст по городам»",
+        "code": "SELECT city, AVG(age) AS avg_age FROM customers GROUP BY city;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2101,
+        "title": "Средний возраст по городам",
+        "topic": "Агрегаты",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Средний возраст покупателей в каждом городе.",
+        "initial_code": "-- Средний возраст покупателей в каждом городе.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT city, AVG(age) AS avg_age FROM customers GROUP BY city;",
+         "columns": [
+          "city",
+          "avg_age"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT city, AVG(age) AS avg_age FROM customers GROUP BY city;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     },
+     {
+      "id": 22,
+      "title": "Агрегаты. Категории с 3+ товарами",
+      "description": "Оставь только категории, где товаров больше двух.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: оставь только категории, где товаров больше двух.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Категории с 3+ товарами»",
+        "code": "SELECT category, COUNT(*) AS n FROM products GROUP BY category HAVING COUNT(*) > 2;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2201,
+        "title": "Категории с 3+ товарами",
+        "topic": "Агрегаты",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Оставь только категории, где товаров больше двух.",
+        "initial_code": "-- Оставь только категории, где товаров больше двух.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT category, COUNT(*) AS n FROM products GROUP BY category HAVING COUNT(*) > 2;",
+         "columns": [
+          "category",
+          "n"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT category, COUNT(*) AS n FROM products GROUP BY category HAVING COUNT(*) > 2;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     },
+     {
+      "id": 23,
+      "title": "Агрегаты. Сумма заказанного по товарам",
+      "description": "Посчитай общее количество заказанных единиц по каждому товару.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «агрегаты». Разберём её на задании: посчитай общее количество заказанных единиц по каждому товару.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма заказанного по товарам»",
+        "code": "SELECT p.name, SUM(o.quantity) AS ordered FROM products p JOIN orders o ON o.product_id = p.id GROUP BY p.name;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2301,
+        "title": "Сумма заказанного по товарам",
+        "topic": "Агрегаты",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Посчитай общее количество заказанных единиц по каждому товару.",
+        "initial_code": "-- Посчитай общее количество заказанных единиц по каждому товару.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT p.name, SUM(o.quantity) AS ordered FROM products p JOIN orders o ON o.product_id = p.id GROUP BY p.name;",
+         "columns": [
+          "name",
+          "ordered"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT p.name, SUM(o.quantity) AS ordered FROM products p JOIN orders o ON o.product_id = p.id GROUP BY p.name;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Агрегаты",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Агрегаты",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Агрегаты»?",
+       "options": [
+        "присваивание переменной",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: присваивание переменной, условие if, цикл for."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "9",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 9 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 4,
+    "title": "Соединения",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 24,
+      "title": "Соединения. Кто заказал что",
+      "description": "Выведи имя покупателя и название заказанного товара.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: выведи имя покупателя и название заказанного товара.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Кто заказал что»",
+        "code": "SELECT c.name, p.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2401,
+        "title": "Кто заказал что",
+        "topic": "Соединения",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи имя покупателя и название заказанного товара.",
+        "initial_code": "-- Выведи имя покупателя и название заказанного товара.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT c.name, p.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id;",
+         "columns": [
+          "name",
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT c.name, p.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 25,
+      "title": "Соединения. Заказы с городами",
+      "description": "Выведи номер заказа и город покупателя.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: выведи номер заказа и город покупателя.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Заказы с городами»",
+        "code": "SELECT o.id, c.city FROM orders o JOIN customers c ON o.customer_id = c.id;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2501,
+        "title": "Заказы с городами",
+        "topic": "Соединения",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи номер заказа и город покупателя.",
+        "initial_code": "-- Выведи номер заказа и город покупателя.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT o.id, c.city FROM orders o JOIN customers c ON o.customer_id = c.id;",
+         "columns": [
+          "id",
+          "city"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT o.id, c.city FROM orders o JOIN customers c ON o.customer_id = c.id;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 26,
+      "title": "Соединения. Товары без заказов",
+      "description": "Найди товары, которые никто не заказывал.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: найди товары, которые никто не заказывал.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Товары без заказов»",
+        "code": "SELECT p.name FROM products p LEFT JOIN orders o ON o.product_id = p.id WHERE o.id IS NULL;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2601,
+        "title": "Товары без заказов",
+        "topic": "Соединения",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Найди товары, которые никто не заказывал.",
+        "initial_code": "-- Найди товары, которые никто не заказывал.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT p.name FROM products p LEFT JOIN orders o ON o.product_id = p.id WHERE o.id IS NULL;",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT p.name FROM products p LEFT JOIN orders o ON o.product_id = p.id WHERE o.id IS NULL;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 27,
+      "title": "Соединения. Заказы каждого покупателя",
+      "description": "Сколько заказов у каждого покупателя?",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: сколько заказов у каждого покупателя?",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Заказы каждого покупателя»",
+        "code": "SELECT c.name, COUNT(o.id) AS orders FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.name;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2701,
+        "title": "Заказы каждого покупателя",
+        "topic": "Соединения",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Сколько заказов у каждого покупателя?",
+        "initial_code": "-- Сколько заказов у каждого покупателя?\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT c.name, COUNT(o.id) AS orders FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.name;",
+         "columns": [
+          "name",
+          "orders"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT c.name, COUNT(o.id) AS orders FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.name;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 28,
+      "title": "Соединения. Самый активный покупатель",
+      "description": "Кто сделал больше всего заказов? Выведи имя и количество.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: кто сделал больше всего заказов? выведи имя и количество.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Самый активный покупатель»",
+        "code": "SELECT c.name, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.name ORDER BY orders DESC LIMIT 1;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2801,
+        "title": "Самый активный покупатель",
+        "topic": "Соединения",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Кто сделал больше всего заказов? Выведи имя и количество.",
+        "initial_code": "-- Кто сделал больше всего заказов? Выведи имя и количество.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT c.name, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.name ORDER BY orders DESC LIMIT 1;",
+         "columns": [
+          "name",
+          "orders"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT c.name, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.name ORDER BY orders DESC LIMIT 1;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 29,
+      "title": "Соединения. Заказы дороже 10000",
+      "description": "Выведи покупателей, чей заказ стоит больше 10000.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: выведи покупателей, чей заказ стоит больше 10000.",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Заказы дороже 10000»",
+        "code": "SELECT c.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id WHERE p.price * o.quantity > 10000;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2901,
+        "title": "Заказы дороже 10000",
+        "topic": "Соединения",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Выведи покупателей, чей заказ стоит больше 10000.",
+        "initial_code": "-- Выведи покупателей, чей заказ стоит больше 10000.\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT c.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id WHERE p.price * o.quantity > 10000;",
+         "columns": [
+          "name"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT c.name FROM orders o JOIN customers c ON o.customer_id = c.id JOIN products p ON o.product_id = p.id WHERE p.price * o.quantity > 10000;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     },
+     {
+      "id": 30,
+      "title": "Соединения. Заказы по городам",
+      "description": "Сколько заказов сделали покупатели каждого города?",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «соединения». Разберём её на задании: сколько заказов сделали покупатели каждого города?",
+       "Проверка сравнивает результат работы программы, поэтому важен точный ответ, а не похожий код.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Заказы по городам»",
+        "code": "SELECT c.city, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.city ORDER BY orders DESC;",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3001,
+        "title": "Заказы по городам",
+        "topic": "Соединения",
+        "difficulty": "hard",
+        "xp": 15,
+        "description": "Сколько заказов сделали покупатели каждого города?",
+        "initial_code": "-- Сколько заказов сделали покупатели каждого города?\nSELECT ",
+        "check": {
+         "type": "sql",
+         "setup": "\nCREATE TABLE products (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    category TEXT NOT NULL,\n    price REAL NOT NULL,\n    stock INTEGER NOT NULL\n);\n\nCREATE TABLE customers (\n    id INTEGER PRIMARY KEY,\n    name TEXT NOT NULL,\n    city TEXT NOT NULL,\n    age INTEGER NOT NULL\n);\n\nCREATE TABLE orders (\n    id INTEGER PRIMARY KEY,\n    customer_id INTEGER NOT NULL,\n    product_id INTEGER NOT NULL,\n    quantity INTEGER NOT NULL,\n    order_date TEXT NOT NULL\n);\n\nINSERT INTO products (id, name, category, price, stock) VALUES\n (1, 'Ноутбук', 'Электроника', 75000, 12),\n (2, 'Мышь', 'Электроника', 1200, 140),\n (3, 'Клавиатура', 'Электроника', 3400, 85),\n (4, 'Стол', 'Мебель', 8900, 30),\n (5, 'Кресло', 'Мебель', 12500, 22),\n (6, 'Кофе', 'Продукты', 450, 300),\n (7, 'Чай', 'Продукты', 380, 250),\n (8, 'Ручка', 'Канцелярия', 90, 500),\n (9, 'Тетрадь', 'Канцелярия', 220, 400),\n (10, 'Рюкзак', 'Канцелярия', 3100, 64);\n\nINSERT INTO customers (id, name, city, age) VALUES\n (1, 'Анна', 'Москва', 28),\n (2, 'Борис', 'Москва', 45),\n (3, 'Вера', 'Санкт-Петербург', 34),\n (4, 'Глеб', 'Казань', 19),\n (5, 'Дарья', 'Казань', 52),\n (6, 'Егор', 'Новосибирск', 31),\n (7, 'Зоя', 'Новосибирск', 25),\n (8, 'Иван', 'Екатеринбург', 40);\n\nINSERT INTO orders (id, customer_id, product_id, quantity, order_date) VALUES\n (1, 1, 2, 2, '2024-01-15'),\n (2, 1, 8, 5, '2024-01-16'),\n (3, 2, 1, 1, '2024-01-20'),\n (4, 3, 6, 4, '2024-02-02'),\n (5, 3, 4, 1, '2024-02-03'),\n (6, 4, 9, 3, '2024-02-10'),\n (7, 5, 3, 1, '2024-02-14'),\n (8, 5, 10, 2, '2024-02-15'),\n (9, 6, 7, 6, '2024-03-01'),\n (10, 6, 5, 1, '2024-03-02'),\n (11, 7, 6, 2, '2024-03-05'),\n (12, 8, 1, 1, '2024-03-09'),\n (13, 8, 9, 4, '2024-03-10'),\n (14, 2, 5, 1, '2024-03-11');\n",
+         "query": "SELECT c.city, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.city ORDER BY orders DESC;",
+         "columns": [
+          "city",
+          "orders"
+         ]
+        },
+        "hints": [
+         "Сравни с похожей задачей в уроках.",
+         "Проверь условие WHERE и сортировку."
+        ],
+        "solution": "SELECT c.city, COUNT(o.id) AS orders FROM orders o JOIN customers c ON o.customer_id = c.id GROUP BY c.city ORDER BY orders DESC;"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Соединения",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Соединения",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Соединения»?",
+       "options": [
+        "присваивание переменной",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: присваивание переменной, условие if, цикл for."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "7",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 7 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Что означает SQL?",
+    "options": [
+     "Structured Query Language — язык запросов к базе данных",
+     "Simple Question Language",
+     "Система управления файлами",
+     "Язык разметки страниц"
+    ],
+    "correct": 0,
+    "explain": "SQL — язык, на котором задают вопросы к базе данных."
+   },
+   {
+    "question": "Какой запрос вернёт все строки таблицы products?",
+    "options": [
+     "SELECT * FROM products;",
+     "SELECT FROM products;",
+     "SELECT products;",
+     "FROM products SELECT;"
+    ],
+    "correct": 0,
+    "explain": "Звёздочка — все столбцы, FROM указывает таблицу."
+   },
+   {
+    "question": "Как оставить только товары дороже 1000?",
+    "options": [
+     "WHERE price > 1000",
+     "WHERE price = 1000",
+     "SORT price > 1000",
+     "WHERE price < 1000"
+    ],
+    "correct": 0,
+    "explain": "Строгое «больше» — оператор >."
+   },
+   {
+    "question": "Что делает COUNT(*)?",
+    "options": [
+     "Считает строки",
+     "Удаляет строки",
+     "Сортирует",
+     "Создаёт таблицу"
+    ],
+    "correct": 0,
+    "explain": "COUNT(*) возвращает количество строк."
+   },
+   {
+    "question": "Какой JOIN оставляет все строки левой таблицы?",
+    "options": [
+     "INNER JOIN",
+     "LEFT JOIN",
+     "CROSS JOIN",
+     "Нет такого"
+    ],
+    "correct": 1,
+    "explain": "LEFT JOIN сохраняет все строки левой таблицы."
+   },
+   {
+    "question": "Что делает GROUP BY?",
+    "options": [
+     "Объединяет строки в группы",
+     "Сортирует",
+     "Удаляет дубликаты",
+     "Обновляет данные"
+    ],
+    "correct": 0,
+    "explain": "GROUP BY группирует строки, чтобы применить агрегаты к каждой группе."
+   },
+   {
+    "question": "Какой оператор ищет по шаблону?",
+    "options": [
+     "LIKE",
+     "IN",
+     "BETWEEN",
+     "AS"
+    ],
+    "correct": 0,
+    "explain": "LIKE ищет по шаблону: 'К%' — начинается с К."
+   },
+   {
+    "question": "В каком порядке пишутся части запроса?",
+    "options": [
+     "SELECT → FROM → WHERE → ORDER BY",
+     "FROM → WHERE → SELECT → ORDER BY",
+     "WHERE → SELECT → FROM",
+     "SELECT → WHERE → FROM"
+    ],
+    "correct": 1,
+    "explain": "Синтаксис: SELECT ... FROM ... WHERE ... ORDER BY ..."
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "SELECT: выборка",
+    "icon": "🔍",
+    "code": "SELECT name, price FROM products;\nSELECT * FROM customers;\nSELECT name AS title FROM products;",
+    "why": "SELECT — способ спросить у базы «покажи мне вот это». Без него база молчит: она хранит данные, но не показывает их сама.",
+    "where": "Отчёты в приложении: список товаров, профиль пользователя, содержимое корзины.",
+    "note": "В больших таблицах избегай SELECT * — перечисляй нужные столбцы, запрос работает быстрее."
+   },
+   {
+    "title": "WHERE: фильтр",
+    "icon": "🔎",
+    "code": "SELECT * FROM products WHERE price > 1000;\nSELECT * FROM products WHERE stock = 0 AND price < 500;\nSELECT * FROM products WHERE category <> 'Мебель';",
+    "why": "WHERE отвечает на вопрос «а какие именно строки мне нужны». Без фильтра ты получишь всю таблицу и будешь копаться в мусоре.",
+    "where": "Поиск по сайту, фильтры в интернет-магазине, поиск заказа по номеру.",
+    "note": "Условие пишут после FROM, а не после SELECT."
+   },
+   {
+    "title": "ORDER BY: сортировка",
+    "icon": "📊",
+    "code": "SELECT name, price FROM products ORDER BY price DESC;\nSELECT name, age FROM customers ORDER BY age, name;\nSELECT * FROM products ORDER BY price ASC LIMIT 5;",
+    "why": "Данные лежат в случайном порядке. Сортировка даёт осмысленный список: «сначала самые новые» или «сначала самые дорогие».",
+    "where": "Топ-5 товаров, лента заказов от новых к старым, списки с ценами.",
+    "note": "По умолчанию сортировка идёт по возрастанию, DESC меняет направление."
+   },
+   {
+    "title": "COUNT, SUM, AVG",
+    "icon": "🧮",
+    "code": "SELECT COUNT(*) FROM products;\nSELECT SUM(quantity) FROM orders;\nSELECT AVG(price) FROM products;\nSELECT MAX(price), MIN(price) FROM products;",
+    "why": "Агрегатные функции отвечают на вопрос «сколько всего». Без них пришлось бы считать строки вручную.",
+    "where": "Счётчики на главной странице, статистика продаж, средний рейтинг, средняя цена заказа.",
+    "note": "AVG по пустой таблице возвращает NULL, а не ноль."
+   },
+   {
+    "title": "GROUP BY: сводка",
+    "icon": "🗂️",
+    "code": "SELECT category, COUNT(*) AS n FROM products GROUP BY category;\nSELECT city, AVG(age) FROM customers GROUP BY city;",
+    "why": "GROUP BY отвечает на вопрос «а разбей по группам». Без него получишь одно число по всей таблице, а не по каждой категории.",
+    "where": "Сколько товаров в каждой категории, продажи по месяцам, заказы по городам.",
+    "note": "После GROUP BY в SELECT можно брать только столбцы группировки и агрегаты."
+   },
+   {
+    "title": "HAVING: фильтр групп",
+    "icon": "🚦",
+    "code": "SELECT category, COUNT(*) AS n FROM products GROUP BY category HAVING COUNT(*) > 2;",
+    "why": "Иногда таблица не огромная, а условие сложное: «покажи категории, где товаров больше двух». WHERE фильтрует строки, HAVING — группы.",
+    "where": "Убирать пустые группы, показывать только активные категории и города с оборотом.",
+    "note": "HAVING без GROUP BY обычно не имеет смысла."
+   },
+   {
+    "title": "JOIN: соединение",
+    "icon": "🔗",
+    "code": "SELECT c.name, p.name FROM orders o\nJOIN customers c ON o.customer_id = c.id\nJOIN products p ON o.product_id = p.id;",
+    "why": "Данные разбиты на таблицы, чтобы не хранить одно и то же дважды. JOIN собирает их обратно в момент запроса: в заказе лежит только id, а JOIN подставляет имя.",
+    "where": "Список заказов с именами клиентов, отчёт «кто сколько заказал», каталог с брендом.",
+    "note": "Условие связи пишется в ON, а не в WHERE."
+   },
+   {
+    "title": "LEFT JOIN: все слева",
+    "icon": "↩️",
+    "code": "SELECT p.name, o.id FROM products p\nLEFT JOIN orders o ON o.product_id = p.id\nWHERE o.id IS NULL;",
+    "why": "INNER JOIN молча выкидывает строки без пары. LEFT JOIN сохраняет их — это единственный способ найти «никто не заказывал» или «клиент ещё не платил».",
+    "where": "Товары без заказов, клиенты без заказов, все сотрудники и их стаж.",
+    "note": "Если в правой таблице нет пары, её поля будут NULL."
+   },
+   {
+    "title": "LIKE, BETWEEN, IN",
+    "icon": "🔤",
+    "code": "SELECT * FROM products WHERE name LIKE 'К%';\nSELECT * FROM products WHERE price BETWEEN 300 AND 4000;\nSELECT * FROM customers WHERE city IN ('Москва', 'Казань');",
+    "why": "Точных совпадений в жизни мало: нужен поиск по началу слова, по диапазону цены или по списку городов. Эти три оператора закрывают большинство таких запросов.",
+    "where": "Поисковая строка на сайте, фильтр «от 300 до 4000 рублей», выбор нескольких категорий.",
+    "note": "% внутри LIKE заменяет любое количество символов, _ — ровно один."
+   },
+   {
+    "title": "Изменение данных",
+    "icon": "💾",
+    "code": "INSERT INTO products (name, category, price, stock)\nVALUES ('Часы', 'Электроника', 5000, 10);\nUPDATE products SET price = 5500 WHERE id = 11;\nDELETE FROM orders WHERE id = 15;",
+    "why": "Пока ты только читал данные, база была полезна. Настоящая работа начинается, когда приложение само добавляет товар, меняет цену и удаляет заказ.",
+    "where": "Регистрация пользователя, оформление покупки, смена статуса заказа.",
+    "note": "UPDATE и DELETE без WHERE изменят всю таблицу — всегда добавляй условие."
+   }
+  ],
+  "levels": {
+   "easy": 11,
+   "medium": 12,
+   "hard": 7
+  }
+ }
+}

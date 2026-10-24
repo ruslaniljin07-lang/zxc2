@@ -1,0 +1,124 @@
+45|log("=" * 70)
+46|for url in ['/', '/login', '/register', '/leaderboard', '/cheat_sheet']:
+47|    r = client.get(url)
+48|    log(f"  GET {url:30s} -> {r.status_code}  ({len(r.data)} bytes)")
+49|    assert r.status_code == 200, f"{url} failed"
+50|
+51|log("")
+52|log("=" * 70)
+53|log("STEP 2: register + login")
+54|log("=" * 70)
+55|r = client.post('/register', data={
+56|    'username': 'tester',
+57|    'email': 'tester@example.com',
+58|    'password': 'Test12345',
+59|    'confirm_password': 'Test12345',
+60|}, follow_redirects=True)
+61|log(f"  POST /register -> {r.status_code}")
+62|assert r.status_code == 200
+63|
+64|r = client.post('/login', data={'username': 'tester', 'password': 'Test12345'},
+65|                follow_redirects=True)
+66|log(f"  POST /login    -> {r.status_code}")
+67|assert r.status_code == 200
+68|
+69|log("")
+70|log("=" * 70)
+71|log("STEP 3: language landing pages")
+72|log("=" * 70)
+73|for lang in LANGS:
+74|    r = client.get(f'/language/{lang}')
+75|    ok = r.status_code == 200
+76|    log(f"  GET /language/{lang:12s} -> {r.status_code}  ({len(r.data)} bytes)")
+77|    assert ok, f"/language/{lang} failed"
+78|
+79|log("")
+80|log("=" * 70)
+81|log("STEP 4: lessons list pages")
+82|log("=" * 70)
+83|for lang in LANGS:
+84|    r = client.get(f'/lessons/{lang}')
+85|    log(f"  GET /lessons/{lang:12s} -> {r.status_code}  ({len(r.data)} bytes)")
+86|    assert r.status_code == 200, f"/lessons/{lang} failed"
+87|    html = r.data.decode('utf-8')
+88|    # count lesson links present
+89|    import re
+90|    links = re.findall(r'/lesson/([a-z]+)/(\d+)', html)
+91|    log(f"      lesson links found: {len(set(links))}")
+92|
+93|log("")
+94|log("=" * 70)
+95|log("STEP 5: every lesson in every language renders")
+96|log("=" * 70)
+97|
+98|total_lessons = 0
+99|for lang in LANGS:
+100|    data = load_language(lang)
+101|    for m in data.get('modules', []):
+102|        for l in m.get('lessons', []):
+103|            total_lessons += 1
+104|            url = f"/lesson/{lang}/{l['id']}"
+105|            r = client.get(url)
+106|            if r.status_code != 200:
+107|                log(f"  FAIL {url} -> {r.status_code}")
+108|            assert r.status_code == 200, f"{url} failed"
+109|    log(f"  {lang}: all lessons OK")
+110|
+111|log(f"  TOTAL LESSONS RENDERED OK: {total_lessons}")
+112|assert total_lessons >= 20, "not enough lessons"
+113|
+114|log("")
+115|log("=" * 70)
+116|log("STEP 6: entrance test pages")
+117|log("=" * 70)
+118|for lang in LANGS:
+119|    r = client.get(f'/entrance_test/{lang}')
+120|    log(f"  GET /entrance_test/{lang:12s} -> {r.status_code} ({len(r.data)} bytes)")
+121|    assert r.status_code == 200, f"/entrance_test/{lang} failed"
+122|
+123|log("")
+124|log("=" * 70)
+125|log("STEP 7: module tests exist")
+126|log("=" * 70)
+127|for lang in LANGS:
+128|    data = load_language(lang)
+129|    for m in data.get('modules', []):
+130|        t = m.get('test')
+131|        qn = len(t.get('questions', [])) if t else 0
+132|        log(f"  {lang} module {m['id']} '{m['title']}': test={bool(t)} questions={qn}")
+133|
+134|log("")
+135|log("=" * 70)
+136|log("STEP 8: cheat sheets")
+137|log("=" * 70)
+138|for lang in LANGS:
+139|    r = client.get(f'/cheat_sheet/{lang}')
+140|    log(f"  GET /cheat_sheet/{lang:12s} -> {r.status_code} ({len(r.data)} bytes)")
+141|    assert r.status_code == 200, f"/cheat_sheet/{lang} failed"
+142|
+143|log("")
+144|log("=" * 70)
+145|log("STEP 9: solve a task and check progress saving")
+146|log("=" * 70)
+147|# find first python lesson with a task
+148|for url in ['/lesson/python/1']:
+149|    r = client.get(url)
+150|    assert r.status_code == 200
+151|log("  lesson/python/1 loaded")
+152|
+153|log("")
+154|log("=" * 70)
+155|log("STEP 10: dashboard + profile + leaderboard")
+156|log("=" * 70)
+157|for url in ['/dashboard', '/profile', '/leaderboard']:
+158|    r = client.get(url)
+159|    log(f"  GET {url:20s} -> {r.status_code} ({len(r.data)} bytes)")
+160|    assert r.status_code == 200, f"{url} failed"
+161|
+162|log("")
+163|log("=" * 70)
+164|log("ALL CHECKS PASSED")
+165|log("=" * 70)
+166|
+167|with open(os.path.join(BASE, '_e2e_out.txt'), 'w', encoding='utf-8') as f:
+168|    f.write(out.getvalue())

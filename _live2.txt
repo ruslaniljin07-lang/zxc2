@@ -1,0 +1,1589 @@
+=============== utils/language_manager.py ===============
+   1| import json
+   2| import os
+   3| 
+   4| DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'languages')
+   5| 
+   6| LANGUAGES = {
+   7|     'python': {'name': 'Python', 'icon': '🐍', 'color': '#3776AB'},
+   8|     'javascript': {'name': 'JavaScript', 'icon': '🟨', 'color': '#F7DF1E'},
+   9|     'java': {'name': 'Java', 'icon': '☕', 'color': '#ED8B00'},
+  10|     'cpp': {'name': 'C++', 'icon': '⚙️', 'color': '#00599C'}
+  11| }
+  12| # расширения файлов для редактора в уроках
+  13| FILE_EXT = {
+  14|     'python': 'main.py',
+  15|     'javascript': 'main.js',
+  16|     'java': 'Main.java',
+  17|     'cpp': 'main.cpp',
+  18| }
+  19| 
+  20| _language_cache = {}
+  21| 
+  22| def load_language(lang_code):
+  23|     """Загружает данные языка из JSON файла"""
+  24|     if lang_code in _language_cache:
+  25|         return _language_cache[lang_code]
+  26| 
+  27|     file_path = os.path.join(DATA_DIR, f'{lang_code}.json')
+  28|     if not os.path.exists(file_path):
+  29|         return None
+  30| 
+  31|     with open(file_path, 'r', encoding='utf-8') as f:
+  32|         data = json.load(f)
+  33| 
+  34|     _language_cache[lang_code] = data.get(lang_code, data)
+  35|     return _language_cache[lang_code]
+  36| 
+  37| def invalidate_cache(lang_code=None):
+  38|     if lang_code:
+  39|         _language_cache.pop(lang_code, None)
+  40|     else:
+  41|         _language_cache.clear()
+  42| 
+  43| def get_language_info(lang_code):
+  44|     """Возвращает информацию о языке"""
+  45|     return LANGUAGES.get(lang_code, {})
+  46| 
+  47| def get_file_ext(lang_code):
+  48|     return FILE_EXT.get(lang_code, 'main.py')
+  49| 
+  50| def get_all_languages():
+  51|     """Возвращает список всех языков с агрегированной статистикой"""
+  52|     result = []
+  53|     for code, info in LANGUAGES.items():
+  54|         lang_data = load_language(code)
+  55|         if not lang_data:
+  56|             continue
+  57|         modules = lang_data.get('modules', [])
+  58|         total_lessons = sum(len(m.get('lessons', [])) for m in modules)
+  59|         total_tasks = sum(len(l.get('tasks', []))
+  60|                           for m in modules for l in m.get('lessons', []))
+  61|         lesson_tests = sum(len(l.get('test', []))
+  62|                            for m in modules for l in m.get('lessons', []))
+  63|         entrance = len(lang_data.get('entrance_test', []))
+  64|         final_modules = [m for m in modules
+  65|                          if 'проект' in m.get('title', '').lower()]
+  66|         result.append({
+  67|             'code': code,
+  68|             'name': info['name'],
+  69|             'icon': info['icon'],
+  70|             'color': info['color'],
+  71|             'description': lang_data.get('description', ''),
+  72|             'difficulty': lang_data.get('difficulty', ''),
+  73|             'final_project': lang_data.get('final_project', ''),
+  74|             'modules_count': len(modules),
+  75|             'lessons_count': total_lessons,
+  76|             'tasks_count': total_tasks,
+  77|             'tests_count': lesson_tests + entrance,
+  78|             'cheatsheets_count': len(lang_data.get('cheatsheets', [])),
+  79|             'has_final_project': bool(final_modules
+  80|                                       or lang_data.get('final_project')),
+  81|         })
+  82|     return result
+  83| 
+  84| def get_module(lang_code, module_id):
+  85|     """Возвращает модуль по ID"""
+  86|     lang_data = load_language(lang_code)
+  87|     if not lang_data:
+  88|         return None
+  89|     for module in lang_data.get('modules', []):
+  90|         if module['id'] == module_id:
+  91|             return module
+  92|     return None
+  93| 
+  94| def get_lesson(lang_code, lesson_id):
+  95|     """Возвращает урок по ID и модуль, в котором он находится"""
+  96|     lang_data = load_language(lang_code)
+  97|     if not lang_data:
+  98|         return None, None
+  99|     for module in lang_data.get('modules', []):
+ 100|         for lesson in module.get('lessons', []):
+ 101|             if lesson['id'] == lesson_id:
+ 102|                 return lesson, module
+ 103|     return None, None
+ 104| 
+ 105| def get_entrance_test(lang_code):
+ 106|     """Возвращает входной тест для языка"""
+ 107|     lang_data = load_language(lang_code)
+ 108|     if not lang_data:
+ 109|         return []
+ 110|     return lang_data.get('entrance_test', [])
+ 111| 
+ 112| def get_cheatsheets(lang_code):
+ 113|     """Возвращает шпаргалки языка"""
+ 114|     lang_data = load_language(lang_code)
+ 115|     if not lang_data:
+ 116|         return []
+ 117|     return lang_data.get('cheatsheets', [])
+ 118| 
+ 119| def get_total_lessons(lang_code):
+ 120|     """Возвращает общее количество уроков"""
+ 121|     lang_data = load_language(lang_code)
+ 122|     if not lang_data:
+ 123|         return 0
+ 124|     return sum(len(m.get('lessons', [])) for m in lang_data.get('modules', []))
+ 125| 
+ 126| def get_total_tasks(lang_code):
+ 127|     """Возвращает общее количество задач в курсе"""
+ 128|     lang_data = load_language(lang_code)
+ 129|     if not lang_data:
+ 130|         return 0
+ 131|     return sum(len(t.get('tasks', []))
+ 132|                for m in lang_data.get('modules', [])
+ 133|                for t in m.get('lessons', []))
+ 134| 
+ 135| def get_flat_lessons(lang_code):
+ 136|     """Возвращает плоский список уроков курса по порядку."""
+ 137|     lang_data = load_language(lang_code)
+ 138|     if not lang_data:
+ 139|         return []
+ 140|     result = []
+ 141|     for module in lang_data.get('modules', []):
+ 142|         for lesson in module.get('lessons', []):
+ 143|             item = dict(lesson)
+ 144|             item['module_id'] = module.get('id')
+ 145|             item['module_title'] = module.get('title')
+ 146|             result.append(item)
+ 147|     return result
+ 148| 
+ 149| def get_lesson_progress(user, lang_code):
+ 150|     """Возвращает прогресс пользователя по урокам языка"""
+ 151|     from models import LessonProgress
+ 152|     progress = LessonProgress.query.filter_by(
+ 153|         user_id=user.id,
+ 154|         language=lang_code
+ 155|     ).all()
+ 156| 
+ 157|     completed_ids = {p.lesson_id for p in progress if p.completed}
+ 158|     total = get_total_lessons(lang_code)
+ 159| 
+ 160|     # следующий урок: первый непройденный, либо самый первый урок курса
+ 161|     flat = get_flat_lessons(lang_code)
+ 162|     next_lesson = None
+ 163|     for lsn in flat:
+ 164|         if lsn['id'] not in completed_ids:
+ 165|             next_lesson = lsn
+ 166|             break
+ 167|     if next_lesson is None and flat:
+ 168|         next_lesson = flat[-1]
+ 169| 
+ 170|     return {
+ 171|         'completed': len(completed_ids),
+ 172|         'total': total,
+ 173|         'percent': round(len(completed_ids) / total * 100) if total > 0 else 0,
+ 174|         'completed_ids': completed_ids,
+ 175|         'next_lesson': next_lesson['id'] if next_lesson else None,
+ 176|         'next_lesson_title': next_lesson['title'] if next_lesson else None,
+ 177|         'finished': bool(total) and len(completed_ids) >= total
+ 178|     }
+ 179| 
+ 180| def get_module_progress(user, lang_code, module_id):
+ 181|     """Возвращает прогресс по конкретному модулю"""
+ 182|     from models import LessonProgress
+ 183|     module = get_module(lang_code, module_id)
+ 184|     lessons = module.get('lessons', []) if module else []
+ 185|     progress = LessonProgress.query.filter_by(
+ 186|         user_id=user.id, language=lang_code,
+ 187|         module_id=module_id
+ 188|     ).all()
+ 189|     by_id = {p.lesson_id: p for p in progress}
+ 190|     items = []
+ 191|     done = 0
+ 192|     for lsn in lessons:
+ 193|         p = by_id.get(lsn['id'])
+ 194|         items.append({'lesson': lsn, 'completed': bool(p and p.completed),
+ 195|                       'attempts': p.attempts if p else 0})
+ 196|         if p and p.completed:
+ 197|             done += 1
+ 198|     total = len(lessons)
+ 199|     percent = round(done / total * 100) if total else 0
+ 200|     return {'items': items, 'done': done, 'total': total,
+ 201|             'percent': percent, 'unlocked': True}
+=============== utils/code_checker.py ===============
+   1| import subprocess
+   2| import sys
+   3| import os
+   4| import tempfile
+   5| import re
+   6| 
+   7| 
+   8| def _run_python_code(code, timeout=5):
+   9|     """Execute code in subprocess with full UTF-8 support."""
+  10|     temp_path = None
+  11|     try:
+  12|         with tempfile.NamedTemporaryFile(
+  13|             mode='w', suffix='.py', delete=False, encoding='utf-8'
+  14|         ) as f:
+  15|             f.write(code)
+  16|             temp_path = f.name
+  17| 
+  18|         env = os.environ.copy()
+  19|         env['PYTHONIOENCODING'] = 'utf-8'
+  20| 
+  21|         result = subprocess.run(
+  22|             [sys.executable, temp_path],
+  23|             capture_output=True, text=True, encoding='utf-8',
+  24|             timeout=timeout, cwd=os.path.dirname(temp_path), env=env
+  25|         )
+  26|         if temp_path and os.path.exists(temp_path):
+  27|             os.unlink(temp_path)
+  28| 
+  29|         return {
+  30|             'success': result.returncode == 0,
+  31|             'returncode': result.returncode,
+  32|             'stdout': result.stdout,
+  33|             'stderr': result.stderr
+  34|         }
+  35|     except subprocess.TimeoutExpired:
+  36|         if temp_path and os.path.exists(temp_path):
+  37|             try:
+  38|                 os.unlink(temp_path)
+  39|             except OSError:
+  40|                 pass
+  41|         return {
+  42|             'success': False, 'returncode': None,
+  43|             'stdout': '',
+  44|             'stderr': 'Превышено время выполнения (5 секунд).'
+  45|         }
+  46|     except Exception as e:
+  47|         if temp_path and os.path.exists(temp_path):
+  48|             try:
+  49|                 os.unlink(temp_path)
+  50|             except OSError:
+  51|                 pass
+  52|         return {
+  53|             'success': False, 'returncode': None,
+  54|             'stdout': '',
+  55|             'stderr': 'Ошибка при выполнении: ' + str(e)
+  56|         }
+  57| 
+  58| 
+  59| def _check_contains(code, check):
+  60|     """Проверка для JS/Java/C++: в коде должны присутствовать конструкции."""
+  61|     require = check.get('require') or []
+  62|     reject = check.get('reject') or []
+  63|     missing = [p for p in require if p.lower() not in code.lower()]
+  64|     bad = [p for p in reject if p.lower() in code.lower()]
+  65|     if missing:
+  66|         return {
+  67|             'success': False,
+  68|             'stdout': '',
+  69|             'stderr': 'Не хватает ключевых конструкций: '
+  70|                       + ', '.join(f'«{m}»' for m in missing),
+  71|             'missing': missing
+  72|         }
+  73|     if bad:
+  74|         return {
+  75|             'success': False,
+  76|             'stdout': '',
+  77|             'stderr': 'Лишние конструкции (попробуй упростить): '
+  78|                       + ', '.join(f'«{b}»' for b in bad),
+  79|             'bad': bad
+  80|         }
+  81|     return {
+  82|         'success': True,
+  83|         'stdout': 'Код содержит все необходимые конструкции. Отлично!',
+  84|         'stderr': ''
+  85|     }
+  86| 
+  87| 
+  88| def check_code(user_code, check, timeout=5):
+  89|     """Проверяет решение по правилам задания.
+  90| 
+  91|     check — объект из задачи:
+  92|       {'type': 'python', 'test_code': '...'}   — реальный запуск Python
+  93|       {'type': 'contains', 'require': [...], 'reject': [...]} — для JS/Java/C++
+  94|     """
+  95|     if not isinstance(check, dict):
+  96|         # старая сигнатура: check_code(user_code, test_code)
+  97|         check = {'type': 'python', 'test_code': check}
+  98|     ctype = check.get('type', 'python')
+  99|     if ctype == 'contains':
+ 100|         return _check_contains(user_code, check)
+ 101|     full_code = user_code + '\n' + (check.get('test_code') or '')
+ 102|     return _run_python_code(full_code, timeout)
+ 103| 
+ 104| 
+ 105| def run_sandbox_code(code, timeout=5):
+ 106|     return _run_python_code(code, timeout)
+=============== utils/level_engine.py ===============
+   1| TEST_QUESTIONS = {
+   2|     'q1': {
+   3|         'question': 'Что выводит print(2 + 3 * 4)?',
+   4|         'options': ['14', '20', '10', '24'],
+   5|         'correct': 14
+   6|     },
+   7|     'q2': {
+   8|         'question': 'Какой тип имеет [1, 2, 3]?',
+   9|         'options': ['list', 'tuple', 'dict', 'set'],
+  10|         'correct': 'list'
+  11|     },
+  12|     'q3': {
+  13|         'question': 'Что такое переменная в Python?',
+  14|         'options': ['Ячейка памяти', 'Функция', 'Класс', 'Модуль'],
+  15|         'correct': 'Ячейка памяти'
+  16|     },
+  17|     'q4': {
+  18|         'question': 'Какой оператор используется для сравнения?',
+  19|         'options': ['=', '==', '===', ':'],
+  20|         'correct': '=='
+  21|     },
+  22|     'q5': {
+  23|         'question': 'Что такое функция def?',
+  24|         'options': ['Определение функции', 'Вызов функции', 'Импорт модуля', 'Создание класса'],
+  25|         'correct': 'Определение функции'
+  26|     }
+  27| }
+  28| 
+  29| 
+  30| def determine_level(score):
+  31|     """0-2: Beginner, 3-5: Elementary, 6+: Intermediate (для входного теста)."""
+  32|     if score >= 6:
+  33|         return 2
+  34|     elif score >= 3:
+  35|         return 1
+  36|     return 0
+=============== utils/gamification.py ===============
+   1| from models import db, StreakReward
+   2| from datetime import datetime
+   3| 
+   4| STATUS_THRESHOLDS = [7, 14, 30, 60, 100, 180, 365]
+   5| 
+   6| 
+   7| def get_status_emoji(streak):
+   8|     if streak >= 180:
+   9|         return '🔥'
+  10|     elif streak >= 60:
+  11|         return '💎'
+  12|     elif streak >= 30:
+  13|         return '☀️'
+  14|     elif streak >= 7:
+  15|         return '🌊'
+  16|     elif streak >= 1:
+  17|         return '🌱'
+  18|     return '🌊'
+  19| 
+  20| 
+  21| def get_status_name(streak):
+  22|     if streak >= 180:
+  23|         return 'Огненный'
+  24|     elif streak >= 60:
+  25|         return 'Изумрудный'
+  26|     elif streak >= 30:
+  27|         return 'Солнечный'
+  28|     elif streak >= 7:
+  29|         return 'Глубокий'
+  30|     elif streak >= 1:
+  31|         return 'Новый'
+  32|     return 'Новичок'
+  33| 
+  34| 
+  35| def get_status_color(streak):
+  36|     if streak >= 180:
+  37|         return '#e74c3c'
+  38|     elif streak >= 60:
+  39|         return '#00b8d4'
+  40|     elif streak >= 30:
+  41|         return '#f1c40f'
+  42|     elif streak >= 7:
+  43|         return '#27ae60'
+  44|     elif streak >= 1:
+  45|         return '#3498db'
+  46|     return '#95a5a6'
+  47| 
+  48| 
+  49| def calculate_xp_for_next_level(xp):
+  50|     """Сколько XP не хватает до следующего уровня (для совместимости)."""
+  51|     _, need = level_progress(xp)
+  52|     return need
+  53| 
+  54| 
+  55| def level_progress(xp):
+  56|     """Возвращает (xp_накоплено_в_текущем_уровне, xp_нужно_до_следующего)."""
+  57|     left = xp
+  58|     level = 0
+  59|     need = 100
+  60|     while left >= need:
+  61|         left -= need
+  62|         level += 1
+  63|         need = 100 * (level + 1) ** 2
+  64|     return left, need
+  65| 
+  66| 
+  67| def check_streak_rewards(user):
+  68|     if user.streak_count >= 365:
+  69|         status = 'legendary'
+  70|     elif user.streak_count >= 100:
+  71|         status = 'epic'
+  72|     elif user.streak_count >= 30:
+  73|         status = 'rare'
+  74|     else:
+  75|         status = 'common'
+  76| 
+  77|     xp_bonus = {'common': 50, 'rare': 150, 'epic': 300, 'legendary': 500}.get(status, 0)
+  78|     if xp_bonus > 0:
+  79|         user.xp += xp_bonus
+  80| 
+  81|     for threshold in STATUS_THRESHOLDS:
+  82|         if user.streak_count >= threshold:
+  83|             existing = StreakReward.query.filter_by(
+  84|                 user_id=user.id, days=threshold
+  85|             ).first()
+  86|             if not existing:
+  87|                 reward = StreakReward(
+  88|                     user_id=user.id,
+  89|                     days=threshold,
+  90|                     reward_type=status,
+  91|                     reward_value=xp_bonus
+  92|                 )
+  93|                 db.session.add(reward)
+  94| 
+  95| 
+  96| def get_unlocked_achievements():
+  97|     return [
+  98|         {'id': 1, 'name': 'Первый шаг', 'desc': 'Зарегистрироваться', 'icon': '👶', 'xp': 10, 'type': 'register'},
+  99|         {'id': 2, 'name': 'Тестировщик', 'desc': 'Сдать входной тест', 'icon': '📝', 'xp': 20, 'type': 'test'},
+ 100|         {'id': 3, 'name': 'Ученик', 'desc': 'Пройти первый урок', 'icon': '📚', 'xp': 30, 'type': 'lesson'},
+ 101|         {'id': 4, 'name': 'Эксперт', 'desc': 'Пройти все уроки', 'icon': '🎓', 'xp': 100, 'type': 'all_lessons'},
+ 102|         {'id': 5, 'name': 'Кодер', 'desc': 'Написать 10 правильных решений', 'icon': '💻', 'xp': 50, 'type': '10_correct'},
+ 103|         {'id': 6, 'name': 'Без ошибок', 'desc': 'Пройти урок с первого раза', 'icon': '🎯', 'xp': 40, 'type': 'first_try'},
+ 104|         {'id': 7, 'name': 'Ставровец', 'desc': '7 дней подряд', 'icon': '🌊', 'xp': 70, 'type': 'streak_7'},
+ 105|         {'id': 8, 'name': 'Солнечный', 'desc': '30 дней подряд', 'icon': '☀️', 'xp': 150, 'type': 'streak_30'},
+ 106|         {'id': 9, 'name': 'Бессмертный', 'desc': '100 дней подряд', 'icon': '💎', 'xp': 300, 'type': 'streak_100'},
+ 107|         {'id': 10, 'name': 'Легенда', 'desc': '365 дней подряд', 'icon': '🔥', 'xp': 1000, 'type': 'streak_365'},
+ 108|     ]
+=============== templates/cheat_sheet.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}Шпаргалки — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head">
+   6|     <span class="kicker">Шпаргалки</span>
+   7|     <h1>Всё для решения задач</h1>
+   8|     <p>Краткие памятки по всем языкам: синтаксис, примеры и зачем это нужно.
+   9|        Выбери язык и тему — всё компактно на одной странице.</p>
+  10| </div>
+  11| 
+  12| <!-- Переключатель языков -->
+  13| <ul class="nav nav-pills justify-content-center mb-4" id="csLangTabs">
+  14|     {% for code, info in languages.items() %}
+  15|     <li class="nav-item">
+  16|         <button class="nav-link cs-lang-btn {% if loop.first %}active{% endif %}"
+  17|                 data-lang="{{ code }}" type="button">
+  18|             {{ info.icon }} {{ info.name }}
+  19|         </button>
+  20|     </li>
+  21|     {% endfor %}
+  22| </ul>
+  23| 
+  24| {% for code, data in sheets.items() %}
+  25| <div class="lang-cheatsheets {% if not loop.first %}d-none{% endif %}" id="csSheet-{{ code }}">
+  26|     <div class="text-center mb-3">
+  27|         <h4 class="mb-1">{{ languages[code].name }} — {{ data|length }} тем</h4>
+  28|     </div>
+  29|     {% for item in data %}
+  30|     <div class="row g-4 cs-topic">
+  31|         <div class="col-lg-6">
+  32|             <div class="card h-100">
+  33|                 <div class="card-header iconized">
+  34|                     <span class="head-icon">{{ item.icon }}</span>
+  35|                     <span>{{ loop.index }}. {{ item.title }}</span>
+  36|                 </div>
+  37|                 <div class="card-body">
+  38|                     <pre class="code-block">{{ item.code }}</pre>
+  39|                 </div>
+  40|             </div>
+  41|         </div>
+  42|         <div class="col-lg-6">
+  43|             <div class="card h-100 cs-explain">
+  44|                 <div class="card-body">
+  45|                     <h6 class="cs-q">🎯 Зачем это нужно</h6>
+  46|                     <p class="mb-0">{{ item.note }}</p>
+  47|                 </div>
+  48|             </div>
+  49|         </div>
+  50|     </div>
+  51|     {% endfor %}
+  52| </div>
+  53| {% endfor %}
+  54| 
+  55| {% endblock %}
+  56| {% block extra_js %}
+  57| <script>
+  58| (function() {
+  59|     var btns = document.querySelectorAll('.cs-lang-btn');
+  60|     btns.forEach(function(btn) {
+  61|         btn.addEventListener('click', function() {
+  62|             var lang = btn.dataset.lang;
+  63|             btns.forEach(function(b) { b.classList.remove('active'); });
+  64|             btn.classList.add('active');
+  65|             document.querySelectorAll('.lang-cheatsheets').forEach(function(s) {
+  66|                 s.classList.add('d-none');
+  67|             });
+  68|             var target = document.getElementById('csSheet-' + lang);
+  69|             if (target) target.classList.remove('d-none');
+  70|         });
+  71|     });
+  72| })();
+  73| </script>
+  74| {% endblock %}
+=============== templates/language_course.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}{{ language.name }} — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head">
+   6|     <span class="kicker">{{ lang_info.icon }} {{ language.name }}</span>
+   7|     <h1>{{ language.name }}</h1>
+   8|     <p>{{ language.description }}</p>
+   9|     <div class="d-flex flex-wrap gap-2 mt-2">
+  10|         {% if current_user.is_authenticated %}
+  11|             <span class="pill accent">Ваш прогресс: {{ progress.percent }}%</span>
+  12|             <span class="pill idle">{{ progress.completed }} / {{ progress.total }} уроков</span>
+  13|             <a class="pill accent" href="{{ url_for('test', lang_code=lang_code) }}"><i class="bi bi-pencil-square"></i> Входной тест</a>
+  14|             <a class="pill idle" href="{{ url_for('lessons', lang_code=lang_code) }}"><i class="bi bi-book"></i> Все уроки</a>
+  15|             {% if progress.next_lesson %}
+  16|             <a class="pill done" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=progress.next_lesson) }}"><i class="bi bi-play-fill"></i> Продолжить обучение</a>
+  17|             {% endif %}
+  18|         {% else %}
+  19|             <a class="pill accent" href="{{ url_for('register') }}">Зарегистрируйся, чтобы начать</a>
+  20|         {% endif %}
+  21|     </div>
+  22| </div>
+  23| 
+  24| <div class="row">
+  25|     {% for module in modules %}
+  26|     <div class="col-md-6 mb-4">
+  27|         <div class="card h-100">
+  28|             <div class="card-body">
+  29|                 <div class="d-flex justify-content-between align-items-start mb-2">
+  30|                     <h5 class="card-title">Модуль {{ module.id }}. {{ module.title }}</h5>
+  31|                     {% set mp = module_progress.get(module.id) %}
+  32|                     <span class="badge {% if mp and mp.done == mp.total %}bg-success{% else %}bg-primary{% endif %}">
+  33|                         {% if mp %}{{ mp.done }}/{{ mp.total }}{% else %}{{ module.lessons|length }}{% endif %}
+  34|                     </span>
+  35|                 </div>
+  36|                 <p class="card-text text-muted">{{ module.description }}</p>
+  37| 
+  38|                 {% if mp %}
+  39|                 <div class="progress mb-3" style="height: 8px;">
+  40|                     <div class="progress-bar bg-success" role="progressbar"
+  41|                          style="width: {{ mp.percent }}%"></div>
+  42|                 </div>
+  43|                 {% endif %}
+  44| 
+  45|                 <ul class="list-unstyled">
+  46|                     {% set mp = module_progress.get(module.id) %}
+  47|                     {% for lsn in module.lessons %}
+  48|                         {% set item = mp['items']|selectattr('lesson.id', 'equalto', lsn.id)|first if mp else none %}
+  49|                         <li class="mb-2">
+  50|                             <a href="{{ url_for('lesson', lang_code=lang_code, lesson_id=lsn.id) }}"
+  51|                                class="text-decoration-none d-flex justify-content-between">
+  52|                                 <span>
+  53|                                     {% if item and item.completed %}
+  54|                                         <i class="bi bi-check-circle-fill text-success"></i>
+  55|                                     {% elif item and item.attempts > 0 %}
+  56|                                         <i class="bi bi-hourglass-split text-warning"></i>
+  57|                                     {% else %}
+  58|                                         <i class="bi bi-circle text-muted"></i>
+  59|                                     {% endif %}
+  60|                                     {{ lsn.title }}
+  61|                                 </span>
+  62|                                 <span class="xp-chip"><i class="bi bi-star"></i> +{{ lsn.xp_reward }}</span>
+  63|                             </a>
+  64|                         </li>
+  65|                     {% endfor %}
+  66|                 </ul>
+  67|             </div>
+  68|         </div>
+  69|     </div>
+  70|     {% endfor %}
+  71| </div>
+  72| 
+  73| <div class="text-center mt-4">
+  74|     <p class="text-muted">{{ language.final_project }} — финальный проект курса</p>
+  75|     <div class="d-flex justify-content-center gap-3">
+  76|         <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost btn-lg">
+  77|             <i class="bi bi-pencil-square"></i> Пройти входной тест
+  78|         </a>
+  79|         {% if current_user.is_authenticated %}
+  80|         <a href="{{ url_for('lessons', lang_code=lang_code) }}" class="btn btn-primary btn-lg">
+  81|             <i class="bi bi-book"></i> Открыть уроки
+  82|         </a>
+  83|         {% endif %}
+  84|     </div>
+  85| </div>
+  86| {% endblock %}
+=============== templates/dashboard.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}Дашборд — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head text-center">
+   6|     <span class="kicker">Личный кабинет</span>
+   7|     <h1>Привет, {{ current_user.username }}!</h1>
+   8|     <p>Продолжай в том же духе — каждый день маленький шаг к большим результатам.</p>
+   9|     <div class="d-flex justify-content-center align-items-center gap-4 mt-3 flex-wrap">
+  10|         <span class="streak-big">{{ streak }} 🔥</span>
+  11|         <span class="pill accent" style="font-size:.95rem;">{{ status_emoji }} {{ status_name }}</span>
+  12|     </div>
+  13| </div>
+  14| 
+  15| <div class="row justify-content-center mb-4">
+  16|     <div class="col-lg-8">
+  17|         <div class="card mb-4">
+  18|             <div class="card-body p-4">
+  19|                 <div class="d-flex justify-content-between align-items-center mb-3">
+  20|                     <h5 class="mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Уровень {{ level }}</h5>
+  21|                     <span class="text-muted">{{ level_xp }} / {{ level_xp + xp_to_next }} XP</span>
+  22|                 </div>
+  23|                 <div class="xp-meter">
+  24|                     <div class="xp-fill" style="width: {{ (level_xp / (level_xp + xp_to_next) * 100) if (level_xp + xp_to_next) > 0 else 0 }}%"></div>
+  25|                 </div>
+  26|                 <p class="text-end mt-2 mb-0 text-muted">До следующего уровня: <strong class="text-warning">{{ xp_to_next }} XP</strong></p>
+  27|             </div>
+  28|         </div>
+  29| 
+  30|         {% if earned_achievements %}
+  31|         <div class="card mb-4">
+  32|             <div class="card-body p-4">
+  33|                 <div class="d-flex justify-content-between align-items-center mb-3">
+  34|                     <h5 class="mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Достижения ({{ earned_achievements|length }})</h5>
+  35|                     <a href="{{ url_for('profile') }}" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-right"></i> Все</a>
+  36|                 </div>
+  37|                 <div class="d-flex flex-wrap gap-3">
+  38|                     {% for ach in earned_achievements %}
+  39|                         <div class="ach-chip" title="{{ ach.name }} (+{{ ach.xp }} XP)">
+  40|                             <span class="ach-icon">{{ ach.icon }}</span>
+  41|                             <span class="ach-name">{{ ach.name }}</span>
+  42|                         </div>
+  43|                     {% endfor %}
+  44|                 </div>
+  45|             </div>
+  46|         </div>
+  47|         {% endif %}
+  48| 
+  49|         <div class="row g-3 text-center">
+  50|             <div class="col-4">
+  51|                 <div class="stat-block">
+  52|                     <div class="stat-num">{{ lessons_done }}</div>
+  53|                     <div class="stat-lbl">Уроков пройдено</div>
+  54|                 </div>
+  55|             </div>
+  56|             <div class="col-4">
+  57|                 <div class="stat-block">
+  58|                     <div class="stat-num">{{ tasks_done }}</div>
+  59|                     <div class="stat-lbl">Задач решено</div>
+  60|                 </div>
+  61|             </div>
+  62|             <div class="col-4">
+  63|                 <div class="stat-block">
+  64|                     <div class="stat-num text-warning">{{ tests_done }}</div>
+  65|                     <div class="stat-lbl">Тестов пройдено</div>
+  66|                 </div>
+  67|             </div>
+  68|         </div>
+  69|     </div>
+  70| </div>
+  71| 
+  72| <h2 class="text-center mb-4">Мои курсы</h2>
+  73| <div class="row">
+  74|     {% for lang in languages %}
+  75|     <div class="col-md-6 col-lg-3 mb-4">
+  76|         <div class="card h-100 language-card" style="border-top: 4px solid {{ lang.color }};">
+  77|             <div class="card-body text-center">
+  78|                 <div class="language-icon mb-3">{{ lang.icon }}</div>
+  79|                 <h5 class="card-title">{{ lang.name }}</h5>
+  80|                 <p class="card-text text-muted small">{{ lang.description }}</p>
+  81|                 {% set p = lang_progress.get(lang.code) %}
+  82|                 <div class="progress mb-2" style="height: 12px;">
+  83|                     <div class="progress-bar bg-success" role="progressbar"
+  84|                          style="width: {{ p.percent }}%"></div>
+  85|                 </div>
+  86|                 <small class="text-muted">{{ p.completed }} / {{ p.total }} уроков · {{ p.percent }}%</small>
+  87|             </div>
+  88|             <div class="card-footer bg-transparent border-0 text-center pb-3">
+  89|                 <a href="{{ url_for('language_course', lang_code=lang.code) }}"
+  90|                    class="btn btn-primary w-100">
+  91|                     {{ 'Продолжить обучение' if p.completed > 0 else 'Начать обучение' }}
+  92|                 </a>
+  93|             </div>
+  94|         </div>
+  95|     </div>
+  96|     {% endfor %}
+  97| </div>
+  98| 
+  99| <div class="text-center mt-5">
+ 100|     <p class="text-muted mb-3">Куда дальше?</p>
+ 101|     <div class="d-flex justify-content-center gap-3 flex-wrap">
+ 102|         <a href="{{ url_for('lessons', lang_code=lang_code) }}" class="btn btn-primary btn-xl">
+ 103|             <i class="bi bi-book"></i> Выбрать урок
+ 104|         </a>
+ 105|         <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost btn-xl">
+ 106|             <i class="bi bi-pencil-square"></i> Пройти тест
+ 107|         </a>
+ 108|         <a href="{{ url_for('sandbox') }}" class="btn btn-ghost btn-xl">
+ 109|             <i class="bi bi-terminal"></i> Песочница
+ 110|         </a>
+ 111|     </div>
+ 112| </div>
+ 113| {% endblock %}
+=============== templates/index.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}Codigo — Учимся программировать онлайн{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="row justify-content-center">
+   6|     <div class="col-lg-10 text-center">
+   7|         <div class="page-head">
+   8|             <span class="kicker">Обучение программированию</span>
+   9|             <h1 style="font-size:2.8rem;">Добро пожаловать в <span class="mark-brace">{</span>Codigo<span class="mark-brace">}</span></h1>
+  10|             <p class="mt-3" style="font-size:1.2rem;">
+  11|                 Интерактивные уроки по программированию — с проверкой кода,
+  12|                 уровнями и наградами. Выберите язык и начните обучение!
+  13|             </p>
+  14|         </div>
+  15| 
+  16|         {% if not current_user.is_authenticated %}
+  17|             <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+  18|                 <a href="{{ url_for('login') }}" class="btn btn-primary btn-xl">
+  19|                     <i class="bi bi-box-arrow-in-right"></i> Войти
+  20|                 </a>
+  21|                 <a href="{{ url_for('register') }}" class="btn btn-ghost btn-xl">
+  22|                     <i class="bi bi-person-plus"></i> Регистрация
+  23|                 </a>
+  24|             </div>
+  25|         {% else %}
+  26|             <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-xl mb-4">
+  27|                 <i class="bi bi-speedometer2"></i> Перейти в дашборд
+  28|             </a>
+  29|         {% endif %}
+  30|     </div>
+  31| </div>
+  32| 
+  33| <h2 class="text-center mb-4">Выберите язык программирования</h2>
+  34| 
+  35| <div class="row">
+  36|     {% for lang in languages %}
+  37|     <div class="col-md-6 col-lg-3 mb-4">
+  38|         <div class="card h-100 language-card" style="border-top: 4px solid {{ lang.color }};">
+  39|             <div class="card-body text-center">
+  40|                 <div class="language-icon mb-3">{{ lang.icon }}</div>
+  41|                 <h5 class="card-title">{{ lang.name }}</h5>
+  42|                 <p class="card-text text-muted small">{{ lang.description }}</p>
+  43|                 <div class="language-stats">
+  44|                     <span class="badge bg-secondary me-1">{{ lang.modules_count }} модулей</span>
+  45|                     <span class="badge bg-secondary">{{ lang.lessons_count }} уроков</span>
+  46|                 </div>
+  47|             </div>
+  48|             <div class="card-footer bg-transparent border-0 text-center pb-3">
+  49|                 <a href="{{ url_for('language_course', lang_code=lang.code) }}" 
+  50|                    class="btn btn-primary w-100">
+  51|                     Начать обучение
+  52|                 </a>
+  53|             </div>
+  54|         </div>
+  55|     </div>
+  56|     {% endfor %}
+  57| </div>
+  58| 
+  59| <div class="card mt-5">
+  60|     <div class="card-body p-4 p-lg-5">
+  61|         <h5 class="mb-3">Как это работает</h5>
+  62|         <ol class="text-start mb-0" style="line-height:2;">
+  63|             <li>Выберите язык программирования</li>
+  64|             <li>Пройдите входной тест для определения уровня</li>
+  65|             <li>Изучайте уроки и практикуйтесь в написании кода</li>
+  66|             <li>Получайте XP, открывайте достижения и повышайте уровень</li>
+  67|             <li>Создайте финальный проект и получите сертификат</li>
+  68|         </ol>
+  69|     </div>
+  70| </div>
+  71| {% endblock %}
+=============== templates/lesson.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}{{ lesson.title }} — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head">
+   6|     <span class="kicker">Урок #{{ lesson.id }}</span>
+   7|     <h1>{{ lesson.title }}</h1>
+   8|     <p>{{ lesson.description }}</p>
+   9|     <div class="d-flex flex-wrap gap-2 mt-3">
+  10|         {% if progress %}
+  11|             {% if progress.completed %}
+  12|                 <span class="pill done"><i class="bi bi-check2-circle"></i> Завершено</span>
+  13|             {% else %}
+  14|                 <span class="pill wip"><i class="bi bi-hourglass-split"></i> В процессе</span>
+  15|             {% endif %}
+  16|             <span class="pill idle">Попыток: {{ progress.attempts }}</span>
+  17|         {% else %}
+  18|             <span class="pill idle">Ещё не начат</span>
+  19|         {% endif %}
+  20|         <span class="xp-chip"><i class="bi bi-star"></i> +{{ lesson.xp_reward }} XP за прохождение</span>
+  21|     </div>
+  22| </div>
+  23| 
+  24| <div class="row justify-content-center">
+  25|     <div class="col-lg-9">
+  26|         <div class="card mb-4">
+  27|             <div class="card-body p-4 p-lg-5">
+  28|                 {% if lesson.theory %}
+  29|                 <details class="theory-box" {% if not progress or not progress.completed %}open{% endif %}>
+  30|                     <summary><i class="bi bi-journal-code"></i> Теория — прочитай перед заданием</summary>
+  31|                     <div class="theory-inner">
+  32|                         <ul>
+  33|                             {% for point in lesson.theory %}
+  34|                                 <li>{{ point }}</li>
+  35|                             {% endfor %}
+  36|                         </ul>
+  37|                     </div>
+  38|                 </details>
+  39|                 {% endif %}
+  40| 
+  41|                 {% if lesson.examples %}
+  42|                 <details class="example-box mt-3" open>
+  43|                     <summary><i class="bi bi-lightbulb"></i> Примеры кода — разберись, как это работает</summary>
+  44|                     <div class="example-inner mt-2">
+  45|                         {% for ex in lesson.examples %}
+  46|                         <div class="example-item mb-3">
+  47|                             <div class="example-label">Пример {{ loop.index }}:</div>
+  48|                             <pre class="code-block mb-2"><code class="language-{{ lang_code }}">{{ ex.code }}</code></pre>
+  49|                             {% if ex.explain %}
+  50|                             <small class="text-muted d-block mt-1">{{ ex.explain }}</small>
+  51|                             {% endif %}
+  52|                         </div>
+  53|                         {% endfor %}
+  54|                     </div>
+  55|                 </details>
+  56|                 {% endif %}
+  57| 
+  58| 
+  59| 
+  60|                 <label class="form-label" for="codeEditor">Твой код</label>
+  61|                 <div class="pyeditor" {% if lang_code == 'javascript' %}data-jseditor{% elif lang_code == 'java' %}data-javaeditor{% elif lang_code == 'cpp' %}data-cppeditor{% else %}data-pyeditor{% endif %} data-min-lines="30">
+  62|                     <div class="pe-toolbar">
+  63|                         <span class="pe-file">{{ file_name }}</span>
+  64|                     </div>
+  65|                     <div class="pe-body">
+  66|                         <div class="pe-canvas">
+  67|                             <div class="pe-gutter"></div>
+  68|                             <div class="pe-pane">
+  69|                                 <pre class="pe-highlight"></pre>
+  70|                                 <textarea id="codeEditor" class="pe-input" rows="30" spellcheck="false" wrap="off">{{ initial_code }}</textarea>
+  71|                             </div>
+  72|                         </div>
+  73|                     </div>
+  74|                 </div>
+  75| 
+  76|                 <div id="hintBox" class="hint-note mt-3" {% if not hint %}style="display:none"{% endif %}>
+  77|                     <strong><i class="bi bi-lightbulb-fill"></i> Подсказка:</strong>
+  78|                     <p class="mb-0 mt-1" id="hintText">{{ hint or '' }}</p>
+  79|                 </div>
+  80| 
+  81|                 <div id="solutionBox" class="solution-note mt-3" {% if not solution %}style="display:none"{% endif %}>
+  82|                     <strong><i class="bi bi-key-fill"></i> Полное решение:</strong>
+  83|                     <pre class="code-block mt-2 mb-2" id="solutionCode">{{ solution or '' }}</pre>
+  84|                     <button id="applySolution" class="btn btn-ghost btn-sm" type="button">
+  85|                         <i class="bi bi-box-arrow-in-down"></i> Вставить в редактор
+  86|                     </button>
+  87|                 </div>
+  88| 
+  89|                 <div class="d-flex justify-content-between align-items-center mt-4 gap-2 flex-wrap">
+  90|                     <button id="resetBtn" class="btn btn-ghost" type="button">
+  91|                         <i class="bi bi-arrow-counterclockwise"></i> Сбросить
+  92|                     </button>
+  93|                     <button id="runBtn" class="btn btn-success btn-lg">
+  94|                         <i class="bi bi-play-circle"></i> Проверить задание
+  95|                     </button>
+  96|                 </div>
+  97| 
+  98|                 <div id="outputBox" class="term mt-4" style="display: none;">
+  99|                     <span class="term-title">// РЕЗУЛЬТАТ</span>
+ 100|                 </div>
+ 101| 
+ 102|                 {% if lesson.test %}
+ 103|                 <div class="card mt-4">
+ 104|                     <div class="card-header iconized">
+ 105|                         <span class="head-icon"><i class="bi bi-patch-question"></i></span>
+ 106|                         <span>Мини-тест урока — проверь, как понял материал</span>
+ 107|                     </div>
+ 108|                     <div class="card-body p-4">
+ 109|                         {% for tq in lesson.test %}
+ 110|                         <div class="mb-3">
+ 111|                             <strong>{{ loop.index }}. {{ tq.question }}</strong>
+ 112|                             <div class="d-flex flex-column gap-1 mt-1">
+ 113|                                 {% for opt in tq.options %}
+ 114|                                 <label class="form-check d-flex align-items-center">
+ 115|                                     <input class="form-check-input mini-test-opt" type="radio"
+ 116|                                            name="lt{{ loop.index0 }}" id="lt{{ loop.index0 }}_{{ loop.index0 }}"
+ 117|                                            value="{{ loop.index0 }}">
+ 118|                                     <span class="form-check-label">{{ loop.index }}. {{ opt }}</span>
+ 119|                                 </label>
+ 120|                                 {% endfor %}
+ 121|                             </div>
+ 122|                             <div class="mini-test-result" id="ltRes{{ loop.index0 }}"></div>
+ 123|                         </div>
+ 124|                         {% endfor %}
+ 125|                     </div>
+ 126|                 </div>
+ 127|                 {% endif %}
+ 128| 
+ 129|             </div>
+ 130|         </div>
+ 131| 
+ 132|         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+ 133|                         {% if prev_lesson %}
+ 134|                 <a class="btn-prev-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=prev_lesson.id) }}">
+ 135|                     <i class="bi bi-arrow-left"></i> Предыдущее задание
+ 136|                 </a>
+ 137|             {% else %}
+ 138|                 <span class="btn-prev-task" style="opacity:.45; cursor:default;">
+ 139|                     <i class="bi bi-arrow-left"></i> Предыдущее задание
+ 140|                 </span>
+ 141|             {% endif %}
+ 142| 
+ 143|             <a class="np-all" href="{{ url_for('lessons', lang_code=lang_code) }}">
+ 144|                 <i class="bi bi-grid"></i> Все уроки
+ 145|             </a>
+ 146| 
+ 147|             {% if next_lesson %}
+ 148|                 <a class="btn-next-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=next_lesson.id) }}">
+ 149|                     Следующее задание <i class="bi bi-arrow-right"></i>
+ 150|                 </a>
+ 151|             {% else %}
+ 152|                 <span class="btn-next-task" style="opacity:.5; cursor:default;">
+ 153|                     Следующее задание <i class="bi bi-arrow-right"></i>
+ 154|                 </span>
+ 155|             {% endif %}
+ 156|         </div>
+ 157|     </div>
+ 158| </div>
+ 159| {% endblock %}
+ 160| 
+ 161| {% block extra_js %}
+ 162| <script>
+ 163| (function() {
+ 164|     var resetBtn = document.getElementById('resetBtn');
+ 165|     var runBtn = document.getElementById('runBtn');
+ 166|     var editor = document.getElementById('codeEditor');
+ 167|     var output = document.getElementById('outputBox');
+ 168|     var INITIAL = {{ initial_code | tojson }};
+ 169|     var lastSolution = {{ (solution or '') | tojson }};
+ 170| 
+ 171|     resetBtn.addEventListener('click', function() {
+ 172|         editor.value = INITIAL;
+ 173|         output.style.display = 'none';
+ 174|         // перерисовать подсветку и высоту редактора после сброса
+ 175|         editor.dispatchEvent(new Event('input'));
+ 176|     });
+ 177| 
+ 178|     // экранируем вывод, чтобы <, > и html не ломали результат
+ 179|     function esc(s) {
+ 180|         return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+ 181|     }
+ 182| 
+ 183|     runBtn.addEventListener('click', function() {
+ 184|         runBtn.disabled = true;
+ 185|         runBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Выполнение...';
+ 186|         output.style.display = 'block';
+ 187|         output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\nПроверяем код…';
+ 188| 
+ 189|         fetch('/lesson/{{ lesson.id }}', {
+ 190|             method: 'POST',
+ 191|             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+ 192|             body: 'code=' + encodeURIComponent(editor.value)
+ 193|         })
+ 194|         .then(function(r) {
+ 195|             var ct = r.headers.get('Content-Type') || '';
+ 196|             if (!ct.includes('application/json')) {
+ 197|                 throw new Error('session');
+ 198|             }
+ 199|             return r.json();
+ 200|         })
+ 201|         .then(function(data) {
+ 202|             var html = '<span class="term-title">// РЕЗУЛЬТАТ</span>';
+ 203|             if (data.stdout) {
+ 204|                 html += '\n<span class="t-out">Output:</span>\n' + esc(data.stdout) + '\n';
+ 205|             }
+ 206|             if (data.stderr) {
+ 207|                 html += '\n<span class="t-err">Error:</span>\n' + esc(data.stderr) + '\n';
+ 208|             }
+ 209|             if (data.hint) {
+ 210|                 html += '\n<span class="t-hint">💡 Подсказка:</span> ' + esc(data.hint) + '\n';
+ 211|             }
+ 212|             if (data.success) {
+ 213|                 html += '\n<span class="t-ok">✅ Урок пройден, отлично!</span>';
+ 214|                 if (data.new_achievements && data.new_achievements.length) {
+ 215|                     html += '\n<span class="t-hint">🏆 Новое достижение: ' + esc(data.new_achievements.join(', ')) + '</span>';
+ 216|                 }
+ 217|                 if (typeof data.level === 'number') {
+ 218|                     html += '\n<span class="t-out">Уровень: ' + data.level + ' · XP: ' + data.xp + '</span>';
+ 219|                 }
+ 220|             } else {
+ 221|                 html += '\n<span class="t-err">❌ Проверка не пройдена — попробуй ещё раз</span>';
+ 222|             }
+ 223|             output.innerHTML = html;
+ 224| 
+ 225|             // прогресс подсказок: с 3-й ошибки — лампочка, с 4-й — решение
+ 226|             if (data.success) {
+ 227|                 document.getElementById('hintBox').style.display = 'none';
+ 228|                 document.getElementById('solutionBox').style.display = 'none';
+ 229|             } else if (typeof data.attempts === 'number') {
+ 230|                 if (data.attempts >= 3 && data.hint) {
+ 231|                     document.getElementById('hintBox').style.display = 'block';
+ 232|                     document.getElementById('hintText').textContent = data.hint;
+ 233|                 }
+ 234|                 if (data.attempts >= 4 && data.solution) {
+ 235|                     lastSolution = data.solution;
+ 236|                     document.getElementById('solutionBox').style.display = 'block';
+ 237|                     document.getElementById('solutionCode').textContent = data.solution;
+ 238|                 }
+ 239|             }
+ 240| 
+ 241|             runBtn.disabled = false;
+ 242|             runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить задание';
+ 243|         })
+ 244|         .catch(function(err) {
+ 245|             var msg = err.message === 'session'
+ 246|                 ? 'Сессия истекла — обнови страницу и войди заново.'
+ 247|                 : err.message;
+ 248|             output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\n<span class="t-err">Ошибка: ' + msg + '</span>';
+ 249|             runBtn.disabled = false;
+ 250|             runBtn.innerHTML = '<i class="bi bi-play-circle"></i> Проверить задание';
+ 251|         });
+ 252|     });
+ 253| 
+ 254|     // кнопка "Вставить в редактор" под полным решением
+ 255|     document.getElementById('applySolution').addEventListener('click', function() {
+ 256|         if (!lastSolution) return;
+ 257|         editor.value = lastSolution;
+ 258|         editor.dispatchEvent(new Event('input'));
+ 259|         editor.focus();
+ 260|     });
+ 261| 
+ 262|     // Мини-тест урока: мгновенная проверка ответа с объяснением
+ 263|     {% if lesson.test %}
+ 264|     var testAnswers = {{ lesson.test | map(attribute='correct') | list | tojson }};
+ 265|     var testExplains = [];
+ 266|     {% if lesson.test %}
+ 267|     {% for tq in lesson.test %}
+ 268|     testExplains.push({{ tq.explain | default('') | tojson }});
+ 269|     {% endfor %}
+ 270|     {% endif %}
+ 271|     var miniRadios = document.querySelectorAll('.mini-test-opt');
+ 272|     miniRadios.forEach(function(radio) {
+ 273|         radio.addEventListener('change', function() {
+ 274|             var name = radio.name; // lt0, lt1...
+ 275|             var idx = parseInt(name.replace('lt', ''), 10);
+ 276|             var box = document.getElementById('ltRes' + idx);
+ 277|             var chosen = parseInt(radio.value, 10);
+ 278|             if (chosen === testAnswers[idx]) {
+ 279|                 box.innerHTML = '<span class="t-ok">✅ Правильно!</span> ' +
+ 280|                     (testExplains[idx] ? '<small class="text-muted">' + esc(testExplains[idx]) + '</small>' : '');
+ 281|             } else {
+ 282|                 box.innerHTML = '<span class="t-err">❌ Неправильно. Попробуй ещё раз.</span>';
+ 283|             }
+ 284|         });
+ 285|     });
+ 286|     {% endif %}
+ 287| })();
+ 288| </script>
+ 289| {% endblock %}
+=============== templates/lessons.html ===============
+   1| {% extends 'base.html' %}
+   2| {% block title %}Уроки — {{ lang_info.name }} — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head">
+   6|     <span class="kicker">{{ lang_info.icon }} {{ lang_info.name }} · Каталог уроков</span>
+   7|     <h1>Выбери урок — проходи в любом порядке</h1>
+   8|     <p>Ты не привязан к строгой очереди. Жми на любую карточку и начинай.</p>
+   9|     {% if total %}
+  10|     <div class="d-flex flex-wrap gap-2 mt-2">
+  11|         <span class="pill accent"><i class="bi bi-collection"></i> Всего: {{ total }}</span>
+  12|         <span class="pill done"><i class="bi bi-check2-circle"></i> Пройдено: {{ done }}</span>
+  13|         <a class="pill accent" href="{{ url_for('language_course', lang_code=lang_code) }}"><i class="bi bi-arrow-left"></i> К курсу {{ lang_info.name }}</a>
+  14|     </div>
+  15|     {% endif %}
+  16| </div>
+  17| 
+  18| {% for module in modules %}
+  19| <div class="module-block mb-4">
+  20|     <div class="module-head">
+  21|         <span class="mod-num">{{ loop.index }}</span>
+  22|         <div class="flex-grow-1">
+  23|             <h3>{{ module.title }}</h3>
+  24|             <div class="mod-total">{{ module.lessons|length }} уроков</div>
+  25|         </div>
+  26|         {% if module.description %}
+  27|         <span class="pill idle">{{ module.description }}</span>
+  28|         {% endif %}
+  29|     </div>
+  30|     <div class="p-3">
+  31|         {% for lesson in module.lessons %}
+  32|             {% set p = progress_map.get(lesson.id) %}
+  33|             <a class="lesson-row {% if p and p.completed %}done{% elif p %}wip{% endif %}"
+  34|                href="{{ url_for('lesson', lang_code=lang_code, lesson_id=lesson.id) }}">
+  35|                 <div class="lr-left">
+  36|                     <span class="lr-idx">
+  37|                         {% if p and p.completed %}<i class="bi bi-check-lg"></i>
+  38|                         {% elif p %}<i class="bi bi-hourglass-split"></i>
+  39|                         {% else %}{{ loop.index }}{% endif %}
+  40|                     </span>
+  41|                     <div>
+  42|                         <div class="lr-title">{{ lesson.title }}</div>
+  43|                         <div class="lr-desc">{{ lesson.description }}</div>
+  44|                     </div>
+  45|                 </div>
+  46|                 <div class="d-flex align-items-center gap-2">
+  47|                     <span class="xp-chip"><i class="bi bi-star"></i> +{{ lesson.xp_reward }} XP</span>
+  48|                     <i class="bi bi-chevron-right text-muted"></i>
+  49|                 </div>
+  50|             </a>
+  51|         {% endfor %}
+  52|     </div>
+  53| </div>
+  54| {% endfor %}
+  55| 
+  56| <div class="text-center">
+  57|     <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost"><i class="bi bi-pencil-square"></i> Пройти входной тест для {{ lang_info.name }}</a>
+  58| </div>
+  59| {% endblock %}
+=============== static/script.js ===============
+   1| // Авто-закрытие flash-сообщений + анимированный фон с кодом
+   2| document.addEventListener('DOMContentLoaded', function() {
+   3|     var alerts = document.querySelectorAll('.alert-dismissible');
+   4|     setTimeout(function() {
+   5|         alerts.forEach(function(alert) {
+   6|             var bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+   7|             bsAlert.close();
+   8|         });
+   9|     }, 5000);
+  10| 
+  11|     initCodeBackground();
+  12| });
+  13| 
+  14| // ---- Анимированный фон: колонки с примерами решения задач (в т.ч. ЕГЭ) ----
+  15| var CODE_SNIPPETS = [
+  16|     "# ЕГЭ информатика, задание 1\ns = 0\nn = 0\nwhile s < 111:\n    s = s + 7\n    n = n + 1\nprint(n)   # 16",
+  17|     "# Поиск кратных чисел\ncount = 0\nfor i in range(100, 1000):\n    if i % 5 == 0 and i % 11 != 0:\n        count += 1\nprint(count)",
+  18|     "# Сумма цифр числа\nn = 12345\ns = 0\nwhile n > 0:\n    s += n % 10\n    n //= 10\nprint(s)",
+  19|     "# Рекурсия как в ЕГЭ\ndef f(x):\n    if x < 2:\n        return 1\n    if x % 2 == 0:\n        return f(x - 2) + 1\n    return f(x - 1)\nprint(f(10))",
+  20|     "# Цикл с шагом\nfor i in range(2, 101, 2):\n    print(i, end=' ')\n# 2 4 6 ... 100",
+  21|     "# Вложенные условия\nx = 15\nif x > 10:\n    if x % 3 == 0:\n        print('>10 и кратно 3')",
+  22|     "# Двоичное представление\nn = 42\nb = bin(n)[2:]\nprint(b)            # 101010\nprint(b.count('1')) # 3",
+  23|     "# Максимум в списке\narr = [3, 1, 4, 1, 5]\nm = arr[0]\nfor v in arr:\n    if v > m:\n        m = v\nprint(m)",
+  24|     "# Простые числа\nfor k in range(2, 40):\n    ok = True\n    for d in range(2, int(k**0.5) + 1):\n        if k % d == 0:\n            ok = False\n            break\n    if ok:\n        print(k, end=' ')",
+  25|     "# while и break\ni = 1\nwhile True:\n    if i * i > 200:\n        break\n    i += 1\nprint(i)",
+  26|     "# Строки\ns = 'информатика'\nprint(s.upper())\nprint(s[::-1])\nprint(len(s))",
+  27|     "# Частоты символов\nfreq = {}\nfor ch in 'abracadabra':\n    freq[ch] = freq.get(ch, 0) + 1\nprint(freq)",
+  28|     "# Количество информации\nN = 256\nbits = N.bit_length()\nprint(bits)  # 9 бит",
+  29|     "# Сдвиг массива\na = [1, 2, 3, 4]\nx = a.pop(0)\na.append(x)\nprint(a)  # [2, 3, 4, 1]",
+  30|     "# Пары по условию\npairs = 0\nfor x in range(1, 51):\n    for y in range(1, 51):\n        if x + y == 50 and x < y:\n            pairs += 1\nprint(pairs)",
+  31|     "# Обратный цикл\nfor n in range(10, 0, -1):\n    print(n, end=' ')\n# 10 9 8 ... 1"
+  32| ];
+  33| 
+  34| function initCodeBackground() {
+  35|     var bg = document.getElementById('codeBg');
+  36|     if (!bg) return;
+  37| 
+  38|     // очищаем старые колонки — иначе при ресайзе они накладываются друг на друга
+  39|     bg.innerHTML = '';
+  40| 
+  41|     var w = window.innerWidth;
+  42|     // на мобильных — 1 тонкая колонка, на планшетах — 2, на десктопе 3-8
+  43|     var cols = w < 480 ? 1 : (w < 768 ? 2 : Math.min(8, Math.floor(w / 220)));
+  44|     for (var i = 0; i < cols; i++) {
+  45|         var col = document.createElement('div');
+  46|         col.className = 'code-col ' + (i % 2 === 0 ? 'up' : 'down');
+  47|         col.style.left = (i * (100 / cols)).toFixed(2) + '%';
+  48|         col.style.width = (100 / cols).toFixed(2) + '%';
+  49| 
+  50|         var parts = [];
+  51|         for (var k = 0; k < 9; k++) {
+  52|             parts.push(CODE_SNIPPETS[(i * 5 + k * 3) % CODE_SNIPPETS.length]);
+  53|         }
+  54|         var text = parts.join('\n');
+  55| 
+  56|         // два одинаковых блока для бесшовной прокрутки
+  57|         var block1 = document.createElement('div');
+  58|         block1.className = 'code-col-inner';
+  59|         block1.textContent = text;
+  60|         var block2 = document.createElement('div');
+  61|         block2.className = 'code-col-inner';
+  62|         block2.textContent = text;
+  63| 
+  64|         col.appendChild(block1);
+  65|         col.appendChild(block2);
+  66| 
+  67|         col.style.animationDuration = (22 + i * 5) + 's';
+  68|         col.style.animationDelay = '-' + (i * 2.6) + 's';
+  69|         bg.appendChild(col);
+  70|     }
+  71| }
+  72| 
+  73| // пересоздаём фон при ресайзе (с debounce, чтобы не тормозить)
+  74| var _codeBgTimer = null;
+  75| window.addEventListener('resize', function() {
+  76|     if (_codeBgTimer) clearTimeout(_codeBgTimer);
+  77|     _codeBgTimer = setTimeout(function() { initCodeBackground(); }, 250);
+  78| });
+  79| // ---- Редактор в стиле PyCharm: подсветка Python + нумерация строк ----
+  80| (function() {
+  81|     var KEYWORDS = new Set(('def class return if elif else for while import from as try ' +
+  82|         'except finally with in not and or is None True False pass break continue ' +
+  83|         'lambda global nonlocal raise yield del assert async await print').split(' '));
+  84| 
+  85|     function escapeHtml(s) {
+  86|         return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  87|     }
+  88| 
+  89|     function highlightPython(code) {
+  90|         var tokenRe = /(#[^\n]*)|("""[\s\S]*?"""|'''[\s\S]*?''')|("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|(\b\d+(?:\.\d+)?[jJ]?\b)|(\b(?:def|class|return|if|elif|else|for|while|import|from|as|try|except|finally|with|in|not|and|or|is|None|True|False|pass|break|continue|lambda|global|nonlocal|raise|yield|del|assert|async|await)\b)|([A-Za-z_][A-Za-z0-9_]*)/g;
+  91|         var out = '';
+  92|         var last = 0, m;
+  93|         while ((m = tokenRe.exec(code)) !== null) {
+  94|             if (m.index > last) out += escapeHtml(code.slice(last, m.index));
+  95|             if (m[1] !== undefined) out += '<span class="tok-c">' + escapeHtml(m[1]) + '</span>';
+  96|             else if (m[2] !== undefined) out += '<span class="tok-s">' + escapeHtml(m[2]) + '</span>';
+  97|             else if (m[3] !== undefined) out += '<span class="tok-s">' + escapeHtml(m[3]) + '</span>';
+  98|             else if (m[4] !== undefined) out += '<span class="tok-n">' + escapeHtml(m[4]) + '</span>';
+  99|             else if (m[5] !== undefined) out += '<span class="tok-k">' + escapeHtml(m[5]) + '</span>';
+ 100|             else if (m[6] !== undefined) {
+ 101|                 var id = m[6], isCall = false;
+ 102|                 var rest = code.slice(tokenRe.lastIndex).replace(/^\s*/, '');
+ 103|                 if (rest.charAt(0) === '(') isCall = true;
+ 104|                 if (KEYWORDS.has(id)) {
+ 105|                     out += '<span class="tok-k">' + escapeHtml(id) + '</span>';
+ 106|                 } else if (isCall) {
+ 107|                     out += '<span class="tok-f">' + escapeHtml(id) + '</span>';
+ 108|                 } else {
+ 109|                     out += '<span class="tok-b">' + escapeHtml(id) + '</span>';
+ 110|                 }
+ 111|             }
+ 112|             last = tokenRe.lastIndex;
+ 113|         }
+ 114|         if (last < code.length) out += escapeHtml(code.slice(last));
+ 115|         return out;
+ 116|     }
+ 117| 
+ 118|     function parseMaxHeight(el) {
+ 119|         // вытащить max-height из computedStyle (поддерживает '45vh', '320px', 'none')
+ 120|         var cs = getComputedStyle(el);
+ 121|         var mh = cs.maxHeight;
+ 122|         if (!mh || mh === 'none') return 0;
+ 123|         if (mh.indexOf('vh') !== -1) return parseFloat(mh) * window.innerHeight / 100;
+ 124|         if (mh.indexOf('px') !== -1) return parseFloat(mh);
+ 125|         return parseFloat(mh) || 0;
+ 126|     }
+ 127| 
+ 128|     function initPyEditor(root) {
+ 129|         var input = root.querySelector('.pe-input');
+ 130|         var gutter = root.querySelector('.pe-gutter');
+ 131|         var hl = root.querySelector('.pe-highlight');
+ 132|         var body = root.querySelector('.pe-body');
+ 133|         if (!input || !gutter || !hl || !body) return;
+ 134| 
+ 135|         // максимальная вместимость редактора (атрибут data-min-lines на .pyeditor;
+ 136|         // по умолчанию 500 — песочница; в уроках хватит 50)
+ 137|         var minLines = parseInt(root.getAttribute('data-min-lines'), 10);
+ 138|         if (!minLines || isNaN(minLines) || minLines < 1) minLines = 500;
+ 139| 
+ 140|         function render() {
+ 141|             hl.innerHTML = highlightPython(input.value);
+ 142|             var count = (input.value.match(/\n/g) || []).length + 1;
+ 143| 
+ 144|             var cs = getComputedStyle(input);
+ 145|             var lineH = parseFloat(cs.lineHeight);
+ 146|             if (!lineH || isNaN(lineH)) lineH = parseFloat(cs.fontSize) * 1.7;
+ 147| 
+ 148|             // сколько строк помещается в видимой области — чтобы внизу
+ 149|             // всегда был запас для прокрутки и номера не обрывались
+ 150|             var visLines = 4;
+ 151|             var bodyH = body.getBoundingClientRect().height;
+ 152|             if (bodyH > 0) {
+ 153|                 visLines = Math.max(4, Math.ceil(bodyH / lineH));
+ 154|             } else {
+ 155|                 // на мобильных height:auto → читаем max-height из CSS
+ 156|                 var maxH = parseMaxHeight(body);
+ 157|                 if (maxH) visLines = Math.max(3, Math.floor(maxH / lineH));
+ 158|             }
+ 159|             // на мобильных не растягиваем редактор — только по коду
+ 160|             if (window.innerWidth <= 768) {
+ 161|                 visLines = count;
+ 162|             }
+ 163|             // номера строк = фактический код + небольшой запас вниз,
+ 164|             // но минимум — вся видимая область (строки «добавляются сами»)
+ 165|             var total = Math.max(count + 1, visLines);
+ 166| 
+ 167|             var nums = '';
+ 168|             for (var i = 1; i <= total; i++) nums += i + '\n';
+ 169|             gutter.textContent = nums;
+ 170| 
+ 171|             // высота textarea = число строк в коде + запас,
+ 172|             // но не больше максимума вместимости
+ 173|             var padTop = parseFloat(cs.paddingTop) || 0;
+ 174|             var padBottom = parseFloat(cs.paddingBottom) || 0;
+ 175|             var wantH = total * lineH + padTop + padBottom + 4;
+ 176|             var capH = (minLines + visLines) * lineH + padTop + padBottom;
+ 177|             var h = Math.min(wantH, capH);
+ 178|             input.style.height = Math.round(h) + 'px';
+ 179|             syncScroll();
+ 180|         }
+ 181|         // вертикаль скроллит .pe-body (нативно), горизонталь — textarea
+ 182|         function syncScroll() {
+ 183|             hl.style.transform = 'translateX(' + (-input.scrollLeft) + 'px)';
+ 184|             hl.style.height = input.offsetHeight + 'px';
+ 185|         }
+ 186|         input.addEventListener('input', render);
+ 187|         input.addEventListener('scroll', syncScroll);
+ 188|         window.addEventListener('resize', render);
+ 189|         render();
+ 190|     }
+ 191| 
+ 192|     document.addEventListener('DOMContentLoaded', function() {
+ 193|         var editors = document.querySelectorAll('[data-pyeditor]');
+ 194|         for (var i = 0; i < editors.length; i++) initPyEditor(editors[i]);
+ 195|         var jsEditors = document.querySelectorAll('[data-jseditor]');
+ 196|         for (var i = 0; i < jsEditors.length; i++) initJsEditor(jsEditors[i]);
+ 197|         var javaEditors = document.querySelectorAll('[data-javaeditor]');
+ 198|         for (var i = 0; i < javaEditors.length; i++) initJavaEditor(javaEditors[i]);
+ 199|         var cppEditors = document.querySelectorAll('[data-cppeditor]');
+ 200|         for (var i = 0; i < cppEditors.length; i++) initCppEditor(cppEditors[i]);
+ 201|     });
+ 202| })();
+ 203| // ============================================================
+ 204| //  Звуки кликов + фоновая релакс-музыка (Web Audio, без файлов)
+ 205| //  ============================================================
+ 206| (function() {
+ 207|     'use strict';
+ 208| 
+ 209|     var ctx = null;
+ 210|     var master = null;
+ 211|     var musicGain = null;
+ 212|     var musicOn = localStorage.getItem('codigo_music') !== 'off';
+ 213|     var soundsOn = localStorage.getItem('codigo_sounds') !== 'off';
+ 214|     var musicNodes = [];
+ 215|     var schedulerTimer = null;
+ 216|     var nextChordTime = 0;
+ 217|     var chordIndex = 0;
+ 218| 
+ 219|     // мягкие аккорды-пады для фона: Cmaj7, Am7, Fmaj7, Gmaj7, Dmaj7, Em7
+ 220|     var CHORDS = [
+ 221|         [261.63, 329.63, 392.00, 493.88],
+ 222|         [220.00, 261.63, 329.63, 392.00],
+ 223|         [174.61, 220.00, 261.63, 329.63],
+ 224|         [196.00, 246.94, 293.66, 392.00],
+ 225|         [246.94, 293.66, 369.99, 440.00],
+ 226|         [164.81, 196.00, 246.94, 329.63]
+ 227|     ];
+ 228| 
+ 229|     function ensureCtx() {
+ 230|         var AC = window.AudioContext || window.webkitAudioContext;
+ 231|         if (!AC) return false;
+ 232|         if (!ctx) {
+ 233|             ctx = new AC();
+ 234|             master = ctx.createGain();
+ 235|             master.gain.value = 0.9;
+ 236|             master.connect(ctx.destination);
+ 237|             musicGain = ctx.createGain();
+ 238|             musicGain.gain.value = musicOn ? 0.13 : 0.0001;
+ 239|             musicGain.connect(master);
+ 240|         }
+ 241|         if (ctx.state === 'suspended') ctx.resume();
+ 242|         return true;
+ 243|     }
+ 244| 
+ 245|     // короткий мягкий «пик» при клике; тип меняет высоту тона
+ 246|     function playClick(type) {
+ 247|         if (!soundsOn || !ensureCtx()) return;
+ 248|         try {
+ 249|             var t = ctx.currentTime;
+ 250|             var freq;
+ 251|             if (type === 'primary') freq = 880;
+ 252|             else if (type === 'danger') freq = 520;
+ 253|             else if (type === 'success') freq = 660;
+ 254|             else freq = 740;
+ 255| 
+ 256|             var o = ctx.createOscillator();
+ 257|             var g = ctx.createGain();
+ 258|             o.type = 'sine';
+ 259|             o.frequency.setValueAtTime(freq, t);
+ 260|             o.frequency.exponentialRampToValueAtTime(freq * 0.75, t + 0.1);
+ 261|             g.gain.setValueAtTime(0.001, t);
+ 262|             g.gain.exponentialRampToValueAtTime(type === 'ghost' ? 0.04 : 0.06, t + 0.01);
+ 263|             g.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+ 264|             o.connect(g);
+ 265|             g.connect(master);
+ 266|             o.start(t);
+ 267|             o.stop(t + 0.15);
+ 268|         } catch (e) { /* звук некритичен */ }
+ 269|     }
+ 270| // одна «нота» пада: два осциллятора + фильтр, медленное плавное начало
+ 271|     function buildVoice(t, freq, det, wave, vol, dur) {
+ 272|         var o = ctx.createOscillator();
+ 273|         var g = ctx.createGain();
+ 274|         var f = ctx.createBiquadFilter();
+ 275|         o.type = wave;
+ 276|         o.frequency.setValueAtTime(freq * det, t);
+ 277|         f.type = 'lowpass';
+ 278|         f.frequency.setValueAtTime(900, t);
+ 279|         f.Q.setValueAtTime(0.7, t);
+ 280|         g.gain.setValueAtTime(0.0001, t);
+ 281|         g.gain.exponentialRampToValueAtTime(vol, t + 2.2);
+ 282|         g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+ 283|         o.connect(g);
+ 284|         g.connect(f);
+ 285|         f.connect(musicGain);
+ 286|         o.onended = function() {
+ 287|             try { g.disconnect(); } catch (e2) {}
+ 288|             try { f.disconnect(); } catch (e2) {}
+ 289|             var idx = musicNodes.indexOf(o);
+ 290|             if (idx > -1) musicNodes.splice(idx, 1);
+ 291|         };
+ 292|         o.start(t);
+ 293|         o.stop(t + dur + 0.5);
+ 294|         return o;
+ 295|     }
+ 296| 
+ 297|     function scheduleChord() {
+ 298|         if (!musicOn || !ctx) return;
+ 299|         var t = Math.max(nextChordTime, ctx.currentTime + 0.02);
+ 300|         var chord = CHORDS[chordIndex % CHORDS.length];
+ 301|         chordIndex++;
+ 302|         var dur = 7.5;
+ 303| 
+ 304|         for (var i = 0; i < chord.length; i++) {
+ 305|             var freq = chord[i];
+ 306|             musicNodes.push(buildVoice(t, freq, 1.0, 'sine', 0.045, dur));
+ 307|             musicNodes.push(buildVoice(t, freq, 1.003, 'triangle', 0.026, dur));
+ 308|         }
+ 309| 
+ 310|         nextChordTime = t + dur - 0.6;
+ 311|         schedulerTimer = setTimeout(scheduleChord,
+ 312|             Math.max(50, (nextChordTime - ctx.currentTime) * 1000));
+ 313|     }
+ 314| 
+ 315|     function startMusic() {
+ 316|         if (!musicOn || !ensureCtx()) return;
+ 317|         if (schedulerTimer) return;
+ 318|         nextChordTime = ctx.currentTime + 0.15;
+ 319|         scheduleChord();
+ 320|     }
+ 321| 
+ 322|     function stopMusic() {
+ 323|         if (schedulerTimer) {
+ 324|             clearTimeout(schedulerTimer);
+ 325|             schedulerTimer = null;
+ 326|         }
+ 327|         var t = ctx ? ctx.currentTime : 0;
+ 328|         if (ctx && musicGain) {
+ 329|             musicGain.gain.cancelScheduledValues(t);
+ 330|             musicGain.gain.setValueAtTime(Math.max(musicGain.gain.value || 0.13, 0.0001), t);
+ 331|             musicGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+ 332|         }
+ 333|         var nodes = musicNodes.slice();
+ 334|         musicNodes = [];
+ 335|         nodes.forEach(function(n) {
+ 336|             try { n.stop(t + 0.1); } catch (e2) {}
+ 337|             try { n.disconnect(); } catch (e2) {}
+ 338|         });
+ 339|     }
+ 340| 
+ 341|     function toggleMusic() {
+ 342|         if (!ensureCtx()) return;
+ 343|         musicOn = !musicOn;
+ 344|         localStorage.setItem('codigo_music', musicOn ? 'on' : 'off');
+ 345|         var t = ctx.currentTime;
+ 346|         if (musicOn) {
+ 347|             musicGain.gain.cancelScheduledValues(t);
+ 348|             musicGain.gain.setValueAtTime(0.0001, t);
+ 349|             musicGain.gain.exponentialRampToValueAtTime(0.13, t + 1.2);
+ 350|             startMusic();
+ 351|             playClick('success');
+ 352|         } else {
+ 353|             stopMusic();
+ 354|             playClick('default');
+ 355|         }
+ 356|         updateMusicBtn();
+ 357|     }
+ 358| 
+ 359|     function toggleSounds() {
+ 360|         soundsOn = !soundsOn;
+ 361|         localStorage.setItem('codigo_sounds', soundsOn ? 'on' : 'off');
+ 362|         if (soundsOn) playClick('success');
+ 363|         updateSoundsBtn();
+ 364|     }
+ 365| function updateMusicBtn() {
+ 366|         var b = document.getElementById('musicBtn');
+ 367|         if (!b) return;
+ 368|         var icon = b.querySelector('i');
+ 369|         if (!icon) return;
+ 370|         if (musicOn) {
+ 371|             icon.className = 'bi bi-music-note-beamed';
+ 372|             b.title = 'Выключить фоновую музыку';
+ 373|             b.classList.remove('off');
+ 374|             b.classList.add('on');
+ 375|         } else {
+ 376|             icon.className = 'bi bi-volume-mute-fill';
+ 377|             b.title = 'Включить фоновую музыку';
+ 378|             b.classList.remove('on');
+ 379|             b.classList.add('off');
+ 380|         }
+ 381|     }
+ 382| 
+ 383|     function updateSoundsBtn() {
+ 384|         var b = document.getElementById('soundsBtn');
+ 385|         if (!b) return;
+ 386|         var icon = b.querySelector('i');
+ 387|         if (!icon) return;
+ 388|         if (soundsOn) {
+ 389|             icon.className = 'bi bi-volume-up';
+ 390|             b.title = 'Выключить звуки кликов';
+ 391|             b.classList.remove('off');
+ 392|         } else {
+ 393|             icon.className = 'bi bi-volume-mute-fill';
+ 394|             b.title = 'Включить звуки кликов';
+ 395|             b.classList.add('off');
+ 396|         }
+ 397|     }
+ 398| 
+ 399|     // первый клик/клавиша разблокирует аудио (этого требует браузер)
+ 400|     function firstInteraction() {
+ 401|         if (ensureCtx() && musicOn) startMusic();
+ 402|         document.removeEventListener('pointerdown', firstInteraction);
+ 403|         document.removeEventListener('keydown', firstInteraction);
+ 404|     }
+ 405|     document.addEventListener('pointerdown', firstInteraction);
+ 406|     document.addEventListener('keydown', firstInteraction);
+ 407| 
+ 408|     // звук при клике по кнопкам и ссылкам
+ 409|     document.addEventListener('click', function(ev) {
+ 410|         var el = ev.target && ev.target.closest ?
+ 411|             ev.target.closest('a, button, .btn, .nav-link, .navbar-toggler, .btn-close, input[type=submit]') : null;
+ 412|         if (!el) return;
+ 413|         if (el.closest('#soundDock')) return; // кнопки дока играют свои звуки
+ 414|         if (!soundsOn) return;
+ 415|         var cls = el.className || '';
+ 416|         var type = 'default';
+ 417|         if (/btn-primary/.test(cls) || /btn-xl/.test(cls) || el.classList.contains('navbar-toggler')) {
+ 418|             type = 'primary';
+ 419|         } else if (/btn-danger/.test(cls) || /btn-close/.test(cls) || /btn-ghost/.test(cls)) {
+ 420|             type = 'danger';
+ 421|         } else if (/btn-success/.test(cls)) {
+ 422|             type = 'success';
+ 423|         }
+ 424|         playClick(type);
+ 425|     });
+ 426| 
+ 427|     document.addEventListener('DOMContentLoaded', function() {
+ 428|         updateMusicBtn();
+ 429|         updateSoundsBtn();
+ 430|         var mb = document.getElementById('musicBtn');
+ 431|         var sb = document.getElementById('soundsBtn');
+ 432|         if (mb) mb.addEventListener('click', function(ev) { ev.preventDefault(); toggleMusic(); });
+ 433|         if (sb) sb.addEventListener('click', function(ev) { ev.preventDefault(); toggleSounds(); });
+ 434|     });
+ 435| })();

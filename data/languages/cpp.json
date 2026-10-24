@@ -1,0 +1,1872 @@
+{
+ "cpp": {
+  "name": "C++",
+  "icon": "⚙️",
+  "color": "#00599C",
+  "description": "Мощный компилируемый язык для систем и игр.",
+  "difficulty": "Сложный старт",
+  "final_project": "Менеджер заметок",
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в C++?",
+    "options": [
+     "print()",
+     "cout <<",
+     "console.log()",
+     "echo()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Какая библиотека отвечает за ввод-вывод?",
+    "options": [
+     "#include <iostream>",
+     "#include <stdio>",
+     "#include <print>",
+     "#include <io>"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой тип для целых чисел?",
+    "options": [
+     "int",
+     "integer",
+     "number",
+     "longer"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить функцию в C++?",
+    "options": [
+     "int name() { }",
+     "function name()",
+     "def name()",
+     "fun name() { }"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что такое указатель?",
+    "options": [
+     "Переменная с адресом памяти",
+     "Число",
+     "Строка",
+     "Функция"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как создать вектор int?",
+    "options": [
+     "vector<int> v;",
+     "int[] v;",
+     "list v;",
+     "vec v;"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какая конструкция создаёт объект?",
+    "options": [
+     "new для класса",
+     "cat() конструктор",
+     "class Cat c;",
+     "Cat c;"
+    ],
+    "correct": 3
+   },
+   {
+    "question": "Что делает return 0; в main?",
+    "options": [
+     "Ошибку",
+     "Завершает программу успешно",
+     "Выводит 0",
+     "Цикл"
+    ],
+    "correct": 1
+   }
+  ],
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы",
+    "description": "Уровень модуля: Лёгкий",
+    "difficulty": "easy",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Основы. Привет, мир!",
+      "description": "Выведи в консоль текст: Привет, мир!",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи в консоль текст: привет, мир!",
+       "В задании обязательно используются: «cout», «Привет, мир!». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Привет, мир!»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет, мир!\" << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, Привет, мир!."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 101,
+        "title": "Привет, мир!",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи в консоль текст: Привет, мир!",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "Привет, мир!",
+         "require": [
+          "cout",
+          "Привет, мир!"
+         ]
+        },
+        "hints": [
+         "Найди функцию вывода текста на экран в своём языке.",
+         "Строка должна совпадать точно: «Привет, мир!» — большая буква и восклицательный знак."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет, мир!\" << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 2,
+      "title": "Основы. Сумма двух чисел",
+      "description": "Даны числа 5 и 7. Выведи их сумму.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны числа 5 и 7. выведи их сумму.",
+       "В задании обязательно используются: «cout», «5», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма двух чисел»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int b = 7;\n    cout << a + b << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 5, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 201,
+        "title": "Сумма двух чисел",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны числа 5 и 7. Выведи их сумму.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "12",
+         "require": [
+          "cout",
+          "5",
+          "7"
+         ]
+        },
+        "hints": [
+         "Объяви две переменные: a = 5 и b = 7.",
+         "Выведи результат сложения оператором +."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int b = 7;\n    cout << a + b << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 3,
+      "title": "Основы. Деление с остатком",
+      "description": "Даны числа 17 и 5. Выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны числа 17 и 5. выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+       "В задании обязательно используются: «cout», «17», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Деление с остатком»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 17;\n    int b = 5;\n    cout << a / b << \" \" << a % b << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 17, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 301,
+        "title": "Деление с остатком",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны числа 17 и 5. Выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "3 2",
+         "require": [
+          "cout",
+          "17",
+          "5"
+         ]
+        },
+        "hints": [
+         "Для целочисленного деления используй оператор своего языка, остаток даёт оператор %.",
+         "Выведи два значения в одной строке через пробел."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 17;\n    int b = 5;\n    cout << a / b << \" \" << a % b << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 4,
+      "title": "Основы. Знакомство",
+      "description": "Создай переменные name = \"Анна\" и age = 25. Выведи ровно: Меня зовут Анна, мне 25",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: создай переменные name = \"анна\" и age = 25. выведи ровно: меня зовут анна, мне 25",
+       "В задании обязательно используются: «cout», «Анна», «25». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Знакомство»",
+        "code": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string name = \"Анна\";\n    int age = 25;\n    cout << \"Меня зовут \" << name << \", мне \" << age << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, Анна, 25."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 401,
+        "title": "Знакомство",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Создай переменные name = \"Анна\" и age = 25. Выведи ровно: Меня зовут Анна, мне 25",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "Меня зовут Анна, мне 25",
+         "require": [
+          "cout",
+          "Анна",
+          "25"
+         ]
+        },
+        "hints": [
+         "Подставь значения переменных в строку — интерполяцией или конкатенацией.",
+         "Вывод должен быть точно «Меня зовут Анна, мне 25» — с запятой после имени."
+        ],
+        "solution": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string name = \"Анна\";\n    int age = 25;\n    cout << \"Меня зовут \" << name << \", мне \" << age << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 5,
+      "title": "Основы. Площадь прямоугольника",
+      "description": "Прямоугольник 6 × 4. Выведи его площадь: перемножь стороны.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: прямоугольник 6 × 4. выведи его площадь: перемножь стороны.",
+       "В задании обязательно используются: «cout», «6», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Площадь прямоугольника»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int width = 6;\n    int height = 4;\n    cout << width * height << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 6, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 501,
+        "title": "Площадь прямоугольника",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Прямоугольник 6 × 4. Выведи его площадь: перемножь стороны.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "24",
+         "require": [
+          "cout",
+          "6",
+          "4"
+         ]
+        },
+        "hints": [
+         "Площадь прямоугольника = ширина × высота.",
+         "Перемножь переменные width и height и выведи результат."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int width = 6;\n    int height = 4;\n    cout << width * height << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 6,
+      "title": "Основы. Обмен значений",
+      "description": "Даны переменные a = 5 и b = 7. Поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны переменные a = 5 и b = 7. поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+       "В задании обязательно используются: «cout», «5», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Обмен значений»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5, b = 7;\n    int t = a;\n    a = b;\n    b = t;\n    cout << a << \" \" << b << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 5, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 601,
+        "title": "Обмен значений",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны переменные a = 5 и b = 7. Поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "7 5",
+         "require": [
+          "cout",
+          "5",
+          "7"
+         ]
+        },
+        "hints": [
+         "Запомни одно значение во временной переменной.",
+         "Либо используй множественное присваивание, если язык его поддерживает."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5, b = 7;\n    int t = a;\n    a = b;\n    b = t;\n    cout << a << \" \" << b << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     }
+    ],
+    "test": {
+     "title": "Тест: Основы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Основы»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, Привет, мир!, 5."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "6",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 6 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Строки",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 7,
+      "title": "Строки. Длина строки",
+      "description": "Дана строка «Hello, world!». Выведи количество символов в ней.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «hello, world!». выведи количество символов в ней.",
+       "В задании обязательно используются: «cout», «Hello, world!». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Длина строки»",
+        "code": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"Hello, world!\";\n    cout << s.length() << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, Hello, world!."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 701,
+        "title": "Длина строки",
+        "topic": "Строки",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дана строка «Hello, world!». Выведи количество символов в ней.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "13",
+         "require": [
+          "cout",
+          "Hello, world!"
+         ]
+        },
+        "hints": [
+         "Длину строки возвращает функция или свойство length.",
+         "Строка задана точно: «Hello, world!» — в ней 13 символов."
+        ],
+        "solution": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"Hello, world!\";\n    cout << s.length() << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 10
+     },
+     {
+      "id": 8,
+      "title": "Строки. Реверс строки",
+      "description": "Дана строка «hello». Выведи её символы в обратном порядке: olleh",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «hello». выведи её символы в обратном порядке: olleh",
+       "В задании обязательно используются: «cout», «hello». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Реверс строки»",
+        "code": "#include <string>\n#include <algorithm>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"hello\";\n    reverse(s.begin(), s.end());\n    cout << s << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, hello."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 801,
+        "title": "Реверс строки",
+        "topic": "Строки",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дана строка «hello». Выведи её символы в обратном порядке: olleh",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "olleh",
+         "require": [
+          "cout",
+          "hello"
+         ]
+        },
+        "hints": [
+         "Во многих языках есть готовый метод переворота строки или массива символов.",
+         "Если готового метода нет — перебери символы от последнего к первому и собери новую строку."
+        ],
+        "solution": "#include <string>\n#include <algorithm>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"hello\";\n    reverse(s.begin(), s.end());\n    cout << s << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     },
+     {
+      "id": 9,
+      "title": "Строки. Гласные в строке",
+      "description": "Дана строка «программирование». Посчитай, сколько в ней гласных букв.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «программирование». посчитай, сколько в ней гласных букв.",
+       "В задании обязательно используются: «cout», «программирование». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Гласные в строке»",
+        "code": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"программирование\";\n    string vowels = \"аеёиоуыэюя\";\n    int count = 0;\n    for (char ch : s) {\n        if (vowels.find(ch) != string::npos) count++;\n    }\n    cout << count << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, программирование."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 901,
+        "title": "Гласные в строке",
+        "topic": "Строки",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дана строка «программирование». Посчитай, сколько в ней гласных букв.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "7",
+         "require": [
+          "cout",
+          "программирование"
+         ]
+        },
+        "hints": [
+         "Гласные русского алфавита: а, е, ё, и, о, у, ы, э, ю, я.",
+         "Перебери символы строки и проверь, входит ли символ в набор гласных."
+        ],
+        "solution": "#include <string>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"программирование\";\n    string vowels = \"аеёиоуыэюя\";\n    int count = 0;\n    for (char ch : s) {\n        if (vowels.find(ch) != string::npos) count++;\n    }\n    cout << count << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     },
+     {
+      "id": 10,
+      "title": "Строки. Палиндром",
+      "description": "Дана строка «шалаш». Проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «шалаш». проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+       "В задании обязательно используются: «cout», «шалаш». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Палиндром»",
+        "code": "#include <string>\n#include <algorithm>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"шалаш\";\n    string r = s;\n    reverse(r.begin(), r.end());\n    cout << (s == r ? \"палиндром\" : \"не палиндром\") << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, шалаш."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1001,
+        "title": "Палиндром",
+        "topic": "Строки",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дана строка «шалаш». Проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "палиндром",
+         "require": [
+          "cout",
+          "шалаш"
+         ]
+        },
+        "hints": [
+         "Сравни строку с её перевёрнутой версией.",
+         "«шалаш» читается одинаково слева направо и справа налево — значит, это палиндром."
+        ],
+        "solution": "#include <string>\n#include <algorithm>\n#include <iostream>\nusing namespace std;\n\nint main() {\n    string s = \"шалаш\";\n    string r = s;\n    reverse(r.begin(), r.end());\n    cout << (s == r ? \"палиндром\" : \"не палиндром\") << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Строки",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Строки»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, Hello, world!, hello."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "4",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 4 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Условия",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 11,
+      "title": "Условия. Положительное или нет",
+      "description": "Число a = 10. Если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: число a = 10. если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+       "В задании обязательно используются: «cout», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Положительное или нет»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    if (a > 0) {\n        cout << \"положительное\" << endl;\n    } else {\n        cout << \"отрицательное\" << endl;\n    }\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1101,
+        "title": "Положительное или нет",
+        "topic": "Условия",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Число a = 10. Если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "положительное",
+         "require": [
+          "cout",
+          "10"
+         ]
+        },
+        "hints": [
+         "Используй конструкцию if / else.",
+         "Условие: a > 0. Тело условия выделяется фигурными скобками или отступами — зависит от языка."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    if (a > 0) {\n        cout << \"положительное\" << endl;\n    } else {\n        cout << \"отрицательное\" << endl;\n    }\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 10
+     },
+     {
+      "id": 12,
+      "title": "Условия. Чётное или нечётное",
+      "description": "Число n = 8. Выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: число n = 8. выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+       "В задании обязательно используются: «cout», «8», «%». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Чётное или нечётное»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 8;\n    if (n % 2 == 0) {\n        cout << \"чётное\" << endl;\n    } else {\n        cout << \"нечётное\" << endl;\n    }\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 8, %."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1201,
+        "title": "Чётное или нечётное",
+        "topic": "Условия",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Число n = 8. Выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "чётное",
+         "require": [
+          "cout",
+          "8",
+          "%"
+         ]
+        },
+        "hints": [
+         "Остаток от деления даёт оператор %.",
+         "Чётное число даёт остаток 0: n % 2 == 0."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 8;\n    if (n % 2 == 0) {\n        cout << \"чётное\" << endl;\n    } else {\n        cout << \"нечётное\" << endl;\n    }\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 10
+     },
+     {
+      "id": 13,
+      "title": "Условия. Максимум из трёх",
+      "description": "Даны числа 3, 9 и 5. Выведи наибольшее из них, не используя встроенную функцию максимума.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: даны числа 3, 9 и 5. выведи наибольшее из них, не используя встроенную функцию максимума.",
+       "В задании обязательно используются: «cout», «9», «3», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Максимум из трёх»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3, b = 9, c = 5;\n    if (a >= b && a >= c) { cout << a << endl; }\n    else if (b >= c) { cout << b << endl; }\n    else { cout << c << endl; }\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 9, 3, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1301,
+        "title": "Максимум из трёх",
+        "topic": "Условия",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Даны числа 3, 9 и 5. Выведи наибольшее из них, не используя встроенную функцию максимума.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "9",
+         "require": [
+          "cout",
+          "9",
+          "3",
+          "5"
+         ]
+        },
+        "hints": [
+         "Сравни первое число со вторым и третьим по очереди.",
+         "Если a больше b и больше c — максимум равен a."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3, b = 9, c = 5;\n    if (a >= b && a >= c) { cout << a << endl; }\n    else if (b >= c) { cout << b << endl; }\n    else { cout << c << endl; }\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 14,
+      "title": "Условия. День недели по номеру",
+      "description": "Дано число 3. Выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: дано число 3. выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+       "В задании обязательно используются: «cout», «3», «среда». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «День недели по номеру»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 3;\n    if (day == 1) { cout << \"понедельник\" << endl; }\n    else if (day == 2) { cout << \"вторник\" << endl; }\n    else if (day == 3) { cout << \"среда\" << endl; }\n    else { cout << \"другой день\" << endl; }\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 3, среда."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1401,
+        "title": "День недели по номеру",
+        "topic": "Условия",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дано число 3. Выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "среда",
+         "require": [
+          "cout",
+          "3",
+          "среда"
+         ]
+        },
+        "hints": [
+         "Тут удобнее цепочка условий else if.",
+         "1 — понедельник, 2 — вторник, 3 — среда."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day = 3;\n    if (day == 1) { cout << \"понедельник\" << endl; }\n    else if (day == 2) { cout << \"вторник\" << endl; }\n    else if (day == 3) { cout << \"среда\" << endl; }\n    else { cout << \"другой день\" << endl; }\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 15,
+      "title": "Условия. Простое ли число",
+      "description": "Дано число 17. Проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: дано число 17. проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+       "В задании обязательно используются: «cout», «17». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Простое ли число»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 17;\n    bool isPrime = n > 1;\n    for (int d = 2; d * d <= n; d++) {\n        if (n % d == 0) { isPrime = false; break; }\n    }\n    cout << (isPrime ? \"простое\" : \"составное\") << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 17."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1501,
+        "title": "Простое ли число",
+        "topic": "Условия",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дано число 17. Проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "простое",
+         "require": [
+          "cout",
+          "17"
+         ]
+        },
+        "hints": [
+         "Число простое, если у него нет делителей кроме 1 и самого числа.",
+         "Достаточно проверять делители до квадратного корня из числа."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 17;\n    bool isPrime = n > 1;\n    for (int d = 2; d * d <= n; d++) {\n        if (n % d == 0) { isPrime = false; break; }\n    }\n    cout << (isPrime ? \"простое\" : \"составное\") << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 16,
+      "title": "Условия. Мини-калькулятор",
+      "description": "Даны числа a = 3 и b = 4 и код операции op = \"*\". Выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: даны числа a = 3 и b = 4 и код операции op = \"*\". выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+       "В задании обязательно используются: «cout», «3», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Мини-калькулятор»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3, b = 4;\n    char op = '*';\n    int result = 0;\n    switch (op) {\n        case '+': result = a + b; break;\n        case '-': result = a - b; break;\n        case '*': result = a * b; break;\n        default: result = a / b;\n    }\n    cout << result << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 3, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1601,
+        "title": "Мини-калькулятор",
+        "topic": "Условия",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Даны числа a = 3 и b = 4 и код операции op = \"*\". Выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "12",
+         "require": [
+          "cout",
+          "3",
+          "4"
+         ]
+        },
+        "hints": [
+         "Код операции хранится в переменной op.",
+         "Выбери действие через switch / match или цепочку условий."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3, b = 4;\n    char op = '*';\n    int result = 0;\n    switch (op) {\n        case '+': result = a + b; break;\n        case '-': result = a - b; break;\n        case '*': result = a * b; break;\n        default: result = a / b;\n    }\n    cout << result << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Условия",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Условия»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, 10, 8."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "6",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 6 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 4,
+    "title": "Циклы",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 17,
+      "title": "Циклы. Сумма чисел от 1 до 10",
+      "description": "Посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+       "В задании обязательно используются: «cout», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма чисел от 1 до 10»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    for (int i = 1; i <= 10; i++) { total += i; }\n    cout << total << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1701,
+        "title": "Сумма чисел от 1 до 10",
+        "topic": "Циклы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "55",
+         "require": [
+          "cout",
+          "10"
+         ]
+        },
+        "hints": [
+         "Заведи переменную-накопитель со значением 0.",
+         "В цикле прибавляй к накопителю счётчик, потом выведи накопитель."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    for (int i = 1; i <= 10; i++) { total += i; }\n    cout << total << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 10
+     },
+     {
+      "id": 18,
+      "title": "Циклы. Таблица умножения на 3",
+      "description": "Выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+       "В задании обязательно используются: «cout», «3», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Таблица умножения на 3»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 10; i++) {\n        cout << i * 3;\n        if (i < 10) cout << \" \";\n    }\n    cout << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 3, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1801,
+        "title": "Таблица умножения на 3",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "3 6 9 12 15 18 21 24 27 30",
+         "require": [
+          "cout",
+          "3",
+          "10"
+         ]
+        },
+        "hints": [
+         "Пройди циклом от 1 до 10 и умножай счётчик на 3.",
+         "Чтобы всё было в одной строке, выводи без перевода строки и добавляй пробел между числами."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 10; i++) {\n        cout << i * 3;\n        if (i < 10) cout << \" \";\n    }\n    cout << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 19,
+      "title": "Циклы. Факториал числа 5",
+      "description": "Посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+       "В задании обязательно используются: «cout», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Факториал числа 5»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 5;\n    int fact = 1;\n    for (int i = 1; i <= n; i++) { fact *= i; }\n    cout << fact << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1901,
+        "title": "Факториал числа 5",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "120",
+         "require": [
+          "cout",
+          "5"
+         ]
+        },
+        "hints": [
+         "Факториал — это произведение всех чисел от 1 до n.",
+         "Начни накопитель с 1 и в цикле умножай его на счётчик."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 5;\n    int fact = 1;\n    for (int i = 1; i <= n; i++) { fact *= i; }\n    cout << fact << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 20,
+      "title": "Циклы. Сумма цифр числа",
+      "description": "Дано число 456. Посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: дано число 456. посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+       "В задании обязательно используются: «cout», «456». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма цифр числа»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 456;\n    int total = 0;\n    while (n > 0) { total += n % 10; n /= 10; }\n    cout << total << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 456."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2001,
+        "title": "Сумма цифр числа",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дано число 456. Посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "15",
+         "require": [
+          "cout",
+          "456"
+         ]
+        },
+        "hints": [
+         "Последнюю цифру числа даёт остаток от деления на 10.",
+         "После каждой цифры уменьшай число целочисленным делением на 10, пока оно не станет нулём."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 456;\n    int total = 0;\n    while (n > 0) { total += n % 10; n /= 10; }\n    cout << total << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 21,
+      "title": "Циклы. Числа Фибоначчи",
+      "description": "Выведи первые 7 чисел Фибоначчи через пробел. Последовательность начинается с 0 и 1.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: выведи первые 7 чисел фибоначчи через пробел. последовательность начинается с 0 и 1.",
+       "В задании обязательно используются: «cout», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Числа Фибоначчи»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 7;\n    int a = 0, b = 1;\n    for (int i = 0; i < n; i++) {\n        cout << a;\n        if (i < n - 1) cout << \" \";\n        int next = a + b;\n        a = b;\n        b = next;\n    }\n    cout << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2101,
+        "title": "Числа Фибоначчи",
+        "topic": "Циклы",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Выведи первые 7 чисел Фибоначчи через пробел. Последовательность начинается с 0 и 1.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "0 1 1 2 3 5 8",
+         "require": [
+          "cout",
+          "7"
+         ]
+        },
+        "hints": [
+         "Первые два числа — 0 и 1.",
+         "Каждое следующее число — сумма двух предыдущих: сдвигай a = b, b = a + b."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 7;\n    int a = 0, b = 1;\n    for (int i = 0; i < n; i++) {\n        cout << a;\n        if (i < n - 1) cout << \" \";\n        int next = a + b;\n        a = b;\n        b = next;\n    }\n    cout << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Циклы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Циклы»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, 10, 3."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "5",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 5 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 5,
+    "title": "Массивы",
+    "description": "Уровень модуля: Средний",
+    "difficulty": "medium",
+    "lessons": [
+     {
+      "id": 22,
+      "title": "Массивы. Сумма элементов массива",
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи сумму всех его элементов.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5]. выведи сумму всех его элементов.",
+       "В задании обязательно используются: «cout», «1», «2», «3», «4», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма элементов массива»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5};\n    int total = 0;\n    for (int n : nums) { total += n; }\n    cout << total << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 1, 2, 3, 4, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2201,
+        "title": "Сумма элементов массива",
+        "topic": "Массивы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дан массив [1, 2, 3, 4, 5]. Выведи сумму всех его элементов.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "15",
+         "require": [
+          "cout",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ]
+        },
+        "hints": [
+         "Сумму массива можно посчитать циклом или готовой функцией.",
+         "Пройди по всем элементам и прибавляй их к накопителю."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5};\n    int total = 0;\n    for (int n : nums) { total += n; }\n    cout << total << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 10
+     },
+     {
+      "id": 23,
+      "title": "Массивы. Сколько чётных чисел",
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+       "В задании обязательно используются: «cout», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сколько чётных чисел»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n    int count = 0;\n    for (int n : nums) { if (n % 2 == 0) count++; }\n    cout << count << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2301,
+        "title": "Сколько чётных чисел",
+        "topic": "Массивы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "5",
+         "require": [
+          "cout",
+          "10"
+         ]
+        },
+        "hints": [
+         "Счётчик начинается с нуля.",
+         "Увеличивай счётчик, когда элемент делится на 2 без остатка."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n    int count = 0;\n    for (int n : nums) { if (n % 2 == 0) count++; }\n    cout << count << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 10
+     },
+     {
+      "id": 24,
+      "title": "Массивы. Максимум в массиве",
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наибольший элемент.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [4, 8, 15, 16, 23, 42]. выведи его наибольший элемент.",
+       "В задании обязательно используются: «cout», «4», «8», «15», «16», «23», «42». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Максимум в массиве»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {4, 8, 15, 16, 23, 42};\n    int best = nums[0];\n    for (int n : nums) { if (n > best) best = n; }\n    cout << best << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 4, 8, 15, 16, 23, 42."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2401,
+        "title": "Максимум в массиве",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наибольший элемент.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "42",
+         "require": [
+          "cout",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+         ]
+        },
+        "hints": [
+         "Начни с первого элемента как текущего максимума.",
+         "Сравнивай каждый элемент с текущим максимумом и обновляй его."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {4, 8, 15, 16, 23, 42};\n    int best = nums[0];\n    for (int n : nums) { if (n > best) best = n; }\n    cout << best << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 25,
+      "title": "Массивы. Минимум в массиве",
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наименьший элемент.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [4, 8, 15, 16, 23, 42]. выведи его наименьший элемент.",
+       "В задании обязательно используются: «cout», «4», «8», «15», «16», «23», «42». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Минимум в массиве»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {4, 8, 15, 16, 23, 42};\n    int best = nums[0];\n    for (int n : nums) { if (n < best) best = n; }\n    cout << best << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 4, 8, 15, 16, 23, 42."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2501,
+        "title": "Минимум в массиве",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наименьший элемент.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "4",
+         "require": [
+          "cout",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+         ]
+        },
+        "hints": [
+         "Начни с первого элемента как текущего минимума.",
+         "Сравнивай каждый элемент с текущим минимумом и обновляй его."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {4, 8, 15, 16, 23, 42};\n    int best = nums[0];\n    for (int n : nums) { if (n < best) best = n; }\n    cout << best << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 26,
+      "title": "Массивы. Среднее арифметическое",
+      "description": "Дан массив [2, 4, 6]. Выведи среднее арифметическое его элементов целым числом.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [2, 4, 6]. выведи среднее арифметическое его элементов целым числом.",
+       "В задании обязательно используются: «cout», «2», «4», «6». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Среднее арифметическое»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {2, 4, 6};\n    int total = 0;\n    for (int n : nums) { total += n; }\n    cout << total / 3 << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 2, 4, 6."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2601,
+        "title": "Среднее арифметическое",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [2, 4, 6]. Выведи среднее арифметическое его элементов целым числом.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "4",
+         "require": [
+          "cout",
+          "2",
+          "4",
+          "6"
+         ]
+        },
+        "hints": [
+         "Сначала посчитай сумму элементов.",
+         "Среднее — это сумма, делённая на количество элементов (целочисленно)."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {2, 4, 6};\n    int total = 0;\n    for (int n : nums) { total += n; }\n    cout << total / 3 << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 27,
+      "title": "Массивы. Только чётные числа",
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8]. Выведи в одну строку только чётные числа через пробел.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5, 6, 7, 8]. выведи в одну строку только чётные числа через пробел.",
+       "В задании обязательно используются: «cout», «8». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Только чётные числа»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5, 6, 7, 8};\n    for (int n : nums) {\n        if (n % 2 == 0) cout << n << \" \";\n    }\n    cout << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 8."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2701,
+        "title": "Только чётные числа",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8]. Выведи в одну строку только чётные числа через пробел.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "2 4 6 8",
+         "require": [
+          "cout",
+          "8"
+         ]
+        },
+        "hints": [
+         "Проверяй каждый элемент: n % 2 == 0.",
+         "Собери чётные числа и выведи их через пробел."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5, 6, 7, 8};\n    for (int n : nums) {\n        if (n % 2 == 0) cout << n << \" \";\n    }\n    cout << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 28,
+      "title": "Массивы. Реверс массива",
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи его элементы в обратном порядке через пробел.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5]. выведи его элементы в обратном порядке через пробел.",
+       "В задании обязательно используются: «cout», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Реверс массива»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5};\n    for (int i = 4; i >= 0; i--) cout << nums[i] << \" \";\n    cout << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2801,
+        "title": "Реверс массива",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [1, 2, 3, 4, 5]. Выведи его элементы в обратном порядке через пробел.",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "5 4 3 2 1",
+         "require": [
+          "cout",
+          "5"
+         ]
+        },
+        "hints": [
+         "Можно перевернуть массив готовым методом или пройти его с конца.",
+         "Выводи элементы через пробел, чтобы получить «5 4 3 2 1»."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int nums[] = {1, 2, 3, 4, 5};\n    for (int i = 4; i >= 0; i--) cout << nums[i] << \" \";\n    cout << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Массивы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Массивы»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, 1, 2."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "7",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 7 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 6,
+    "title": "Функции",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 29,
+      "title": "Функции. Функция сложения",
+      "description": "Напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «функции». Разберём её на задании: напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+       "В задании обязательно используются: «cout», «int add», «3», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Функция сложения»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    cout << add(3, 4) << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, int add, 3, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2901,
+        "title": "Функция сложения",
+        "topic": "Функции",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "7",
+         "require": [
+          "cout",
+          "int add",
+          "3",
+          "4"
+         ]
+        },
+        "hints": [
+         "Объяви функцию с двумя параметрами и верни их сумму.",
+         "Вызови функцию с аргументами 3 и 4 и выведи результат."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    cout << add(3, 4) << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Функции",
+      "xp_reward": 15
+     },
+     {
+      "id": 30,
+      "title": "Функции. Функция факториала",
+      "description": "Напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «функции». Разберём её на задании: напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+       "В задании обязательно используются: «cout», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Функция факториала»",
+        "code": "#include <iostream>\nusing namespace std;\n\nint fact(int n) {\n    int result = 1;\n    for (int i = 1; i <= n; i++) result *= i;\n    return result;\n}\n\nint main() {\n    cout << fact(5) << endl;\n    return 0;\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: cout, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3001,
+        "title": "Функция факториала",
+        "topic": "Функции",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+        "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Твой код здесь\n    return 0;\n}\n",
+        "check": {
+         "type": "stdout_cpp",
+         "expected": "120",
+         "require": [
+          "cout",
+          "5"
+         ]
+        },
+        "hints": [
+         "Факториал 5 — это 1 · 2 · 3 · 4 · 5.",
+         "Внутри функции используй цикл и накопитель, начиная с 1."
+        ],
+        "solution": "#include <iostream>\nusing namespace std;\n\nint fact(int n) {\n    int result = 1;\n    for (int i = 1; i <= n; i++) result *= i;\n    return result;\n}\n\nint main() {\n    cout << fact(5) << endl;\n    return 0;\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Функции",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Функции",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Функции»?",
+       "options": [
+        "cout",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: cout, int add, 3."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "2",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 2 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет\" << endl;\n    return 0;\n}",
+    "note": "iostream — ввод-вывод, main — точка входа.",
+    "why": "C++ даёт скорость и полный контроль над памятью, но требует дисциплины: каждая переменная и каждый указатель — твоя ответственность.",
+    "where": "Игры, обработка видео, встраиваемые системы, высокопроизводительные расчёты."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "int x = 5;\ndouble d = 3.14;\nstring s = \"текст\";\nbool b = true;",
+    "note": "Тип указывается всегда. Для строк нужно <string>.",
+    "why": "C++ даёт скорость и полный контроль над памятью, но требует дисциплины: каждая переменная и каждый указатель — твоя ответственность.",
+    "where": "Игры, обработка видео, встраиваемые системы, высокопроизводительные расчёты."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if (x > 0) {\n    cout << \"+\";\n} else {\n    cout << \"-\";\n}",
+    "note": "&& — и, || — или, ! — не.",
+    "why": "C++ даёт скорость и полный контроль над памятью, но требует дисциплины: каждая переменная и каждый указатель — твоя ответственность.",
+    "where": "Игры, обработка видео, встраиваемые системы, высокопроизводительные расчёты."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for (int i = 0; i < 5; i++) {\n    cout << i;\n}\n\nint n = 0;\nwhile (n < 3) {\n    n++;\n}",
+    "note": "for по шагам, while по условию. break — выход.",
+    "why": "C++ даёт скорость и полный контроль над памятью, но требует дисциплины: каждая переменная и каждый указатель — твоя ответственность.",
+    "where": "Игры, обработка видео, встраиваемые системы, высокопроизводительные расчёты."
+   },
+   {
+    "title": "Массивы и строки",
+    "icon": "📦",
+    "code": "int a[3] = {1, 2, 3};\ncout << a[0];\n\nstring s = \"Привет\";\ns.length();",
+    "note": "Индексы с нуля, длина через length().",
+    "why": "Вектор и std::string выделяют память сами, поэтому не нужно вручную считать размер и освобождать память.",
+    "where": "Список точек, текст пользователя, буфер данных, массив неизвестного размера."
+   },
+   {
+    "title": "Векторы",
+    "icon": "📚",
+    "code": "vector<int> nums = {1, 2, 3};\nnums.push_back(4);   // {1,2,3,4}\nnums.size();        // 4\nnums[0];            // 1\n\n// нужен #include <vector>",
+    "note": "vector — растущий массив из стандартной библиотеки.",
+    "why": "Вектор и std::string выделяют память сами, поэтому не нужно вручную считать размер и освобождать память.",
+    "where": "Список точек, текст пользователя, буфер данных, массив неизвестного размера."
+   },
+   {
+    "title": "Функции и указатели",
+    "icon": "🛠️",
+    "code": "int add(int a, int b) {\n    return a + b;\n}\n\nint x = 5;\nint* p = &x;  // указатель на адрес\ncout << *p;    // 5",
+    "note": "& — адрес, * — разыменование. Указатель хранит адрес.",
+    "why": "Указатели и ссылки позволяют передавать в функцию большие объекты без копирования и изменять их внутри.",
+    "where": "Связные списки и деревья, параметры без копирования, работа с динамической памятью."
+   },
+   {
+    "title": "Ссылки",
+    "icon": "🔗",
+    "code": "void addOne(int& x) {   // ссылка: меняет сам аргумент\n    x += 1;\n}\n\nint a = 5;\naddOne(a);   // a == 6",
+    "note": "Ссылка — второе имя переменной, указатель — адрес в памяти.",
+    "why": "Указатели и ссылки позволяют передавать в функцию большие объекты без копирования и изменять их внутри.",
+    "where": "Связные списки и деревья, параметры без копирования, работа с динамической памятью."
+   },
+   {
+    "title": "Структуры и классы",
+    "icon": "🏛️",
+    "code": "struct Point {\n    int x;\n    int y;\n};\n\nPoint p{3, 4};\ncout << p.x << \" \" << p.y;\n\nclass Cat {\npublic:\n    string name;\n    Cat(string n) : name(n) {}\n};",
+    "note": "В struct поля открыты по умолчанию, в class — закрыты.",
+    "why": "Структуры и классы позволяют описать свои типы данных вместе с поведением — это основа ООП в C++.",
+    "where": "Игровые сущности, геометрические фигуры, собственные контейнеры."
+   },
+   {
+    "title": "Ввод с клавиатуры",
+    "icon": "⌨️",
+    "code": "int n;\ncout << \"Число: \";\ncin >> n;\n\nstring line;\ngetline(cin, line);   // вся строка целиком\n\ncout << \"Ты ввёл \" << n;",
+    "note": "cin читает до пробела, getline — всю строку.",
+    "why": "Указатели и ссылки позволяют передавать в функцию большие объекты без копирования и изменять их внутри.",
+    "where": "Связные списки и деревья, параметры без копирования, работа с динамической памятью."
+   }
+  ],
+  "levels": {
+   "easy": 12,
+   "medium": 12,
+   "hard": 6
+  }
+ }
+}

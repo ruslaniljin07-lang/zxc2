@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Входной тест — Codigo{% endblock %}
+{% block title %}Входной тест — {{ lang_info.name }}{% endblock %}
 
 {% block content %}
 <div class="page-head">
-    <span class="kicker">Входной тест</span>
-    <h1>Проверь свой уровень Python</h1>
-    <p>Ответь на {{ questions|length }} вопросов — это займёт пару минут. Результат определит твой стартовый уровень.</p>
+    <span class="kicker">{{ lang_info.icon }} Входной тест · {{ lang_info.name }}</span>
+    <h1>Проверь свой уровень {{ lang_info.name }}</h1>
+    <p>Ответь на {{ questions|length }} вопросов — это займёт пару минут.
+       Результат определит твой стартовый уровень.</p>
 </div>
 
 <div class="row justify-content-center">
@@ -13,20 +14,22 @@
         <div class="card">
             <div class="card-body p-4 p-lg-5">
                 <form method="POST">
-                    {% for key, q in questions.items() %}
+                    {{ csrf_field()|safe }}
+                    {% for quest in questions %}
+                        {% set qnum = loop.index %}
                         <div class="mb-4 pb-3" style="border-bottom:1px dashed var(--border);">
-                            <h5 class="mb-3">{{ loop.index }}. {{ q.question }}</h5>
+                            <h5 class="mb-3">{{ qnum }}. {{ quest.question }}</h5>
                             <div class="row g-2">
-                                {% for option in q.options %}
+                                {% for option in quest.options %}
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input"
                                                    type="radio"
-                                                   name="{{ key }}"
-                                                   id="{{ key }}_{{ loop.index }}"
-                                                   value="{{ option }}" required>
+                                                   name="q{{ qnum }}"
+                                                   id="q{{ qnum }}_{{ loop.index0 }}"
+                                                   value="{{ loop.index0 }}" required>
                                             <label class="form-check-label"
-                                                   for="{{ key }}_{{ loop.index }}">
+                                                   for="q{{ qnum }}_{{ loop.index0 }}">
                                                 {{ option }}
                                             </label>
                                         </div>
@@ -34,7 +37,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                    {% endfor %}
+                                        {% endfor %}
                     <button type="submit" class="btn btn-success btn-lg w-100">
                         Отправить ответы
                     </button>

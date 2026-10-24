@@ -1,0 +1,645 @@
+{
+ "csharp": {
+  "name": "C#",
+  "icon": "💜",
+  "color": "#9B4F96",
+  "description": "Язык платформы .NET: строгая типизация, классы и огромная стандартная библиотека.",
+  "difficulty": "Средний старт",
+  "final_project": "Учёт личных финансов на C#",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы C#",
+    "description": "Первая программа, переменные и типы",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Первая программа",
+      "description": "Класс Program и Console.WriteLine",
+      "theory": [
+       "Код C# компилируется в промежуточный язык .NET и исполняется CLR.",
+       "Точка входа — метод Main внутри класса.",
+       "Console.WriteLine выводит строку и переводит курсор."
+      ],
+      "examples": [
+       {
+        "title": "Привет, мир",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Привет, мир!\");\n    }\n}",
+        "explanation": "using System подключает пространство имён с Console."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1,
+        "title": "Первый вывод",
+        "description": "Выведи строку: C# — это просто!",
+        "difficulty": "easy",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // твой код\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "C# — это просто!",
+         "require": [
+          "Console.WriteLine",
+          "C# — это просто!"
+         ]
+        },
+        "hints": [
+         "Используй Console.WriteLine(\"текст\");",
+         "Текст должен совпадать точно: «C# — это просто!»"
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"C# — это просто!\");\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как вывести текст в C#?",
+        "options": [
+         "print()",
+         "Console.WriteLine()",
+         "echo",
+         "console.log()"
+        ],
+        "correct": 1
+       },
+       {
+        "question": "Как называется метод — точка входа?",
+        "options": [
+         "Main",
+         "main",
+         "Start",
+         "Run"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"текст\");\n    }\n}",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 2,
+      "title": "Переменные и типы",
+      "description": "int, double, string, bool и var",
+      "theory": [
+       "Тип указывается явно: int x = 5;",
+       "var выводит тип из значения автоматически.",
+       "Основные типы: int, double, string, bool, char."
+      ],
+      "examples": [
+       {
+        "title": "Переменные",
+        "code": "int age = 25;\nvar city = \"Москва\";\nConsole.WriteLine(city + \", \" + age);",
+        "explanation": "Строки склеиваются оператором +."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2,
+        "title": "Переменная года",
+        "description": "Создай переменную year со значением 2026 и выведи её.",
+        "difficulty": "easy",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // объяви year\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "2026",
+         "require": [
+          "year",
+          "Console.WriteLine"
+         ]
+        },
+        "hints": [
+         "Объяви переменную: int year = 2026;",
+         "Выведи её через Console.WriteLine(year);"
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int year = 2026;\n        Console.WriteLine(year);\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить переменную с автоматическим типом?",
+        "options": [
+         "var x = 5;",
+         "let x = 5;",
+         "x := 5",
+         "dynamic x = 5"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Какой тип подходит для текста?",
+        "options": [
+         "string",
+         "text",
+         "str",
+         "char"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "int x = 5;\nvar name = \"Аня\";\ndouble pi = 3.14;\nbool ok = true;",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Из чего состоит программа C#?",
+       "options": [
+        "из классов и методов",
+        "из функций верхнего уровня",
+        "из модулей",
+        "из пакетов"
+       ],
+       "correct": 0,
+       "explain": "Код обязан лежать внутри класса."
+      },
+      {
+       "question": "Что подключает using System?",
+       "options": [
+        "пространство имён System",
+        "пакет System",
+        "библиотеку ввода",
+        "ничего"
+       ],
+       "correct": 0,
+       "explain": "Без него Console придётся писать полностью."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Условия и циклы",
+    "description": "Ветвление, switch, for и foreach",
+    "lessons": [
+     {
+      "id": 3,
+      "title": "Условия if / else",
+      "description": "Ветвление и switch",
+      "theory": [
+       "Скобки вокруг условия обязательны.",
+       "Цепочки условий строятся через else if.",
+       "switch работает со строками и числами, break обязателен."
+      ],
+      "examples": [
+       {
+        "title": "if / else",
+        "code": "int n = 10;\nif (n > 0) {\n    Console.WriteLine(\"положительное\");\n} else {\n    Console.WriteLine(\"отрицательное\");\n}",
+        "explanation": "Тело условия обязательно в фигурных скобках."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3,
+        "title": "Большое число",
+        "description": "Если n = 12 больше 10 — выведи «большое», иначе «маленькое».",
+        "difficulty": "medium",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 12;\n        // проверь условие\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "большое",
+         "require": [
+          "if (n > 10)",
+          "Console.WriteLine"
+         ]
+        },
+        "hints": [
+         "Условие: n > 10.",
+         "В блоках выведи нужный текст."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 12;\n        if (n > 10) {\n            Console.WriteLine(\"большое\");\n        } else {\n            Console.WriteLine(\"маленькое\");\n        }\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Что обязательно в условии C#?",
+        "options": [
+         "круглые скобки",
+         "ключевое слово then",
+         "двоеточие",
+         "слово do"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Какой оператор означает «и»?",
+        "options": [
+         "&&",
+         "and",
+         "&",
+         "|"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "if (n > 0) { ... } else if (n == 0) { ... } else { ... }\nswitch (x) {\n    case 1: ...; break;\n    default: ...; break;\n}",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 4,
+      "title": "Циклы",
+      "description": "for, foreach и while",
+      "theory": [
+       "for (int i = 0; i < n; i++) — классический счётчик.",
+       "foreach перебирает элементы коллекции.",
+       "while и do..while выполняются, пока условие истинно."
+      ],
+      "examples": [
+       {
+        "title": "Счётчик",
+        "code": "for (int i = 1; i <= 3; i++) {\n    Console.WriteLine(i);\n}",
+        "explanation": "i++ увеличивает счётчик после каждой итерации."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 4,
+        "title": "Числа от 1 до 5",
+        "description": "Выведи числа от 1 до 5 через пробел в одной строке.",
+        "difficulty": "medium",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // цикл от 1 до 5\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "1 2 3 4 5",
+         "require": [
+          "for (int i = 1",
+          "Console.Write"
+         ]
+        },
+        "hints": [
+         "Используй for (int i = 1; i <= 5; i++).",
+         "Печатай числа без перевода строки и разделяй пробелом."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        for (int i = 1; i <= 5; i++) {\n            Console.Write(i);\n            if (i < 5) Console.Write(\" \");\n        }\n        Console.WriteLine();\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой цикл перебирает коллекцию?",
+        "options": [
+         "foreach",
+         "for",
+         "while",
+         "repeat"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает break?",
+        "options": [
+         "выходит из цикла",
+         "пропускает итерацию",
+         "перезапускает цикл",
+         "ничего"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "for (int i = 0; i < 5; i++) { ... }\nforeach (var x in items) { ... }\nwhile (условие) { ... }\nbreak / continue",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Чем switch отличается от цепочки if?",
+       "options": [
+        "сравнивает одно значение с вариантами",
+        "работает только с числами",
+        "не требует break",
+        "быстрее в 10 раз"
+       ],
+       "correct": 0,
+       "explain": "switch удобен для перебора вариантов."
+      },
+      {
+       "question": "Что делает Console.Write?",
+       "options": [
+        "выводит без перевода строки",
+        "выводит с переводом строки",
+        "пишет в файл",
+        "ничего"
+       ],
+       "correct": 0,
+       "explain": "WriteLine добавляет перевод строки."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Массивы и методы",
+    "description": "Массивы, коллекции и свои методы",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Массивы и коллекции",
+      "description": "Массивы, Length и List",
+      "theory": [
+       "Массив объявляется так: int[] nums = {1, 2, 3};",
+       "nums.Length — длина, nums[0] — первый элемент.",
+       "List<int> — динамический список из System.Collections.Generic."
+      ],
+      "examples": [
+       {
+        "title": "Сумма массива",
+        "code": "int[] nums = {3, 6, 9};\nint sum = 0;\nforeach (int n in nums) sum += n;\nConsole.WriteLine(sum);",
+        "explanation": "foreach складывает все элементы массива."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 5,
+        "title": "Сумма массива",
+        "description": "Дан массив [3, 6, 9] — выведи сумму его элементов.",
+        "difficulty": "medium",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {3, 6, 9};\n        // посчитай сумму\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "18",
+         "require": [
+          "int[] nums",
+          "Console.WriteLine"
+         ]
+        },
+        "hints": [
+         "Пройди массив циклом foreach.",
+         "Складывай элементы в переменную-накопитель."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {3, 6, 9};\n        int sum = 0;\n        foreach (int n in nums) sum += n;\n        Console.WriteLine(sum);\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как узнать длину массива?",
+        "options": [
+         "nums.Length",
+         "nums.length",
+         "len(nums)",
+         "size(nums)"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Какой индекс у первого элемента?",
+        "options": [
+         "0",
+         "1",
+         "-1",
+         "любой"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "int[] nums = {1, 2, 3};\nnums.Length\nnums[0]\nvar list = new List<int> { 1, 2, 3 };\nlist.Add(4);",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 6,
+      "title": "Методы",
+      "description": "static-методы и return",
+      "theory": [
+       "Тип возврата указывается перед именем: static int Double(int n).",
+       "static позволяет вызывать метод из статического Main.",
+       "return возвращает результат."
+      ],
+      "examples": [
+       {
+        "title": "Метод",
+        "code": "static int Double(int n) {\n    return n * 2;\n}",
+        "explanation": "Имя метода в C# принято писать с большой буквы."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 6,
+        "title": "Метод Double",
+        "description": "Напиши метод Double(int n), возвращающий удвоенное число, и выведи Double(7).",
+        "difficulty": "hard",
+        "initial_code": "using System;\n\nclass Program {\n    // объяви метод Double\n\n    static void Main() {\n        // выведи Double(7)\n    }\n}",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "14",
+         "require": [
+          "static int Double",
+          "return"
+         ]
+        },
+        "hints": [
+         "Объяви метод рядом с Main.",
+         "Умножь параметр на 2 и верни результат через return."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static int Double(int n) {\n        return n * 2;\n    }\n\n    static void Main() {\n        Console.WriteLine(Double(7));\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить метод в C#?",
+        "options": [
+         "static int Double(int n)",
+         "func double(n int)",
+         "def double(n)",
+         "function double(n)"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает return?",
+        "options": [
+         "возвращает значение",
+         "печатает значение",
+         "завершает программу",
+         "объявляет переменную"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "static int Add(int a, int b) { return a + b; }\nstatic void Print(string s) { Console.WriteLine(s); }\nreturn;",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что делает foreach?",
+       "options": [
+        "перебирает элементы коллекции",
+        "создаёт массив",
+        "сортирует",
+        "ищет элемент"
+       ],
+       "correct": 0,
+       "explain": "Индекс при этом недоступен."
+      },
+      {
+       "question": "Зачем методу модификатор static?",
+       "options": [
+        "чтобы вызывать его из Main",
+        "чтобы он был быстрым",
+        "чтобы вернуть значение",
+        "чтобы объявить переменную"
+       ],
+       "correct": 0,
+       "explain": "Main статичен, поэтому и метод статичен."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в C#?",
+    "options": [
+     "print()",
+     "Console.WriteLine()",
+     "echo",
+     "console.log()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Как называется точка входа?",
+    "options": [
+     "Main",
+     "main",
+     "Start",
+     "Run"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой тип подходит для текста?",
+    "options": [
+     "string",
+     "str",
+     "text",
+     "char"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить массив?",
+    "options": [
+     "int[] a = {1, 2};",
+     "int a[] = (1, 2);",
+     "array a = [1, 2];",
+     "a = [1, 2];"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой цикл перебирает коллекцию?",
+    "options": [
+     "foreach",
+     "for",
+     "while",
+     "repeat"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что подключает using System?",
+    "options": [
+     "пространство имён",
+     "пакет",
+     "класс",
+     "файл"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить переменную с автоматическим типом?",
+    "options": [
+     "var x = 5;",
+     "let x = 5;",
+     "x := 5",
+     "auto x = 5;"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что означает static у метода?",
+    "options": [
+     "метод принадлежит классу, а не объекту",
+     "метод неизменяемый",
+     "метод вернёт число",
+     "метод приватный"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Привет\");\n    }\n}",
+    "note": "Код C# живёт внутри классов."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "int x = 5;\nvar name = \"Аня\";\ndouble pi = 3.14;\nbool ok = true;",
+    "note": "var выводит тип из значения."
+   },
+   {
+    "title": "Строки",
+    "icon": "📝",
+    "code": "string name = \"Аня\";\nname.Length;             // 3\nname.ToUpper();          // АНЯ\nname.Contains(\"н\");      // true\nstring msg = $\"Привет, {name}!\";   // интерполяция",
+    "note": "Знак $ перед строкой включает подстановку значений в фигурных скобках."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if (n > 0) { ... } else { ... }\nswitch (x) {\n    case 1: ...; break;\n    default: ...; break;\n}",
+    "note": "Скобки в условии обязательны."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for (int i = 0; i < 5; i++) { ... }\nforeach (var x in items) { ... }\nwhile (условие) { ... }",
+    "note": "foreach удобен для коллекций."
+   },
+   {
+    "title": "Массивы",
+    "icon": "📚",
+    "code": "int[] nums = {1, 2, 3};\nnums.Length\nvar list = new List<int> { 1, 2 };\nlist.Add(3);",
+    "note": "List<int> умеет расти, массив — нет."
+   },
+   {
+    "title": "Коллекции",
+    "icon": "🗂️",
+    "code": "var list = new List<string> { \"Аня\", \"Иван\" };\nlist.Add(\"Пётр\");\nlist.Remove(\"Иван\");\nlist.Count;             // 2\nlist.Contains(\"Аня\");   // true\n\nvar ages = new Dictionary<string, int> { { \"Аня\", 20 } };\nages[\"Иван\"] = 25;\nages.Count;             // 2",
+    "note": "List — растущий список, Dictionary — словарь «ключ: значение»."
+   },
+   {
+    "title": "Методы",
+    "icon": "🧩",
+    "code": "static int Add(int a, int b) {\n    return a + b;\n}",
+    "note": "static нужен, чтобы вызывать метод из Main."
+   },
+   {
+    "title": "Классы и объекты",
+    "icon": "🏛️",
+    "code": "class User {\n    public string Name { get; set; }\n\n    public User(string name) {\n        Name = name;\n    }\n\n    public string Hello() => \"Привет, \" + Name;\n}\n\nvar u = new User(\"Аня\");\nConsole.WriteLine(u.Hello());",
+    "note": "Свойства с get/set удобнее публичных полей."
+   },
+   {
+    "title": "Ошибки",
+    "icon": "🛡️",
+    "code": "try {\n    int n = int.Parse(\"abc\");\n} catch (FormatException e) {\n    Console.WriteLine(\"Не число: \" + e.Message);\n} finally {\n    Console.WriteLine(\"всегда\");\n}",
+    "note": "catch ловит конкретный тип исключения, finally выполняется всегда."
+   }
+  ]
+ }
+}

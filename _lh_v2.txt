@@ -1,0 +1,60 @@
+76|                 <div id="hintBox" class="hint-note mt-3" {% if not hint %}style="display:none"{% endif %}>
+77|                     <strong><i class="bi bi-lightbulb-fill"></i> Подсказка:</strong>
+78|                     <p class="mb-0 mt-1" id="hintText">{{ hint or '' }}</p>
+79|                 </div>
+80| 
+81|                 <div id="solutionBox" class="solution-note mt-3" {% if not solution %}style="display:none"{% endif %}>
+82|                     <strong><i class="bi bi-key-fill"></i> Полное решение:</strong>
+83|                     <pre class="code-block mt-2 mb-2" id="solutionCode">{{ solution or '' }}</pre>
+84|                     <button id="applySolution" class="btn btn-ghost btn-sm" type="button">
+85|                         <i class="bi bi-box-arrow-in-down"></i> Вставить в редактор
+86|                     </button>
+87|                 </div>
+88| 
+89|                 <div class="d-flex justify-content-between align-items-center mt-4 gap-2 flex-wrap">
+90|                     <button id="resetBtn" class="btn btn-ghost" type="button">
+91|                         <i class="bi bi-arrow-counterclockwise"></i> Сбросить
+92|                     </button>
+93|                     <button id="runBtn" class="btn btn-success btn-lg">
+94|                         <i class="bi bi-play-circle"></i> Проверить задание
+95|                     </button>
+96|                 </div>
+97| 
+98|                 <div id="outputBox" class="term mt-4" style="display: none;">
+99|                     <span class="term-title">// РЕЗУЛЬТАТ</span>
+100|                 </div>
+101| 
+102|                 {% if lesson.test %}
+103|                 <div class="card mt-4">
+104|                     <div class="card-header iconized">
+105|                         <span class="head-icon"><i class="bi bi-patch-question"></i></span>
+106|                         <span>Мини-тест урока — проверь, как понял материал</span>
+107|                     </div>
+108|                     <div class="card-body p-4">
+109|                         {% for tq in lesson.test %}
+110|                         <div class="mb-3">
+111|                             <strong>{{ loop.index }}. {{ tq.question }}</strong>
+112|                             <div class="d-flex flex-column gap-1 mt-1">
+113|                                 {% for opt in tq.options %}
+114|                                 <label class="form-check d-flex align-items-center">
+115|                                     <input class="form-check-input mini-test-opt" type="radio"
+116|                                            name="lt{{ loop.index0 }}" id="lt{{ loop.index0 }}_{{ loop.index0 }}"
+117|                                            value="{{ loop.index0 }}">
+118|                                     <span class="form-check-label">{{ loop.index }}. {{ opt }}</span>
+119|                                 </label>
+120|                                 {% endfor %}
+121|                             </div>
+122|                             <div class="mini-test-result" id="ltRes{{ loop.index0 }}"></div>
+123|                         </div>
+124|                         {% endfor %}
+125|                     </div>
+126|                 </div>
+127|                 {% endif %}
+128| 
+129|             </div>
+130|         </div>
+131| 
+132|         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+133|                         {% if prev_lesson %}
+134|                 <a class="btn-prev-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=prev_lesson.id) }}">
+135|                     <i class="bi bi-arrow-left"></i> Предыдущее задание

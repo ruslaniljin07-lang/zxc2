@@ -3,6 +3,13 @@
 
 {% block content %}
 <div class="page-head">
+    <nav class="breadcrumbs" style="margin-bottom:0.5rem; font-size:0.9rem; color:#666;">
+        <a href="{{ url_for('index') }}" style="color:#666; text-decoration:none;">Главная</a>
+        <span style="margin:0 0.4rem;">›</span>
+        <a href="{{ url_for('lessons', lang_code=lang_code) }}" style="color:#666; text-decoration:none;">{{ lang_info.icon }} {{ lang_info.name }}</a>
+        <span style="margin:0 0.4rem;">›</span>
+        <span style="color:#333; font-weight:600;">Урок #{{ lesson.id }} — {{ lesson.title }}</span>
+    </nav>
     <span class="kicker">Урок #{{ lesson.id }}</span>
     <h1>{{ lesson.title }}</h1>
     <p>{{ lesson.description }}</p>
@@ -19,10 +26,20 @@
         {% endif %}
         <span class="xp-chip"><i class="bi bi-star"></i> +{{ lesson.xp_reward }} XP за прохождение</span>
     </div>
+    {% if lang_links %}
+    <div class="d-flex flex-wrap gap-2 mt-2 align-items-center">
+        <span class="pill accent"><i class="bi bi-book"></i> {{ lang_info.icon }} {{ lang_info.name }}</span>
+        {% for lk in lang_links %}
+        <a class="pill idle" href="{{ lk.url }}" title="Перейти к этому же уроку в {{ lk.name }}">
+            {{ lk.icon }} {{ lk.name }}
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-lg-9">
+    <div class="col-lg-10">
         <div class="card mb-4">
             <div class="card-body p-4 p-lg-5">
                 {% if lesson.theory %}
@@ -38,10 +55,60 @@
                 </details>
                 {% endif %}
 
+                {% if lesson.examples %}
+                <details class="example-box mt-3" open>
+                    <summary><i class="bi bi-lightbulb"></i> Примеры кода — разберись, как это работает</summary>
+                    <div class="example-inner mt-2">
+                        {% for ex in lesson.examples %}
+                        <div class="example-item mb-3">
+                            <div class="example-label">
+                                {% if ex.title %}{{ ex.title }}{% else %}Пример {{ loop.index }}{% endif %}
+                            </div>
+                            <div class="code-with-copy" style="position:relative;">
+    <pre class="code-block mb-2"><code class="language-{{ lang_code }}">{{ ex.code }}</code></pre>
+    <button class="btn-copy" onclick="copyCode(this)" title="Скопировать код">Копировать</button>
+</div>
+                            {% if ex.explanation or ex.explain %}
+                            <small class="text-muted d-block mt-1">{{ ex.explanation or ex.explain }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </details>
+                {% endif %}
+
+
+
+                {% if tasks|length > 1 %}
+                <div class="d-flex flex-wrap gap-2 mb-3 task-tabs">
+                    {% for tk in tasks %}
+                    {% set tp_state = tp_map.get(loop.index) %}
+                    <a class="pill {% if loop.index == task_num %}accent{% elif tp_state and tp_state[0] %}done{% else %}idle{% endif %}"
+                       href="{{ url_for('lesson', lang_code=lang_code, lesson_id=lesson.id) }}?task={{ loop.index }}">
+                        {% if tp_state and tp_state[0] %}<i class="bi bi-check-lg"></i>{% else %}<i class="bi bi-hash"></i>{% endif %}
+                        Задача {{ loop.index }}
+                        {% if tk.difficulty == 'hard' %}🔴{% elif tk.difficulty == 'medium' %}🟡{% else %}🟢{% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if task.title %}
+                <div class="task-desc mb-3">
+                    <h5><i class="bi bi-target"></i> Задача {{ task_num }}{% if tasks|length %} из {{ tasks|length }}{% endif %}: {{ task.title }}</h5>
+                    <p class="mb-1">{{ task.description }}</p>
+                    <small class="text-muted">
+                        {% if task.difficulty == 'hard' %}🔴 Сложная{% elif task.difficulty == 'medium' %}🟡 Средняя{% else %}🟢 Лёгкая{% endif %}
+                    </small>
+                </div>
+                {% endif %}
+
+                <div class="{{ 'row g-4 sql-lesson-row' if demo_tables else '' }}">
+                {% if demo_tables %}<div class="{{ 'col-12 sql-lesson-editor' if demo_tables else '' }}">{% endif %}
                 <label class="form-label" for="codeEditor">Твой код</label>
-                <div class="pyeditor" data-pyeditor data-min-lines="30">
+                <div class="pyeditor" data-codeeditor="{{ lang_code }}" data-min-lines="30">
                     <div class="pe-toolbar">
-                        <span class="pe-file">main.py</span>
+                        <span class="pe-file">{{ file_name }}</span>
                     </div>
                     <div class="pe-body">
                         <div class="pe-canvas">
@@ -52,6 +119,38 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {% if demo_tables %}
+                <div class="col-12 sql-lesson-db">
+                    <div class="db-side-card">
+                        <div class="db-side-head">
+                            <i class="bi bi-table"></i> Данные базы
+                        </div>
+                        <p class="db-side-note">
+                            Твои запросы выполняются на этих таблицах.
+                            Здесь видно реальные значения.
+                        </p>
+                        {% for tbl in demo_tables %}
+                        <details class="db-side-table" {% if loop.first %}open{% endif %}>
+                            <summary><code>{{ tbl.code }}</code> <span>{{ tbl.title }}</span></summary>
+                            <div class="db-table-scroll">
+                                <table class="db-table">
+                                    <thead>
+                                        <tr>{% for col in tbl.columns %}<th>{{ col }}</th>{% endfor %}</tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for row in tbl.rows %}
+                                        <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
                 </div>
 
                 <div id="hintBox" class="hint-note mt-3" {% if not hint %}style="display:none"{% endif %}>
@@ -79,12 +178,40 @@
                 <div id="outputBox" class="term mt-4" style="display: none;">
                     <span class="term-title">// РЕЗУЛЬТАТ</span>
                 </div>
+
+                {% if lesson.test %}
+                <div class="card mt-4">
+                    <div class="card-header iconized">
+                        <span class="head-icon"><i class="bi bi-patch-question"></i></span>
+                        <span>Мини-тест урока — проверь, как понял материал</span>
+                    </div>
+                    <div class="card-body p-4">
+                        {% for tq in lesson.test %}
+                        <div class="mb-3">
+                            <strong>{{ loop.index }}. {{ tq.question }}</strong>
+                            <div class="d-flex flex-column gap-1 mt-1">
+                                {% for opt in tq.options %}
+                                <label class="form-check d-flex align-items-center">
+                                    <input class="form-check-input mini-test-opt" type="radio"
+                                           name="lt{{ loop.index0 }}" id="lt{{ loop.index0 }}_{{ loop.index0 }}"
+                                           value="{{ loop.index0 }}">
+                                    <span class="form-check-label">{{ loop.index }}. {{ opt }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                            <div class="mini-test-result" id="ltRes{{ loop.index0 }}"></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
             </div>
         </div>
 
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-            {% if prev_lesson %}
-                <a class="btn-prev-task" href="{{ url_for('lesson', lesson_id=prev_lesson.id) }}">
+                        {% if prev_lesson %}
+                <a class="btn-prev-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=prev_lesson.id) }}">
                     <i class="bi bi-arrow-left"></i> Предыдущее задание
                 </a>
             {% else %}
@@ -93,12 +220,12 @@
                 </span>
             {% endif %}
 
-            <a class="np-all" href="{{ url_for('lessons') }}">
+            <a class="np-all" href="{{ url_for('lessons', lang_code=lang_code) }}">
                 <i class="bi bi-grid"></i> Все уроки
             </a>
 
             {% if next_lesson %}
-                <a class="btn-next-task" href="{{ url_for('lesson', lesson_id=next_lesson.id) }}">
+                <a class="btn-next-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=next_lesson.id) }}">
                     Следующее задание <i class="bi bi-arrow-right"></i>
                 </a>
             {% else %}
@@ -112,7 +239,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ csp_nonce() }}">
 (function() {
     var resetBtn = document.getElementById('resetBtn');
     var runBtn = document.getElementById('runBtn');
@@ -120,6 +247,27 @@
     var output = document.getElementById('outputBox');
     var INITIAL = {{ initial_code | tojson }};
     var lastSolution = {{ (solution or '') | tojson }};
+    var CURRENT_LANG = '{{ lang_code }}';
+
+    // преобразует текстовый результат SQL ("a | b | c") в HTML-таблицу
+    function formatSqlResult(text, columns) {
+        if (!text) return '<span class="t-out">(пустой результат)</span>';
+        var lines = text.split('\\n').filter(function(l) { return l.trim(); });
+        if (lines.length === 0) return '<span class="t-out">(пустой результат)</span>';
+        var html = '<table class="sql-result-table"><thead><tr>';
+        var colNames = columns && columns.length ? columns : lines[0].split(' | ');
+        colNames.forEach(function(c) { html += '<th>' + esc(c) + '</th>'; });
+        html += '</tr></thead><tbody>';
+        var startIdx = (columns && columns.length) ? 0 : 1;
+        for (var i = startIdx; i < lines.length; i++) {
+            var cells = lines[i].split(' | ');
+            html += '<tr>';
+            cells.forEach(function(c) { html += '<td>' + esc(c) + '</td>'; });
+            html += '</tr>';
+        }
+        html += '</tbody></table>';
+        return html;
+    }
 
     resetBtn.addEventListener('click', function() {
         editor.value = INITIAL;
@@ -139,10 +287,11 @@
         output.style.display = 'block';
         output.innerHTML = '<span class="term-title">// РЕЗУЛЬТАТ</span>\nПроверяем код…';
 
-        fetch('/lesson/{{ lesson.id }}', {
+        fetch('{{ url_for("lesson", lang_code=lang_code, lesson_id=lesson.id) }}', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'code=' + encodeURIComponent(editor.value)
+                  + '&task_num={{ task_num }}'
         })
         .then(function(r) {
             var ct = r.headers.get('Content-Type') || '';
@@ -154,7 +303,11 @@
         .then(function(data) {
             var html = '<span class="term-title">// РЕЗУЛЬТАТ</span>';
             if (data.stdout) {
-                html += '\n<span class="t-out">Output:</span>\n' + esc(data.stdout) + '\n';
+                if (CURRENT_LANG === 'sql') {
+                    html += '\n' + formatSqlResult(data.stdout, {{ sql_columns | tojson }}) + '\n';
+                } else {
+                    html += '\n<span class="t-out">Output:</span>\n' + esc(data.stdout) + '\n';
+                }
             }
             if (data.stderr) {
                 html += '\n<span class="t-err">Error:</span>\n' + esc(data.stderr) + '\n';
@@ -211,6 +364,32 @@
         editor.dispatchEvent(new Event('input'));
         editor.focus();
     });
+
+    // Мини-тест урока: мгновенная проверка ответа с объяснением
+    {% if lesson.test %}
+    var testAnswers = {{ lesson.test | map(attribute='correct') | list | tojson }};
+    var testExplains = [];
+    {% if lesson.test %}
+    {% for tq in lesson.test %}
+    testExplains.push({{ tq.explain | default('') | tojson }});
+    {% endfor %}
+    {% endif %}
+    var miniRadios = document.querySelectorAll('.mini-test-opt');
+    miniRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            var name = radio.name; // lt0, lt1...
+            var idx = parseInt(name.replace('lt', ''), 10);
+            var box = document.getElementById('ltRes' + idx);
+            var chosen = parseInt(radio.value, 10);
+            if (chosen === testAnswers[idx]) {
+                box.innerHTML = '<span class="t-ok">✅ Правильно!</span> ' +
+                    (testExplains[idx] ? '<small class="text-muted">' + esc(testExplains[idx]) + '</small>' : '');
+            } else {
+                box.innerHTML = '<span class="t-err">❌ Неправильно. Попробуй ещё раз.</span>';
+            }
+        });
+    });
+    {% endif %}
 })();
 </script>
 {% endblock %}

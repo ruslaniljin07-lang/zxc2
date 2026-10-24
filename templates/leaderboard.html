@@ -24,7 +24,7 @@
                     </thead>
                     <tbody>
                         {% for entry in entries %}
-                            <tr {% if entry.user_id == current_user.id %}style="background:var(--primary-soft);"{% endif %}>
+                            <tr {% if current_user.is_authenticated and entry.user_id == current_user.id %}style="background:var(--primary-soft);"{% endif %}>
                                 <td>
                                     {% if entry.rank == 1 %}
                                         <span class="pill accent">🥇 1</span>
@@ -36,7 +36,7 @@
                                         {{ entry.rank }}
                                     {% endif %}
                                 </td>
-                                <td><strong>{{ entry.user.username }}</strong>{% if entry.user_id == current_user.id %} <span class="pill idle">ты</span>{% endif %}</td>
+                                <td><strong>{{ entry.user.username }}</strong>{% if current_user.is_authenticated and entry.user_id == current_user.id %} <span class="pill idle">ты</span>{% endif %}</td>
                                 <td><span class="xp-chip">{{ entry.xp }} XP</span></td>
                                 <td>
                                     {{ entry.last_updated.strftime('%d.%m.%Y') if entry.last_updated else '-' }}

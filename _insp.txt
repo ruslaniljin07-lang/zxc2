@@ -1,0 +1,117 @@
+﻿
+======================================================================
+FILE: python.json  KEY: python
+======================================================================
+top-level keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+name='Python' icon='ЁЯРН' difficulty='╨Ы╤С╨│╨║╨╕╨╣ ╤Б╤В╨░╤А╤В'
+description='╨Ю╤Б╨╜╨╛╨▓╤Л ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╤П ╨╕ ╤А╨░╨╖╤А╨░╨▒╨╛╤В╨║╨░ ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╕╨╣ тАФ ╨╛╤В╨╗╨╕╤З╨╜╤Л╨╣ ╤Б╤В╨░╤А╤В ╨┤╨╗╤П ╨╜╨╛╨▓╨╕╤З╨║╨░.'
+modules: 4
+  MODULE id=1 title='╨Ю╤Б╨╜╨╛╨▓╤Л Python' lessons=3
+     LESSON id=1 title='╨Я╨╡╤А╨▓╨░╤П ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨░' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=2 title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨╕ ╤В╨╕╨┐╤Л ╨┤╨░╨╜╨╜╤Л╤Е' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=3 title='╨Р╤А╨╕╤Д╨╝╨╡╤В╨╕╨║╨░ ╨╕ ╤Б╤В╤А╨╛╨║╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=2 title='╨г╤Б╨╗╨╛╨▓╨╕╤П ╨╕ ╤Ж╨╕╨║╨╗╤Л' lessons=3
+     LESSON id=4 title='╨г╤Б╨╗╨╛╨▓╨╕╤П if / else' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=5 title='elif ╨╕ ╨╗╨╛╨│╨╕╨║╨░' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=6 title='╨ж╨╕╨║╨╗╤Л for ╨╕ while' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=3 title='╨б╨┐╨╕╤Б╨║╨╕ ╨╕ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕' lessons=3
+     LESSON id=7 title='╨б╨┐╨╕╤Б╨║╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=8 title='╨Ь╨╡╤В╨╛╨┤╤Л ╤Б╨┐╨╕╤Б╨║╨╛╨▓' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=9 title='╨д╤Г╨╜╨║╤Ж╨╕╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=4 title='╨б╨╗╨╛╨▓╨░╤А╨╕ ╨╕ ╨Ю╨Ю╨Я' lessons=3
+     LESSON id=10 title='╨б╨╗╨╛╨▓╨░╤А╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=11 title='╨Ъ╨╗╨░╤Б╤Б╤Л ╨╕ ╨╛╨▒╤К╨╡╨║╤В╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=12 title='╨Э╨░╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╨╡' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+tests: 0
+cheatsheets: 8
+  CHEAT id=None title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨╕ ╤В╨╕╨┐╤Л'
+  CHEAT id=None title='╨г╤Б╨╗╨╛╨▓╨╕╤П'
+  CHEAT id=None title='╨ж╨╕╨║╨╗╤Л'
+  CHEAT id=None title='╨б╨┐╨╕╤Б╨║╨╕'
+  CHEAT id=None title='╨б╨╗╨╛╨▓╨░╤А╨╕'
+  CHEAT id=None title='╨д╤Г╨╜╨║╤Ж╨╕╨╕'
+  CHEAT id=None title='╨Ъ╨╗╨░╤Б╤Б╤Л'
+  CHEAT id=None title='╨Ю╤И╨╕╨▒╨║╨╕'
+final_test: no questions=0
+final_project keys: ╨Ь╨╡╨╜╨╡╨┤╨╢╨╡╤А ╨╖╨░╨┤╨░╤З
+
+======================================================================
+FILE: javascript.json  KEY: javascript
+======================================================================
+top-level keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+name='JavaScript' icon='ЁЯЯи' difficulty='╨б╤А╨╡╨┤╨╜╨╕╨╣ ╤Б╤В╨░╤А╤В'
+description='╨п╨╖╤Л╨║ ╨┤╨╗╤П ╨▓╨╡╨▒-╤А╨░╨╖╤А╨░╨▒╨╛╤В╨║╨╕ ╨╕ ╨╕╨╜╤В╨╡╤А╨░╨║╤В╨╕╨▓╨╜╤Л╤Е ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╕╨╣ тАФ ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╨▓ ╨▒╤А╨░╤Г╨╖╨╡╤А╨╡.'
+modules: 2
+  MODULE id=1 title='╨Ю╤Б╨╜╨╛╨▓╤Л JavaScript' lessons=3
+     LESSON id=1 title='╨Я╨╡╤А╨▓╨░╤П ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨░' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=2 title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨╕ ╤В╨╕╨┐╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=3 title='╨г╤Б╨╗╨╛╨▓╨╕╤П if / else' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=2 title='╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╕ ╨╝╨░╤Б╤Б╨╕╨▓╤Л' lessons=3
+     LESSON id=4 title='╨д╤Г╨╜╨║╤Ж╨╕╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=5 title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л ╨╕ ╨╝╨╡╤В╨╛╨┤╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=6 title='╨Ю╨▒╤К╨╡╨║╤В╤Л ╨╕ JSON' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+tests: 0
+cheatsheets: 6
+  CHEAT id=None title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡'
+  CHEAT id=None title='╨г╤Б╨╗╨╛╨▓╨╕╤П'
+  CHEAT id=None title='╨ж╨╕╨║╨╗╤Л'
+  CHEAT id=None title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л'
+  CHEAT id=None title='╨д╤Г╨╜╨║╤Ж╨╕╨╕'
+  CHEAT id=None title='╨Ю╨▒╤К╨╡╨║╤В╤Л ╨╕ JSON'
+final_test: no questions=0
+final_project keys: ╨Ш╨╜╤В╨╡╤А╨░╨║╤В╨╕╨▓╨╜╤Л╨╣ ╨┐╨╗╨░╨╜╨╕╤А╨╛╨▓╤Й╨╕╨║ ╨╖╨░╨┤╨░╤З
+
+======================================================================
+FILE: java.json  KEY: java
+======================================================================
+top-level keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+name='Java' icon='тШХ' difficulty='╨б╤А╨╡╨┤╨╜╨╕╨╣ ╤Б╤В╨░╤А╤В'
+description='╨Ъ╨╗╨░╤Б╤Б╨╕╤З╨╡╤Б╨║╨╕╨╣ ╨╛╨▒╤К╨╡╨║╤В╨╜╨╛-╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╣ ╤П╨╖╤Л╨║ ╨┤╨╗╤П ╨▒╨╛╨╗╤М╤И╨╕╤Е ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╕╨╣.'
+modules: 3
+  MODULE id=1 title='╨Ю╤Б╨╜╨╛╨▓╤Л Java' lessons=3
+     LESSON id=1 title='╨Я╨╡╤А╨▓╨░╤П ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨░' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=2 title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨╕ ╤В╨╕╨┐╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=3 title='╨г╤Б╨╗╨╛╨▓╨╕╤П if / else' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=2 title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л ╨╕ ╤Б╤В╤А╨╛╨║╨╕' lessons=2
+     LESSON id=4 title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=5 title='╨б╤В╤А╨╛╨║╨╕ String' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=3 title='╨Ю╨Ю╨Я ╨▓ Java' lessons=2
+     LESSON id=6 title='╨Ъ╨╗╨░╤Б╤Б╤Л ╨╕ ╨╛╨▒╤К╨╡╨║╤В╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=7 title='╨Э╨░╤Б╨╗╨╡╨┤╨╛╨▓╨░╨╜╨╕╨╡' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+tests: 0
+cheatsheets: 6
+  CHEAT id=None title='╨Ю╤Б╨╜╨╛╨▓╤Л'
+  CHEAT id=None title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡'
+  CHEAT id=None title='╨г╤Б╨╗╨╛╨▓╨╕╤П'
+  CHEAT id=None title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л'
+  CHEAT id=None title='╨б╤В╤А╨╛╨║╨╕'
+  CHEAT id=None title='╨Ю╨Ю╨Я'
+final_test: no questions=0
+final_project keys: ╨б╨╕╤Б╤В╨╡╨╝╨░ ╤Г╨┐╤А╨░╨▓╨╗╨╡╨╜╨╕╤П ╨▒╨╕╨▒╨╗╨╕╨╛╤В╨╡╨║╨╛╨╣
+
+======================================================================
+FILE: cpp.json  KEY: cpp
+======================================================================
+top-level keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+name='C++' icon='тЪЩя╕П' difficulty='╨б╨╗╨╛╨╢╨╜╤Л╨╣ ╤Б╤В╨░╤А╤В'
+description='╨Ь╨╛╤Й╨╜╤Л╨╣ ╨║╨╛╨╝╨┐╨╕╨╗╨╕╤А╤Г╨╡╨╝╤Л╨╣ ╤П╨╖╤Л╨║ ╨┤╨╗╤П ╤Б╨╕╤Б╤В╨╡╨╝ ╨╕ ╨╕╨│╤А.'
+modules: 3
+  MODULE id=1 title='╨Ю╤Б╨╜╨╛╨▓╤Л C++' lessons=2
+     LESSON id=1 title='╨Я╨╡╤А╨▓╨░╤П ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨░' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=2 title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨╕ ╤В╨╕╨┐╤Л' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=2 title='╨г╤Б╨╗╨╛╨▓╨╕╤П ╨╕ ╤Ж╨╕╨║╨╗╤Л' lessons=2
+     LESSON id=3 title='╨г╤Б╨╗╨╛╨▓╨╕╤П if / else' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=4 title='╨ж╨╕╨║╨╗╤Л for ╨╕ while' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+  MODULE id=3 title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л, ╤Б╤В╤А╨╛╨║╨╕ ╨╕ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕' lessons=2
+     LESSON id=5 title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л ╨╕ ╤Б╤В╤А╨╛╨║╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+     LESSON id=6 title='╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╕ ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╨╕' keys=['id', 'title', 'description', 'theory', 'examples', 'tasks', 'test', 'cheatsheet', 'xp_reward', 'difficulty']
+tests: 0
+cheatsheets: 6
+  CHEAT id=None title='╨Ю╤Б╨╜╨╛╨▓╤Л'
+  CHEAT id=None title='╨Я╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡'
+  CHEAT id=None title='╨г╤Б╨╗╨╛╨▓╨╕╤П'
+  CHEAT id=None title='╨ж╨╕╨║╨╗╤Л'
+  CHEAT id=None title='╨Ь╨░╤Б╤Б╨╕╨▓╤Л ╨╕ ╤Б╤В╤А╨╛╨║╨╕'
+  CHEAT id=None title='╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╕ ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╨╕'
+final_test: no questions=0
+final_project keys: ╨Ь╨╡╨╜╨╡╨┤╨╢╨╡╤А ╨╖╨░╨╝╨╡╤В╨╛╨║

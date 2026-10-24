@@ -1,0 +1,645 @@
+{
+ "typescript": {
+  "name": "TypeScript",
+  "icon": "📘",
+  "color": "#3178C6",
+  "description": "JavaScript со статическими типами: подсказки в редакторе и меньше ошибок во время выполнения.",
+  "difficulty": "Лёгкий старт",
+  "final_project": "Список задач на TypeScript",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы TypeScript",
+    "description": "Типы, let и const",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Первая программа",
+      "description": "TypeScript и console.log",
+      "theory": [
+       "TypeScript — надмножество JavaScript: любой JS-код подходит.",
+       "Типы указываются аннотацией: let x: number = 5.",
+       "console.log выводит данные в консоль."
+      ],
+      "examples": [
+       {
+        "title": "Привет, мир",
+        "code": "const greeting: string = \"Привет, мир!\";\nconsole.log(greeting);",
+        "explanation": "Аннотация : string подсказывает редактору тип."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1,
+        "title": "Первый вывод",
+        "description": "Выведи строку: TypeScript — это просто!",
+        "difficulty": "easy",
+        "initial_code": "// выведи строку через console.log\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "TypeScript — это просто!",
+         "require": [
+          "console.log",
+          "TypeScript — это просто!"
+         ]
+        },
+        "hints": [
+         "Используй console.log(\"текст\").",
+         "Текст должен совпадать точно: «TypeScript — это просто!»"
+        ],
+        "solution": "const text: string = \"TypeScript — это просто!\";\nconsole.log(text);",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как вывести текст в TypeScript?",
+        "options": [
+         "print()",
+         "console.log()",
+         "echo",
+         "fmt.Println()"
+        ],
+        "correct": 1
+       },
+       {
+        "question": "Что такое TypeScript?",
+        "options": [
+         "JavaScript с типами",
+         "новый язык без связи с JS",
+         "библиотека для стилей",
+         "фреймворк для игр"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "const x: number = 5;\nconsole.log(x);\n// tsc main.ts — компиляция\n// node main.js — запуск",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 2,
+      "title": "Переменные и типы",
+      "description": "let, const и аннотации типов",
+      "theory": [
+       "let — изменяемая переменная, const — константа.",
+       "Основные типы: number, string, boolean, any.",
+       "TypeScript выводит тип из значения, аннотация не обязательна."
+      ],
+      "examples": [
+       {
+        "title": "Переменные",
+        "code": "let age: number = 25;\nconst name: string = \"Аня\";\nconsole.log(`${name}, ${age}`);",
+        "explanation": "Шаблонная строка подставляет значения через ${}."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2,
+        "title": "Константа города",
+        "description": "Создай константу city со значением «Казань» и выведи её.",
+        "difficulty": "easy",
+        "initial_code": "// объяви константу city\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "Казань",
+         "require": [
+          "city",
+          "console.log"
+         ]
+        },
+        "hints": [
+         "Объяви: const city: string = \"Казань\";",
+         "Выведи её через console.log(city)."
+        ],
+        "solution": "const city: string = \"Казань\";\nconsole.log(city);",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Чем const отличается от let?",
+        "options": [
+         "const нельзя переназначить",
+         "let нельзя переназначить",
+         "они одинаковы",
+         "const устарел"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Какой тип подходит для текста?",
+        "options": [
+         "string",
+         "text",
+         "str",
+         "char"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "let count: number = 0;\ncount += 1;\nconst name: string = \"Аня\";\nlet flag: boolean = true;\nlet anything: any = 5;",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что даёт аннотация типа?",
+       "options": [
+        "проверку типов и подсказки",
+        "ускорение кода",
+        "сжатие файла",
+        "ничего"
+       ],
+       "correct": 0,
+       "explain": "Аннотации проверяет компилятор TS."
+      },
+      {
+       "question": "Как вывести строку с подстановкой переменной?",
+       "options": [
+        "console.log(`${name}`)",
+        "console.log($name)",
+        "echo name",
+        "print(name)"
+       ],
+       "correct": 0,
+       "explain": "В JS и TS используются шаблонные строки."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Условия и циклы",
+    "description": "if, for и while",
+    "lessons": [
+     {
+      "id": 3,
+      "title": "Условия",
+      "description": "if / else и тернарный оператор",
+      "theory": [
+       "Условие пишется в круглых скобках: if (n > 0) { }.",
+       "else и else if образуют цепочки условий.",
+       "Тернарный оператор: условие ? да : нет."
+      ],
+      "examples": [
+       {
+        "title": "if / else",
+        "code": "const n: number = 10;\nif (n > 0) {\n  console.log(\"положительное\");\n} else {\n  console.log(\"отрицательное\");\n}",
+        "explanation": "Фигурные скобки нужны для многострочного тела."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3,
+        "title": "Большое число",
+        "description": "Если n = 12 больше 10 — выведи «большое», иначе «маленькое».",
+        "difficulty": "medium",
+        "initial_code": "const n: number = 12;\n// проверь условие\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "большое",
+         "require": [
+          "if (n > 10)",
+          "console.log"
+         ]
+        },
+        "hints": [
+         "Условие: n > 10.",
+         "В блоках выведи нужный текст."
+        ],
+        "solution": "const n: number = 12;\nif (n > 10) {\n  console.log(\"большое\");\n} else {\n  console.log(\"маленькое\");\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой оператор строгого сравнения в TS?",
+        "options": [
+         "===",
+         "==",
+         "=",
+         "eq"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Как записать тернарный оператор?",
+        "options": [
+         "условие ? да : нет",
+         "if ? да : нет",
+         "да || нет",
+         "условие -> да"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "if (n > 0) { ... } else if (n === 0) { ... } else { ... }\nconst text = n > 0 ? \"плюс\" : \"минус\";",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 4,
+      "title": "Циклы",
+      "description": "for, while и перебор массива",
+      "theory": [
+       "Классический цикл: for (let i = 0; i < n; i++).",
+       "Перебор массива: for (const item of items).",
+       "while выполняется, пока условие истинно."
+      ],
+      "examples": [
+       {
+        "title": "Счётчик",
+        "code": "for (let i = 1; i <= 3; i++) {\n  console.log(i);\n}",
+        "explanation": "i++ увеличивает счётчик после итерации."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 4,
+        "title": "Числа от 1 до 5",
+        "description": "Выведи числа от 1 до 5 через пробел в одной строке.",
+        "difficulty": "medium",
+        "initial_code": "// выведи числа от 1 до 5 через пробел\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "1 2 3 4 5",
+         "require": [
+          "for (let i = 1",
+          "join"
+         ]
+        },
+        "hints": [
+         "Собери числа 1..5 в массив.",
+         "Выведи его через console.log(nums.join(\" \"))."
+        ],
+        "solution": "const nums: number[] = [];\nfor (let i = 1; i <= 5; i++) nums.push(i);\nconsole.log(nums.join(\" \"));",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как перебрать элементы массива?",
+        "options": [
+         "for (const x of arr)",
+         "for (x in arr)",
+         "foreach (x)",
+         "loop x"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает break?",
+        "options": [
+         "выходит из цикла",
+         "пропускает итерацию",
+         "перезапускает цикл",
+         "ничего"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "for (let i = 0; i < 5; i++) { ... }\nfor (const x of arr) { ... }\nwhile (условие) { ... }\nbreak / continue",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что вернёт 7 % 2 === 0 ? \"чёт\" : \"нечет\"?",
+       "options": [
+        "нечет",
+        "чёт",
+        "ошибку",
+        "ничего"
+       ],
+       "correct": 0,
+       "explain": "7 % 2 равно 1, значит условие ложно."
+      },
+      {
+       "question": "Зачем нужен === вместо ==?",
+       "options": [
+        "сравнение без приведения типов",
+        "быстрее",
+        "короче",
+        "они одинаковы"
+       ],
+       "correct": 0,
+       "explain": "== приводит типы и даёт сюрпризы."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Массивы и функции",
+    "description": "Массивы, типизация функций",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Массивы",
+      "description": "Массивы и методы",
+      "theory": [
+       "Массив типизируется как number[] или string[].",
+       "push добавляет элемент, length даёт длину.",
+       "reduce сворачивает массив в одно значение."
+      ],
+      "examples": [
+       {
+        "title": "Сумма массива",
+        "code": "const nums: number[] = [3, 6, 9];\nconst sum = nums.reduce((a, b) => a + b, 0);\nconsole.log(sum);",
+        "explanation": "reduce принимает функцию и стартовое значение."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 5,
+        "title": "Сумма массива",
+        "description": "Дан массив [3, 6, 9] — выведи сумму его элементов.",
+        "difficulty": "medium",
+        "initial_code": "const nums: number[] = [3, 6, 9];\n// посчитай сумму\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "18",
+         "require": [
+          "const nums",
+          "console.log"
+         ]
+        },
+        "hints": [
+         "Пройди массив циклом for..of.",
+         "Складывай элементы в переменную-накопитель."
+        ],
+        "solution": "const nums: number[] = [3, 6, 9];\nlet sum = 0;\nfor (const n of nums) sum += n;\nconsole.log(sum);",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как типизировать массив чисел?",
+        "options": [
+         "number[]",
+         "array<number>",
+         "numbers",
+         "int[]"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что делает push?",
+        "options": [
+         "добавляет элемент в конец",
+         "удаляет элемент",
+         "сортирует",
+         "возвращает длину"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "const nums: number[] = [1, 2, 3];\nnums.push(4);\nnums.length\nconst sum = nums.reduce((a, b) => a + b, 0);\nnums.map(n => n * 2);",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 6,
+      "title": "Функции",
+      "description": "Аргументы, возвращаемый тип и стрелки",
+      "theory": [
+       "Типы аргументов указываются после имени: (a: number, b: number).",
+       "Тип возврата пишется после скобок: ): number { ... }.",
+       "Стрелочная функция: const add = (a: number, b: number) => a + b."
+      ],
+      "examples": [
+       {
+        "title": "Функция сложения",
+        "code": "function add(a: number, b: number): number {\n  return a + b;\n}\nconsole.log(add(3, 4));",
+        "explanation": "Тип возврата помогает редактору подсказывать."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 6,
+        "title": "Функция double",
+        "description": "Напиши функцию double(n: number): number, возвращающую удвоенное число, и выведи double(7).",
+        "difficulty": "hard",
+        "initial_code": "// объяви функцию double и выведи double(7)\n",
+        "check": {
+         "type": "stdout_ts",
+         "expected": "14",
+         "require": [
+          "function double",
+          "return"
+         ]
+        },
+        "hints": [
+         "Объяви функцию до её вызова.",
+         "Умножь параметр на 2 и верни результат."
+        ],
+        "solution": "function double(n: number): number {\n  return n * 2;\n}\nconsole.log(double(7));",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как указать тип возврата?",
+        "options": [
+         "после скобок: ): number",
+         "до имени функции",
+         "внутри тела",
+         "никак"
+        ],
+        "correct": 0
+       },
+       {
+        "question": "Что такое стрелочная функция?",
+        "options": [
+         "const f = (a: number) => a * 2",
+         "function f(a) => a * 2",
+         "def f(a): a * 2",
+         "f = (a) -> a * 2"
+        ],
+        "correct": 0
+       }
+      ],
+      "cheatsheet": "function add(a: number, b: number): number { return a + b; }\nconst double = (n: number): number => n * 2;\nvoid — нет результата",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что делает reduce?",
+       "options": [
+        "сворачивает массив в одно значение",
+        "сортирует массив",
+        "фильтрует элементы",
+        "добавляет элемент"
+       ],
+       "correct": 0,
+       "explain": "Например, сумму всех чисел."
+      },
+      {
+       "question": "Зачем типизировать функции?",
+       "options": [
+        "редактор проверяет аргументы и результат",
+        "код работает быстрее",
+        "уменьшается файл",
+        "ни за чем"
+       ],
+       "correct": 0,
+       "explain": "Ошибки находятся ещё до запуска."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в TypeScript?",
+    "options": [
+     "print()",
+     "console.log()",
+     "echo",
+     "fmt.Println()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Чем const отличается от let?",
+    "options": [
+     "const нельзя переназначить",
+     "let нельзя переназначить",
+     "они одинаковы",
+     "const устарел"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой тип подходит для текста?",
+    "options": [
+     "string",
+     "text",
+     "str",
+     "char"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как типизировать массив чисел?",
+    "options": [
+     "number[]",
+     "array<number>",
+     "int[]",
+     "numbers"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой оператор строгого сравнения?",
+    "options": [
+     "===",
+     "==",
+     "=",
+     "eq"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить тип возврата функции?",
+    "options": [
+     "после скобок через :",
+     "до имени функции",
+     "внутри тела",
+     "никак"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что делает push?",
+    "options": [
+     "добавляет элемент в конец массива",
+     "удаляет элемент",
+     "сортирует массив",
+     "возвращает длину"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Из какого языка TypeScript получил основу?",
+    "options": [
+     "JavaScript",
+     "Java",
+     "C#",
+     "Python"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "const x: number = 5;\nconsole.log(x);\n// tsc main.ts\n// node main.js",
+    "note": "Любой корректный JavaScript-код подходит и для TypeScript."
+   },
+   {
+    "title": "Типы",
+    "icon": "🏷️",
+    "code": "let n: number = 5;\nlet s: string = \"текст\";\nlet b: boolean = true;\nlet a: any = null;",
+    "note": "any отключает проверку типов."
+   },
+   {
+    "title": "Строки и шаблоны",
+    "icon": "📝",
+    "code": "const name: string = 'Аня';\nconst msg: string = `Привет, ${name}!`;\nname.length;\nname.toUpperCase();\nconst parts: string[] = 'a,b,c'.split(',');",
+    "note": "Шаблонная строка в обратных кавычках подставляет значения любого типа."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if (n > 0) { ... } else { ... }\nconst text = n > 0 ? \"плюс\" : \"минус\";",
+    "note": "Используй === вместо ==."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for (let i = 0; i < 5; i++) { ... }\nfor (const x of arr) { ... }\nwhile (условие) { ... }",
+    "note": "for..in перебирает ключи, for..of — значения."
+   },
+   {
+    "title": "Массивы",
+    "icon": "📚",
+    "code": "const nums: number[] = [1, 2, 3];\nnums.push(4);\nnums.length\nnums.map(n => n * 2)\nnums.reduce((a, b) => a + b, 0)",
+    "note": "Методы массива возвращают новые значения."
+   },
+   {
+    "title": "Функции",
+    "icon": "🧩",
+    "code": "function add(a: number, b: number): number {\n  return a + b;\n}\nconst double = (n: number): number => n * 2;",
+    "note": "Тип возврата указывается после скобок."
+   },
+   {
+    "title": "Интерфейсы",
+    "icon": "🧱",
+    "code": "interface User {\n  name: string;\n  age?: number;      // необязательное поле\n}\n\nconst u: User = { name: 'Аня' };\n\nfunction greet(user: User): string {\n  return 'Привет, ' + user.name;\n}",
+    "note": "Интерфейс описывает форму объекта, и компилятор следит за ней."
+   },
+   {
+    "title": "Объединения типов",
+    "icon": "🔗",
+    "code": "function fmt(value: string | number): string {\n  if (typeof value === 'number') {\n    return value.toFixed(1);    // здесь TS знает: число\n  }\n  return value.toUpperCase();   // а здесь — строка\n}",
+    "note": "Union-тип разрешает несколько вариантов, typeof их различает."
+   },
+   {
+    "title": "Классы",
+    "icon": "🏛️",
+    "code": "class User {\n  constructor(public name: string, private age: number = 0) {}\n\n  hello(): string {\n    return `Привет, ${this.name}`;\n  }\n}\n\nconst u = new User('Аня');\nu.hello();",
+    "note": "Модификаторы public/private в конструкторе сразу создают свойства."
+   }
+  ]
+ }
+}

@@ -1,0 +1,757 @@
+{
+ "rust": {
+  "name": "Rust",
+  "icon": "🦀",
+  "color": "#DEA584",
+  "description": "Системный язык без сборщика мусора: безопасная работа с памятью и скорость C++.",
+  "difficulty": "Сложный старт",
+  "final_project": "Утилита подсчёта слов в файле",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы Rust",
+    "description": "Привет, мир, переменные и типы",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Первая программа",
+      "description": "fn main и макрос println!",
+      "theory": [
+       "Rust компилируется в машинный код без сборщика мусора.",
+       "Точка входа — функция fn main().",
+       "println! — макрос вывода, обрати внимание на восклицательный знак."
+      ],
+      "examples": [
+       {
+        "title": "Привет, мир",
+        "code": "fn main() {\n    println!(\"Привет, мир!\");\n}",
+        "explanation": "Фигурные скобки задают тело функции."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1,
+        "title": "Первый вывод",
+        "description": "Выведи строку: Rust — это просто!",
+        "difficulty": "easy",
+        "initial_code": "fn main() {\n    // выведи строку\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "Rust — это просто!",
+         "require": [
+          "println!",
+          "Rust — это просто!"
+         ]
+        },
+        "hints": [
+         "Используй println!(\"текст\");",
+         "Не забудь точку с запятой и восклицательный знак в имени макроса."
+        ],
+        "solution": "fn main() {\n    println!(\"Rust — это просто!\");\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как вывести текст в Rust?",
+        "options": [
+         "print()",
+         "println!(\"текст\")",
+         "echo",
+         "console.log()"
+        ],
+        "correct": 1,
+        "explain": "println! — макрос, поэтому нужен восклицательный знак."
+       },
+       {
+        "question": "Как объявляется точка входа?",
+        "options": [
+         "fn main()",
+         "void main()",
+         "function main()",
+         "main()"
+        ],
+        "correct": 0,
+        "explain": "Программа начинается с fn main()."
+       }
+      ],
+      "cheatsheet": "fn main() {\n    println!(\"Привет\");\n}\n// cargo run — сборка и запуск\n// rustc main.rs — компиляция",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 2,
+      "title": "Переменные и типы",
+      "description": "let, mut и типы",
+      "theory": [
+       "let объявляет переменную, по умолчанию она неизменяемая.",
+       "mut делает переменную изменяемой: let mut x = 5;",
+       "Основные типы: i32, f64, bool, String, &str.",
+       "Тип можно не указывать — компилятор выведет его сам."
+      ],
+      "examples": [
+       {
+        "title": "Переменные",
+        "code": "let name = \"Артур\";\nlet mut age = 25;\nage += 1;\nprintln!(\"{} {}\", name, age);",
+        "explanation": "{} — плейсхолдер для значения."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2,
+        "title": "Переменная города",
+        "description": "Создай переменную city со значением «Казань» и выведи её.",
+        "difficulty": "easy",
+        "initial_code": "fn main() {\n    // объяви city\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "Казань",
+         "require": [
+          "let city",
+          "println!"
+         ]
+        },
+        "hints": [
+         "Объяви: let city = \"Казань\";",
+         "Выведи её через println!(\"{}\", city);"
+        ],
+        "solution": "fn main() {\n    let city = \"Казань\";\n    println!(\"{}\", city);\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как сделать переменную изменяемой?",
+        "options": [
+         "let mut x = 5;",
+         "let x = 5;",
+         "var x = 5;",
+         "mutable x = 5;"
+        ],
+        "correct": 0,
+        "explain": "Ключевое слово mut разрешает менять значение."
+       },
+       {
+        "question": "Какой тип у строкового литерала?",
+        "options": [
+         "&str",
+         "String",
+         "char",
+         "text"
+        ],
+        "correct": 0,
+        "explain": "Литерал \"текст\" имеет тип &str."
+       }
+      ],
+      "cheatsheet": "let x = 5;          // неизменяемая\nlet mut y = 10;     // изменяемая\nlet pi: f64 = 3.14;\nlet ok: bool = true;",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что означает восклицательный знак в println!?",
+       "options": [
+        "это макрос",
+        "это ошибка",
+        "это комментарий",
+        "это тип"
+       ],
+       "correct": 0,
+       "explain": "В Rust макросы вызываются с !."
+      },
+      {
+       "question": "Какая переменная изменяемая?",
+       "options": [
+        "let mut x = 5;",
+        "let x = 5;",
+        "const x = 5;",
+        "static x = 5;"
+       ],
+       "correct": 0,
+       "explain": "Без mut значение менять нельзя."
+      },
+      {
+       "question": "Как вывести значение переменной?",
+       "options": [
+        "println!(\"{}\", x);",
+        "print(x)",
+        "echo x",
+        "Console.WriteLine(x)"
+       ],
+       "correct": 0,
+       "explain": "Фигурные скобки — место подстановки значения."
+      },
+      {
+       "question": "Какой тип у числа 3.14?",
+       "options": [
+        "f64",
+        "i32",
+        "bool",
+        "String"
+       ],
+       "correct": 0,
+       "explain": "Дробные числа по умолчанию имеют тип f64."
+      },
+      {
+       "question": "Что будет при изменении переменной без mut?",
+       "options": [
+        "ошибка компиляции",
+        "значение изменится",
+        "переменная станет строкой",
+        "ничего"
+       ],
+       "correct": 0,
+       "explain": "По умолчанию переменные неизменяемы."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Условия и циклы",
+    "description": "if, match, for и while",
+    "lessons": [
+     {
+      "id": 3,
+      "title": "Условия",
+      "description": "if, else и match",
+      "theory": [
+       "Условие пишется без круглых скобок: if n > 0 { }.",
+       "if — это выражение: ветвь возвращает значение.",
+       "match сравнивает значение с шаблонами и требует все случаи."
+      ],
+      "examples": [
+       {
+        "title": "if / else",
+        "code": "let n = 10;\nif n > 0 {\n    println!(\"положительное\");\n} else {\n    println!(\"отрицательное\");\n}",
+        "explanation": "Круглые скобки в условии не нужны."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3,
+        "title": "Большое число",
+        "description": "Если n = 12 больше 10 — выведи «большое», иначе «маленькое».",
+        "difficulty": "medium",
+        "initial_code": "fn main() {\n    let n = 12;\n    // проверь условие\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "большое",
+         "require": [
+          "if n > 10",
+          "println!"
+         ]
+        },
+        "hints": [
+         "Условие: n > 10.",
+         "В блоках выведи нужный текст."
+        ],
+        "solution": "fn main() {\n    let n = 12;\n    if n > 10 {\n        println!(\"большое\");\n    } else {\n        println!(\"маленькое\");\n    }\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Нужны ли круглые скобки вокруг условия?",
+        "options": [
+         "нет",
+         "да",
+         "только с else",
+         "только для чисел"
+        ],
+        "correct": 0,
+        "explain": "В Rust условие пишут без круглых скобок."
+       },
+       {
+        "question": "Какой оператор означает «и»?",
+        "options": [
+         "&&",
+         "and",
+         "&",
+         "++"
+        ],
+        "correct": 0,
+        "explain": "&& — логическое «и»: истинно, только когда верны оба условия."
+       }
+      ],
+      "cheatsheet": "if n > 0 { ... } else { ... }\nlet text = if n > 0 { \"плюс\" } else { \"минус\" };\nmatch n {\n    0 => println!(\"ноль\"),\n    _ => println!(\"другое\"),\n}",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 4,
+      "title": "Циклы",
+      "description": "for, while и диапазоны",
+      "theory": [
+       "Диапазон: 1..=5 включает 5, 1..5 — нет.",
+       "for перебирает диапазоны и коллекции.",
+       "while выполняется, пока условие истинно; loop — бесконечный цикл."
+      ],
+      "examples": [
+       {
+        "title": "Счётчик",
+        "code": "for i in 1..=3 {\n    println!(\"{}\", i);\n}",
+        "explanation": "1..=3 — диапазон с включённым правым концом."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 4,
+        "title": "Числа от 1 до 5",
+        "description": "Выведи числа от 1 до 5 через пробел в одной строке.",
+        "difficulty": "medium",
+        "initial_code": "fn main() {\n    // выведи числа от 1 до 5\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "1 2 3 4 5",
+         "require": [
+          "for i in 1..=5",
+          "print!"
+         ]
+        },
+        "hints": [
+         "Используй цикл for i in 1..=5.",
+         "Печатай числа макросом print! и разделяй пробелом."
+        ],
+        "solution": "fn main() {\n    for i in 1..=5 {\n        print!(\"{}\", i);\n        if i < 5 {\n            print!(\" \");\n        }\n    }\n    println!();\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой диапазон включает 5?",
+        "options": [
+         "1..=5",
+         "1..5",
+         "[1..5]",
+         "1:5"
+        ],
+        "correct": 0,
+        "explain": "Оператор ..= включает правую границу, 1..5 — нет."
+       },
+       {
+        "question": "Что делает break?",
+        "options": [
+         "выходит из цикла",
+         "пропускает итерацию",
+         "перезапускает цикл",
+         "ничего"
+        ],
+        "correct": 0,
+        "explain": "break досрочно выходит из цикла, continue пропускает шаг."
+       }
+      ],
+      "cheatsheet": "for i in 1..=5 { ... }\nfor x in items.iter() { ... }\nwhile условие { ... }\nloop { break; }",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Чем if отличается от других языков?",
+       "options": [
+        "это выражение, возвращающее значение",
+        "требует круглых скобок",
+        "не имеет else",
+        "работает только с числами"
+       ],
+       "correct": 0,
+       "explain": "Значение ветви можно присвоить переменной."
+      },
+      {
+       "question": "Что обязательно в match?",
+       "options": [
+        "все случаи должны быть покрыты",
+        "наличие break",
+        "круглые скобки",
+        "ключевое слово else"
+       ],
+       "correct": 0,
+       "explain": "Шаблон _ закрывает оставшиеся варианты."
+      },
+      {
+       "question": "Как сделать цикл от 1 до 5 включительно?",
+       "options": [
+        "for i in 1..=5",
+        "for i in 1..5",
+        "for (i = 1; i <= 5)",
+        "loop 1..5"
+       ],
+       "correct": 0,
+       "explain": "Оператор ..= включает правую границу."
+      },
+      {
+       "question": "Как в match описать все оставшиеся варианты?",
+       "options": [
+        "_ =>",
+        "else =>",
+        "default =>",
+        "other =>"
+       ],
+       "correct": 0,
+       "explain": "Шаблон _ закрывает все оставшиеся случаи."
+      },
+      {
+       "question": "Как выйти из бесконечного цикла loop?",
+       "options": [
+        "break",
+        "continue",
+        "exit",
+        "stop"
+       ],
+       "correct": 0,
+       "explain": "Бесконечный loop завершают через break."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Коллекции и функции",
+    "description": "Vec, итераторы и свои функции",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Векторы и итераторы",
+      "description": "Vec и перебор значений",
+      "theory": [
+       "Вектор создаётся макросом vec![1, 2, 3].",
+       "len() даёт длину, push добавляет элемент.",
+       "Итераторы: nums.iter() и метод sum()."
+      ],
+      "examples": [
+       {
+        "title": "Сумма вектора",
+        "code": "let nums = vec![3, 6, 9];\nlet sum: i32 = nums.iter().sum();\nprintln!(\"{}\", sum);",
+        "explanation": "iter() создаёт итератор, sum() суммирует значения."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 5,
+        "title": "Сумма вектора",
+        "description": "Дан вектор vec![3, 6, 9] — выведи сумму его элементов.",
+        "difficulty": "medium",
+        "initial_code": "fn main() {\n    let nums = vec![3, 6, 9];\n    // посчитай сумму\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "18",
+         "require": [
+          "vec![3, 6, 9]",
+          "println!"
+         ]
+        },
+        "hints": [
+         "Пройди вектор циклом for или используй nums.iter().sum().",
+         "Складывай значения в накопитель и выведи его."
+        ],
+        "solution": "fn main() {\n    let nums = vec![3, 6, 9];\n    let mut sum = 0;\n    for n in nums.iter() {\n        sum += n;\n    }\n    println!(\"{}\", sum);\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как создать вектор?",
+        "options": [
+         "vec![1, 2, 3]",
+         "[1, 2, 3]",
+         "Vec(1, 2, 3)",
+         "array![1, 2, 3]"
+        ],
+        "correct": 0,
+        "explain": "Вектор создаётся макросом vec!."
+       },
+       {
+        "question": "Что делает nums.len()?",
+        "options": [
+         "возвращает длину",
+         "сумму",
+         "сортирует",
+         "добавляет элемент"
+        ],
+        "correct": 0,
+        "explain": "len() возвращает количество элементов."
+       }
+      ],
+      "cheatsheet": "let nums = vec![1, 2, 3];\nnums.push(4);\nnums.len()\nlet sum: i32 = nums.iter().sum();\nlet doubled: Vec<i32> = nums.iter().map(|n| n * 2).collect();",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 6,
+      "title": "Функции",
+      "description": "fn, типы и возвращаемые значения",
+      "theory": [
+       "Функция объявляется словом fn.",
+       "Типы параметров указываются обязательно: fn double(n: i32) -> i32.",
+       "Последнее выражение без точки с запятой становится результатом."
+      ],
+      "examples": [
+       {
+        "title": "Функция сложения",
+        "code": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}\n\nprintln!(\"{}\", add(3, 4));",
+        "explanation": "Без ; строка становится возвращаемым значением."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 6,
+        "title": "Функция double",
+        "description": "Напиши функцию double(n: i32) -> i32, возвращающую удвоенное число, и выведи double(7).",
+        "difficulty": "hard",
+        "initial_code": "fn main() {\n    // выведи double(7)\n}",
+        "check": {
+         "type": "stdout_rust",
+         "expected": "14",
+         "require": [
+          "fn double",
+          "fn main"
+         ]
+        },
+        "hints": [
+         "Объяви функцию перед main.",
+         "Верни n * 2 — выражением без ; или через return."
+        ],
+        "solution": "fn double(n: i32) -> i32 {\n    n * 2\n}\n\nfn main() {\n    println!(\"{}\", double(7));\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить функцию в Rust?",
+        "options": [
+         "fn double(n: i32) -> i32",
+         "func double(n int) int",
+         "def double(n)",
+         "function double(n)"
+        ],
+        "correct": 0,
+        "explain": "fn double(n: i32) -> i32 — типы указывают обязательно."
+       },
+       {
+        "question": "Что означает -> i32?",
+        "options": [
+         "тип возвращаемого значения",
+         "тип аргумента",
+         "комментарий",
+         "макрос"
+        ],
+        "correct": 0,
+        "explain": "После -> указывают тип возвращаемого значения."
+       }
+      ],
+      "cheatsheet": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}\nfn print_it(s: &str) { println!(\"{}\", s); }\nif a > b { a } else { b }",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Что делает iter().sum()?",
+       "options": [
+        "суммирует элементы",
+        "сортирует",
+        "фильтрует",
+        "печатает"
+       ],
+       "correct": 0,
+       "explain": "Итераторы позволяют писать короткие цепочки вызовов."
+      },
+      {
+       "question": "Как вернуть значение из функции?",
+       "options": [
+        "выражением без ; или через return",
+        "только через return",
+        "через echo",
+        "функция не может вернуть значение"
+       ],
+       "correct": 0,
+       "explain": "Последнее выражение становится результатом."
+      },
+      {
+       "question": "Как создать вектор из чисел?",
+       "options": [
+        "vec![1, 2, 3]",
+        "[1, 2, 3]",
+        "Vec(1, 2, 3)",
+        "vector![1, 2, 3]"
+       ],
+       "correct": 0,
+       "explain": "Вектор создаётся макросом vec!."
+      },
+      {
+       "question": "Что делает nums.len()?",
+       "options": [
+        "возвращает длину",
+        "считает сумму",
+        "сортирует вектор",
+        "добавляет элемент"
+       ],
+       "correct": 0,
+       "explain": "len() сообщает количество элементов."
+      },
+      {
+       "question": "Что вернёт функция, если последнее выражение без ;?",
+       "options": [
+        "это значение и станет результатом",
+        "ничего",
+        "0",
+        "ошибку"
+       ],
+       "correct": 0,
+       "explain": "Выражение без точки с запятой становится результатом функции."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в Rust?",
+    "options": [
+     "print()",
+     "println!(\"текст\")",
+     "echo",
+     "console.log()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Как объявляется точка входа?",
+    "options": [
+     "fn main()",
+     "void main()",
+     "function main()",
+     "main()"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как сделать переменную изменяемой?",
+    "options": [
+     "let mut x = 5;",
+     "let x = 5;",
+     "var x = 5;",
+     "mutable x = 5;"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой диапазон включает 5?",
+    "options": [
+     "1..=5",
+     "1..5",
+     "[1..5]",
+     "1:5"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как создать вектор?",
+    "options": [
+     "vec![1, 2, 3]",
+     "[1, 2, 3]",
+     "Vec(1, 2, 3)",
+     "array![1, 2, 3]"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить функцию?",
+    "options": [
+     "fn double(n: i32) -> i32",
+     "func double(n int) int",
+     "def double(n)",
+     "function double(n)"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Нужны ли круглые скобки вокруг условия?",
+    "options": [
+     "нет",
+     "да",
+     "только с else",
+     "только для чисел"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что означает восклицательный знак в println!?",
+    "options": [
+     "это макрос",
+     "это ошибка",
+     "это комментарий",
+     "это тип"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "fn main() {\n    println!(\"Привет\");\n}\n// rustc main.rs\n// cargo run",
+    "note": "println! — макрос, поэтому нужен восклицательный знак."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "let x = 5;\nlet mut y = 10;\nlet pi: f64 = 3.14;\nlet ok: bool = true;",
+    "note": "По умолчанию переменные неизменяемы."
+   },
+   {
+    "title": "Строки",
+    "icon": "📝",
+    "code": "let s: &str = \"Привет\";        // строковый литерал\nlet mut owned = String::from(\"Привет\");\nowned.push_str(\", мир\");\nowned.len()                      // длина в байтах\nlet up = owned.to_uppercase();\nlet n = owned.chars().count();   // число символов",
+    "note": "&str — заимствованный текст, String — своя изменяемая строка."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if n > 0 { ... } else { ... }\nlet text = if n > 0 { \"плюс\" } else { \"минус\" };\nmatch n {\n    0 => println!(\"ноль\"),\n    _ => println!(\"другое\"),\n}",
+    "note": "match обязан покрывать все варианты."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for i in 1..=5 { ... }\nwhile условие { ... }\nloop { break; }",
+    "note": "1..=5 включает 5, 1..5 — нет."
+   },
+   {
+    "title": "Коллекции",
+    "icon": "📚",
+    "code": "let mut nums = vec![1, 2, 3];\nnums.push(4);\nnums.len()\nlet sum: i32 = nums.iter().sum();",
+    "note": "Vec — растущий массив из стандартной библиотеки."
+   },
+   {
+    "title": "Функции",
+    "icon": "🧩",
+    "code": "fn add(a: i32, b: i32) -> i32 {\n    a + b\n}",
+    "note": "Последнее выражение без ; становится результатом."
+   },
+   {
+    "title": "Структуры",
+    "icon": "🏛️",
+    "code": "struct User {\n    name: String,\n    age: u32,\n}\n\nimpl User {\n    fn hello(&self) -> String {\n        format!(\"Привет, {}\", self.name)\n    }\n}\n\nlet u = User { name: String::from(\"Аня\"), age: 25 };\nprintln!(\"{}\", u.hello());",
+    "note": "Блок impl добавляет методам структуру-получателя."
+   },
+   {
+    "title": "Владение и заимствование",
+    "icon": "🔒",
+    "code": "let s = String::from(\"привет\");\nlet moved = s;          // владение перешло в moved\n// println!(\"{}\", s);   // ошибка: s больше ничем не владеет\n\nlet a = String::from(\"привет\");\nlet borrowed = &a;      // заимствование: a остаётся владельцем\nprintln!(\"{}\", borrowed);\nprintln!(\"{}\", a);",
+    "note": "У значения один владелец: либо передаём владение, либо ссылку."
+   },
+   {
+    "title": "Ошибки",
+    "icon": "🛡️",
+    "code": "let parsed: Result<i32, _> = \"12\".parse::<i32>();\n\nmatch parsed {\n    Ok(value) => println!(\"число {}\", value),\n    Err(_) => println!(\"не число\"),\n}\n\nlet opt: Option<i32> = Some(5);\nif let Some(v) = opt {\n    println!(\"есть значение {}\", v);\n}",
+    "note": "Result — для ошибок, Option — для случая «значения может не быть»."
+   }
+  ]
+ }
+}

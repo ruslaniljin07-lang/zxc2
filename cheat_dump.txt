@@ -1,0 +1,365 @@
+   1| {% extends 'base.html' %}
+   2| {% block title %}Шпаргалки — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head">
+   6|     <span class="kicker">Шпаргалки</span>
+   7|     <h1>Всё для решения задач</h1>
+   8|     <p>Краткие памятки по всем языкам: синтаксис, примеры и зачем это нужно.
+   9|        Выбери язык и тему — всё компактно на одной странице.</p>
+  10| </div>
+  11| 
+  12| <!-- Переключатель языков -->
+  13| <ul class="nav nav-pills justify-content-center mb-4" id="csLangTabs">
+  14|     {% for code, info in languages.items() %}
+  15|     <li class="nav-item">
+  16|         <button class="nav-link cs-lang-btn {% if loop.first %}active{% endif %}"
+  17|                 data-lang="{{ code }}" type="button">
+  18|             {{ info.icon }} {{ info.name }}
+  19|         </button>
+  20|     </li>
+  21|     {% endfor %}
+  22| </ul>
+  23| 
+  24| {% for code, data in sheets.items() %}
+  25| <div class="lang-cheatsheets {% if not loop.first %}d-none{% endif %}" id="csSheet-{{ code }}">
+  26|     <div class="text-center mb-3">
+  27|         <h4 class="mb-1">{{ languages[code].name }} — {{ data|length }} тем</h4>
+  28|     </div>
+  29|     {% for item in data %}
+  30|     <div class="row g-4 cs-topic">
+  31|         <div class="col-lg-6">
+  32|             <div class="card h-100">
+  33|                 <div class="card-header iconized">
+  34|                     <span class="head-icon">{{ item.icon }}</span>
+  35|                     <span>{{ loop.index }}. {{ item.title }}</span>
+  36|                 </div>
+  37|                 <div class="card-body">
+  38|                     <pre class="code-block">{{ item.code }}</pre>
+  39|                 </div>
+  40|             </div>
+  41|         </div>
+  42|         <div class="col-lg-6">
+  43|             <div class="card h-100 cs-explain">
+  44|                 <div class="card-body">
+  45|                     <h6 class="cs-q">🎯 Зачем это нужно</h6>
+  46|                     <p class="mb-0">{{ item.note }}</p>
+  47|                 </div>
+  48|             </div>
+  49|         </div>
+  50|     </div>
+  51|     {% endfor %}
+  52| </div>
+  53| {% endfor %}
+  54| 
+  55| {% endblock %}
+  56| 
+  57| {% block extra_js %}
+  58| <script>
+  59| (function() {
+  60|     var btns = document.querySelectorAll('.cs-lang-btn');
+  61|     btns.forEach(function(btn) {
+  62|         btn.addEventListener('click', function() {
+  63|             var lang = btn.dataset.lang;
+  64|             btns.forEach(function(b) { b.classList.remove('active'); });
+  65|             btn.classList.add('active');
+  66|             document.querySelectorAll('.lang-cheatsheets').forEach(function(s) {
+  67|                 s.classList.add('d-none');
+  68|             });
+  69|             var target = document.getElementById('csSheet-' + lang);
+  70|             if (target) target.classList.remove('d-none');
+  71|         });
+  72|     });
+  73| })();
+  74| </script>
+  75| {% endblock %}
+  76| 
+  77| <!-- Тема 2 -->
+  78| <div class="row g-4 cs-topic">
+  79|     <div class="col-lg-5">
+  80|         <div class="card h-100">
+  81|             <div class="card-header iconized">
+  82|                 <span class="head-icon"><i class="bi bi-keyboard"></i></span>
+  83|                 <span>2. Ввод данных input()</span>
+  84|             </div>
+  85|             <div class="card-body">
+  86|                 <pre class="code-block"><span class="cm"># input() всегда даёт СТРОКУ</span>
+  87| name = <span class="fn">input</span>()
+  88| 
+  89| <span class="cm"># чтобы считать число — оберни в int()</span>
+  90| age = <span class="fn">int</span>(<span class="fn">input</span>())
+  91| height = <span class="fn">float</span>(<span class="fn">input</span>())
+  92| 
+  93| <span class="fn">print</span>(age + <span class="nu">1</span>)  <span class="cm"># числа можно складывать</span></pre>
+  94|                 <p class="text-muted mb-0 mt-2">Ошибка <code>ValueError</code>? Значит, ввели не число.</p>
+  95|             </div>
+  96|         </div>
+  97|     </div>
+  98|     <div class="col-lg-7">
+  99|         <div class="card h-100 cs-explain">
+ 100|             <div class="card-body">
+ 101|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 102|                 <p class="mb-2">Программа становится интерактивной: спрашивает у человека и работает с его ответом. Это мостик между кодом и реальным миром.</p>
+ 103|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 104|                 <p class="mb-2">Формы регистрации, игры с запросом имени, боты в мессенджерах, программы-викторины. В любом тесте на ЕГЭ и олимпиадах ввод — стандарт.</p>
+ 105|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 106|                 <p class="mb-0">Программа, которая читает данные — уже не игрушка, а инструмент. Свой первый интерактивный диалог ты соберёшь прямо сейчас.</p>
+ 107|             </div>
+ 108|         </div>
+ 109|     </div>
+ 110| </div>
+ 111| 
+ 112| <!-- Тема 3 -->
+ 113| <div class="row g-4 cs-topic">
+ 114|     <div class="col-lg-5">
+ 115|         <div class="card h-100">
+ 116|             <div class="card-header iconized">
+ 117|                 <span class="head-icon"><i class="bi bi-signpost-split"></i></span>
+ 118|                 <span>3. Условия if / elif / else</span>
+ 119|             </div>
+ 120|             <div class="card-body">
+ 121|                 <pre class="code-block">x = <span class="nu">7</span>
+ 122| 
+ 123| <span class="kw">if</span> x > <span class="nu">10</span>:
+ 124|     <span class="fn">print</span>(<span class="st">"много"</span>)
+ 125| <span class="kw">elif</span> x == <span class="nu">7</span>:
+ 126|     <span class="fn">print</span>(<span class="st">"семь!"</span>)
+ 127| <span class="kw">else</span>:
+ 128|     <span class="fn">print</span>(<span class="st">"мало"</span>)
+ 129| 
+ 130| <span class="cm"># сравнения: ==  !=  >  <  >=  <=</span>
+ 131| <span class="kw">if</span> x > <span class="nu">0</span> <span class="kw">and</span> x % <span class="nu">2</span> == <span class="nu">0</span>:
+ 132|     <span class="fn">print</span>(<span class="st">"чётное положительное"</span>)</pre>
+ 133|                 <p class="text-muted mb-0 mt-2">Не забывай двоеточие <code>:</code> и отступы (4 пробела).</p>
+ 134|             </div>
+ 135|         </div>
+ 136|     </div>
+ 137|     <div class="col-lg-7">
+ 138|         <div class="card h-100 cs-explain">
+ 139|             <div class="card-body">
+ 140| <!-- Тема 4 -->
+ 141| <div class="row g-4 cs-topic">
+ 142|     <div class="col-lg-5">
+ 143|         <div class="card h-100">
+ 144|             <div class="card-header iconized">
+ 145|                 <span class="head-icon"><i class="bi bi-arrow-repeat"></i></span>
+ 146|                 <span>4. Циклы for и while</span>
+ 147|             </div>
+ 148|             <div class="card-body">
+ 149|                 <pre class="code-block"><span class="cm"># for — повтори N раз</span>
+ 150| <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">5</span>):
+ 151|     <span class="fn">print</span>(i)          <span class="cm"># 0 1 2 3 4</span>
+ 152| 
+ 153| <span class="fn">print</span>(<span class="fn">range</span>(<span class="nu">1</span>, <span class="nu">11</span>))   <span class="cm"># от 1 до 10</span>
+ 154| 
+ 155| <span class="cm"># while — пока условие верно</span>
+ 156| n = <span class="nu">3</span>
+ 157| <span class="kw">while</span> n > <span class="nu">0</span>:
+ 158|     <span class="fn">print</span>(n)
+ 159|     n -= <span class="nu">1</span>   <span class="cm"># не забудь изменить n!</span></pre>
+ 160|                 <p class="text-muted mb-0 mt-2"><code>break</code> — выйти, <code>continue</code> — следующий шаг.</p>
+ 161|             </div>
+ 162|         </div>
+ 163|     </div>
+ 164|     <div class="col-lg-7">
+ 165|         <div class="card h-100 cs-explain">
+ 166|             <div class="card-body">
+ 167|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 168|                 <p class="mb-2">Повторять действия без копипасты. Обработать тысячу строк — три строчки цикла, а не тысяча копий кода.</p>
+ 169|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 170|                 <p class="mb-2">Обработка таблиц и логов, генерация отчётов, проверка каждого товара в корзине, парсеры сайтов. Бухгалтерия, аналитика, админки — всё на циклах.</p>
+ 171|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 172|                 <p class="mb-0">Ты перестаёшь «переписывать» — начинаешь «объяснять машине, что делать». Это и есть мышление программиста. Колёсики циклов крутят весь код вокруг тебя.</p>
+ 173|             </div>
+ 174|         </div>
+ 175| <!-- Тема 5 -->
+ 176| <div class="row g-4 cs-topic">
+ 177|     <div class="col-lg-5">
+ 178|         <div class="card h-100">
+ 179|             <div class="card-header iconized">
+ 180|                 <span class="head-icon"><i class="bi bi-list-ul"></i></span>
+ 181|                 <span>5. Списки</span>
+ 182|             </div>
+ 183|             <div class="card-body">
+ 184|                 <pre class="code-block">fruits = [<span class="st">"яблоко"</span>, <span class="st">"банан"</span>]
+ 185| 
+ 186| fruits.<span class="fn">append</span>(<span class="st">"груша"</span>)   <span class="cm"># добавить</span>
+ 187| <span class="fn">print</span>(<span class="fn">len</span>(fruits))        <span class="cm"># сколько</span>
+ 188| <span class="fn">print</span>(fruits[<span class="nu">0</span>])          <span class="cm"># первый</span>
+ 189| 
+ 190| <span class="kw">for</span> fruit <span class="kw">in</span> fruits:
+ 191|     <span class="fn">print</span>(fruit)
+ 192| 
+ 193| nums = [<span class="nu">3</span>, <span class="nu">1</span>, <span class="nu">4</span>]
+ 194| <span class="fn">print</span>(<span class="fn">sum</span>(nums))    <span class="cm"># 8</span>
+ 195| <span class="fn">print</span>(<span class="fn">max</span>(nums))    <span class="cm"># 4</span>
+ 196| <span class="fn">print</span>(<span class="nu">5</span> <span class="kw">in</span> nums)    <span class="cm"># False</span></pre>
+ 197|             </div>
+ 198|         </div>
+ 199|     </div>
+ 200|     <div class="col-lg-7">
+ 201|         <div class="card h-100 cs-explain">
+ 202|             <div class="card-body">
+ 203|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 204|                 <p class="mb-2">Хранить коллекцию: пусть будет не одна переменная, а много элементов под одной «полкой». Обрабатывать всё разом проще.</p>
+ 205|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 206|                 <p class="mb-2">Корзина покупок, список студентов, логи сервера, очередь задач. Почти любая обработка данных начинается со списка.</p>
+ 207|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 208|                 <p class="mb-0">Списки — это база. Разобрался со списками — половина ЕГЭ по информатике перестаёт пугать. Плюс это самый «рабочий» инструмент аналитика.</p>
+ 209|             </div>
+ 210|         </div>
+ 211|     </div>
+ 212| </div>
+ 213| 
+ 214| <!-- Тема 6 -->
+ 215| <div class="row g-4 cs-topic">
+ 216|     <div class="col-lg-5">
+ 217|         <div class="card h-100">
+ 218|             <div class="card-header iconized">
+ 219|                 <span class="head-icon"><i class="bi bi-type"></i></span>
+ 220|                 <span>6. Строки</span>
+ 221|             </div>
+ 222|             <div class="card-body">
+ 223|                 <pre class="code-block">s = <span class="st">"Hello World"</span>
+ 224| 
+ 225| <span class="fn">print</span>(<span class="fn">len</span>(s))       <span class="cm"># 11</span>
+ 226| <span class="fn">print</span>(s.<span class="fn">upper</span>())   <span class="cm"># HELLO</span>
+ 227| <span class="fn">print</span>(s.<span class="fn">split</span>())   <span class="cm"># ["Hello","World"]</span>
+ 228| <span class="fn">print</span>(s[<span class="nu">0</span>])         <span class="cm"># первый символ</span>
+ 229| <span class="fn">print</span>(s[::-<span class="nu">1</span>])      <span class="cm"># наоборот</span>
+ 230| <span class="fn">print</span>(<span class="st">" "</span>.<span class="fn">join</span>([<span class="st">"a"</span>,<span class="st">"b"</span>]))</pre>
+ 231|             </div>
+ 232|         </div>
+ 233|     </div>
+ 234|     <div class="col-lg-7">
+ 235|         <div class="card h-100 cs-explain">
+ 236|             <div class="card-body">
+ 237|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 238|                 <p class="mb-2">Мир — это тексты: почта, отчёты, сайты, документы. Строки позволяют чистить, резать, склеивать и искать в них.</p>
+ 239|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 240|                 <p class="mb-2">Парсинг данных, лог-файлы, проверка email, боты, SEO-анализ. Каждая веб-страница — гигантская строка до обработки.</p>
+ 241|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 242| <!-- Тема 7 -->
+ 243| <div class="row g-4 cs-topic">
+ 244|     <div class="col-lg-5">
+ 245|         <div class="card h-100">
+ 246|             <div class="card-header iconized">
+ 247|                 <span class="head-icon"><i class="bi bi-subtract"></i></span>
+ 248|                 <span>7. Функции def / return</span>
+ 249|             </div>
+ 250|             <div class="card-body">
+ 251|                 <pre class="code-block"><span class="cm"># def — объявляем, return — возвращаем</span>
+ 252| <span class="kw">def</span> <span class="fn">square</span>(x):
+ 253|     <span class="kw">return</span> x * x
+ 254| 
+ 255| <span class="kw">def</span> <span class="fn">greet</span>(name):
+ 256|     <span class="kw">return</span> <span class="st">f"Привет, {name}!"</span>
+ 257| 
+ 258| result = <span class="fn">square</span>(<span class="nu">5</span>)
+ 259| <span class="fn">print</span>(result)      <span class="cm"># 25</span></pre>
+ 260|                 <p class="text-muted mb-0 mt-2">Функция без <code>return</code> возвращает <code>None</code>.</p>
+ 261|             </div>
+ 262|         </div>
+ 263|     </div>
+ 264|     <div class="col-lg-7">
+ 265|         <div class="card h-100 cs-explain">
+ 266|             <div class="card-body">
+ 267|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 268|                 <p class="mb-2">Один раз написал — используешь везде. Код становится короче, а баги — заметнее, ведь логика живёт в одном месте.</p>
+ 269|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 270|                 <p class="mb-2">Библиотеки, API, структура любого серьёзного проекта. «Перевести рубли в доллары», «проверить пароль», «посчитать метрику» — это всё функции.</p>
+ 271|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 272|                 <p class="mb-0">Умение дробить задачу на маленькие функции — золотой навык. Это и есть DRY: Don't Repeat Yourself. Наниматели ищут именно такой код.</p>
+ 273|             </div>
+ 274|         </div>
+ 275|     </div>
+ 276| </div>
+ 277| 
+ 278| <!-- Тема 8 -->
+ 279| <div class="row g-4 cs-topic">
+ 280|     <div class="col-lg-5">
+ 281|         <div class="card h-100">
+ 282|             <div class="card-header iconized">
+ 283|                 <span class="head-icon"><i class="bi bi-bug"></i></span>
+ 284|                 <span>8. Ошибки try / except</span>
+ 285|             </div>
+ 286|             <div class="card-body">
+ 287|                 <pre class="code-block"><span class="kw">try</span>:
+ 288|     n = <span class="fn">int</span>(<span class="fn">input</span>())
+ 289| <span class="kw">except</span> <span class="fn">ValueError</span>:
+ 290|     n = <span class="nu">0</span>          <span class="cm"># запасной вариант</span>
+ 291| <span class="fn">print</span>(n)
+ 292| 
+ 293| <span class="kw">try</span>:
+ 294|     <span class="fn">print</span>(<span class="nu">10</span> / <span class="nu">0</span>)
+ 295| <span class="kw">except</span> <span class="fn">ZeroDivisionError</span>:
+ 296|     <span class="fn">print</span>(<span class="st">"На ноль делить нельзя"</span>)</pre>
+ 297|             </div>
+ 298|         </div>
+ 299|     </div>
+ 300|     <div class="col-lg-7">
+ 301|         <div class="card h-100 cs-explain">
+ 302|             <div class="card-body">
+ 303|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 304|                 <p class="mb-2">Программа не должна «падать» при ошибке. try/except ловит проблему и делает так, чтобы работа продолжилась по-умному.</p>
+ 305|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 306|                 <p class="mb-2">Любой ввод от пользователя, работа с сетью и файлами, внешние сервисы. В продакшене без обработки ошибок — никуда.</p>
+ 307|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 308|                 <p class="mb-0">Ошибка — не конец, а сигнал, что подумать ещё раз. Программист, который спокойно пишет except, выглядит в разы надёжнее новичка, который нервничает на каждом исключении.</p>
+ 309|             </div>
+ 310|         </div>
+ 311|     </div>
+ 312| </div>
+ 313| 
+ 314| <!-- Тема 9 -->
+ 315| <div class="row g-4 cs-topic">
+ 316|     <div class="col-lg-5">
+ 317|         <div class="card h-100">
+ 318|             <div class="card-header iconized">
+ 319|                 <span class="head-icon"><i class="bi bi-lightning-charge"></i></span>
+ 320|                 <span>9. Генераторы и модули</span>
+ 321|             </div>
+ 322|             <div class="card-body">
+ 323|                 <pre class="code-block"><span class="cm"># список в одну строку</span>
+ 324| squares = [x ** <span class="nu">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">5</span>)]
+ 325| evens = [x <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">10</span>) <span class="kw">if</span> x % <span class="nu">2</span> == <span class="nu">0</span>]
+ 326| 
+ 327| <span class="kw">import</span> math
+ 328| <span class="fn">print</span>(math.<span class="fn">sqrt</span>(<span class="nu">16</span>))    <span class="cm"># 4.0</span>
+ 329| 
+ 330| <span class="kw">import</span> random
+ 331| n = random.<span class="fn">randint</span>(<span class="nu">1</span>, <span class="nu">10</span>)</pre>
+ 332|             </div>
+ 333|         </div>
+ 334|     </div>
+ 335|     <div class="col-lg-7">
+ 336|         <div class="card h-100 cs-explain">
+ 337|             <div class="card-body">
+ 338|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 339|                 <p class="mb-2">Кратко строить списки фильтрами и пользоваться готовыми решениями из модулей вместо изобретения велосипеда.</p>
+ 340|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 341|                 <p class="mb-2">Аналитика (посчитать среднее в одну строку), случайные данные для тестов, математические расчёты, научные вычисления.</p>
+ 342|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 343|                 <p class="mb-0">Это «профессиональный вкус»: писать мощно и лаконично. Такой код читается как стих — и именно его разбирают на собеседованиях.</p>
+ 344|             </div>
+ 345|         </div>
+ 346|     </div>
+ 347| </div>
+ 348| {% endblock %}
+ 349|                 <p class="mb-0">Строки — самая частая сущность в реальном коде. Один-два приёма на срезы — и задачи, где «наоборот/убрать/заменить», решаются в три строчки.</p>
+ 350|             </div>
+ 351|         </div>
+ 352|     </div>
+ 353| </div>
+ 354|     </div>
+ 355| </div>
+ 356|                 <h6 class="cs-q">🎯 Зачем это нужно</h6>
+ 357|                 <p class="mb-2">Программа принимает решения. Без if код просто выполняет строчки по порядку — с if он «думает» и реагирует на ситуацию.</p>
+ 358|                 <h6 class="cs-q">💼 Где применяется</h6>
+ 359|                 <p class="mb-2">Проверка пароля, скидки по возрасту, правила модерации, фильтры поиска. В реальной работе «если покупатель накопил 1000 баллов — начисли бонус» — тоже if.</p>
+ 360|                 <h6 class="cs-q">🌱 Мотивация</h6>
+ 361|                 <p class="mb-0">Задачи на if — самые частые в ЕГЭ. Один раз понял — зубришь приёмы, а не код. Твой мозг уже так думает, осталось перевести на Python.</p>
+ 362|             </div>
+ 363|         </div>
+ 364|     </div>
+ 365| </div>

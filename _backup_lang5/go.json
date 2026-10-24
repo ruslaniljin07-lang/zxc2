@@ -1,0 +1,780 @@
+{
+ "go": {
+  "name": "Go",
+  "icon": "🐹",
+  "color": "#00ADD8",
+  "description": "Простой и быстрый компилируемый язык от Google — любимец серверной разработки и микросервисов.",
+  "difficulty": "Средний старт",
+  "final_project": "Консольный калькулятор расходов",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы Go",
+    "description": "Первая программа, переменные и типы",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Первая программа",
+      "description": "Знакомимся с Go и пакетом fmt",
+      "theory": [
+       "Go — компилируемый язык со строгой типизацией.",
+       "Программа начинается с package main, вход — func main().",
+       "Пакет fmt печатает данные, Println добавляет перевод строки."
+      ],
+      "examples": [
+       {
+        "title": "Привет, мир",
+        "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Привет, мир!\")\n}",
+        "explanation": "package main и func main() — минимальная программа."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1,
+        "title": "Первый вывод",
+        "description": "Выведи строку: Go — это просто!",
+        "difficulty": "easy",
+        "initial_code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\t// твой код\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "Go — это просто!",
+         "require": [
+          "fmt.Println",
+          "Go — это просто!"
+         ]
+        },
+        "hints": [
+         "Используй fmt.Println(\"текст\").",
+         "Текст должен совпадать точно: «Go — это просто!»"
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Go — это просто!\")\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как вывести текст в Go?",
+        "options": [
+         "print()",
+         "fmt.Println()",
+         "console.log()",
+         "echo"
+        ],
+        "correct": 1,
+        "explain": "fmt.Println() печатает значения и переносит строку."
+       },
+       {
+        "question": "С какой функции начинается программа?",
+        "options": [
+         "main()",
+         "start()",
+         "init()",
+         "run()"
+        ],
+        "correct": 0,
+        "explain": "Выполнение начинается с main() в пакете main."
+       }
+      ],
+      "cheatsheet": "package main — исполняемая программа\nfunc main() — точка входа\nfmt.Println(\"текст\") — вывод с переводом строки",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 2,
+      "title": "Переменные и типы",
+      "description": "var, короткое объявление и типы",
+      "theory": [
+       "var name string = \"Го\" — полное объявление.",
+       "Короткое объявление := выводит тип автоматически.",
+       "Основные типы: int, float64, string, bool.",
+       "Неиспользуемая переменная — ошибка компиляции."
+      ],
+      "examples": [
+       {
+        "title": "Объявление переменных",
+        "code": "var name string = \"Артур\"\nage := 25\nfmt.Println(name, age)",
+        "explanation": ":= работает только внутри функций."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2,
+        "title": "Переменная города",
+        "description": "Объяви переменную city со значением «Москва» и выведи её.",
+        "difficulty": "easy",
+        "initial_code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\t// объяви city\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "Москва",
+         "require": [
+          "city",
+          "fmt.Println"
+         ]
+        },
+        "hints": [
+         "Используй короткое объявление city := \"Москва\".",
+         "Выведи переменную через fmt.Println(city)."
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tcity := \"Москва\"\n\tfmt.Println(city)\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить переменную с автоматическим типом?",
+        "options": [
+         "var x int = 5",
+         "x := 5",
+         "int x = 5",
+         "let x = 5"
+        ],
+        "correct": 1,
+        "explain": ":= создаёт переменную и выводит её тип из значения."
+       },
+       {
+        "question": "Какой тип подходит для текста?",
+        "options": [
+         "string",
+         "text",
+         "str",
+         "char[]"
+        ],
+        "correct": 0,
+        "explain": "Текст в этих языках хранится в типе string."
+       }
+      ],
+      "cheatsheet": "var x int = 5 — явный тип\nname := \"Го\" — короткое объявление\nvar pi float64 = 3.14\nvar ok bool = true",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Какая строка обязательна в начале программы?",
+       "options": [
+        "package main",
+        "import main",
+        "func main()",
+        "begin"
+       ],
+       "correct": 0,
+       "explain": "Пакет main объявляется первым."
+      },
+      {
+       "question": "Что произойдёт с неиспользуемой переменной?",
+       "options": [
+        "ошибка компиляции",
+        "предупреждение",
+        "ничего",
+        "она удалится"
+       ],
+       "correct": 0,
+       "explain": "Компилятор Go требует использовать все переменные."
+      },
+      {
+       "question": "Какая функция выводит текст на экран?",
+       "options": [
+        "fmt.Println",
+        "print",
+        "console.log",
+        "echo"
+       ],
+       "correct": 0,
+       "explain": "fmt.Println печатает значение и переносит строку."
+      },
+      {
+       "question": "Как объявить переменную с выводом типа?",
+       "options": [
+        "x := 5",
+        "var x",
+        "x = int(5)",
+        "let x = 5"
+       ],
+       "correct": 0,
+       "explain": "Оператор := сам выводит тип и присваивает значение."
+      },
+      {
+       "question": "Какой тип у значения \"Го\"?",
+       "options": [
+        "string",
+        "int",
+        "bool",
+        "float64"
+       ],
+       "correct": 0,
+       "explain": "Текст в двойных кавычках — строка."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Условия и циклы",
+    "description": "Ветвление, switch и цикл for",
+    "lessons": [
+     {
+      "id": 3,
+      "title": "Условия if / else",
+      "description": "Ветвление и switch",
+      "theory": [
+       "Скобки вокруг условия не нужны, фигурные — обязательны.",
+       "else пишется в строке с закрывающей скобкой if.",
+       "Логика: && (и), || (или), ! (не). В switch break не нужен."
+      ],
+      "examples": [
+       {
+        "title": "if / else",
+        "code": "n := 10\nif n > 0 {\n\tfmt.Println(\"положительное\")\n} else {\n\tfmt.Println(\"отрицательное\")\n}",
+        "explanation": "else должен идти сразу после } в той же строке."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3,
+        "title": "Большое число",
+        "description": "Если n = 12 больше 10 — выведи «большое», иначе «маленькое».",
+        "difficulty": "medium",
+        "initial_code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tn := 12\n\t// проверь условие\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "большое",
+         "require": [
+          "if n > 10",
+          "fmt.Println"
+         ]
+        },
+        "hints": [
+         "Напиши условие n > 10.",
+         "В блоках выведи нужный текст."
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tn := 12\n\tif n > 10 {\n\t\tfmt.Println(\"большое\")\n\t} else {\n\t\tfmt.Println(\"маленькое\")\n\t}\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Нужны ли круглые скобки вокруг условия?",
+        "options": [
+         "да, всегда",
+         "нет, скобки не нужны",
+         "только в switch",
+         "только с else"
+        ],
+        "correct": 1,
+        "explain": "В Go условие пишут без круглых скобок, тело — в фигурных."
+       },
+       {
+        "question": "Какой оператор означает «и»?",
+        "options": [
+         "&&",
+         "and",
+         "&",
+         "++"
+        ],
+        "correct": 0,
+        "explain": "&& — логическое «и»: истинно, только когда верны оба условия."
+       }
+      ],
+      "cheatsheet": "if n > 0 { ... } else { ... }\nswitch x {\ncase 1: ...\ndefault: ...\n}\n&&, ||, !",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 4,
+      "title": "Циклы",
+      "description": "Единственный цикл for и перебор range",
+      "theory": [
+       "В Go единственный цикл — for.",
+       "Классическая форма: for i := 0; i < n; i++.",
+       "Бесконечный цикл: for { }. Перебор: for i, v := range nums."
+      ],
+      "examples": [
+       {
+        "title": "Счётчик",
+        "code": "for i := 1; i <= 3; i++ {\n\tfmt.Println(i)\n}",
+        "explanation": "i++ увеличивает счётчик после итерации."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 4,
+        "title": "Числа от 1 до 5",
+        "description": "Выведи числа от 1 до 5 через пробел в одной строке.",
+        "difficulty": "medium",
+        "initial_code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\t// цикл от 1 до 5\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "1 2 3 4 5",
+         "require": [
+          "for i := 1",
+          "fmt.Print"
+         ]
+        },
+        "hints": [
+         "Используй for i := 1; i <= 5; i++.",
+         "Между числами печатай пробел, в конце — перевод строки."
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfor i := 1; i <= 5; i++ {\n\t\tfmt.Print(i)\n\t\tif i < 5 {\n\t\t\tfmt.Print(\" \")\n\t\t}\n\t}\n\tfmt.Println()\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Какой цикл есть в Go?",
+        "options": [
+         "for",
+         "while",
+         "do..while",
+         "loop"
+        ],
+        "correct": 0,
+        "explain": "В Go один цикл — for, он же заменяет while."
+       },
+       {
+        "question": "Что делает break?",
+        "options": [
+         "выходит из цикла",
+         "пропускает итерацию",
+         "перезапускает цикл",
+         "ничего"
+        ],
+        "correct": 0,
+        "explain": "break досрочно выходит из цикла, continue пропускает шаг."
+       }
+      ],
+      "cheatsheet": "for i := 0; i < 5; i++ { ... }\nfor { ... } — бесконечный\nfor i, v := range nums { ... }\nbreak / continue",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Как пишется else в Go?",
+       "options": [
+        "на строке с закрывающей скобкой if",
+        "с новой строки",
+        "без фигурных скобок",
+        "через elseif"
+       ],
+       "correct": 0,
+       "explain": "Иначе компилятор вставит точку с запятой."
+      },
+      {
+       "question": "Сколько видов циклов в Go?",
+       "options": [
+        "один — for",
+        "два",
+        "три",
+        "четыре"
+       ],
+       "correct": 0,
+       "explain": "while реализуется через for."
+      },
+      {
+       "question": "Что вернёт 7 % 2?",
+       "options": [
+        "1",
+        "0",
+        "3",
+        "3.5"
+       ],
+       "correct": 0,
+       "explain": "% — остаток от деления, 7 % 2 равно 1."
+      },
+      {
+       "question": "Как пропустить одну итерацию цикла?",
+       "options": [
+        "continue",
+        "break",
+        "skip",
+        "next"
+       ],
+       "correct": 0,
+       "explain": "continue переходит к следующему шагу, break выходит из цикла."
+      },
+      {
+       "question": "Как записать бесконечный цикл?",
+       "options": [
+        "for { ... }",
+        "while true { ... }",
+        "loop { ... }",
+        "for (;;) { }"
+       ],
+       "correct": 0,
+       "explain": "В Go бесконечный цикл — это for без условия."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Слайсы и функции",
+    "description": "Коллекции, map и свои функции",
+    "lessons": [
+     {
+      "id": 5,
+      "title": "Слайсы и map",
+      "description": "Коллекции Go",
+      "theory": [
+       "Слайс — динамический массив: nums := []int{1, 2, 3}.",
+       "len(nums) — длина, append(nums, 4) — добавление.",
+       "map хранит пары ключ-значение: map[string]int.",
+       "Пустой map создаётся через make или литерал."
+      ],
+      "examples": [
+       {
+        "title": "Сумма слайса",
+        "code": "nums := []int{3, 6, 9}\nsum := 0\nfor _, v := range nums {\n\tsum += v\n}\nfmt.Println(sum)",
+        "explanation": "_ пропускает индекс, если он не нужен."
+       },
+       {
+        "title": "Map",
+        "code": "ages := map[string]int{\"Анна\": 25}\nfmt.Println(ages[\"Анна\"])",
+        "explanation": "Ключом может быть строка или число."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 5,
+        "title": "Сумма слайса",
+        "description": "Дан слайс [3, 6, 9] — выведи сумму его элементов.",
+        "difficulty": "medium",
+        "initial_code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tnums := []int{3, 6, 9}\n\t// посчитай сумму\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "18",
+         "require": [
+          "range",
+          "fmt.Println"
+         ]
+        },
+        "hints": [
+         "Пройди слайс циклом for range.",
+         "Складывай значения в переменную-накопитель."
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tnums := []int{3, 6, 9}\n\tsum := 0\n\tfor _, v := range nums {\n\t\tsum += v\n\t}\n\tfmt.Println(sum)\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как создать слайс из трёх чисел?",
+        "options": [
+         "[]int{1, 2, 3}",
+         "int[]{1,2,3}",
+         "[1, 2, 3]",
+         "(1, 2, 3)"
+        ],
+        "correct": 0,
+        "explain": "Слайс задаётся как []int{1, 2, 3}."
+       },
+       {
+        "question": "Что делает len(nums)?",
+        "options": [
+         "возвращает длину",
+         "считает сумму",
+         "удаляет элемент",
+         "сортирует"
+        ],
+        "correct": 0,
+        "explain": "len() возвращает количество элементов."
+       }
+      ],
+      "cheatsheet": "nums := []int{1, 2, 3}\nnums = append(nums, 4)\nlen(nums)\nm := map[string]int{\"a\": 1}\nfor i, v := range nums { ... }",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     },
+     {
+      "id": 6,
+      "title": "Функции",
+      "description": "func, параметры и возвращаемые значения",
+      "theory": [
+       "Функция объявляется словом func.",
+       "Тип параметра указывается после имени: func add(a int) int.",
+       "return возвращает значение.",
+       "Go умеет возвращать несколько значений сразу."
+      ],
+      "examples": [
+       {
+        "title": "Простая функция",
+        "code": "func double(n int) int {\n\treturn n * 2\n}\n\nfmt.Println(double(7))",
+        "explanation": "Тип результата пишется после скобок параметров."
+       },
+       {
+        "title": "Два результата",
+        "code": "func divmod(a, b int) (int, int) {\n\treturn a / b, a % b\n}\nq, r := divmod(17, 5)",
+        "explanation": "Несколько типов в скобках — несколько результатов."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 6,
+        "title": "Функция double",
+        "description": "Напиши функцию double(n int) int, которая возвращает удвоенное число, и выведи double(7).",
+        "difficulty": "hard",
+        "initial_code": "package main\n\nimport \"fmt\"\n\n// объяви функцию double\n\nfunc main() {\n\t// выведи double(7)\n}",
+        "check": {
+         "type": "stdout_go",
+         "expected": "14",
+         "require": [
+          "func double",
+          "return"
+         ]
+        },
+        "hints": [
+         "Объяви функцию рядом с main.",
+         "Умножь параметр на 2 и верни результат через return."
+        ],
+        "solution": "package main\n\nimport \"fmt\"\n\nfunc double(n int) int {\n\treturn n * 2\n}\n\nfunc main() {\n\tfmt.Println(double(7))\n}",
+        "examples": []
+       }
+      ],
+      "test": [
+       {
+        "question": "Как объявить функцию в Go?",
+        "options": [
+         "func add(a int) int",
+         "function add(a)",
+         "def add(a)",
+         "void add(a)"
+        ],
+        "correct": 0,
+        "explain": "func add(a int) int — типы аргументов и результата указывают явно."
+       },
+       {
+        "question": "Сколько значений может вернуть функция?",
+        "options": [
+         "несколько",
+         "только одно",
+         "ни одного",
+         "ровно два"
+        ],
+        "correct": 0,
+        "explain": "Go-функция может вернуть несколько значений, например (int, error)."
+       }
+      ],
+      "cheatsheet": "func add(a int, b int) int {\n\treturn a + b\n}\nfunc swap(a, b int) (int, int)\nreturn / defer / panic",
+      "xp_reward": 20,
+      "difficulty": "easy"
+     }
+    ],
+    "test": {
+     "questions": [
+      {
+       "question": "Как добавить элемент в слайс?",
+       "options": [
+        "append(nums, 4)",
+        "push(nums, 4)",
+        "nums.add(4)",
+        "add(nums, 4)"
+       ],
+       "correct": 0,
+       "explain": "append возвращает новый слайс."
+      },
+      {
+       "question": "Что такое map?",
+       "options": [
+        "набор пар ключ-значение",
+        "динамический массив",
+        "строка",
+        "цикл"
+       ],
+       "correct": 0,
+       "explain": "map похож на словарь в Python."
+      },
+      {
+       "question": "Что делает return?",
+       "options": [
+        "возвращает значение из функции",
+        "завершает программу",
+        "печатает значение",
+        "объявляет переменную"
+       ],
+       "correct": 0,
+       "explain": "Без return программа не вернёт результат."
+      },
+      {
+       "question": "Что вернёт len([]int{1, 2, 3})?",
+       "options": [
+        "3",
+        "2",
+        "4",
+        "Ошибку"
+       ],
+       "correct": 0,
+       "explain": "len() возвращает количество элементов."
+      },
+      {
+       "question": "Сколько значений может вернуть функция Go?",
+       "options": [
+        "несколько",
+        "только одно",
+        "ни одного",
+        "ровно два"
+       ],
+       "correct": 0,
+       "explain": "Например (int, error) — результат и ошибка сразу."
+      },
+      {
+       "question": "Как объявить map со строковыми ключами?",
+       "options": [
+        "map[string]int{}",
+        "map<int>[]",
+        "dict[string]",
+        "map(string)int"
+       ],
+       "correct": 0,
+       "explain": "Синтаксис: map[тип_ключа]тип_значения."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в Go?",
+    "options": [
+     "print()",
+     "fmt.Println()",
+     "console.log()",
+     "echo"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Какая функция — точка входа?",
+    "options": [
+     "start()",
+     "main()",
+     "init()",
+     "run()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Что означает := ?",
+    "options": [
+     "присваивание с выводом типа",
+     "сравнение",
+     "остаток деления",
+     "логическое «и»"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой цикл есть в Go?",
+    "options": [
+     "for",
+     "while",
+     "loop",
+     "repeat"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить переменную с типом?",
+    "options": [
+     "var x int = 5",
+     "int x = 5",
+     "x: int = 5",
+     "let x = 5"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как перебрать слайс?",
+    "options": [
+     "for range",
+     "foreach",
+     "for in",
+     "each"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить функцию?",
+    "options": [
+     "func add(a int) int",
+     "function add(a)",
+     "def add(a)",
+     "void add(a)"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что делает fmt.Print вместо fmt.Println?",
+    "options": [
+     "не добавляет перевод строки",
+     "ничего не выводит",
+     "пишет в файл",
+     "очищает консоль"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Привет\")\n}",
+    "note": "package main + func main() — скелет любой программы."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "var x int = 5\nname := \"Го\"\nvar pi float64 = 3.14\nvar ok bool = true",
+    "note": ":= работает только внутри функций."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if n > 0 {\n\tfmt.Println(\"плюс\")\n} else {\n\tfmt.Println(\"минус\")\n}",
+    "note": "Круглые скобки не нужны, break в switch тоже."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for i := 0; i < 5; i++ { ... }\nfor i, v := range nums { ... }",
+    "note": "В Go только один цикл — for."
+   },
+   {
+    "title": "Слайсы и map",
+    "icon": "📚",
+    "code": "nums := []int{1, 2, 3}\nnums = append(nums, 4)\nlen(nums)\nm := map[string]int{\"a\": 1}",
+    "note": "Слайс — динамический массив, map — словарь."
+   },
+   {
+    "title": "Строки и fmt",
+    "icon": "📝",
+    "code": "name := \"Аня\"\nfmt.Println(\"Привет,\", name)\nfmt.Printf(\"Имя: %s, возраст: %d\\n\", name, 25)\ns := fmt.Sprintf(\"%s!\", name)   // собрать в строку\nlen(name)                       // длина в байтах",
+    "note": "Printf печатает по шаблону, Sprintf возвращает строку."
+   },
+   {
+    "title": "Функции",
+    "icon": "🧩",
+    "code": "func add(a int, b int) int {\n\treturn a + b\n}",
+    "note": "Функция может вернуть несколько значений: (int, error)."
+   },
+   {
+    "title": "Методы и структуры",
+    "icon": "🏛️",
+    "code": "type User struct {\n\tName string\n\tAge  int\n}\n\nfunc (u User) Hello() string {\n\treturn \"Привет, \" + u.Name\n}\n\nu := User{Name: \"Аня\", Age: 25}\nfmt.Println(u.Hello())",
+    "note": "Метод — обычная функция, у которой перед именем указан получатель."
+   },
+   {
+    "title": "Ошибки",
+    "icon": "🛡️",
+    "code": "n, err := strconv.Atoi(\"abc\")\nif err != nil {\n\tfmt.Println(\"ошибка:\", err)\n}\n\nfunc div(a, b float64) (float64, error) {\n\tif b == 0 {\n\t\treturn 0, fmt.Errorf(\"деление на ноль\")\n\t}\n\treturn a / b, nil\n}",
+    "note": "Ошибка в Go — обычное возвращаемое значение, её проверяют через if err != nil."
+   },
+   {
+    "title": "Пакеты и импорты",
+    "icon": "🧰",
+    "code": "package main\n\nimport (\n\t\"fmt\"\n\t\"strconv\"\n\t\"strings\"\n)\n\nfunc main() {\n\tfmt.Println(strings.ToUpper(\"привет\"))\n}",
+    "note": "Импортировать нужно только те пакеты, которые реально используются."
+   }
+  ]
+ }
+}

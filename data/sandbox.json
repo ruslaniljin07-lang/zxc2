@@ -1,0 +1,62 @@
+{
+ "python": {
+  "file": "sandbox.py",
+  "timeout": 5,
+  "hint": "Python идёт вместе с приложением — запускать можно сразу.",
+  "starter": "# Добро пожаловать в песочницу Python!\nprint(\"Привет, мир!\")\n\nname = \"Артур\"\nage = 100\nprint(f\"Меня зовут {name}, мне {age} лет\")\n\n# Попробуй написать свой код ниже: список, цикл, функция\nfor i in range(1, 6):\n    print(i, \"в квадрате =\", i ** 2)\n"
+ },
+ "javascript": {
+  "file": "sandbox.js",
+  "timeout": 5,
+  "hint": "JavaScript запускается через Node.js (нужен установленный Node).",
+  "starter": "// Добро пожаловать в песочницу JavaScript!\nconsole.log(\"Привет, мир!\");\n\nconst name = \"Артур\";\nconst age = 100;\nconsole.log(`Меня зовут ${name}, мне ${age} лет`);\n\n// Попробуй написать свой код ниже: объект, массив, функцию\nconst nums = [1, 2, 3, 4, 5];\nnums.forEach((n) => console.log(n, \"в квадрате =\", n ** 2));\n"
+ },
+ "typescript": {
+  "file": "sandbox.ts",
+  "timeout": 5,
+  "hint": "TypeScript запускается через Node.js 22.6+ (встроенный type stripping).",
+  "starter": "// Добро пожаловать в песочницу TypeScript!\ntype User = { name: string; age: number };\n\nfunction greet(user: User): string {\n    return `Меня зовут ${user.name}, мне ${user.age} лет`;\n}\n\nconst user: User = { name: \"Артур\", age: 100 };\nconsole.log(\"Привет, мир!\");\nconsole.log(greet(user));\n\nconst nums: number[] = [1, 2, 3, 4, 5];\nnums.forEach((n: number) => console.log(n, \"в квадрате =\", n ** 2));\n"
+ },
+ "java": {
+  "file": "Main.java",
+  "timeout": 60,
+  "hint": "Для Java нужен JDK (javac + java). Если javac не найден — установи JDK.",
+  "starter": "public class Main {\n    public static void main(String[] args) {\n        // Java 8 в консоли Windows печатает латиницей — как в уроках курса\n        String name = \"Arthur\";\n        int age = 100;\n        System.out.println(\"Hello, world!\");\n        System.out.println(\"Name: \" + name + \", age: \" + age);\n\n        for (int i = 1; i <= 5; i++) {\n            System.out.println(i + \" squared = \" + (i * i));\n        }\n    }\n}\n"
+ },
+ "cpp": {
+  "file": "main.cpp",
+  "timeout": 60,
+  "hint": "Для C++ нужен компилятор g++ или clang++ в PATH.",
+  "starter": "#include <iostream>\n#include <string>\n#include <vector>\nusing namespace std;\n\nint main() {\n    string name = \"Arthur\";\n    int age = 100;\n    cout << \"Hello, world!\" << endl;\n    cout << \"Name: \" << name << \", age: \" << age << endl;\n\n    vector<int> nums = {1, 2, 3, 4, 5};\n    for (int n : nums) {\n        cout << n << \" squared = \" << n * n << endl;\n    }\n    return 0;\n}\n"
+ },
+ "go": {
+  "file": "main.go",
+  "timeout": 60,
+  "hint": "Для Go нужен установленный тулчейн go.",
+  "starter": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tname := \"Артур\"\n\tage := 100\n\tfmt.Println(\"Привет, мир!\")\n\tfmt.Printf(\"Меня зовут %s, мне %d лет\\n\", name, age)\n\n\t// Попробуй свой код ниже: срез, карта, цикл\n\tnums := []int{1, 2, 3, 4, 5}\n\tfor _, n := range nums {\n\t\tfmt.Println(n, \"в квадрате =\", n*n)\n\t}\n}\n"
+ },
+ "csharp": {
+  "file": "Program.cs",
+  "timeout": 60,
+  "hint": "Для C# нужен csc/mcs или .NET SDK 10+ (одиночные .cs-файлы).",
+  "starter": "using System;\nusing System.Collections.Generic;\n\nclass Program {\n    static void Main() {\n        string name = \"Артур\";\n        int age = 100;\n        Console.WriteLine(\"Привет, мир!\");\n        Console.WriteLine($\"Меня зовут {name}, мне {age} лет\");\n\n        var nums = new List<int> { 1, 2, 3, 4, 5 };\n        foreach (int n in nums) {\n            Console.WriteLine($\"{n} в квадрате = {n * n}\");\n        }\n    }\n}\n"
+ },
+ "php": {
+  "file": "sandbox.php",
+  "timeout": 20,
+  "hint": "Для PHP нужен интерпретатор php в PATH.",
+  "starter": "<?php\n// Добро пожаловать в песочницу PHP!\n$name = \"Артур\";\n$age = 100;\necho \"Привет, мир!\\n\";\necho \"Меня зовут $name, мне $age лет\\n\";\n\n$nums = [1, 2, 3, 4, 5];\nforeach ($nums as $n) {\n    echo \"$n в квадрате = \" . ($n * $n) . \"\\n\";\n}\n"
+ },
+ "rust": {
+  "file": "main.rs",
+  "timeout": 60,
+  "hint": "Для Rust нужен компилятор rustc в PATH.",
+  "starter": "fn main() {\n    let name = \"Артур\";\n    let age = 100;\n    println!(\"Привет, мир!\");\n    println!(\"Меня зовут {}, мне {} лет\", name, age);\n\n    let nums = [1, 2, 3, 4, 5];\n    for n in nums {\n        println!(\"{} в квадрате = {}\", n, n * n);\n    }\n}\n"
+ },
+ "sql": {
+  "file": "query.sql",
+  "timeout": 5,
+  "starter": "-- Учебный магазин: products, customers, orders\n-- Например, посмотри товары подешевле\nSELECT name, price\nFROM products\nWHERE price < 1000\nORDER BY price;",
+  "hint": "SQL работает на учебной базе: таблицы products, customers и orders. В редакторе можно писать несколько запросов."
+ }
+}

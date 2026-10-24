@@ -1,0 +1,731 @@
+{
+  "cpp": {
+    "name": "C++",
+    "icon": "⚙️",
+    "color": "#00599C",
+    "description": "Мощный компилируемый язык для систем и игр.",
+    "difficulty": "Сложный старт",
+    "final_project": "Менеджер заметок",
+    "entrance_test": [
+      {
+        "question": "Как вывести текст в C++?",
+        "options": [
+          "print()",
+          "cout <<",
+          "console.log()",
+          "echo()"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Какая библиотека отвечает за ввод-вывод?",
+        "options": [
+          "#include <iostream>",
+          "#include <stdio>",
+          "#include <print>",
+          "#include <io>"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Какой тип для целых чисел?",
+        "options": [
+          "int",
+          "integer",
+          "number",
+          "longer"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Как объявить функцию в C++?",
+        "options": [
+          "int name() { }",
+          "function name()",
+          "def name()",
+          "fun name() { }"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Что такое указатель?",
+        "options": [
+          "Переменная с адресом памяти",
+          "Число",
+          "Строка",
+          "Функция"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Как создать вектор int?",
+        "options": [
+          "vector<int> v;",
+          "int[] v;",
+          "list v;",
+          "vec v;"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Какая конструкция создаёт объект?",
+        "options": [
+          "new для класса",
+          "cat() конструктор",
+          "class Cat c;",
+          "Cat c;"
+        ],
+        "correct": 3
+      },
+      {
+        "question": "Что делает return 0; в main?",
+        "options": [
+          "Ошибку",
+          "Завершает программу успешно",
+          "Выводит 0",
+          "Цикл"
+        ],
+        "correct": 1
+      }
+    ],
+    "modules": [
+      {
+        "id": 1,
+        "title": "Основы C++",
+        "description": "Первая программа, переменные, условия",
+        "lessons": [
+          {
+            "id": 1,
+            "title": "Первая программа",
+            "description": "Знакомимся с C++ и cout",
+            "theory": [
+              "C++ — компилируемый язык, код превращается в машинный.",
+              "Компилятор создаёт исполняемый файл.",
+              "cout << выводит текст на экран.",
+              "std::endl или \n — перевод строки."
+            ],
+            "examples": [
+              {
+                "title": "Hello, World",
+                "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет, мир!\" << endl;\n    return 0;\n}",
+                "explanation": "iostream для ввода-вывода, main — точка входа."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Приветствие",
+                "description": "Напишите main, который выводит \"Привет, мир!\".",
+                "difficulty": "easy",
+                "initial_code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // ваш код\n    return 0;\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "cout <<",
+                    "Привет, мир!"
+                  ]
+                },
+                "hints": [
+                  "Используйте cout <<",
+                  "Напишите: cout << \"Привет, мир!\" << endl;"
+                ],
+                "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет, мир!\" << endl;\n    return 0;\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как вывести текст в C++?",
+                "options": [
+                  "print()",
+                  "cout <<",
+                  "console.log()",
+                  "echo()"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Какая библиотека для ввода-вывода?",
+                "options": [
+                  "#include <iostream>",
+                  "#include <stdio.h>",
+                  "#include <print.h>",
+                  "#include <io.h>"
+                ],
+                "correct": 0
+              }
+            ],
+            "cheatsheet": "#include <iostream> — ввод-вывод\ncout << \"текст\" << endl; — вывод\nreturn 0; — успешное завершение",
+            "xp_reward": 20,
+            "difficulty": "easy"
+          },
+          {
+            "id": 2,
+            "title": "Переменные и типы",
+            "description": "int, double, string, bool",
+            "theory": [
+              "В C++ тип указывается всегда.",
+              "int — целые, double — дробные, string — строки, bool — логические.",
+              "Необходимо подключить <string> для строк.",
+              "Имена с маленькой буквы."
+            ],
+            "examples": [
+              {
+                "title": "Создание переменных",
+                "code": "int age = 20;\ndouble height = 1.75;\nstring name = \"Аня\";\nbool isStudent = true;",
+                "explanation": "Каждая переменная имеет свой тип."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя переменная",
+                "description": "Создайте переменную name типа string и выведите её.",
+                "difficulty": "easy",
+                "initial_code": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    // ваш код\n    return 0;\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "string name",
+                    "name =",
+                    "cout << name"
+                  ]
+                },
+                "hints": [
+                  "string name = \"Аня\";",
+                  "cout << name;"
+                ],
+                "solution": "#include <iostream>\n#include <string>\nusing namespace std;\nint main() {\n    string name = \"Аня\";\n    cout << name << endl;\n    return 0;\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какой тип для дробных чисел?",
+                "options": [
+                  "int",
+                  "double",
+                  "string",
+                  "bool"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что нужно для строк?",
+                "options": [
+                  "#include <iostream>",
+                  "#include <string>",
+                  "#include <printf>",
+                  "Ничего"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "int x = 5;\ndouble d = 3.14;\nstring s = \"текст\";\nbool b = true;",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Какая функция — точка входа программы C++?",
+              "options": [
+                "start()",
+                "main()",
+                "init()",
+                "begin()"
+              ],
+              "correct": 1,
+              "explain": "Программа начинается с функции main()."
+            },
+            {
+              "question": "Как вывести текст в консоль?",
+              "options": [
+                "cout << \"hi\";",
+                "print(\"hi\")",
+                "System.out.println(\"hi\")",
+                "echo \"hi\";"
+              ],
+              "correct": 0,
+              "explain": "cout с оператором << выводит данные в консоль."
+            },
+            {
+              "question": "Какое пространство имён даёт cout?",
+              "options": [
+                "using namespace std;",
+                "using namespace io;",
+                "import std;",
+                "include io;"
+              ],
+              "correct": 0,
+              "explain": "cout живёт в пространстве имён std."
+            },
+            {
+              "question": "Что выведет: cout << 7 % 3?",
+              "options": [
+                "2",
+                "1",
+                "2.33",
+                "0"
+              ],
+              "correct": 1,
+              "explain": "% — остаток от деления: 7 % 3 = 1."
+            },
+            {
+              "question": "Как прочитать число с клавиатуры в переменную x?",
+              "options": [
+                "cin >> x;",
+                "cin << x;",
+                "read x;",
+                "input >> x;"
+              ],
+              "correct": 0,
+              "explain": "cin с оператором >> читает данные в переменную."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 2,
+        "title": "Условия и циклы",
+        "description": "if/else, цикла for и while",
+        "lessons": [
+          {
+            "id": 3,
+            "title": "Условия if / else",
+            "description": "Программа принимает решения в C++",
+            "theory": [
+              "if (условие) { блок } — проверяет условие.",
+              "else выполняется, когда условие ложно.",
+              "Операторы сравнения: ==, !=, >, <, >=, <=.",
+              "&& — и, || — или."
+            ],
+            "examples": [
+              {
+                "title": "Условие",
+                "code": "int age = 18;\nif (age >= 18) {\n    cout << \"Взрослый\" << endl;\n} else {\n    cout << \"Школьник\" << endl;\n}",
+                "explanation": "Если age >= 18 печатаем «Взрослый», иначе — «Школьник»."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Проверка возраста",
+                "description": "Напишите условие: если x > 10, выведите \"Большое число\".",
+                "difficulty": "easy",
+                "initial_code": "int x = 15;\n// ваш код\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "if (x > 10)",
+                    "Большое число"
+                  ]
+                },
+                "hints": [
+                  "if (x > 10) {",
+                  "cout << \"Большое число\" << endl;"
+                ],
+                "solution": "if (x > 10) {\n    cout << \"Большое число\" << endl;\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Когда выполняется блок else?",
+                "options": [
+                  "Когда условие истинно",
+                  "Когда условие ложно",
+                  "Всегда",
+                  "Никогда"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Логический оператор «и»?",
+                "options": [
+                  "&",
+                  "&&",
+                  "and",
+                  "||"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "if (условие) {\n    блок\n} else {\n    блок\n}\n&& — и, || — или",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 4,
+            "title": "Циклы for и while",
+            "description": "Повторяем действия много раз",
+            "theory": [
+              "for (инициализация; условие; шаг) { }.",
+              "while (условие) { } — выполняется пока истинно.",
+              "i++ — увеличить на 1.",
+              "break — выход из цикла."
+            ],
+            "examples": [
+              {
+                "title": "Циклы",
+                "code": "for (int i = 0; i < 5; i++) {\n    cout << i << endl;\n}\n\nint n = 0;\nwhile (n < 3) {\n    n++;\n}",
+                "explanation": "Первый цикл печатает 0..4, второй — 3 раза."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Цикл for",
+                "description": "Напишите цикл for, который печатает числа от 0 до 4.",
+                "difficulty": "easy",
+                "initial_code": "// напишите for\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "for (int i = 0",
+                    "i < 5",
+                    "cout << i"
+                  ]
+                },
+                "hints": [
+                  "for (int i = 0; i < 5; i++) {",
+                  "cout << i << endl;"
+                ],
+                "solution": "for (int i = 0; i < 5; i++) {\n    cout << i << endl;\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какой цикл выполняется пока условие истинно?",
+                "options": [
+                  "for",
+                  "while",
+                  "do-for",
+                  "break"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что делает i++?",
+                "options": [
+                  "Уменьшает i на 1",
+                  "Увеличивает i на 1",
+                  "Обнуляет i",
+                  "Останавливает цикл"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "for (int i=0; i<n; i++) { }\nwhile (условие) { }\nbreak — выход, continue — дальше",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Что выведет: if (5 > 3) cout << \"a\"; else cout << \"b\";?",
+              "options": [
+                "b",
+                "a",
+                "ошибку",
+                "ничего"
+              ],
+              "correct": 1,
+              "explain": "Условие истинно — выполнится ветка if."
+            },
+            {
+              "question": "Сколько раз выполнится: for (int i = 0; i < 3; i++)?",
+              "options": [
+                "2",
+                "3",
+                "4",
+                "бесконечно"
+              ],
+              "correct": 1,
+              "explain": "i примет значения 0, 1, 2 — три итерации."
+            },
+            {
+              "question": "Что делает break в switch?",
+              "options": [
+                "Пропускает case",
+                "Выходит из switch",
+                "Перезапускает",
+                "Ничего"
+              ],
+              "correct": 1,
+              "explain": "Без break выполнение \"провалится\" в следующий case."
+            },
+            {
+              "question": "Что выведет: int i = 0; while (i < 2) i++; cout << i;?",
+              "options": [
+                "1",
+                "2",
+                "0",
+                "3"
+              ],
+              "correct": 1,
+              "explain": "Цикл выполнится дважды, i станет 2."
+            },
+            {
+              "question": "Какой оператор — логическое И?",
+              "options": [
+                "&&",
+                "||",
+                "!",
+                "and_then"
+              ],
+              "correct": 0,
+              "explain": "&& — логическое И, || — ИЛИ, ! — НЕ."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 3,
+        "title": "Массивы, строки и функции",
+        "description": "Работа с данными и своими функциями",
+        "lessons": [
+          {
+            "id": 5,
+            "title": "Массивы и строки",
+            "description": "Храним наборы значений",
+            "theory": [
+              "Массив — фиксированное число элементов: int a[5];",
+              "Индексы начинаются с 0.",
+              "string — объект со своими методами.",
+              "s.length() — длина строки."
+            ],
+            "examples": [
+              {
+                "title": "Массив и строка",
+                "code": "int n[3] = {10, 20, 30};\ncout << n[0] << endl; // 10\nstring s = \"Привет\";\ncout << s.length() << endl; // 6",
+                "explanation": "Читаем элемент массива и длину строки."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой массив",
+                "description": "Создайте массив nums = {1, 2, 3} и выведите первый элемент.",
+                "difficulty": "easy",
+                "initial_code": "// создайте массив\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "int",
+                    "nums",
+                    "nums[0]",
+                    "cout << nums[0]"
+                  ]
+                },
+                "hints": [
+                  "int nums[3] = {1, 2, 3};",
+                  "cout << nums[0];"
+                ],
+                "solution": "int nums[3] = {1, 2, 3};\ncout << nums[0] << endl;",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "С какого индекса начинается массив?",
+                "options": [
+                  "С 1",
+                  "С 0",
+                  "С -1",
+                  "С произвольного"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как получить длину строки s?",
+                "options": [
+                  "s.length()",
+                  "s.size()",
+                  "len(s)",
+                  "s.count()"
+                ],
+                "correct": 0
+              }
+            ],
+            "cheatsheet": "int a[5]; — массив\na[0] — первый элемент\nstring s = \"текст\";\ns.length() — длина",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 6,
+            "title": "Функции и указатели",
+            "description": "Переиспользуем код и работаем с памятью",
+            "theory": [
+              "Функция — тип, имя, параметры, тело: int add(int a, int b).",
+              "Указатель хранит адрес переменной: int* p = &x;",
+              "& — взятие адреса, * — разыменование.",
+              "Ссылка — псевдоним переменной: int& r = x;"
+            ],
+            "examples": [
+              {
+                "title": "Функция",
+                "code": "int add(int a, int b) {\n    return a + b;\n}\ncout << add(2, 3) << endl; // 5",
+                "explanation": "Функция add складывает два числа и возвращает результат."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя функция",
+                "description": "Напишите функцию greet(), которая выводит \"Привет!\". Вызовите её.",
+                "difficulty": "easy",
+                "initial_code": "// напишите функцию\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "void greet()",
+                    "cout << \"Привет",
+                    "greet()"
+                  ]
+                },
+                "hints": [
+                  "void greet() { cout << \"Привет!\"; }",
+                  "Вызов greet();"
+                ],
+                "solution": "void greet() {\n    cout << \"Привет!\" << endl;\n}\ngreet();",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что хранит указатель?",
+                "options": [
+                  "Число",
+                  "Адрес в памяти",
+                  "Строку",
+                  "Функцию"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как объявить указатель?",
+                "options": [
+                  "int p = &x;",
+                  "int* p = &x;",
+                  "ptr p = &x;",
+                  "&p = x;"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "int* p = &x; — указатель на x\n&x — адрес переменной\n* p — значение по адресу\nint& r = x; — ссылка",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как объявить массив из 10 целых?",
+              "options": [
+                "int arr[10];",
+                "int arr(10);",
+                "array<int> arr;",
+                "int[10] arr;"
+              ],
+              "correct": 0,
+              "explain": "Статический массив: int arr[10];"
+            },
+            {
+              "question": "Что такое vector<int>?",
+              "options": [
+                "Указатель",
+                "Динамический массив из STL",
+                "Тип строки",
+                "Файл"
+              ],
+              "correct": 1,
+              "explain": "vector — динамический массив, растёт по необходимости."
+            },
+            {
+              "question": "Как добавить элемент в конец vector v?",
+              "options": [
+                "v.add(x);",
+                "v.push_back(x);",
+                "v.append(x);",
+                "v + x;"
+              ],
+              "correct": 1,
+              "explain": "push_back() добавляет элемент в конец vector."
+            },
+            {
+              "question": "Как получить адрес переменной x?",
+              "options": [
+                "*x",
+                "&x",
+                "addr(x)",
+                "x@"
+              ],
+              "correct": 1,
+              "explain": "& возвращает адрес переменной (указатель)."
+            },
+            {
+              "question": "Что делает *p для указателя p?",
+              "options": [
+                "Берёт адрес",
+                "Даёт значение по адресу",
+                "Умножает",
+                "Удаляет указатель"
+              ],
+              "correct": 1,
+              "explain": "*p даёт значение, которое лежит по адресу в p."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      }
+    ],
+    "cheatsheets": [
+      {
+        "title": "Основы",
+        "icon": "🏗️",
+        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Привет\" << endl;\n    return 0;\n}",
+        "note": "iostream — ввод-вывод, main — точка входа."
+      },
+      {
+        "title": "Переменные",
+        "icon": "🏷️",
+        "code": "int x = 5;\ndouble d = 3.14;\nstring s = \"текст\";\nbool b = true;",
+        "note": "Тип указывается всегда. Для строк нужно <string>."
+      },
+      {
+        "title": "Условия",
+        "icon": "🔀",
+        "code": "if (x > 0) {\n    cout << \"+\";\n} else {\n    cout << \"-\";\n}",
+        "note": "&& — и, || — или, ! — не."
+      },
+      {
+        "title": "Циклы",
+        "icon": "🔁",
+        "code": "for (int i = 0; i < 5; i++) {\n    cout << i;\n}\n\nint n = 0;\nwhile (n < 3) {\n    n++;\n}",
+        "note": "for по шагам, while по условию. break — выход."
+      },
+      {
+        "title": "Массивы и строки",
+        "icon": "📦",
+        "code": "int a[3] = {1, 2, 3};\ncout << a[0];\n\nstring s = \"Привет\";\ns.length();",
+        "note": "Индексы с нуля, длина через length()."
+      },
+      {
+        "title": "Функции и указатели",
+        "icon": "🛠️",
+        "code": "int add(int a, int b) {\n    return a + b;\n}\n\nint x = 5;\nint* p = &x;  // указатель на адрес\ncout << *p;    // 5",
+        "note": "& — адрес, * — разыменование. Указатель хранит адрес."
+      }
+    ]
+  }
+}

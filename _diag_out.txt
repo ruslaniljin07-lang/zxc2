@@ -1,0 +1,56 @@
+== dashboard ==
+GET /dashboard -> 200 11933
+
+== /lessons (uses current_language) ==
+GET /lessons -> 200 16022
+
+== python ==
+  GET /language/python -> 200 17557
+  GET /lessons?lang=python -> 200 16022
+  GET /lesson/1?lang=python -> 200 (20867 b) Первая программа
+  GET /lesson/2?lang=python -> 200 (20848 b) Переменные и типы данных
+  GET /lesson/3?lang=python -> 200 (20683 b) Арифметика и строки
+  GET /lesson/4?lang=python -> 200 (20602 b) Условия if / else
+  GET /lesson/5?lang=python -> 200 (20542 b) elif и логика
+  GET /lesson/6?lang=python -> 200 (20535 b) Циклы for и while
+  GET /lesson/7?lang=python -> 200 (20817 b) Списки
+  GET /lesson/8?lang=python -> 200 (20713 b) Методы списков
+  GET /lesson/9?lang=python -> 200 (20581 b) Функции
+  GET /lesson/10?lang=python -> 200 (20617 b) Словари
+  GET /lesson/11?lang=python -> 200 (20795 b) Классы и объекты
+  GET /lesson/12?lang=python -> 200 (20945 b) Наследование
+  GET /test/python -> 200 34966
+
+== javascript ==
+  GET /language/javascript -> 200 11516
+  GET /lessons?lang=javascript -> 200 10478
+  GET /lesson/1?lang=javascript -> 200 (20690 b) Первая программа
+  GET /lesson/2?lang=javascript -> 200 (20639 b) Переменные и типы
+  GET /lesson/3?lang=javascript -> 200 (20612 b) Условия if / else
+  GET /lesson/4?lang=javascript -> 200 (20640 b) Функции
+  GET /lesson/5?lang=javascript -> 200 (20738 b) Массивы и методы
+  GET /lesson/6?lang=javascript -> 200 (20746 b) Объекты и JSON
+  GET /test/javascript -> 200 35036
+
+== java ==
+  GET /language/java -> 200 13068
+  GET /lessons?lang=java -> 200 11602
+  GET /lesson/1?lang=java -> 200 (20789 b) Первая программа
+  GET /lesson/2?lang=java -> 200 (20599 b) Переменные и типы
+  GET /lesson/3?lang=java -> 200 (20732 b) Условия if / else
+  GET /lesson/4?lang=java -> 200 (20583 b) Массивы
+  GET /lesson/5?lang=java -> 200 (20591 b) Строки String
+  GET /lesson/6?lang=java -> 200 (20888 b) Классы и объекты
+  GET /lesson/7?lang=java -> 200 (20927 b) Наследование
+  GET /test/java -> 200 34993
+
+== cpp ==
+  GET /language/cpp -> 200 12311
+  GET /lessons?lang=cpp -> 200 10783
+  GET /lesson/1?lang=cpp -> 200 (20733 b) Первая программа
+  GET /lesson/2?lang=cpp -> 200 (20662 b) Переменные и типы
+  GET /lesson/3?lang=cpp -> 200 (20554 b) Условия if / else
+  GET /lesson/4?lang=cpp -> 200 (20479 b) Циклы for и while
+  GET /lesson/5?lang=cpp -> 200 (20524 b) Массивы и строки
+  GET /lesson/6?lang=cpp -> 200 (20633 b) Функции и указатели
+  GET /test/cpp -> 200 35027

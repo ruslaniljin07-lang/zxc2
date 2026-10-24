@@ -1,0 +1,1161 @@
+{
+  "python": {
+    "name": "Python",
+    "icon": "🐍",
+    "color": "#3776AB",
+    "description": "Основы программирования и разработка приложений — отличный старт для новичка.",
+    "difficulty": "Лёгкий старт",
+    "final_project": "Менеджер задач",
+    "entrance_test": [
+      {
+        "question": "Какой командой вывести текст в Python?",
+        "options": [
+          "print(\"Привет\")",
+          "echo(\"Привет\")",
+          "cout << \"Привет\"",
+          "console.log(\"Привет\")"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Какой тип у значения 3.14?",
+        "options": [
+          "int",
+          "float",
+          "str",
+          "bool"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Как создать переменную в Python?",
+        "options": [
+          "int x = 5",
+          "let x = 5",
+          "x = 5",
+          "var x = 5;"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Что выведет print(2 + 3 * 4)?",
+        "options": [
+          "20",
+          "14",
+          "24",
+          "Ошибка"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Какая конструкция для условия «если»?",
+        "options": [
+          "if x > 5:",
+          "if (x > 5)",
+          "if x > 5 {",
+          "when x > 5:"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Какой цикл повторяет, пока условие истинно?",
+        "options": [
+          "for",
+          "while",
+          "foreach",
+          "repeat"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Что хранит список [1, 2, 3]?",
+        "options": [
+          "кортеж",
+          "множество",
+          "словарь",
+          "list"
+        ],
+        "correct": 3
+      },
+      {
+        "question": "Как объявить функцию в Python?",
+        "options": [
+          "def name():",
+          "function name()",
+          "func name()",
+          "fun name():"
+        ],
+        "correct": 0
+      }
+    ],
+    "modules": [
+      {
+        "id": 1,
+        "title": "Основы Python",
+        "description": "Первая программа, переменные, типы данных и операции",
+        "lessons": [
+          {
+            "id": 1,
+            "title": "Первая программа",
+            "description": "Знакомимся с Python и учимся выводить текст",
+            "theory": [
+              "Python — язык программирования, который легко читается человеком.",
+              "Программа — это файл с командами, которые выполняются по порядку.",
+              "Функция print() выводит текст на экран.",
+              "Текст для вывода берётся в кавычки: одинарные или двойные."
+            ],
+            "examples": [
+              {
+                "title": "Привет, мир!",
+                "code": "print('Привет, мир!')\nprint(2 + 2)",
+                "explanation": "Первая строка печатает текст, вторая — результат вычисления 2 + 2."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Приветствие",
+                "description": "Выведите на экран текст «Привет, мир!»",
+                "difficulty": "easy",
+                "initial_code": "# Напишите код ниже\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'Привет, мир!' in open(__file__).read()"
+                },
+                "hints": [
+                  "Используйте функцию print()",
+                  "Напишите: print('Привет, мир!')"
+                ],
+                "solution": "print('Привет, мир!')",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что делает функция print()?",
+                "options": [
+                  "Вводит данные",
+                  "Выводит данные на экран",
+                  "Считает числа",
+                  "Закрывает программу"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "В каких кавычках может быть строка в Python?",
+                "options": [
+                  "Только одинарных",
+                  "Только двойных",
+                  "И одинарных, и двойных",
+                  "Вообще без кавычек"
+                ],
+                "correct": 2
+              }
+            ],
+            "cheatsheet": "print('текст') — вывод на экран\n# comment — комментарий",
+            "xp_reward": 20,
+            "difficulty": "easy"
+          },
+          {
+            "id": 2,
+            "title": "Переменные и типы данных",
+            "description": "Храним значения в переменных и разбираем типы",
+            "theory": [
+              "Переменная — именованная ячейка памяти для данных.",
+              "Python сам определяет тип: int, float, str, bool.",
+              "Переменная создаётся присваиванием: name = \"Аня\".",
+              "Имена: буквы, цифры и _, начинать с цифры нельзя."
+            ],
+            "examples": [
+              {
+                "title": "Создание переменных",
+                "code": "name = 'Аня'\nage = 20\nheight = 1.68\nis_student = True",
+                "explanation": "Создали четыре переменных разных типов: str, int, float, bool."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя переменная",
+                "description": "Создайте переменную name со строкой и выведите её.",
+                "difficulty": "easy",
+                "initial_code": "# Создайте переменную name и напечатайте её\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert isinstance(name, str) and len(name) > 0\nassert 'print' in open(__file__).read()"
+                },
+                "hints": [
+                  "name = 'любое имя'",
+                  "Затем print(name)"
+                ],
+                "solution": "name = 'Аня'\nprint(name)",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какой тип у значения \"Привет\"?",
+                "options": [
+                  "int",
+                  "float",
+                  "str",
+                  "bool"
+                ],
+                "correct": 2
+              },
+              {
+                "question": "Что показывает функция type()?",
+                "options": [
+                  "Размер переменной",
+                  "Тип данных значения",
+                  "Значение переменной",
+                  "Ошибку"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "x = 5 — int\ns = 'текст' — str\nb = True — bool\ntype(x) — узнать тип",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 3,
+            "title": "Арифметика и строки",
+            "description": "Операции с числами и простые действия со строками",
+            "theory": [
+              "Арифметика: + - * /, целочисленное деление //, остаток %, степень **.",
+              "Строки складываются: \"При\" + \"вет\" → \"Привет\".",
+              "len() возвращает длину строки.",
+              "input() считывает ввод пользователя и всегда возвращает строку."
+            ],
+            "examples": [
+              {
+                "title": "Арифметика и строки",
+                "code": "print(10 // 3)      # 3\nprint(10 % 3)       # 1\nprint(2 ** 3)       # 8\nprint('a' + 'b')    # ab",
+                "explanation": "Показаны деление нацело, остаток, степень и склейка строк."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Калькулятор",
+                "description": "Выведите результат выражения 25 + 17.",
+                "difficulty": "easy",
+                "initial_code": "# Выведите сумму 25 + 17\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert '25 + 17' in open(__file__).read()"
+                },
+                "hints": [
+                  "print(25 + 17)"
+                ],
+                "solution": "print(25 + 17)",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что выведет 10 // 3?",
+                "options": [
+                  "3.33",
+                  "3",
+                  "1",
+                  "Ошибка"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что вернёт input()?",
+                "options": [
+                  "Число",
+                  "Строку (str)",
+                  "Список",
+                  "Логическое значение"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "+ - * / — арифметика\n// целочисленное, % остаток, ** степень\nlen(s) — длина строки",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Что выведет: print(2 + 3 * 2)?",
+              "options": [
+                "10",
+                "8",
+                "7",
+                "12"
+              ],
+              "correct": 1,
+              "explain": "Сначала умножение: 3*2=6, потом сложение: 2+6=8."
+            },
+            {
+              "question": "Как создать переменную с текстом \"Привет\"?",
+              "options": [
+                "text = \"Привет\"",
+                "text == \"Привет\"",
+                "let text = \"Привет\"",
+                "var text = \"Привет\""
+              ],
+              "correct": 0,
+              "explain": "В Python переменная создаётся через знак равенства =."
+            },
+            {
+              "question": "Какая функция выводит текст на экран?",
+              "options": [
+                "print()",
+                "output()",
+                "echo()",
+                "console.log()"
+              ],
+              "correct": 0,
+              "explain": "print() — стандартная функция вывода в Python."
+            },
+            {
+              "question": "Как получить целую часть от деления 7 на 2?",
+              "options": [
+                "7 / 2",
+                "7 // 2",
+                "7 % 2",
+                "только int(7/2)"
+              ],
+              "correct": 1,
+              "explain": "Оператор // — целочисленное деление: 7 // 2 = 3."
+            },
+            {
+              "question": "Что такое input()?",
+              "options": [
+                "Функция вывода",
+                "Функция ввода с клавиатуры",
+                "Оператор сравнения",
+                "Цикл"
+              ],
+              "correct": 1,
+              "explain": "input() читает строку, введённую пользователем."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 2,
+        "title": "Условия и циклы",
+        "description": "if/else, логические операторы, циклы for и while",
+        "lessons": [
+          {
+            "id": 4,
+            "title": "Условия if / else",
+            "description": "Программа принимает решения",
+            "theory": [
+              "if выполняет блок кода, когда условие истинно.",
+              "После if ставится двоеточие, а блок — отступ 4 пробела.",
+              "else выполняется, когда условие ложно.",
+              "Операторы сравнения: ==, !=, >, <, >=, <=."
+            ],
+            "examples": [
+              {
+                "title": "Условие",
+                "code": "age = 18\nif age >= 18:\n    print('Взрослый')\nelse:\n    print('Школьник')",
+                "explanation": "При age >= 18 печатается «Взрослый», иначе — «Школьник»."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Проверка возраста",
+                "description": "Напишите условие: если x больше 10, печатайте \"Большое число\".",
+                "difficulty": "easy",
+                "initial_code": "x = 15\n# напишите if ниже\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'if x > 10:' in open(__file__).read()\nassert \"'Большое число'\" in open(__file__).read()"
+                },
+                "hints": [
+                  "После if: 'if x > 10:' и отступ",
+                  "Внутри: print('Большое число')"
+                ],
+                "solution": "x = 15\nif x > 10:\n    print('Большое число')",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Когда выполняется блок else?",
+                "options": [
+                  "Когда условие истинно",
+                  "Когда условие ложно",
+                  "Всегда",
+                  "Никогда"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как проверить равенство?",
+                "options": [
+                  "=",
+                  "==",
+                  "===",
+                  ":="
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "if условие:\n    блок\nelse:\n    блок",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 5,
+            "title": "elif и логика",
+            "description": "Несколько условий и операторы and/or/not",
+            "theory": [
+              "elif позволяет проверить ещё одно условие.",
+              "and — истина, когда оба условия истинны.",
+              "or — истина, когда хотя бы одно истинно.",
+              "not меняет значение на противоположное."
+            ],
+            "examples": [
+              {
+                "title": "elif и and",
+                "code": "mark = 85\nif mark >= 90:\n    print('Отлично')\nelif mark >= 75:\n    print('Хорошо')\nelse:\n    print('Повтори тему')",
+                "explanation": "Проверяются условия по порядку, сработает первое истинное."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Три ветки",
+                "description": "Для x = 50 напишите условие: если x > 100 — \"Много\", если x > 0 — \"Средне\", иначе — \"Отрицательно\".",
+                "difficulty": "medium",
+                "initial_code": "x = 50\n# напишите if/elif/else\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'elif' in open(__file__).read()"
+                },
+                "hints": [
+                  "Сначала if x > 100",
+                  "Потом elif x > 0",
+                  "Внутри print('Средне')"
+                ],
+                "solution": "x = 50\nif x > 100:\n    print('Много')\nelif x > 0:\n    print('Средне')\nelse:\n    print('Отрицательно')",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что вернёт True and False?",
+                "options": [
+                  "True",
+                  "False",
+                  "Ошибка",
+                  "None"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что вернёт 5 > 3 or 2 > 4?",
+                "options": [
+                  "True",
+                  "False",
+                  "Ошибка",
+                  "5"
+                ],
+                "correct": 0
+              }
+            ],
+            "cheatsheet": "if a:\nelif b:\nelse:\nand / or / not — логические операторы",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 6,
+            "title": "Циклы for и while",
+            "description": "Повторяем действия много раз",
+            "theory": [
+              "for перебирает элементы последовательности.",
+              "range(5) создаёт числа от 0 до 4.",
+              "while повторяет код, пока условие истинно.",
+              "break завершает цикл, continue — следующий шаг."
+            ],
+            "examples": [
+              {
+                "title": "Циклы",
+                "code": "for i in range(5):\n    print(i)\n\nn = 0\nwhile n < 3:\n    print('раз')\n    n += 1",
+                "explanation": "Первый цикл печатает 0..4, второй — три раза слово «раз»."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Сумма чисел",
+                "description": "Напишите цикл for, который печатает числа от 0 до 4.",
+                "difficulty": "easy",
+                "initial_code": "# используйте for i in range(5)\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'for' in open(__file__).read()\nassert 'range' in open(__file__).read()\nassert 'print' in open(__file__).read()"
+                },
+                "hints": [
+                  "for i in range(5):",
+                  "Внутри print(i)"
+                ],
+                "solution": "for i in range(5):\n    print(i)",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какой цикл повторяется, пока условие истинно?",
+                "options": [
+                  "for",
+                  "while",
+                  "foreach",
+                  "break"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что вернёт range(3)?",
+                "options": [
+                  "[1, 2, 3]",
+                  "числа 0, 1, 2",
+                  "числа 1, 2, 3",
+                  "Ошибку"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "for x in range(n): — цикл по числам\nwhile условие: — цикл с условием\nbreak — выход, continue — дальше",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Что выведет код: if 5 > 3: print(\"да\") else: print(\"нет\")?",
+              "options": [
+                "нет",
+                "да",
+                "ошибку",
+                "ничего"
+              ],
+              "correct": 1,
+              "explain": "Условие 5 > 3 истинно, выполнится ветка if."
+            },
+            {
+              "question": "Какой оператор даёт \"истина\", если ОБА условия истинны?",
+              "options": [
+                "or",
+                "and",
+                "not",
+                "in"
+              ],
+              "correct": 1,
+              "explain": "and возвращает True только когда оба условия True."
+            },
+            {
+              "question": "Сколько раз выполнится тело цикла: for i in range(3):",
+              "options": [
+                "2",
+                "3",
+                "4",
+                "бесконечно"
+              ],
+              "correct": 1,
+              "explain": "range(3) даёт 0, 1, 2 — итого 3 итерации."
+            },
+            {
+              "question": "Что делает оператор break в цикле?",
+              "options": [
+                "Пропускает итерацию",
+                "Прерывает цикл",
+                "Перезапускает цикл",
+                "Ничего"
+              ],
+              "correct": 1,
+              "explain": "break немедленно выходит из цикла, continue — пропускает итерацию."
+            },
+            {
+              "question": "Что выведет: x = 0\nwhile x < 2: x += 1\nprint(x)?",
+              "options": [
+                "0",
+                "1",
+                "2",
+                "3"
+              ],
+              "correct": 2,
+              "explain": "Цикл остановится, когда x станет 2."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 3,
+        "title": "Списки и функции",
+        "description": "Коллекции данных, методы списков и свои функции",
+        "lessons": [
+          {
+            "id": 7,
+            "title": "Списки",
+            "description": "Храним много значений в одной переменной",
+            "theory": [
+              "Список — упорядоченная коллекция элементов в квадратных скобках.",
+              "Элементы нумеруются с 0: nums[0], nums[1].",
+              "Срезы: nums[1:3] — элементы с индекса 1 до 3 (не включая 3).",
+              "len() возвращает количество элементов."
+            ],
+            "examples": [
+              {
+                "title": "Список",
+                "code": "nums = [10, 20, 30]\nprint(nums[0])    # 10\nprint(nums[-1])   # 30\nprint(len(nums))  # 3",
+                "explanation": "Доступ по индексу, отрицательный индекс — с конца."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой список",
+                "description": "Создайте список fruits = [\"яблоко\", \"банан\"] и выведите первый элемент.",
+                "difficulty": "easy",
+                "initial_code": "# создайте список и выведите первый элемент\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'fruits = ' in open(__file__).read()\nassert 'fruits[0]' in open(__file__).read()"
+                },
+                "hints": [
+                  "fruits = [\"яблоко\", \"банан\"]",
+                  "print(fruits[0])"
+                ],
+                "solution": "fruits = ['яблоко', 'банан']\nprint(fruits[0])",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "С какого индекса начинаются элементы списка?",
+                "options": [
+                  "С 1",
+                  "С 0",
+                  "С -1",
+                  "С произвольного"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как получить последний элемент списка nums?",
+                "options": [
+                  "nums[last]",
+                  "nums[-1]",
+                  "nums[0]",
+                  "nums[end]"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "lst = [1, 2, 3] — список\nlst[0], lst[-1], lst[1:3] — индексы и срезы\nlen(lst) — длина",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 8,
+            "title": "Методы списков",
+            "description": "Добавляем, удаляем и сортируем элементы",
+            "theory": [
+              "append() добавляет элемент в конец.",
+              "insert() вставляет элемент по индексу.",
+              "remove() удаляет первый подходящий элемент.",
+              "sort() сортирует, reverse() разворачивает."
+            ],
+            "examples": [
+              {
+                "title": "Методы списков",
+                "code": "nums = [3, 1, 2]\nnums.append(4)\nnums.sort()\nprint(nums)  # [1, 2, 3, 4]",
+                "explanation": "Добавили 4, отсортировали — получили [1, 2, 3, 4]."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Сортировка",
+                "description": "Создайте список [5, 2, 8], отсортируйте его и напечатайте.",
+                "difficulty": "medium",
+                "initial_code": "nums = [5, 2, 8]\n# отсортируйте и выведите\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert '.sort()' in open(__file__).read()\nassert 'print(nums)' in open(__file__).read()"
+                },
+                "hints": [
+                  "nums.sort() изменяет список на месте",
+                  "Затем print(nums)"
+                ],
+                "solution": "nums = [5, 2, 8]\nnums.sort()\nprint(nums)",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что делает append(7)?",
+                "options": [
+                  "Удаляет 7",
+                  "Добавляет 7 в конец",
+                  "Сортирует список",
+                  "Очищает список"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что вернёт pop() без аргументов?",
+                "options": [
+                  "Первый элемент",
+                  "Последний элемент",
+                  "Случайный элемент",
+                  "Длину"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "append(x) — в конец\ninsert(i, x) — по индексу\nremove(x) — удалить\npop() — забрать последний\nsort(), reverse()",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 9,
+            "title": "Функции",
+            "description": "Пишем собственные функции с def",
+            "theory": [
+              "Функция — именованный блок кода для повторного использования.",
+              "def имя(параметры): — объявление функции.",
+              "return возвращает результат из функции.",
+              "Параметры по умолчанию: def welcome(name=\"Гость\")."
+            ],
+            "examples": [
+              {
+                "title": "Функция сложения",
+                "code": "def add(a, b):\n    return a + b\n\nprint(add(2, 3))  # 5",
+                "explanation": "Функция add принимает два числа и возвращает их сумму."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя функция",
+                "description": "Напишите функцию greet(), которая печатает \"Привет!\". Вызовите её.",
+                "difficulty": "easy",
+                "initial_code": "# define функцию greet\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'def greet():' in open(__file__).read()\nassert 'greet()' in open(__file__).read()"
+                },
+                "hints": [
+                  "def greet():",
+                  "Внутри print('Привет!')",
+                  "Вызов greet()"
+                ],
+                "solution": "def greet():\n    print('Привет!')\n\ngreet()",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что делает return?",
+                "options": [
+                  "Печатает значение",
+                  "Возвращает значение из функции",
+                  "Завершает программу",
+                  "Создаёт список"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как объявить функцию?",
+                "options": [
+                  "func name()",
+                  "def name():",
+                  "function name()",
+                  "fun name():"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "def name(параметры):\n    тело\nreturn значение — вернуть результат",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как добавить элемент в конец списка?",
+              "options": [
+                "list.add(x)",
+                "list.append(x)",
+                "list.push(x)",
+                "list + x"
+              ],
+              "correct": 1,
+              "explain": "Метод append() добавляет элемент в конец списка."
+            },
+            {
+              "question": "Что выведет: nums = [1, 2, 3]\nprint(nums[-1])?",
+              "options": [
+                "1",
+                "3",
+                "ошибку",
+                "0"
+              ],
+              "correct": 1,
+              "explain": "Индекс -1 — последний элемент списка."
+            },
+            {
+              "question": "Что делает len([10, 20, 30])?",
+              "options": [
+                "30",
+                "3",
+                "сумму элементов",
+                "60"
+              ],
+              "correct": 1,
+              "explain": "len() возвращает количество элементов — 3."
+            },
+            {
+              "question": "Что выведет: def f(a, b=5): return a + b\nprint(f(3))?",
+              "options": [
+                "8",
+                "3",
+                "ошибку",
+                "35"
+              ],
+              "correct": 0,
+              "explain": "b берёт значение по умолчанию 5: 3+5=8."
+            },
+            {
+              "question": "Как обратиться к 3-му элементу списка?",
+              "options": [
+                "list[3]",
+                "list[2]",
+                "list(2)",
+                "list.get(3)"
+              ],
+              "correct": 1,
+              "explain": "Индексация с нуля, поэтому 3-й элемент — index 2."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 4,
+        "title": "Словари и ООП",
+        "description": "Словари, классы, объекты и наследование",
+        "lessons": [
+          {
+            "id": 10,
+            "title": "Словари",
+            "description": "Храним данные по ключам",
+            "theory": [
+              "Словарь — коллекция пар «ключ: значение» в фигурных скобках.",
+              "Обращение по ключу: user[\"name\"].",
+              "Метод get() безопасно возвращает значение или None.",
+              "keys(), values(), items() — перебор словаря."
+            ],
+            "examples": [
+              {
+                "title": "Словарь",
+                "code": "user = {'name': 'Аня', 'age': 20}\nprint(user['name'])   # Аня\nuser['city'] = 'Москва'",
+                "explanation": "Создали словарь с двумя ключами и добавили третий."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой словарь",
+                "description": "Создайте словарь person с ключами name и age, выведите name.",
+                "difficulty": "easy",
+                "initial_code": "# создайте словарь\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'person = {' in open(__file__).read()\nassert \"person['name']\" in open(__file__).read() or 'person[\"name\"]' in open(__file__).read()"
+                },
+                "hints": [
+                  "person = {'name': 'Аня', 'age': 20}",
+                  "print(person['name'])"
+                ],
+                "solution": "person = {'name': 'Аня', 'age': 20}\nprint(person['name'])",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как получить значение по ключу?",
+                "options": [
+                  "dict[ключ]",
+                  "dict.ключ()",
+                  "dict(ключ)",
+                  "dict->ключ"
+                ],
+                "correct": 0
+              },
+              {
+                "question": "Что вернёт dict.get(\"нет\")?",
+                "options": [
+                  "Ошибку",
+                  "None",
+                  "0",
+                  "Пустую строку"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "d = {'k': 'v'} — словарь\nd['k'] — значение по ключу\nd.get('k') — безопасно\nkeys(), values(), items()",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 11,
+            "title": "Классы и объекты",
+            "description": "Знакомимся с объектно-ориентированным программированием",
+            "theory": [
+              "Класс — чертёж объекта, описывает свойства и методы.",
+              "Объект — конкретный экземпляр класса.",
+              "Метод __init__ вызывается при создании объекта.",
+              "self — ссылка на сам объект внутри методов."
+            ],
+            "examples": [
+              {
+                "title": "Класс Cat",
+                "code": "class Cat:\n    def __init__(self, name):\n        self.name = name\n\n    def say(self):\n        print(self.name, 'мяу')\n\nc = Cat('Барсик')\nc.say()",
+                "explanation": "Создали класс Cat, объект c, вызвали метод say()."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Класс Dog",
+                "description": "Создайте класс Dog с методом __init__(self, name) и сохраните имя в self.name.",
+                "difficulty": "medium",
+                "initial_code": "class Dog:\n    # добавьте __init__\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'def __init__(self, name):' in open(__file__).read()\nassert 'self.name = name' in open(__file__).read()"
+                },
+                "hints": [
+                  "def __init__(self, name):",
+                  "Внутри: self.name = name"
+                ],
+                "solution": "class Dog:\n    def __init__(self, name):\n        self.name = name",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что такое объект?",
+                "options": [
+                  "Функция программы",
+                  "Конкретный экземпляр класса",
+                  "Тип данных",
+                  "Модуль"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Что означает self?",
+                "options": [
+                  "Класс",
+                  "Ссылку на сам объект",
+                  "Модуль",
+                  "Аргумент функции"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "class Имя: — класс\n__init__ — конструктор\nself — сам объект\nobj = Имя() — создать объект",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 12,
+            "title": "Наследование",
+            "description": "Создаём классы на основе других",
+            "theory": [
+              "Наследование — новый класс берёт методы родительского.",
+              "class Дочерний(Родитель): — синтаксис.",
+              "super().__init__(...) вызывает конструктор родителя.",
+              "Дочерний класс может переопределить методы родителя."
+            ],
+            "examples": [
+              {
+                "title": "Наследование",
+                "code": "class Animal:\n    def sound(self):\n        return '...'\n\nclass Dog(Animal):\n    def sound(self):\n        return 'Гав'\n\nprint(Dog().sound())  # Гав",
+                "explanation": "Dog наследует Animal и переопределяет метод sound."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Наследование",
+                "description": "Создайте класс Dog, наследующий от Animal, с методом sound, который возвращает \"Гав\".",
+                "difficulty": "medium",
+                "initial_code": "class Animal:\n    def sound(self):\n        return '...'\n\n# создайте класс Dog\n",
+                "check": {
+                  "type": "python",
+                  "test_code": "assert 'class Dog(Animal):' in open(__file__).read()\nassert \"return 'Гав'\" in open(__file__).read()"
+                },
+                "hints": [
+                  "class Dog(Animal):",
+                  "def sound(self): return 'Гав'"
+                ],
+                "solution": "class Animal:\n    def sound(self):\n        return '...'\n\nclass Dog(Animal):\n    def sound(self):\n        return 'Гав'",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что даёт наследование?",
+                "options": [
+                  "Перезагружает компьютер",
+                  "Переиспользует методы родителя",
+                  "Удаляет класс",
+                  "Ускоряет циклы"
+                ],
+                "correct": 1
+              },
+              {
+                "question": "Как вызвать конструктор родителя?",
+                "options": [
+                  "father()",
+                  "super().__init__()",
+                  "parent.init()",
+                  "extend()"
+                ],
+                "correct": 1
+              }
+            ],
+            "cheatsheet": "class Child(Parent): — наследник\nsuper().__init__() — конструктор родителя\nметоды можно переопределять",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как получить значение по ключу \"name\" из словаря d?",
+              "options": [
+                "d.name",
+                "d[\"name\"]",
+                "d->name",
+                "d::name"
+              ],
+              "correct": 1,
+              "explain": "К словарю обращаются по ключу: d[\"name\"]."
+            },
+            {
+              "question": "Что вернёт \"a\" in {\"a\": 1}?",
+              "options": [
+                "False",
+                "True",
+                "1",
+                "ошибку"
+              ],
+              "correct": 1,
+              "explain": "in проверяет наличие ключа в словаре — вернёт True."
+            },
+            {
+              "question": "Что такое класс в Python?",
+              "options": [
+                "Функция",
+                "Шаблон для создания объектов",
+                "Список",
+                "Модуль"
+              ],
+              "correct": 1,
+              "explain": "Класс — чертёж, по которому создаются объекты."
+            },
+            {
+              "question": "Как называется метод-конструктор класса?",
+              "options": [
+                "__start__",
+                "__init__",
+                "__new__",
+                "constructor"
+              ],
+              "correct": 1,
+              "explain": "__init__ вызывается автоматически при создании объекта."
+            },
+            {
+              "question": "Что такое self в методе класса?",
+              "options": [
+                "Глобальная переменная",
+                "Ссылка на экземпляр класса",
+                "Слово для импорта",
+                "Имя класса"
+              ],
+              "correct": 1,
+              "explain": "self — ссылка на конкретный объект, вызвавший метод."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      }
+    ],
+    "cheatsheets": [
+      {
+        "title": "Переменные и типы",
+        "icon": "🏷️",
+        "code": "x = 5           # int\ns = 'hello'     # str\nt = 3.14        # float\nb = True        # bool\nprint(type(x))  # узнать тип",
+        "note": "Python сам определяет тип по значению."
+      },
+      {
+        "title": "Условия",
+        "icon": "🔀",
+        "code": "if x > 0:\n    print('+')\nelif x < 0:\n    print('-')\nelse:\n    print('0')",
+        "note": "Двоеточие и отступ в 4 пробела обязательны."
+      },
+      {
+        "title": "Циклы",
+        "icon": "🔁",
+        "code": "for i in range(5):\n    print(i)\n\nn = 0\nwhile n < 3:\n    n += 1",
+        "note": "for перебирает, while крутится пока условие истинно."
+      },
+      {
+        "title": "Списки",
+        "icon": "📦",
+        "code": "lst = [1, 2, 3]\nlst.append(4)      # [1,2,3,4]\nlst.remove(2)      # [1,3,4]\nprint(lst[-1])     # последний\nprint(lst[1:3])    # срез",
+        "note": "Индексы с нуля, отрицательные — с конца."
+      },
+      {
+        "title": "Словари",
+        "icon": "📚",
+        "code": "d = {'a': 1, 'b': 2}\nd['c'] = 3\nprint(d['a'], d.get('z'))  # 1 None\nfor k, v in d.items(): print(k, v)",
+        "note": "Пара «ключ: значение». get() не бросает ошибку."
+      },
+      {
+        "title": "Функции",
+        "icon": "🛠️",
+        "code": "def add(a, b=0):\n    return a + b\n\nprint(add(2, 3))  # 5\nprint(add(2))     # 2",
+        "note": "return возвращает результат, параметры могут иметь значения по умолчанию."
+      },
+      {
+        "title": "Классы",
+        "icon": "🏛️",
+        "code": "class User:\n    def __init__(self, name):\n        self.name = name\n\nu = User('Аня')\nprint(u.name)",
+        "note": "__init__ — конструктор, self — ссылка на объект."
+      },
+      {
+        "title": "Ошибки",
+        "icon": "🛡️",
+        "code": "try:\n    x = int('abc')\nexcept ValueError:\n    print('не число')\nfinally:\n    print('всегда')",
+        "note": "try/except ловит ошибку, finally выполняется всегда."
+      }
+    ]
+  }
+}

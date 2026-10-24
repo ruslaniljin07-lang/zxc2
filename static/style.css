@@ -477,6 +477,35 @@ a:hover { color: var(--primary); }
 .badge.bg-info { background: rgba(56,189,248,.18); color: var(--info); }
 .badge.bg-danger { background: rgba(255,92,110,.18); color: var(--danger); }
 
+/* Счётчик пройденных уроков в модуле («2/3»).
+   Раньше использовался bg-primary, но фиолетовый на тёмном фоне давал
+   слабый контраст и цифры читались плохо. Теперь светлый фон, тёмный
+   текст и моноширинный шрифт — счётчик видно сразу. */
+.badge-mod {
+    background: var(--surface-3);
+    color: var(--text);
+    border: 1px solid var(--border-2);
+    font-family: var(--mono);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: .32em .7em;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+/* наполовину и полностью пройденный модуль — зелёный */
+.badge-mod.is-done {
+    background: rgba(47,211,138,.16);
+    color: #7bf0b8;
+    border-color: rgba(47,211,138,.45);
+}
+/* есть прогресс, но не закончено — фиолетовый акцент */
+.badge-mod.is-partial {
+    background: rgba(124,92,255,.22);
+    color: #cfc2ff;
+    border-color: rgba(124,92,255,.6);
+}
+
 .alert {
     border-radius: 12px;
     border: 1px solid var(--border-2);
@@ -523,6 +552,115 @@ pre.code-block .fn { color: var(--info); }
 pre.code-block .nu { color: var(--warn); }
 code { color: var(--info); background: rgba(56,189,248,.12); padding: 0 .35em; border-radius: 5px; font-family: var(--mono); }
 
+/* ============================================================
+   Боковая панель с таблицами БД (курс SQL)
+   ============================================================ */
+.db-side-card {
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+}
+.db-side-head {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: .35rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+.db-side-head i { color: var(--primary); }
+.db-side-note {
+    font-size: .85rem;
+    color: var(--faint);
+    line-height: 1.55;
+    margin-bottom: .8rem;
+}
+.db-side-table {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .6rem;
+    overflow: hidden;
+    background: #0c0f13;
+}
+.db-side-table > summary {
+    padding: .5rem .65rem;
+    cursor: pointer;
+    font-size: .88rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    background: rgba(124,92,255,.08);
+}
+.db-side-table > summary:hover { background: rgba(124,92,255,.16); }
+.db-side-table > summary code {
+    font-family: var(--mono);
+    color: var(--primary);
+    font-size: .85rem;
+}
+.db-side-table > summary span {
+    color: var(--muted);
+    font-size: .8rem;
+}
+.db-table-scroll {
+    overflow-x: auto;
+    max-height: 320px;
+    overflow-y: auto;
+}
+table.db-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .78rem;
+    font-family: var(--mono);
+    margin: 0;
+}
+table.db-table th {
+    position: sticky;
+    top: 0;
+    background: #12161c;
+    color: var(--primary);
+    text-align: left;
+    padding: .35rem .5rem;
+    border-bottom: 1px solid var(--border-2);
+    font-weight: 600;
+}
+table.db-table td {
+    padding: .3rem .5rem;
+    border-bottom: 1px solid rgba(42,48,60,.55);
+    color: var(--faint);
+}
+table.db-table tbody tr:nth-child(even) { background: rgba(255,255,255,.02); }
+table.db-table tbody tr:hover { background: rgba(124,92,255,.12); }
+
+/* ---- Мобильная раскладка (курс SQL) ----
+   На телефоне узко: панель с таблицами уходит ПОД редактор,
+   занимает всю ширину и перестаёт «прилипать» (иначе наезжает на код). */
+@media (max-width: 991px) {
+    .sql-lesson-row { display: flex; flex-direction: column; }
+    .sql-lesson-editor { order: 1; width: 100%; }
+    .sql-lesson-db {
+        order: 2;
+        width: 100%;
+        margin-top: 1.25rem;
+    }
+    .db-side-card {
+        position: static;      /* убираем sticky — на узком экране он мешает */
+        top: auto;
+        max-height: none;
+        overflow-y: visible;
+        padding: .85rem;
+    }
+    .db-side-note { font-size: .8rem; margin-bottom: .6rem; }
+    .db-table-scroll { max-height: 260px; }
+    table.db-table { font-size: .72rem; }
+    table.db-table th,
+    table.db-table td { padding: .28rem .4rem; }
+}
 /* ============================================================
    Строка "предыдущий / следующий"
    ============================================================ */
@@ -770,17 +908,23 @@ main.container, .footer-shell { position: relative; z-index: 1; }
     font: inherit;
     line-height: inherit;
 }
-.pe-pane { position: relative; flex: 1 1 auto; min-width: 0; }
+/* Панель кода. Подсветка лежит В ПОТОКЕ и задаёт размеры области,
+   а прозрачная textarea накрывает её сверху. Так обе части всегда
+   совпадают по высоте и ширине, а прокручивает только .pe-body.
+   Раньше textarea скроллилась сама (overflow:auto) плюс контейнер —
+   получался двойной скролл, из-за чего строки наезжали друг на друга,
+   а номера строк не совпадали с кодом. */
+.pe-pane { position: relative; flex: 1 0 auto; min-width: max-content; }
 .pe-highlight {
-    position: absolute;
-    inset: 0;
+    position: relative;
     margin: 0;
     padding: .9rem 1rem;
     color: #e9edf4;
     white-space: pre;
-    overflow: hidden;
+    min-width: max-content;
     font: inherit;
     line-height: inherit;
+    tab-size: 4;
     pointer-events: none;
 }
 
@@ -807,10 +951,43 @@ main.container, .footer-shell { position: relative; z-index: 1; }
     margin-bottom: .4rem;
 }
 .cs-explain .cs-q:not(:first-child) { border-top: 1px dashed var(--border-2); padding-top: .8rem; }
+
+/* Три смысловых блока в пояснении к шпаргалке:
+   «Зачем» (смысл), «Где встречается» (контекст), «Обрати внимание» (грабли).
+   Раньше всё это смешалось в одной строке note, и было непонятно,
+   что именно полезно знать. */
+.cs-explain .cs-why {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+    border-left: 3px solid var(--primary);
+    padding-left: .8rem;
+    margin-bottom: .9rem;
+}
+.cs-explain .cs-where {
+    color: var(--faint);
+    font-size: .97rem;
+    line-height: 1.7;
+    border-left: 3px solid var(--info);
+    padding-left: .8rem;
+}
+.cs-explain .cs-where::before {
+    content: '▸ ';
+    color: var(--info);
+    font-weight: 700;
+}
+.cs-explain .cs-q-2 { color: var(--info) !important; }
+.cs-topic { margin-bottom: 1.2rem; }
+.cs-topic .card { transition: transform .15s ease, box-shadow .15s ease; }
+.cs-topic .card:hover { box-shadow: 0 4px 16px rgba(124,92,255,.12); }
+.cs-topic .card-header { font-size: 1.05rem; }
+.cs-topic pre { font-size: .82rem; line-height: 1.5; }
 .pe-input {
-    position: relative;
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
+    height: 100%;
     margin: 0;
     padding: .9rem 1rem;
     background: transparent;
@@ -822,7 +999,12 @@ main.container, .footer-shell { position: relative; z-index: 1; }
     font: inherit;
     line-height: inherit;
     white-space: pre;
-    overflow: auto;
+    /* важно: никакого собственного скролла у textarea — прокручивает .pe-body,
+       иначе подсветка и текст расходятся по вертикали */
+    overflow: hidden;
+    overflow-wrap: normal;
+    word-break: normal;
+    box-sizing: border-box;
     tab-size: 4;
 }
 .pyeditor ::selection { background: #214283; }
@@ -835,14 +1017,12 @@ main.container, .footer-shell { position: relative; z-index: 1; }
         height: auto;
         min-height: 100px;
         max-height: none;
-        overflow-x: hidden;
-        overflow-y: visible;
+        /* длинные строки на телефоне прокручиваются по горизонтали */
+        overflow-x: auto;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
     .pe-canvas { min-height: 100%; }
-    .pe-input {
-        min-height: 100%;
-    }
     .pe-gutter {
         flex-basis: 42px;
         width: 42px;
@@ -927,4 +1107,155 @@ main.container, .footer-shell { position: relative; z-index: 1; }
 @keyframes musicPulse {
     0%, 100% { text-shadow: 0 0 0 rgba(124, 92, 255, 0); }
     50%      { text-shadow: 0 0 14px rgba(124, 92, 255, .85); }
+}
+
+/* ============================================================
+   Карточки языков программирования
+   ============================================================ */
+.language-card {
+    transition: transform .25s ease, box-shadow .25s ease;
+    border: 1px solid var(--border);
+}
+
+.language-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .4);
+}
+
+.language-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: .75rem;
+}
+
+.language-stats .badge {
+    font-weight: 500;
+    padding: .35em .65em;
+}
+
+/* ============================================================
+   Шпаргалки
+   ============================================================ */
+.cs-topic {
+    margin-bottom: 1rem !important;
+    padding-top: 0.5rem;
+}
+
+.cs-explain .cs-q {
+    margin-top: 0.4rem;
+    margin-bottom: 0.15rem;
+    font-size: 0.85rem;
+}
+
+.cs-explain p {
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+.task-desc {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border, #2a2f45);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.task-desc h5 { margin-bottom: 4px; }
+.task-tabs .pill { text-decoration: none; }
+
+/* Кнопка копирования кода */
+.code-with-copy { position: relative; }
+.btn-copy {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    z-index: 3;
+    background: var(--surface-3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
+}
+.code-with-copy:hover .btn-copy { opacity: 1; }
+.btn-copy:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+.btn-copy.copied {
+    background: var(--success);
+    color: #fff;
+    border-color: var(--success);
+}
+\n
+
+.sql-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85em;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.sql-result-table th,
+.sql-result-table td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    min-width: 120px;
+}
+
+.sql-result-table th {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.sql-result-table tbody tr:nth-child(even) {
+    background-color: var(--bg-alt);
+}
+
+.sql-result-table tbody tr:hover {
+    background-color: var(--hover);
+}
+
+
+/* ---- Мобильная раскладка (SQL) — мелкие экраны ---- */
+@media (max-width: 768px) {
+    .sql-lesson-editor .pe-body { min-height: 400px; height: min(60vh, 700px); }
+    .db-side-card { padding: .7rem; }
+    .db-side-head { font-size: .9rem; }
+    .db-side-note { font-size: .75rem; }
+    .db-table-scroll { max-height: 220px; }
+    table.db-table { font-size: .68rem; }
+    table.db-table th,
+    table.db-table td { padding: .22rem .35rem; }
+    .sql-result-table { font-size: 0.78em; }
+    .sql-result-table th,
+    .sql-result-table td { padding: 6px 8px; min-width: 90px; }
+    .term { font-size: 13px; padding: .7rem .8rem; }
+    .hint-note, .solution-note { font-size: .85rem; }
+}
+
+@media (max-width: 480px) {
+    .sql-lesson-editor .pe-body { min-height: 320px; height: min(50vh, 500px); }
+    .db-side-card { padding: .6rem; border-radius: 10px; }
+    .db-side-head { font-size: .85rem; }
+    .db-side-note { font-size: .7rem; margin-bottom: .4rem; }
+    .db-table-scroll { max-height: 180px; }
+    table.db-table { font-size: .62rem; }
+    table.db-table th,
+    table.db-table td { padding: .18rem .3rem; }
+    .sql-result-table { font-size: 0.72em; }
+    .sql-result-table th,
+    .sql-result-table td { padding: 4px 6px; min-width: 70px; }
+    .term { font-size: 12px; padding: .6rem .7rem; }
+    .code-block { font-size: 12px; padding: .7rem .8rem; }
+    .d-flex.justify-content-between { flex-direction: column; gap: .5rem; }
+    .d-flex.justify-content-between .btn { width: 100%; }
+    #runBtn, #resetBtn { width: 100%; }
 }

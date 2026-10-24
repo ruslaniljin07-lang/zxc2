@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lang_info.name }} — Задачи{% endblock %}
+
+{% block content %}
+<div class="lessons-header">
+    <div>
+        <h1>{{ lang_info.icon }} {{ lang_info.name }} — Практика</h1>
+        <p class="subtitle">Банк задач: от простых к сложным</p>
+    </div>
+</div>
+
+<div class="progress-bar-wrap" style="margin-bottom: 20px;">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ tp.percent }}%;"></div>
+    </div>
+    <span class="progress-text">{{ tp.done }} / {{ tp.total }} задач ({{ tp.percent }}%)</span>
+</div>
+
+<div class="task-filters">
+    <button class="filter-btn active" data-filter="all">Все</button>
+    {% for topic in topics %}
+    <button class="filter-btn" data-filter="{{ loop.index }}">{{ topic }}</button>
+    {% endfor %}
+    <button class="filter-btn" data-filter="todo">Нерешённые</button>
+</div>
+
+{% set topic_index = {} %}
+<div class="tasks-grid">
+    {% for it in tp['items'] %}
+    {% set topic = it.task.get('topic', 'Разное') %}
+    {% if topic not in topic_index %}{% set _ = topic_index.update({topic: topics.index(topic) + 1}) %}{% endif %}
+    <a class="task-card {{ 'done' if it.completed else 'todo' }} filter-item"
+       data-topic="{{ topic_index[topic] }}"
+       href="{{ url_for('solve_task', lang_code=lang_code, task_id=it.task.id) }}">
+        <div class="task-card-head">
+            <span class="task-num">#{{ it.task.id }}</span>
+            <span class="diff {{ it.task.difficulty.lower() }}">
+                {% if it.task.difficulty == 'easy' %}🟢 лёгкая
+                {% elif it.task.difficulty == 'medium' %}🟡 средняя
+                {% else %}🔴 сложная{% endif %}
+            </span>
+            {% if it.completed %}<span class="task-check">✅</span>{% endif %}
+        </div>
+        <h3>{{ it.task.title }}</h3>
+        <p class="task-desc">{{ it.task.description }}</p>
+        <div class="task-card-foot">
+            <span class="task-topic">{{ topic }}</span>
+            <span class="task-xp">+{{ it.task.get('xp', 10) }} XP</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ csp_nonce() }}">
+document.querySelectorAll('.filter-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+        document.querySelectorAll('.filter-btn').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        var f = b.dataset.filter;
+        document.querySelectorAll('.filter-item').forEach(function (c) {
+            var show = f === 'all'
+                || (f === 'todo' && c.classList.contains('todo'))
+                || c.dataset.topic === f;
+            c.style.display = show ? '' : 'none';
+        });
+    });
+});
+</script>
+{% endblock %}

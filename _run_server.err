@@ -1,0 +1,42 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+127.0.0.1 - - [29/Sep/2026 02:23:46] "GET /static/script.js?v=17 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:23:55] "GET /lesson/go/9 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:23:55] "GET /static/script.js?v=17 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:23:55] "GET /static/style.css?v=22 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:24:07] "GET /lessons/go HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:24:07] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:24:07] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:38] "GET /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:38] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:38] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:42] "POST /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:44] "POST /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:44] "POST /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:46] "POST /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:51] "POST /lesson/go/1 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:53] "GET /lesson/go/2 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:53] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:53] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:56] "GET /lessons/go HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:25:56] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:25:56] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:01] "GET /language/python HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:26:01] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:01] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:41] "GET /cheat_sheet/python HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:26:41] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:41] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:42] "GET /sandbox HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:26:42] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:26:42] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:09] "GET /sandbox/go HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:27:09] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:09] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:22] "GET /language/sql HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:27:22] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:22] "GET /static/script.js?v=17 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:25] "GET /lesson/sql/7 HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 02:27:25] "GET /static/style.css?v=22 HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 02:27:25] "GET /static/script.js?v=17 HTTP/1.1" 304 -

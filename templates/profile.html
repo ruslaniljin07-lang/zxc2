@@ -115,7 +115,7 @@
                             {% for result in test_results %}
                                 <tr>
                                     <td>{{ result.timestamp.strftime('%d.%m.%Y %H:%M') }}</td>
-                                    <td>{{ result.score }}/5</td>
+                                    <td>{{ result.score }} из {{ result.language }}</td>
                                     <td>Уровень {{ result.level }}</td>
                                 </tr>
                             {% endfor %}

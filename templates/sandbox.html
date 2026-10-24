@@ -1,44 +1,74 @@
 {% extends 'base.html' %}
-{% block title %}Песочница — Codigo{% endblock %}
+{% block title %}Песочница {{ active_info.name }} — Codigo{% endblock %}
 
 {% block content %}
 <div class="page-head">
     <span class="kicker">Песочница</span>
-    <h1>Экспериментируй без ограничений</h1>
-    <p>Пиши любой Python-код и запускай его прямо здесь. На выполнение даётся 5 секунд.</p>
+    <h1>Экспериментируй на любом языке</h1>
+    <p>
+        Выбери язык, пиши код и запускай прямо здесь.
+        Время на выполнение: <strong>{{ timeout }} с</strong>{% if timeout > 5 %}
+        (компилируемым языкам нужно время на сборку){% endif %}.
+    </p>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-lg-9">
+        <div class="card mb-3">
+            <div class="card-body p-3 p-lg-4">
+                <div class="d-flex flex-wrap gap-2" id="langSwitch">
+                    {% for item in sandbox_langs %}
+                    <a class="pill {% if item.code == active_lang %}accent{% elif not item.available %}idle{% endif %}"
+                       data-sandbox-lang="{{ item.code }}"
+                       href="{{ url_for('sandbox', lang_code=item.code) }}"
+                       title="{% if item.available %}Запускать код на {{ item.name }}{% else %}{{ item.name }}: нужен компилятор или интерпретатор{% endif %}">
+                        {{ item.icon }} {{ item.name }}
+                        {% if not item.available %}
+                        <span class="text-muted small">· нужен тулчейн</span>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-body p-4 p-lg-5">
-                <label class="form-label" for="sandboxCode">Твой код</label>
-                <div class="pyeditor" data-pyeditor>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label mb-0" for="sandboxCode">Твой код на {{ active_info.name }}</label>
+                    <span class="badge {{ 'bg-success' if toolchain_ok else 'bg-warning' }}">
+                        {{ 'тулчейн найден' if toolchain_ok else 'тулчейн не найден' }}
+                    </span>
+                </div>
+
+                {% if not toolchain_ok %}
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    Запуск на {{ active_info.name }} сейчас недоступен: {{ example.hint }}
+                    Код можно писать и сохранять — он не потеряется.
+                </div>
+                {% endif %}
+
+                <div class="pyeditor" data-codeeditor="{{ active_lang }}" data-min-lines="500">
                     <div class="pe-toolbar">
-                        <span class="pe-file">sandbox.py</span>
+                        <span class="pe-file">{{ example.file }}</span>
                     </div>
                     <div class="pe-body">
                         <div class="pe-canvas">
                             <div class="pe-gutter"></div>
                             <div class="pe-pane">
                                 <pre class="pe-highlight"></pre>
-                                <textarea id="sandboxCode" class="pe-input" rows="500" spellcheck="false" wrap="off"># Добро пожаловать в песочницу!
-print("Привет, мир!")
-
-name = "Артур"
-age = 100
-print(f"Меня зовут {name}, мне {age} лет")
-
-# Попробуй написать свой код ниже
-for i in range(1, 6):
-    print(i, "в квадрате =", i ** 2)</textarea>
+                                <textarea id="sandboxCode" class="pe-input" rows="500" spellcheck="false" wrap="off">{{ example.starter }}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end mt-4">
-                    <button id="runSandbox" class="btn btn-warn btn-lg">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-4">
+                    <button id="resetSandbox" type="button" class="btn btn-nav-ghost">
+                        <i class="bi bi-arrow-counterclockwise"></i> Сбросить к примеру
+                    </button>
+                    <button id="runSandbox" class="btn btn-warn btn-lg" {% if not toolchain_ok %}title="{{ example.hint }}"{% endif %}>
                         <i class="bi bi-play-circle"></i> Выполнить
                     </button>
                 </div>
@@ -53,9 +83,13 @@ for i in range(1, 6):
 {% endblock %}
 
 {% block extra_js %}
-<script>
+<script nonce="{{ csp_nonce() }}">
 (function() {
+    var LANG = {{ active_lang|tojson }};
+    var STARTER = {{ example.starter|tojson }};
+    var STORE_KEY = 'codigo_sandbox_' + LANG;
     var btn = document.getElementById('runSandbox');
+    var resetBtn = document.getElementById('resetSandbox');
     var editor = document.getElementById('sandboxCode');
     var output = document.getElementById('sandboxOutput');
 
@@ -67,17 +101,60 @@ for i in range(1, 6):
         btn.disabled = false;
         btn.innerHTML = '<i class="bi bi-play-circle"></i> Выполнить';
     }
+    // после программной вставки кода перерисовываем подсветку и нумерацию строк
+    function refreshEditor() {
+        editor.dispatchEvent(new Event('input', {bubbles: true}));
+        editor.dispatchEvent(new Event('scroll'));
+    }
+    function saveCode() {
+        try { sessionStorage.setItem(STORE_KEY, editor.value); } catch (e) {}
+    }
+
+    // восстанавливаем последний код этого языка (если он есть)
+    try {
+        var saved = sessionStorage.getItem(STORE_KEY);
+        if (saved && saved !== STARTER) {
+            editor.value = saved;
+        }
+    } catch (e) {}
+    refreshEditor();
+
+    // сохраняем код при вводе (с небольшой задержкой)
+    var saveTimer = null;
+    editor.addEventListener('input', function() {
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveCode, 400);
+    });
+
+    // перед сменой языка сохраняем текущий код, чтобы он не потерялся
+    var switchBox = document.getElementById('langSwitch');
+    if (switchBox) {
+        switchBox.addEventListener('click', function(e) {
+            var link = e.target.closest ? e.target.closest('[data-sandbox-lang]') : null;
+            if (link) saveCode();
+        });
+    }
+    window.addEventListener('beforeunload', saveCode);
+
+    resetBtn.addEventListener('click', function() {
+        editor.value = STARTER;
+        saveCode();
+        refreshEditor();
+        output.style.display = 'none';
+    });
 
     function run() {
+        if (saveTimer) { clearTimeout(saveTimer); saveCode(); }
+        var started = Date.now();
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Выполнение...';
         output.style.display = 'block';
-        output.innerHTML = '<span class="term-title">// ВЫВОД</span>\nЗапускаем…';
+        output.innerHTML = '<span class="term-title">// ВЫВОД</span>\nЗапускаем код на {{ active_info.name }}…';
 
         fetch('/sandbox', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({code: editor.value})
+            body: JSON.stringify({code: editor.value, lang: LANG})
         })
         .then(function(r) {
             var ct = r.headers.get('Content-Type') || '';
@@ -88,6 +165,13 @@ for i in range(1, 6):
         })
         .then(function(data) {
             var html = '<span class="term-title">// ВЫВОД</span>';
+            if (data.no_toolchain) {
+                html += '\n<span class="t-hint">' + esc(data.stderr) + '</span>';
+                html += '\n<span class="t-hint">Код сохранён — вернись, когда тулчейн появится.</span>';
+                output.innerHTML = html;
+                restoreBtn();
+                return;
+            }
             if (data.stdout) {
                 html += '\n<span class="t-out">stdout:</span>\n' + esc(data.stdout) + '\n';
             }
@@ -95,11 +179,12 @@ for i in range(1, 6):
                 html += '\n<span class="t-err">stderr:</span>\n' + esc(data.stderr) + '\n';
             }
             if (!data.stdout && !data.stderr) {
-                html += '\n(программа ничего не вывела — добавь print())\n';
+                html += '\n(программа ничего не вывела — добавь вывод: print / console.log)\n';
             }
+            var secs = ((Date.now() - started) / 1000).toFixed(2);
             html += data.success
-                ? '\n<span class="t-ok">✅ Выполнено успешно</span>'
-                : '\n<span class="t-err">❌ Ошибка выполнения</span>';
+                ? '\n<span class="t-ok">✅ Выполнено успешно за ' + secs + ' с</span>'
+                : '\n<span class="t-err">❌ Ошибка выполнения (' + secs + ' с)</span>';
             output.innerHTML = html;
             restoreBtn();
         })
@@ -107,7 +192,8 @@ for i in range(1, 6):
             var msg = err.message === 'session'
                 ? 'Сессия истекла — обнови страницу и войди заново.'
                 : err.message;
-            output.innerHTML = '<span class="term-title">// ВЫВОД</span>\n<span class="t-err">Ошибка: ' + msg + '</span>';
+            output.innerHTML = '<span class="term-title">// ВЫВОД</span>\n' +
+                '<span class="t-err">Ошибка: ' + esc(msg) + '</span>';
             restoreBtn();
         });
     }
@@ -123,3 +209,4 @@ for i in range(1, 6):
 })();
 </script>
 {% endblock %}
+

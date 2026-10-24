@@ -1,0 +1,15 @@
+python: top_keys=['python'] modules=4 lessons=12 lesson_tests=24 tasks=12 cheats=8 entrance=8
+   lesson_keys=['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+   final_project='Менеджер задач'
+
+javascript: top_keys=['javascript'] modules=2 lessons=6 lesson_tests=12 tasks=6 cheats=6 entrance=8
+   lesson_keys=['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+   final_project='Интерактивный планировщик задач'
+
+java: top_keys=['java'] modules=3 lessons=7 lesson_tests=14 tasks=7 cheats=6 entrance=8
+   lesson_keys=['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+   final_project='Система управления библиотекой'
+
+cpp: top_keys=['cpp'] modules=3 lessons=6 lesson_tests=12 tasks=6 cheats=6 entrance=8
+   lesson_keys=['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+   final_project='Менеджер заметок'

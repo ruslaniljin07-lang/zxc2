@@ -1,0 +1,12 @@
+--- python ---
+  modules=4 lessons=12 tasks=12 lessonTests=24 entrance=8 cheatsheets=8
+  final_project='Менеджер задач'
+--- javascript ---
+  modules=2 lessons=6 tasks=6 lessonTests=12 entrance=8 cheatsheets=6
+  final_project='Интерактивный планировщик задач'
+--- java ---
+  modules=3 lessons=7 tasks=7 lessonTests=14 entrance=8 cheatsheets=6
+  final_project='Система управления библиотекой'
+--- cpp ---
+  modules=3 lessons=6 tasks=6 lessonTests=12 entrance=8 cheatsheets=6
+  final_project='Менеджер заметок'

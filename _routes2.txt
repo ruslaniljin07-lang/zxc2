@@ -1,0 +1,46 @@
+=== ROUTES ===
+/                                                  GET             index
+/cheat_sheet                                       GET             cheat_sheet
+/cheat_sheet/<lang_code>                           GET             cheat_sheet
+/dashboard                                         GET             dashboard
+/language/<lang_code>                              GET             language_course
+/leaderboard                                       GET             leaderboard
+/lesson/<int:lesson_id>                            GET,POST        lesson
+/lesson/<lang_code>/<int:lesson_id>                GET,POST        lesson
+/lessons                                           GET             lessons
+/lessons/<lang_code>                               GET             lessons
+/login                                             GET,POST        login
+/logout                                            GET             logout
+/module_test/<lang_code>/<int:module_id>           GET,POST        module_test
+/profile                                           GET             profile
+/register                                          GET,POST        register
+/sandbox                                           GET,POST        sandbox
+/static/<path:filename>                            GET             static
+/test                                              GET,POST        test
+/test/<lang_code>                                  GET,POST        test
+=== app.py lesson route ===
+123: @app.route('/')
+135: @app.route('/register', methods=['GET', 'POST'])
+182: @app.route('/login', methods=['GET', 'POST'])
+203: @app.route('/logout')
+211: @app.route('/dashboard')
+254: @app.route('/language/<lang_code>')
+292: @app.route('/test', methods=['GET', 'POST'])
+293: @app.route('/test/<lang_code>', methods=['GET', 'POST'])
+326: @app.route('/lessons')
+327: @app.route('/lessons/<lang_code>')
+329: def lessons(lang_code=None):
+360: @app.route('/lesson/<int:lesson_id>', methods=['GET', 'POST'])
+361: @app.route('/lesson/<lang_code>/<int:lesson_id>', methods=['GET', 'POST'])
+363: def lesson(lesson_id, lang_code=None):
+469: @app.route('/sandbox', methods=['GET', 'POST'])
+489: @app.route('/profile')
+517: @app.route('/leaderboard')
+527: @app.route('/cheat_sheet')
+528: @app.route('/cheat_sheet/<lang_code>')
+552: @app.route('/module_test/<lang_code>/<int:module_id>', methods=['GET', 'POST'])
+=== lesson.html fetch URL ===
+134: <a class="btn-prev-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=prev_lesson.id) }}">
+143: <a class="np-all" href="{{ url_for('lessons', lang_code=lang_code) }}">
+148: <a class="btn-next-task" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=next_lesson.id) }}">
+189: fetch('/lesson/{{ lesson.id }}', {

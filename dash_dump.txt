@@ -1,0 +1,86 @@
+   1| {% extends 'base.html' %}
+   2| {% block title %}Дашборд — Codigo{% endblock %}
+   3| 
+   4| {% block content %}
+   5| <div class="page-head text-center">
+   6|     <span class="kicker">Личный кабинет</span>
+   7|     <h1>Привет, {{ current_user.username }}!</h1>
+   8|     <p>Продолжай в том же духе — каждый день маленький шаг к большим результатам.</p>
+   9|     <div class="d-flex justify-content-center align-items-center gap-4 mt-3 flex-wrap">
+  10|         <span class="streak-big">{{ streak }} 🔥</span>
+  11|         <span class="pill accent" style="font-size:.95rem;">{{ status_emoji }} {{ status_name }}</span>
+  12|     </div>
+  13| </div>
+  14| 
+  15| <div class="row justify-content-center mb-4">
+  16|     <div class="col-lg-8">
+  17|         <div class="card mb-4">
+  18|             <div class="card-body p-4">
+  19|                 <div class="d-flex justify-content-between align-items-center mb-3">
+  20|                     <h5 class="mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Уровень {{ level }}</h5>
+  21|                     <span class="text-muted">{{ level_xp }} / {{ level_xp + xp_to_next }} XP</span>
+  22|                 </div>
+  23|                 <div class="xp-meter">
+  24|                     <div class="xp-fill" style="width: {{ (level_xp / (level_xp + xp_to_next) * 100) if (level_xp + xp_to_next) > 0 else 0 }}%"></div>
+  25|                 </div>
+  26|                 <p class="text-end mt-2 mb-0 text-muted">До следующего уровня: <strong class="text-warning">{{ xp_to_next }} XP</strong></p>
+  27|             </div>
+  28|         </div>
+  29| 
+  30|         {% if earned_achievements %}
+  31|         <div class="card mb-4">
+  32|             <div class="card-body p-4">
+  33|                 <div class="d-flex justify-content-between align-items-center mb-3">
+  34|                     <h5 class="mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Достижения ({{ earned_achievements|length }})</h5>
+  35|                     <a href="{{ url_for('profile') }}" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-right"></i> Все</a>
+  36|                 </div>
+  37|                 <div class="d-flex flex-wrap gap-3">
+  38|                     {% for ach in earned_achievements %}
+  39|                         <div class="ach-chip" title="{{ ach.name }} (+{{ ach.xp }} XP)">
+  40|                             <span class="ach-icon">{{ ach.icon }}</span>
+  41|                             <span class="ach-name">{{ ach.name }}</span>
+  42|                         </div>
+  43|                     {% endfor %}
+  44|                 </div>
+  45|             </div>
+  46|         </div>
+  47|         {% endif %}
+  48| 
+  49|         <div class="row g-3 text-center">
+  50|             <div class="col-4">
+  51|                 <div class="stat-block">
+  52|                     <div class="stat-num">{{ user.test_results | length if user.test_results|length > 0 else 0 }}</div>
+  53|                     <div class="stat-lbl">Тестов пройдено</div>
+  54|                 </div>
+  55|             </div>
+  56|             <div class="col-4">
+  57|                 <div class="stat-block">
+  58|                     <div class="stat-num">{{ user.lesson_progress | length }}</div>
+  59|                     <div class="stat-lbl">Уроков начато</div>
+  60|                 </div>
+  61|             </div>
+  62|             <div class="col-4">
+  63|                 <div class="stat-block">
+  64|                     <div class="stat-num text-warning">{{ user.xp }}</div>
+  65|                     <div class="stat-lbl">Всего XP</div>
+  66|                 </div>
+  67|             </div>
+  68|         </div>
+  69|     </div>
+  70| </div>
+  71| 
+  72| <div class="text-center mt-5">
+  73|     <p class="text-muted mb-3">Куда дальше?</p>
+  74|     <div class="d-flex justify-content-center gap-3 flex-wrap">
+  75|         <a href="{{ url_for('lessons') }}" class="btn btn-primary btn-xl">
+  76|             <i class="bi bi-book"></i> Выбрать урок
+  77|         </a>
+  78|         <a href="{{ url_for('test') }}" class="btn btn-ghost btn-xl">
+  79|             <i class="bi bi-pencil-square"></i> Пройти тест
+  80|         </a>
+  81|         <a href="{{ url_for('sandbox') }}" class="btn btn-ghost btn-xl">
+  82|             <i class="bi bi-terminal"></i> Песочница
+  83|         </a>
+  84|     </div>
+  85| </div>
+  86| {% endblock %}

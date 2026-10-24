@@ -1,0 +1,832 @@
+{
+  "java": {
+    "name": "Java",
+    "icon": "☕",
+    "color": "#ED8B00",
+    "description": "Классический объектно-ориентированный язык для больших приложений.",
+    "difficulty": "Средний старт",
+    "final_project": "Система управления библиотекой",
+    "entrance_test": [
+      {
+        "question": "Как вывести текст в Java?",
+        "options": [
+          "print()",
+          "System.out.println()",
+          "console.log()",
+          "echo()"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Какой тип для целых чисел в Java?",
+        "options": [
+          "int",
+          "Integer",
+          "number",
+          "longing"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Как объявить функцию (метод) в Java?",
+        "options": [
+          "def name()",
+          "function name()",
+          "public static void name()",
+          "fun name()"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Что такое JVM?",
+        "options": [
+          "Вирус",
+          "Виртуальная машина Java",
+          "База данных",
+          "Компилятор"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Какая строка обязательна в любой Java-программе?",
+        "options": [
+          "public static void main(String[] args)",
+          "print(\"start\")",
+          "main() {",
+          "start();"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Как создать массив из 5 int в Java?",
+        "options": [
+          "int[] a = new int[5];",
+          "let a = [5];",
+          "int a = 5;",
+          "a = int(5);"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Какой класс для строк в Java?",
+        "options": [
+          "string",
+          "String",
+          "Text",
+          "str"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Как создать объект класса Cat?",
+        "options": [
+          "Cat c = new Cat();",
+          "Cat c();",
+          "new Cat();",
+          "Cat c = Cat();"
+        ],
+        "correct": 0
+      }
+    ],
+    "modules": [
+      {
+        "id": 1,
+        "title": "Основы Java",
+        "description": "Первая программа, переменные, условия",
+        "lessons": [
+          {
+            "id": 1,
+            "title": "Первая программа",
+            "description": "Знакомимся с Java и методом main",
+            "theory": [
+              "Java — объектно-ориентированный язык со строгой типизацией.",
+              "Программа Java — это класс с методом main.",
+              "System.out.println() выводит текст на экран.",
+              "Каждая команда заканчивается точкой с запятой."
+            ],
+            "examples": [
+              {
+                "title": "Hello, World",
+                "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Привет, мир!\");\n    }\n}",
+                "explanation": "main — точка входа. println выводит строку."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Приветствие",
+                "description": "Напишите main, который выводит \"Привет, мир!\".",
+                "difficulty": "easy",
+                "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // ваш код\n    }\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "public static void main",
+                    "System.out.println",
+                    "Привет, мир!"
+                  ]
+                },
+                "hints": [
+                  "Используйте System.out.println()",
+                  "Текст в двойных кавычках"
+                ],
+                "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Привет, мир!\");\n    }\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как вывести текст в Java?",
+                "options": [
+                  "print()",
+                  "System.out.println()",
+                  "console.log()",
+                  "echo()"
+                ],
+                "correct": 1,
+                "explain": "System.out.println() печатает строку и переносит курсор на новую строку."
+              },
+              {
+                "question": "Что такое метод main?",
+                "options": [
+                  "Случайный метод",
+                  "Точка входа в программу",
+                  "Библиотека",
+                  "Переменная"
+                ],
+                "correct": 1,
+                "explain": "С метода main начинается выполнение любой Java-программы."
+              }
+            ],
+            "cheatsheet": "public class Main { ... }\npublic static void main(String[] args) — точка входа\nSystem.out.println() — вывод",
+            "xp_reward": 20,
+            "difficulty": "easy"
+          },
+          {
+            "id": 2,
+            "title": "Переменные и типы",
+            "description": "int, double, String, boolean",
+            "theory": [
+              "В Java тип указывается всегда: int age = 20;",
+              "Основные типы: int, double, boolean, String.",
+              "Имена переменных — с маленькой буквы.",
+              "Дробные числа: double, целые: int."
+            ],
+            "examples": [
+              {
+                "title": "Создание переменных",
+                "code": "int age = 20;\ndouble height = 1.75;\nString name = \"Аня\";\nboolean isStudent = true;",
+                "explanation": "Каждая переменная имеет явный тип."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя переменная",
+                "description": "Создайте переменную name типа String и выведите её.",
+                "difficulty": "easy",
+                "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // ваш код\n    }\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "String name",
+                    "name =",
+                    "System.out.println(name)"
+                  ]
+                },
+                "hints": [
+                  "String name = \"Аня\";",
+                  "System.out.println(name);"
+                ],
+                "solution": "public class Main {\n    public static void main(String[] args) {\n        String name = \"Аня\";\n        System.out.println(name);\n    }\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какой тип для дробных чисел?",
+                "options": [
+                  "int",
+                  "double",
+                  "String",
+                  "boolean"
+                ],
+                "correct": 1,
+                "explain": "double — тип для дробных чисел, int хранит только целые."
+              },
+              {
+                "question": "Как объявить логическую переменную?",
+                "options": [
+                  "boolean flag = true;",
+                  "bool flag = true;",
+                  "log flag = true;",
+                  "flag = true;"
+                ],
+                "correct": 0,
+                "explain": "Логический тип в Java называется boolean, а не bool."
+              }
+            ],
+            "cheatsheet": "int x = 5;      // целое\ndouble d = 3.14; // дробное\nString s = \"текст\";\nboolean b = true;",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 3,
+            "title": "Условия if / else",
+            "description": "Программа принимает решения в Java",
+            "theory": [
+              "if (условие) { блок } — проверяет условие.",
+              "else выполняется, когда условие ложно.",
+              "else if — проверить ещё одно условие.",
+              "Сравнение: ==, !=, >, <, >=, <=."
+            ],
+            "examples": [
+              {
+                "title": "Условие",
+                "code": "int age = 18;\nif (age >= 18) {\n    System.out.println(\"Взрослый\");\n} else {\n    System.out.println(\"Школьник\");\n}",
+                "explanation": "Если age >= 18 печатаем «Взрослый», иначе — «Школьник»."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Проверка возраста",
+                "description": "Напишите условие: если x > 10, выведите \"Большое число\".",
+                "difficulty": "easy",
+                "initial_code": "public class Main {\n    public static void main(String[] args) {\n        int x = 15;\n        // ваш код\n    }\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "if (x > 10)",
+                    "Большое число"
+                  ]
+                },
+                "hints": [
+                  "if (x > 10) {",
+                  "System.out.println(\"Большое число\");"
+                ],
+                "solution": "int x = 15;\nif (x > 10) {\n    System.out.println(\"Большое число\");\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Когда выполняется блок else?",
+                "options": [
+                  "Когда условие истинно",
+                  "Когда условие ложно",
+                  "Всегда",
+                  "Никогда"
+                ],
+                "correct": 1,
+                "explain": "else выполняется, когда условие if ложно."
+              },
+              {
+                "question": "Как проверить равенство в Java?",
+                "options": [
+                  "=",
+                  "==",
+                  "===",
+                  "=>"
+                ],
+                "correct": 1,
+                "explain": "== сравнивает значения примитивов, оператора === в Java нет."
+              }
+            ],
+            "cheatsheet": "if (условие) {\n    блок\n} else {\n    блок\n}\n== — сравнение",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Какой метод — точка входа Java-программы?",
+              "options": [
+                "start()",
+                "public static void main(String[] args)",
+                "init()",
+                "run()"
+              ],
+              "correct": 1,
+              "explain": "main() — обязательная точка входа в Java-приложение."
+            },
+            {
+              "question": "Какой тип для целых чисел используется чаще всего?",
+              "options": [
+                "int",
+                "integer",
+                "number",
+                "digit"
+              ],
+              "correct": 0,
+              "explain": "int — основной целый тип в Java."
+            },
+            {
+              "question": "Как вывести текст в консоль?",
+              "options": [
+                "System.out.println(\"hi\")",
+                "print(\"hi\")",
+                "console.log(\"hi\")",
+                "cout << \"hi\""
+              ],
+              "correct": 0,
+              "explain": "System.out.println() — стандартный вывод в Java."
+            },
+            {
+              "question": "Как объявить строковую переменную?",
+              "options": [
+                "String s = \"hi\";",
+                "str s = \"hi\";",
+                "text s = \"hi\";",
+                "string s = \"hi\";"
+              ],
+              "correct": 0,
+              "explain": "String пишется с большой буквы — это класс."
+            },
+            {
+              "question": "Что выведет: System.out.println(7 / 2)?",
+              "options": [
+                "3.5",
+                "3",
+                "4",
+                "ошибку"
+              ],
+              "correct": 1,
+              "explain": "Деление двух int даёт int: дробная часть отбрасывается."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 2,
+        "title": "Массивы и строки",
+        "description": "Работа с массивами и классом String",
+        "lessons": [
+          {
+            "id": 4,
+            "title": "Массивы",
+            "description": "Храним набор однотипных данных",
+            "theory": [
+              "Массив — коллекция элементов одного типа.",
+              "Создание: int[] nums = new int[5]; или int[] a = {1, 2, 3};",
+              "Индексы начинаются с 0.",
+              "Длина массива: nums.length."
+            ],
+            "examples": [
+              {
+                "title": "Массив",
+                "code": "int[] nums = {10, 20, 30};\nSystem.out.println(nums[0]);    // 10\nSystem.out.println(nums.length); // 3",
+                "explanation": "Создали массив, прочитали элемент и длину."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой массив",
+                "description": "Создайте массив nums = {1, 2, 3} и выведите его первый элемент.",
+                "difficulty": "easy",
+                "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // ваш код\n    }\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "int[] nums",
+                    "nums[0]"
+                  ]
+                },
+                "hints": [
+                  "int[] nums = {1, 2, 3};",
+                  "System.out.println(nums[0]);"
+                ],
+                "solution": "int[] nums = {1, 2, 3};\nSystem.out.println(nums[0]);",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "С какого индекса начинается массив?",
+                "options": [
+                  "С 1",
+                  "С 0",
+                  "С -1",
+                  "С произвольного"
+                ],
+                "correct": 1,
+                "explain": "Индексация массива начинается с нуля."
+              },
+              {
+                "question": "Как получить длину массива?",
+                "options": [
+                  "nums.size()",
+                  "nums.length",
+                  "len(nums)",
+                  "nums.count()"
+                ],
+                "correct": 1,
+                "explain": "У массива поле length (без скобок), у коллекций — метод size()."
+              }
+            ],
+            "cheatsheet": "int[] a = new int[5]; // пустой\nint[] b = {1, 2, 3};   // с данными\na[0], b.length — элемент и длина",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 5,
+            "title": "Строки String",
+            "description": "Строки — объекты класса String",
+            "theory": [
+              "String — класс для строк, пишется с большой буквы.",
+              "length() — длина строки.",
+              "equals() сравнивает содержимое строк.",
+              "+ объединяет строки."
+            ],
+            "examples": [
+              {
+                "title": "Строки",
+                "code": "String name = \"Аня\";\nString greeting = \"Привет, \" + name;\nSystem.out.println(name.length());\nSystem.out.println(name.equals(\"Аня\"));",
+                "explanation": "Конкатенация, длина и сравнение строк."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя строка",
+                "description": "Создайте строку s = \"Привет\" и выведите её длину.",
+                "difficulty": "easy",
+                "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // ваш код\n    }\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "String s",
+                    ".length()"
+                  ]
+                },
+                "hints": [
+                  "String s = \"Привет\";",
+                  "System.out.println(s.length());"
+                ],
+                "solution": "String s = \"Привет\";\nSystem.out.println(s.length());",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как сравнить две строки?",
+                "options": [
+                  "==",
+                  "equals()",
+                  "compare",
+                  "==="
+                ],
+                "correct": 1,
+                "explain": "equals() сравнивает содержимое строк, == — ссылки на объекты."
+              },
+              {
+                "question": "Как получить длину строки?",
+                "options": [
+                  "s.length()",
+                  "s.size()",
+                  "len(s)",
+                  "s.count()"
+                ],
+                "correct": 0,
+                "explain": "length() — метод строки, length — поле массива: не путай."
+              }
+            ],
+            "cheatsheet": "String s = \"текст\";\ns.length() — длина\ns1.equals(s2) — сравнение\ns1 + s2 — объединение",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как создать массив из 5 чисел?",
+              "options": [
+                "int[] a = new int[5];",
+                "int a[5];",
+                "array a = 5;",
+                "int[] a = int[5];"
+              ],
+              "correct": 0,
+              "explain": "В Java массив создаётся через new: int[] a = new int[5]."
+            },
+            {
+              "question": "Как получить длину массива a?",
+              "options": [
+                "a.length()",
+                "a.length",
+                "len(a)",
+                "size(a)"
+              ],
+              "correct": 1,
+              "explain": "У массивов length — поле, без скобок."
+            },
+            {
+              "question": "Какой класс даёт динамический список?",
+              "options": [
+                "Array",
+                "ArrayList",
+                "LinkedList2",
+                "Dictionary"
+              ],
+              "correct": 1,
+              "explain": "ArrayList — расширяемый список из java.util."
+            },
+            {
+              "question": "Что делает s.equals(t) для строк?",
+              "options": [
+                "Сравнивает ссылки",
+                "Сравнивает содержимое строк",
+                "Склеивает строки",
+                "Ничего"
+              ],
+              "correct": 1,
+              "explain": "equals() сравнивает содержимое, == сравнивает ссылки."
+            },
+            {
+              "question": "Какая конструкция выбирает вариант по значению?",
+              "options": [
+                "switch",
+                "choose",
+                "select",
+                "option"
+              ],
+              "correct": 0,
+              "explain": "switch/case — выбор варианта по значению."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 3,
+        "title": "ООП в Java",
+        "description": "Классы, объекты, конструкторы и наследование",
+        "lessons": [
+          {
+            "id": 6,
+            "title": "Классы и объекты",
+            "description": "Основы объектно-ориентированного программирования",
+            "theory": [
+              "Класс — шаблон, объект — его экземпляр.",
+              "new Cat() — создание объекта.",
+              "Поля класса — данные, методы — поведение.",
+              "Конструктор инициализирует объект."
+            ],
+            "examples": [
+              {
+                "title": "Класс Cat",
+                "code": "class Cat {\n    String name;\n    Cat(String name) {\n        this.name = name;\n    }\n    void say() {\n        System.out.println(name + \" мяу\");\n    }\n}\nCat c = new Cat(\"Барсик\");\nc.say();",
+                "explanation": "Класс Cat с полем name, конструктором и методом say."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Класс Dog",
+                "description": "Создайте класс Dog с полем name и конструктором, сохраняющим имя.",
+                "difficulty": "medium",
+                "initial_code": "class Dog {\n    String name;\n    // добавьте конструктор\n}",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "class Dog",
+                    "Dog(String name)",
+                    "this.name = name"
+                  ]
+                },
+                "hints": [
+                  "Dog(String name) {",
+                  "this.name = name;"
+                ],
+                "solution": "class Dog {\n    String name;\n    Dog(String name) {\n        this.name = name;\n    }\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как создать объект класса Cat?",
+                "options": [
+                  "Cat c = new Cat();",
+                  "Cat c();",
+                  "new Cat() c;",
+                  "Cat c = Cat();"
+                ],
+                "correct": 0,
+                "explain": "Оператор new создаёт объект, вызывая конструктор класса."
+              },
+              {
+                "question": "Что делают конструкторы?",
+                "options": [
+                  "Удаляют объект",
+                  "Инициализируют объект",
+                  "Выводят на экран",
+                  "Сравнивают объекты"
+                ],
+                "correct": 1,
+                "explain": "Конструктор задаёт начальное состояние объекта при создании."
+              }
+            ],
+            "cheatsheet": "class Имя {\n    поля\n    Имя(параметры) { ... }\n}\nИмя obj = new Имя();",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 7,
+            "title": "Наследование",
+            "description": "Переиспользуем код родительских классов",
+            "theory": [
+              "extends — наследование класса.",
+              "super() — вызов конструктора родителя.",
+              "Дочерний класс дополняет или переопределяет методы.",
+              "@Override — пометка переопределённого метода."
+            ],
+            "examples": [
+              {
+                "title": "Наследование",
+                "code": "class Animal {\n    void sound() { System.out.println(\"...\"); }\n}\nclass Dog extends Animal {\n    @Override\n    void sound() { System.out.println(\"Гав\"); }\n}\nDog d = new Dog();\nd.sound();",
+                "explanation": "Dog наследует Animal и переопределяет sound."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Наследование",
+                "description": "Создайте класс Dog, наследующий от Animal, с методом sound.",
+                "difficulty": "medium",
+                "initial_code": "class Animal {\n    void sound() { System.out.println(\"...\"); }\n}\n// создайте Dog extends Animal",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "class Dog extends Animal",
+                    "sound"
+                  ]
+                },
+                "hints": [
+                  "class Dog extends Animal {",
+                  "С переопределением sound"
+                ],
+                "solution": "class Animal {\n    void sound() { System.out.println(\"...\"); }\n}\nclass Dog extends Animal {\n    @Override\n    void sound() { System.out.println(\"Гав\"); }\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какое ключевое слово для наследования?",
+                "options": [
+                  "implements",
+                  "extends",
+                  "inherit",
+                  "super"
+                ],
+                "correct": 1,
+                "explain": "extends — наследование класса, implements — реализация интерфейса."
+              },
+              {
+                "question": "Что даёт наследование?",
+                "options": [
+                  "Переиспользование методов родителя",
+                  "Удаление класса",
+                  "Ускорение программы",
+                  "Вывод на экран"
+                ],
+                "correct": 0,
+                "explain": "Наследник переиспользует методы родителя, добавляя свои."
+              }
+            ],
+            "cheatsheet": "class Child extends Parent { }\nsuper() — конструктор родителя\n@Override — переопределение",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Какое ключевое слово создаёт класс?",
+              "options": [
+                "struct",
+                "class",
+                "type",
+                "def class"
+              ],
+              "correct": 1,
+              "explain": "В Java классы объявляются словом class."
+            },
+            {
+              "question": "Как класс B наследуется от A?",
+              "options": [
+                "class B extends A",
+                "class B : A",
+                "class B inherits A",
+                "class B implements A"
+              ],
+              "correct": 0,
+              "explain": "Наследование в Java — через extends."
+            },
+            {
+              "question": "Что делает конструктор?",
+              "options": [
+                "Удаляет объект",
+                "Инициализирует объект при создании",
+                "Копирует класс",
+                "Освобождает память"
+              ],
+              "correct": 1,
+              "explain": "Конструктор задаёт начальные значения полей объекта."
+            },
+            {
+              "question": "Как вызвать конструктор родителя?",
+              "options": [
+                "parent()",
+                "super()",
+                "base()",
+                "A()"
+              ],
+              "correct": 1,
+              "explain": "super() вызывает конструктор родительского класса."
+            },
+            {
+              "question": "Что такое интерфейс в Java?",
+              "options": [
+                "Готовая реализация",
+                "Набор методов без реализации (контракт)",
+                "Вид переменной",
+                "Тип цикла"
+              ],
+              "correct": 1,
+              "explain": "Интерфейс описывает, что должен уметь класс, но не как."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      }
+    ],
+    "cheatsheets": [
+      {
+        "title": "Основы",
+        "icon": "🏗️",
+        "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Привет\");\n    }\n}",
+        "note": "main — точка входа любой программы."
+      },
+      {
+        "title": "Переменные",
+        "icon": "🏷️",
+        "code": "int x = 5;          // целое\ndouble d = 3.14;    // дробное\nString s = \"текст\";  // строка\nboolean b = true;    // логическое",
+        "note": "Тип указывается всегда."
+      },
+      {
+        "title": "Условия",
+        "icon": "🔀",
+        "code": "if (x > 0) {\n    System.out.println(\"+\");\n} else {\n    System.out.println(\"-\");\n}",
+        "note": "== для сравнения примитивов, equals() для строк."
+      },
+      {
+        "title": "Циклы",
+        "icon": "🔁",
+        "code": "for (int i = 0; i < 5; i++) {\n    System.out.println(i);\n}\n\nint n = 0;\nwhile (n < 3) { n++; }\n\nfor (int x : new int[]{1, 2, 3}) {\n    System.out.println(x);\n}",
+        "note": "for-each перебирает элементы массива или коллекции без индексов."
+      },
+      {
+        "title": "Массивы",
+        "icon": "📦",
+        "code": "int[] a = {1, 2, 3};\nSystem.out.println(a[0]);  // 1\nSystem.out.println(a.length); // 3",
+        "note": "Индексы с нуля, длина — через length."
+      },
+      {
+        "title": "Строки",
+        "icon": "📝",
+        "code": "String s = \"Привет\";\ns.length();          // длина\ns.equals(\"Привет\")   // сравнение\ns + \" мир\"            // конкатенация",
+        "note": "String — объект, сравнивают через equals."
+      },
+      {
+        "title": "Коллекции",
+        "icon": "🗂️",
+        "code": "import java.util.ArrayList;\n\nArrayList<String> list = new ArrayList<>();\nlist.add(\"Аня\");\nlist.add(\"Иван\");\nlist.size();            // 2\nlist.get(0);            // \"Аня\"\nlist.contains(\"Аня\");    // true",
+        "note": "ArrayList растёт сам, а массив имеет фиксированную длину."
+      },
+      {
+        "title": "Методы",
+        "icon": "🛠️",
+        "code": "static int add(int a, int b) {\n    return a + b;\n}\n\nstatic void greet(String name) {\n    System.out.println(\"Привет, \" + name);\n}",
+        "note": "static позволяет вызывать метод из main без создания объекта."
+      },
+      {
+        "title": "ООП",
+        "icon": "🏛️",
+        "code": "class Cat {\n    String name;\n    Cat(String name) { this.name = name; }\n}\nCat c = new Cat(\"Барсик\");",
+        "note": "new — создание объекта, конструктор инициализирует."
+      },
+      {
+        "title": "Ошибки",
+        "icon": "🛡️",
+        "code": "try {\n    int x = Integer.parseInt(\"abc\");\n} catch (NumberFormatException e) {\n    System.out.println(\"Не число: \" + e.getMessage());\n} finally {\n    System.out.println(\"всегда\");\n}",
+        "note": "catch указывает конкретный класс исключения — так точнее."
+      }
+    ]
+  }
+}

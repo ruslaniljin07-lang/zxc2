@@ -1,0 +1,134 @@
+import subprocess
+import sys
+import os
+import tempfile
+import re
+
+
+def _run_python_code(code, timeout=5):
+    """Execute code in subprocess with full UTF-8 support."""
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode='w', suffix='.py', delete=False, encoding='utf-8'
+        ) as f:
+            f.write(code)
+            temp_path = f.name
+
+        env = os.environ.copy()
+        env['PYTHONIOENCODING'] = 'utf-8'
+
+        result = subprocess.run(
+            [sys.executable, temp_path],
+            capture_output=True, text=True, encoding='utf-8',
+            timeout=timeout, cwd=os.path.dirname(temp_path), env=env
+        )
+        if temp_path and os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+        return {
+            'success': result.returncode == 0,
+            'returncode': result.returncode,
+            'stdout': result.stdout,
+            'stderr': result.stderr
+        }
+    except subprocess.TimeoutExpired:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.unlink(temp_path)
+            except OSError:
+                pass
+        return {
+            'success': False, 'returncode': None,
+            'stdout': '',
+            'stderr': 'Превышено время выполнения (5 секунд).'
+        }
+    except Exception as e:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.unlink(temp_path)
+            except OSError:
+                pass
+        return {
+            'success': False, 'returncode': None,
+            'stdout': '',
+            'stderr': 'Ошибка при выполнении: ' + str(e)
+        }
+
+
+def _check_contains(code, check):
+    """Проверка для JS/Java/C++: в коде должны присутствовать конструкции."""
+    require = check.get('require') or []
+    reject = check.get('reject') or []
+    missing = [p for p in require if p.lower() not in code.lower()]
+    bad = [p for p in reject if p.lower() in code.lower()]
+    if missing:
+        return {
+            'success': False,
+            'stdout': '',
+            'stderr': 'Не хватает ключевых конструкций: '
+                      + ', '.join(f'«{m}»' for m in missing),
+            'missing': missing
+        }
+    if bad:
+        return {
+            'success': False,
+            'stdout': '',
+            'stderr': 'Лишние конструкции (попробуй упростить): '
+                      + ', '.join(f'«{b}»' for b in bad),
+            'bad': bad
+        }
+    return {
+        'success': True,
+        'stdout': 'Код содержит все необходимые конструкции. Отлично!',
+        'stderr': ''
+    }
+
+
+def _check_stdout(code, check, timeout=5):
+    """Запускает Python-код и сверяет вывод с ожидаемым."""
+    expected = str(check.get('expected', '')).strip()
+    mode = check.get('mode', 'exact')  # exact | contains
+    result = _run_python_code(code, timeout)
+    if not result['success']:
+        return result
+    got = result['stdout'].strip()
+    if mode == 'contains':
+        ok = expected.lower() in got.lower()
+    else:
+        norm = lambda s: '\n'.join(line.rstrip() for line in s.strip().splitlines())
+        ok = norm(got) == norm(expected)
+    if ok:
+        return {'success': True, 'stdout': result['stdout'],
+                'stderr': '', 'expected': expected}
+    return {
+        'success': False,
+        'stdout': result['stdout'],
+        'stderr': ('Ожидался вывод:\n' + expected +
+                   '\n\nТвой вывод:\n' + (got or '(пусто)')),
+        'expected': expected
+    }
+
+
+def check_code(user_code, check, timeout=5):
+    """Проверяет решение по правилам задания.
+
+    check — объект из задачи:
+      {'type': 'python', 'test_code': '...'}   — реальный запуск Python
+      {'type': 'stdout', 'expected': '...'}    — запуск и сверка вывода
+      {'type': 'contains', 'require': [...]}   — для JS/Java/C++
+    """
+    if not isinstance(check, dict):
+        # старая сигнатура: check_code(user_code, test_code)
+        check = {'type': 'python', 'test_code': check}
+    ctype = check.get('type', 'python')
+    if ctype == 'contains':
+        return _check_contains(user_code, check)
+    if ctype == 'stdout':
+        return _check_stdout(user_code, check, timeout)
+    full_code = user_code + '\n' + (check.get('test_code') or '')
+    return _run_python_code(full_code, timeout)
+
+
+def run_sandbox_code(code, timeout=5):
+    return _run_python_code(code, timeout)

@@ -1,0 +1,29 @@
+### COURSE CONTENT ###
+python       modules=  4 lessons= 12 tasks= 12 minitest_q= 24 entrance=  8 cheats=  8 final='Менеджер задач'
+    M 1. Основы Python                              lessons=3
+    M 2. Условия и циклы                            lessons=3
+    M 3. Списки и функции                           lessons=3
+    M 4. Словари и ООП                              lessons=3
+    lesson keys: ['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+    task keys: ['check', 'description', 'difficulty', 'examples', 'hints', 'id', 'initial_code', 'solution', 'title']
+
+javascript   modules=  2 lessons=  6 tasks=  6 minitest_q= 12 entrance=  8 cheats=  6 final='Интерактивный планировщик задач'
+    M 1. Основы JavaScript                          lessons=3
+    M 2. Функции и массивы                          lessons=3
+    lesson keys: ['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+    task keys: ['check', 'description', 'difficulty', 'examples', 'hints', 'id', 'initial_code', 'solution', 'title']
+
+java         modules=  3 lessons=  7 tasks=  7 minitest_q= 14 entrance=  8 cheats=  6 final='Система управления библиотекой'
+    M 1. Основы Java                                lessons=3
+    M 2. Массивы и строки                           lessons=2
+    M 3. ООП в Java                                 lessons=2
+    lesson keys: ['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+    task keys: ['check', 'description', 'difficulty', 'examples', 'hints', 'id', 'initial_code', 'solution', 'title']
+
+cpp          modules=  3 lessons=  6 tasks=  6 minitest_q= 12 entrance=  8 cheats=  6 final='Менеджер заметок'
+    M 1. Основы C++                                 lessons=2
+    M 2. Условия и циклы                            lessons=2
+    M 3. Массивы, строки и функции                  lessons=2
+    lesson keys: ['cheatsheet', 'description', 'difficulty', 'examples', 'id', 'tasks', 'test', 'theory', 'title', 'xp_reward']
+    task keys: ['check', 'description', 'difficulty', 'examples', 'hints', 'id', 'initial_code', 'solution', 'title']
+

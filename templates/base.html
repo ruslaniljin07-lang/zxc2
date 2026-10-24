@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Codigo{% endblock %}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=18">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=24">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -29,10 +30,30 @@
                 <ul class="navbar-nav me-auto">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Дашборд</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'test' %}active{% endif %}" href="{{ url_for('test') }}">Тест</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint in ('lessons','lesson') %}active{% endif %}" href="{{ url_for('lessons') }}">Уроки</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-link-style dropdown-toggle {% if request.endpoint in ('lessons','lesson','language_course') %}active{% endif %}"
+                               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ nav_lang_info.icon }} {{ nav_lang_info.name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><h6 class="dropdown-header">Мои курсы</h6></li>
+                                {% for lang in nav_languages %}
+                                <li>
+                                    <a class="dropdown-item {% if lang.code == nav_lang %}active{% endif %}"
+                                       href="{{ url_for('language_course', lang_code=lang.code) }}">
+                                        {{ lang.icon }} {{ lang.name }}
+                                        <span class="text-muted small">· {{ lang.lessons_count }} уроков</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('index') }}">🌐 Все языки</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'test' %}active{% endif %}" href="{{ url_for('test', lang_code=nav_lang) }}">Тест</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint in ('lessons','lesson') %}active{% endif %}" href="{{ url_for('lessons', lang_code=nav_lang) }}">Уроки</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'sandbox' %}active{% endif %}" href="{{ url_for('sandbox') }}">Песочница</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'cheat_sheet' %}active{% endif %}" href="{{ url_for('cheat_sheet') }}">Шпаргалка</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'cheat_sheet' %}active{% endif %}" href="{{ url_for('cheat_sheet', lang_code=nav_lang) }}">Шпаргалка</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'leaderboard' %}active{% endif %}" href="{{ url_for('leaderboard') }}">Лидеры</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}">Профиль</a></li>
                     {% endif %}
@@ -96,8 +117,26 @@
     </button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ url_for('static', filename='script.js') }}?v=14"></script>
-{% block extra_js %}{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" nonce="{{ csp_nonce() }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}?v=17" nonce="{{ csp_nonce() }}"></script>
+{% block extra_js %}
+<script nonce="{{ csp_nonce() }}">
+function copyCode(btn) {
+    var block = btn.closest('.code-with-copy');
+    if (!block) return;
+    var code = block.querySelector('code');
+    if (!code) return;
+    var text = code.innerText || code.textContent;
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Скопировано!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Копировать';
+            btn.classList.remove('copied');
+        }, 1500);
+    });
+}
+</script>
+{% endblock %}
 </body>
 </html>

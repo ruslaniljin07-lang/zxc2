@@ -1,0 +1,778 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Привет, мир!",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Выведи в консоль текст: Привет, мир!",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "Привет, мир!",
+        "require": [
+          "System.out.println",
+          "Привет, мир!"
+        ]
+      },
+      "hints": [
+        "Найди функцию вывода текста на экран в своём языке.",
+        "Строка должна совпадать точно: «Привет, мир!» — большая буква и восклицательный знак."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Привет, мир!\");\n    }\n}"
+    },
+    {
+      "id": 2,
+      "title": "Сумма двух чисел",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Даны числа 5 и 7. Выведи их сумму.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "12",
+        "require": [
+          "System.out.println",
+          "5",
+          "7"
+        ]
+      },
+      "hints": [
+        "Объяви две переменные: a = 5 и b = 7.",
+        "Выведи результат сложения оператором +."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = 7;\n        System.out.println(a + b);\n    }\n}"
+    },
+    {
+      "id": 3,
+      "title": "Деление с остатком",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Даны числа 17 и 5. Выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "3 2",
+        "require": [
+          "System.out.println",
+          "17",
+          "5"
+        ]
+      },
+      "hints": [
+        "Для целочисленного деления используй оператор своего языка, остаток даёт оператор %.",
+        "Выведи два значения в одной строке через пробел."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 17;\n        int b = 5;\n        System.out.println(a / b + \" \" + a % b);\n    }\n}"
+    },
+    {
+      "id": 4,
+      "title": "Знакомство",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Создай переменные name = \"Анна\" и age = 25. Выведи ровно: Меня зовут Анна, мне 25",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "Меня зовут Анна, мне 25",
+        "require": [
+          "System.out.println",
+          "Анна",
+          "25"
+        ]
+      },
+      "hints": [
+        "Подставь значения переменных в строку — интерполяцией или конкатенацией.",
+        "Вывод должен быть точно «Меня зовут Анна, мне 25» — с запятой после имени."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String name = \"Анна\";\n        int age = 25;\n        System.out.println(\"Меня зовут \" + name + \", мне \" + age);\n    }\n}"
+    },
+    {
+      "id": 5,
+      "title": "Площадь прямоугольника",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Прямоугольник 6 × 4. Выведи его площадь: перемножь стороны.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "24",
+        "require": [
+          "System.out.println",
+          "6",
+          "4"
+        ]
+      },
+      "hints": [
+        "Площадь прямоугольника = ширина × высота.",
+        "Перемножь переменные width и height и выведи результат."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int width = 6;\n        int height = 4;\n        System.out.println(width * height);\n    }\n}"
+    },
+    {
+      "id": 6,
+      "title": "Положительное или нет",
+      "topic": "Условия",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Число a = 10. Если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "положительное",
+        "require": [
+          "System.out.println",
+          "10"
+        ]
+      },
+      "hints": [
+        "Используй конструкцию if / else.",
+        "Условие: a > 0. Тело условия выделяется фигурными скобками или отступами — зависит от языка."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 10;\n        if (a > 0) {\n            System.out.println(\"положительное\");\n        } else {\n            System.out.println(\"отрицательное\");\n        }\n    }\n}"
+    },
+    {
+      "id": 7,
+      "title": "Чётное или нечётное",
+      "topic": "Условия",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Число n = 8. Выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "чётное",
+        "require": [
+          "System.out.println",
+          "8",
+          "%"
+        ]
+      },
+      "hints": [
+        "Остаток от деления даёт оператор %.",
+        "Чётное число даёт остаток 0: n % 2 == 0."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 8;\n        if (n % 2 == 0) {\n            System.out.println(\"чётное\");\n        } else {\n            System.out.println(\"нечётное\");\n        }\n    }\n}"
+    },
+    {
+      "id": 8,
+      "title": "Максимум из трёх",
+      "topic": "Условия",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Даны числа 3, 9 и 5. Выведи наибольшее из них, не используя встроенную функцию максимума.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "9",
+        "require": [
+          "System.out.println",
+          "9",
+          "3",
+          "5"
+        ]
+      },
+      "hints": [
+        "Сравни первое число со вторым и третьим по очереди.",
+        "Если a больше b и больше c — максимум равен a."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 3, b = 9, c = 5;\n        if (a >= b && a >= c) { System.out.println(a); }\n        else if (b >= c) { System.out.println(b); }\n        else { System.out.println(c); }\n    }\n}"
+    },
+    {
+      "id": 9,
+      "title": "День недели по номеру",
+      "topic": "Условия",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дано число 3. Выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "среда",
+        "require": [
+          "System.out.println",
+          "3",
+          "среда"
+        ]
+      },
+      "hints": [
+        "Тут удобнее цепочка условий else if.",
+        "1 — понедельник, 2 — вторник, 3 — среда."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int day = 3;\n        if (day == 1) { System.out.println(\"понедельник\"); }\n        else if (day == 2) { System.out.println(\"вторник\"); }\n        else if (day == 3) { System.out.println(\"среда\"); }\n        else { System.out.println(\"другой день\"); }\n    }\n}"
+    },
+    {
+      "id": 10,
+      "title": "Сумма чисел от 1 до 10",
+      "topic": "Циклы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "55",
+        "require": [
+          "System.out.println",
+          "10"
+        ]
+      },
+      "hints": [
+        "Заведи переменную-накопитель со значением 0.",
+        "В цикле прибавляй к накопителю счётчик, потом выведи накопитель."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int total = 0;\n        for (int i = 1; i <= 10; i++) { total += i; }\n        System.out.println(total);\n    }\n}"
+    },
+    {
+      "id": 11,
+      "title": "Таблица умножения на 3",
+      "topic": "Циклы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "3 6 9 12 15 18 21 24 27 30",
+        "require": [
+          "System.out.println",
+          "3",
+          "10"
+        ]
+      },
+      "hints": [
+        "Пройди циклом от 1 до 10 и умножай счётчик на 3.",
+        "Чтобы всё было в одной строке, выводи без перевода строки и добавляй пробел между числами."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 10; i++) {\n            System.out.print(i * 3);\n            if (i < 10) System.out.print(\" \");\n        }\n        System.out.println();\n    }\n}"
+    },
+    {
+      "id": 12,
+      "title": "Факториал числа 5",
+      "topic": "Циклы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "120",
+        "require": [
+          "System.out.println",
+          "5"
+        ]
+      },
+      "hints": [
+        "Факториал — это произведение всех чисел от 1 до n.",
+        "Начни накопитель с 1 и в цикле умножай его на счётчик."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 5;\n        int fact = 1;\n        for (int i = 1; i <= n; i++) { fact *= i; }\n        System.out.println(fact);\n    }\n}"
+    },
+    {
+      "id": 13,
+      "title": "Сумма цифр числа",
+      "topic": "Циклы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дано число 456. Посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "15",
+        "require": [
+          "System.out.println",
+          "456"
+        ]
+      },
+      "hints": [
+        "Последнюю цифру числа даёт остаток от деления на 10.",
+        "После каждой цифры уменьшай число целочисленным делением на 10, пока оно не станет нулём."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 456;\n        int total = 0;\n        while (n > 0) { total += n % 10; n /= 10; }\n        System.out.println(total);\n    }\n}"
+    },
+    {
+      "id": 14,
+      "title": "Реверс строки",
+      "topic": "Строки",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дана строка «hello». Выведи её символы в обратном порядке: olleh",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "olleh",
+        "require": [
+          "System.out.println",
+          "hello"
+        ]
+      },
+      "hints": [
+        "Во многих языках есть готовый метод переворота строки или массива символов.",
+        "Если готового метода нет — перебери символы от последнего к первому и собери новую строку."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String s = \"hello\";\n        System.out.println(new StringBuilder(s).reverse().toString());\n    }\n}"
+    },
+    {
+      "id": 15,
+      "title": "Длина строки",
+      "topic": "Строки",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Дана строка «Hello, world!». Выведи количество символов в ней.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "13",
+        "require": [
+          "System.out.println",
+          "Hello, world!"
+        ]
+      },
+      "hints": [
+        "Длину строки возвращает функция или свойство length.",
+        "Строка задана точно: «Hello, world!» — в ней 13 символов."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String s = \"Hello, world!\";\n        System.out.println(s.length());\n    }\n}"
+    },
+    {
+      "id": 16,
+      "title": "Гласные в строке",
+      "topic": "Строки",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Дана строка «программирование». Посчитай, сколько в ней гласных букв.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "7",
+        "require": [
+          "System.out.println",
+          "программирование"
+        ]
+      },
+      "hints": [
+        "Гласные русского алфавита: а, е, ё, и, о, у, ы, э, ю, я.",
+        "Перебери символы строки и проверь, входит ли символ в набор гласных."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String s = \"программирование\";\n        String vowels = \"аеёиоуыэюя\";\n        int count = 0;\n        for (char ch : s.toCharArray()) {\n            if (vowels.indexOf(ch) >= 0) count++;\n        }\n        System.out.println(count);\n    }\n}"
+    },
+    {
+      "id": 17,
+      "title": "Сумма элементов массива",
+      "topic": "Массивы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи сумму всех его элементов.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "15",
+        "require": [
+          "System.out.println",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      "hints": [
+        "Сумму массива можно посчитать циклом или готовой функцией.",
+        "Пройди по всем элементам и прибавляй их к накопителю."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {1, 2, 3, 4, 5};\n        int total = 0;\n        for (int n : nums) { total += n; }\n        System.out.println(total);\n    }\n}"
+    },
+    {
+      "id": 18,
+      "title": "Максимум в массиве",
+      "topic": "Массивы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наибольший элемент.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "42",
+        "require": [
+          "System.out.println",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+        ]
+      },
+      "hints": [
+        "Начни с первого элемента как текущего максимума.",
+        "Сравнивай каждый элемент с текущим максимумом и обновляй его."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        for (int n : nums) { if (n > best) best = n; }\n        System.out.println(best);\n    }\n}"
+    },
+    {
+      "id": 19,
+      "title": "Минимум в массиве",
+      "topic": "Массивы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наименьший элемент.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "4",
+        "require": [
+          "System.out.println",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+        ]
+      },
+      "hints": [
+        "Начни с первого элемента как текущего минимума.",
+        "Сравнивай каждый элемент с текущим минимумом и обновляй его."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        for (int n : nums) { if (n < best) best = n; }\n        System.out.println(best);\n    }\n}"
+    },
+    {
+      "id": 20,
+      "title": "Среднее арифметическое",
+      "topic": "Массивы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дан массив [2, 4, 6]. Выведи среднее арифметическое его элементов целым числом.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "4",
+        "require": [
+          "System.out.println",
+          "2",
+          "4",
+          "6"
+        ]
+      },
+      "hints": [
+        "Сначала посчитай сумму элементов.",
+        "Среднее — это сумма, делённая на количество элементов (целочисленно)."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {2, 4, 6};\n        int total = 0;\n        for (int n : nums) { total += n; }\n        System.out.println(total / nums.length);\n    }\n}"
+    },
+    {
+      "id": 21,
+      "title": "Только чётные числа",
+      "topic": "Массивы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8]. Выведи в одну строку только чётные числа через пробел.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "2 4 6 8",
+        "require": [
+          "System.out.println",
+          "8"
+        ]
+      },
+      "hints": [
+        "Проверяй каждый элемент: n % 2 == 0.",
+        "Собери чётные числа и выведи их через пробел."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};\n        for (int n : nums) {\n            if (n % 2 == 0) System.out.print(n + \" \");\n        }\n        System.out.println();\n    }\n}"
+    },
+    {
+      "id": 22,
+      "title": "Реверс массива",
+      "topic": "Массивы",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи его элементы в обратном порядке через пробел.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "5 4 3 2 1",
+        "require": [
+          "System.out.println",
+          "5"
+        ]
+      },
+      "hints": [
+        "Можно перевернуть массив готовым методом или пройти его с конца.",
+        "Выводи элементы через пробел, чтобы получить «5 4 3 2 1»."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {1, 2, 3, 4, 5};\n        for (int i = nums.length - 1; i >= 0; i--)\n            System.out.print(nums[i] + \" \");\n        System.out.println();\n    }\n}"
+    },
+    {
+      "id": 23,
+      "title": "Сколько чётных чисел",
+      "topic": "Массивы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "5",
+        "require": [
+          "System.out.println",
+          "10"
+        ]
+      },
+      "hints": [
+        "Счётчик начинается с нуля.",
+        "Увеличивай счётчик, когда элемент делится на 2 без остатка."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int count = 0;\n        for (int n : nums) { if (n % 2 == 0) count++; }\n        System.out.println(count);\n    }\n}"
+    },
+    {
+      "id": 24,
+      "title": "Функция сложения",
+      "topic": "Функции",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "7",
+        "require": [
+          "System.out.println",
+          "static int add",
+          "3",
+          "4"
+        ]
+      },
+      "hints": [
+        "Объяви функцию с двумя параметрами и верни их сумму.",
+        "Вызови функцию с аргументами 3 и 4 и выведи результат."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(add(3, 4));\n    }\n\n    static int add(int a, int b) {\n        return a + b;\n    }\n}"
+    },
+    {
+      "id": 25,
+      "title": "Функция факториала",
+      "topic": "Функции",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "120",
+        "require": [
+          "System.out.println",
+          "5"
+        ]
+      },
+      "hints": [
+        "Факториал 5 — это 1 · 2 · 3 · 4 · 5.",
+        "Внутри функции используй цикл и накопитель, начиная с 1."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(fact(5));\n    }\n\n    static int fact(int n) {\n        int result = 1;\n        for (int i = 1; i <= n; i++) result *= i;\n        return result;\n    }\n}"
+    },
+    {
+      "id": 26,
+      "title": "Числа Фибоначчи",
+      "topic": "Циклы",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Выведи первые 7 чисел Фибоначчи через пробел. Последовательность начинается с 0 и 1.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "0 1 1 2 3 5 8",
+        "require": [
+          "System.out.println",
+          "7"
+        ]
+      },
+      "hints": [
+        "Первые два числа — 0 и 1.",
+        "Каждое следующее число — сумма двух предыдущих: сдвигай a = b, b = a + b."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 7;\n        int a = 0, b = 1;\n        String out = \"\";\n        for (int i = 0; i < n; i++) {\n            out += a + (i < n - 1 ? \" \" : \"\");\n            int next = a + b;\n            a = b;\n            b = next;\n        }\n        System.out.println(out);\n    }\n}"
+    },
+    {
+      "id": 27,
+      "title": "Простое ли число",
+      "topic": "Условия",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Дано число 17. Проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "простое",
+        "require": [
+          "System.out.println",
+          "17"
+        ]
+      },
+      "hints": [
+        "Число простое, если у него нет делителей кроме 1 и самого числа.",
+        "Достаточно проверять делители до квадратного корня из числа."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 17;\n        boolean isPrime = n > 1;\n        for (int d = 2; d * d <= n; d++) {\n            if (n % d == 0) { isPrime = false; break; }\n        }\n        System.out.println(isPrime ? \"простое\" : \"составное\");\n    }\n}"
+    },
+    {
+      "id": 28,
+      "title": "Палиндром",
+      "topic": "Строки",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Дана строка «шалаш». Проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "палиндром",
+        "require": [
+          "System.out.println",
+          "шалаш"
+        ]
+      },
+      "hints": [
+        "Сравни строку с её перевёрнутой версией.",
+        "«шалаш» читается одинаково слева направо и справа налево — значит, это палиндром."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String s = \"шалаш\";\n        String r = new StringBuilder(s).reverse().toString();\n        System.out.println(s.equals(r) ? \"палиндром\" : \"не палиндром\");\n    }\n}"
+    },
+    {
+      "id": 29,
+      "title": "Обмен значений",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Даны переменные a = 5 и b = 7. Поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "7 5",
+        "require": [
+          "System.out.println",
+          "5",
+          "7"
+        ]
+      },
+      "hints": [
+        "Запомни одно значение во временной переменной.",
+        "Либо используй множественное присваивание, если язык его поддерживает."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 5, b = 7;\n        int t = a;\n        a = b;\n        b = t;\n        System.out.println(a + \" \" + b);\n    }\n}"
+    },
+    {
+      "id": 30,
+      "title": "Мини-калькулятор",
+      "topic": "Условия",
+      "difficulty": "hard",
+      "xp": 20,
+      "description": "Даны числа a = 3 и b = 4 и код операции op = \"*\". Выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+      "initial_code": "public class Main {\n    public static void main(String[] args) {\n        // Твой код здесь\n    }\n}\n",
+      "check": {
+        "type": "stdout_java",
+        "expected": "12",
+        "require": [
+          "System.out.println",
+          "3",
+          "4"
+        ]
+      },
+      "hints": [
+        "Код операции хранится в переменной op.",
+        "Выбери действие через switch / match или цепочку условий."
+      ],
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 3, b = 4;\n        String op = \"*\";\n        int result = 0;\n        switch (op) {\n            case \"+\": result = a + b; break;\n            case \"-\": result = a - b; break;\n            case \"*\": result = a * b; break;\n            default: result = a / b;\n        }\n        System.out.println(result);\n    }\n}"
+    },
+    {
+      "title": "Привет, мир!",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Выведи текст: Привет, мир!",
+      "initial_code": "System.out.println(\"Привет, мир!\");\n",
+      "check": {
+        "type": "stdout",
+        "expected": ""
+      },
+      "hints": [
+        "Реши задачу самостоятельно."
+      ],
+      "solution": "System.out.println(\"Привет, мир!\");\n",
+      "id": 31
+    },
+    {
+      "title": "Сумма двух чисел",
+      "topic": "Основы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Даны числа 5 и 7. Выведи их сумму.",
+      "initial_code": "int a = 5;\nint b = 7;\nSystem.out.println(a + b);\n",
+      "check": {
+        "type": "stdout",
+        "expected": ""
+      },
+      "hints": [
+        "Реши задачу самостоятельно."
+      ],
+      "solution": "int a = 5;\nint b = 7;\nSystem.out.println(a + b);\n",
+      "id": 32
+    },
+    {
+      "title": "Чётное или нечётное",
+      "topic": "Условия",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Число n = 8. Выведи 'чётное' или 'нечётное'.",
+      "initial_code": "int n = 8;\nif (n % 2 == 0) { System.out.println(\"чётное\"); } else { System.out.println(\"нечётное\"); }\n",
+      "check": {
+        "type": "stdout",
+        "expected": ""
+      },
+      "hints": [
+        "Реши задачу самостоятельно."
+      ],
+      "solution": "int n = 8;\nif (n % 2 == 0) { System.out.println(\"чётное\"); } else { System.out.println(\"нечётное\"); }\n",
+      "id": 33
+    },
+    {
+      "title": "Цикл от 1 до 5",
+      "topic": "Циклы",
+      "difficulty": "easy",
+      "xp": 10,
+      "description": "Выведи числа от 1 до 5, каждое на новой строке.",
+      "initial_code": "for (int i = 1; i <= 5; i++) { System.out.println(i); }\n",
+      "check": {
+        "type": "stdout",
+        "expected": ""
+      },
+      "hints": [
+        "Реши задачу самостоятельно."
+      ],
+      "solution": "for (int i = 1; i <= 5; i++) { System.out.println(i); }\n",
+      "id": 34
+    },
+    {
+      "title": "Максимум из двух",
+      "topic": "Условия",
+      "difficulty": "medium",
+      "xp": 15,
+      "description": "Даны a = 10 и b = 25. Выведи большее.",
+      "initial_code": "int a = 10;\nint b = 25;\nSystem.out.println(a > b ? a : b);\n",
+      "check": {
+        "type": "stdout",
+        "expected": ""
+      },
+      "hints": [
+        "Реши задачу самостоятельно."
+      ],
+      "solution": "int a = 10;\nint b = 25;\nSystem.out.println(a > b ? a : b);\n",
+      "id": 35
+    }
+  ]
+}

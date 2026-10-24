@@ -1,0 +1,22 @@
+Языков в песочнице: 10
+Есть тулчейн: python, javascript, go, typescript, sql
+Нет тулчейна: java, cpp, csharp, php, rust
+
+[1] GET /sandbox/<lang> — страница на каждый язык
+[2] POST /sandbox — запуск кода на каждом языке
+   python      доступен=True  success=True  stdout='Привет, мир!\r | Меня зовут Артур, мне 100 '
+   javascript  доступен=True  success=True  stdout='Привет, мир! | Меня зовут Артур, мне 100 л'
+   java        доступен=False success=False stdout=''
+   cpp         доступен=False success=False stdout=''
+   go          доступен=True  success=True  stdout='Привет, мир! | Меня зовут Артур, мне 100 л'
+   csharp      доступен=False success=False stdout=''
+   typescript  доступен=True  success=True  stdout='Привет, мир! | Меня зовут Артур, мне 100 л'
+   php         доступен=False success=False stdout=''
+   rust        доступен=False success=False stdout=''
+   sql         доступен=True  success=True  stdout='Ручка | 90.0 | Тетрадь | 220.0 | Чай | 380.0'
+[3] Ошибки, лимиты, формы запроса
+[4] Регресс: страницы языков, уроки, задачи
+[5] Проверка передачи примера и языка в JS
+
+Проверок: 223, проблем: 0
+ПЕСОЧНИЦА: все проверки пройдены

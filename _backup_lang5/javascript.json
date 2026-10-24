@@ -1,0 +1,698 @@
+{
+  "javascript": {
+    "name": "JavaScript",
+    "icon": "🟨",
+    "color": "#F7DF1E",
+    "description": "Язык для веб-разработки и интерактивных приложений — работает в браузере.",
+    "difficulty": "Средний старт",
+    "final_project": "Интерактивный планировщик задач",
+    "entrance_test": [
+      {
+        "question": "Как вывести текст в консоль браузера?",
+        "options": [
+          "print()",
+          "console.log()",
+          "echo()",
+          "System.out.println()"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Какое ключевое слово для константы в JS?",
+        "options": [
+          "let",
+          "var",
+          "const",
+          "static"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Какой тип у true?",
+        "options": [
+          "string",
+          "boolean",
+          "number",
+          "object"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Как объявить стрелочную функцию?",
+        "options": [
+          "function f() {}",
+          "const f = () => {}",
+          "def f()",
+          "func f()"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Как проверить равенство значения и типа?",
+        "options": [
+          "=",
+          "==",
+          "===",
+          "=>"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Что хранит массив [\"a\", \"b\"]?",
+        "options": [
+          "объект",
+          "число",
+          "массив",
+          "функцию"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Как добавить элемент в конец массива arr?",
+        "options": [
+          "arr.add(5)",
+          "arr.push(5)",
+          "arr.append(5)",
+          "arr.insert(5)"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Что делает localStorage?",
+        "options": [
+          "Хранит данные в браузере",
+          "Отправляет запрос на сервер",
+          "Выводит на экран",
+          "Удаляет файлы"
+        ],
+        "correct": 0
+      }
+    ],
+    "modules": [
+      {
+        "id": 1,
+        "title": "Основы JavaScript",
+        "description": "Первая программа, переменные, условия",
+        "lessons": [
+          {
+            "id": 1,
+            "title": "Первая программа",
+            "description": "Знакомимся с JavaScript и console.log()",
+            "theory": [
+              "JavaScript — язык программирования для веба.",
+              "Работает прямо в браузере и на сервере (Node.js).",
+              "console.log() выводит текст в консоль.",
+              "Каждая команда заканчивается точкой с запятой (по желанию)."
+            ],
+            "examples": [
+              {
+                "title": "Привет, мир!",
+                "code": "console.log('Привет, мир!');\nconsole.log(2 + 2);",
+                "explanation": "Первая строка печатает текст, вторая — результат сложения."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Приветствие",
+                "description": "Выведите \"Привет, мир!\" в консоль.",
+                "difficulty": "easy",
+                "initial_code": "// Напишите код ниже\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "console.log",
+                    "'Привет, мир!'"
+                  ]
+                },
+                "hints": [
+                  "Используйте console.log()",
+                  "Напишите: console.log('Привет, мир!');"
+                ],
+                "solution": "console.log('Привет, мир!');",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что делает console.log()?",
+                "options": [
+                  "Читает данные",
+                  "Выводит в консоль",
+                  "Создаёт массив",
+                  "Закрывает вкладку"
+                ],
+                "correct": 1,
+                "explain": "console.log() — основной способ вывести значение в консоль."
+              },
+              {
+                "question": "Где работает JS?",
+                "options": [
+                  "Только на сервере",
+                  "В браузере и на сервере",
+                  "Только в играх",
+                  "Нигде"
+                ],
+                "correct": 1,
+                "explain": "JS работает и в браузере, и на сервере — благодаря Node.js."
+              }
+            ],
+            "cheatsheet": "console.log('текст'); — вывод в консоль\n// однострочный комментарий",
+            "xp_reward": 20,
+            "difficulty": "easy"
+          },
+          {
+            "id": 2,
+            "title": "Переменные и типы",
+            "description": "let, const и типы данных JS",
+            "theory": [
+              "let — переменная, которую можно изменить.",
+              "const — константа, изменить нельзя.",
+              "var — устаревший способ, старайся не использовать.",
+              "Типы: string, number, boolean, null, undefined, object."
+            ],
+            "examples": [
+              {
+                "title": "Создание переменных",
+                "code": "let name = 'Аня';\nconst age = 20;\nlet isStudent = true;\nconsole.log(name);",
+                "explanation": "let для изменяемых, const для констант."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя переменная",
+                "description": "Создайте переменную name через let и выведите её.",
+                "difficulty": "easy",
+                "initial_code": "// Создайте переменную name\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "let name",
+                    "console.log(name)"
+                  ]
+                },
+                "hints": [
+                  "let name = 'Аня';",
+                  "console.log(name);"
+                ],
+                "solution": "let name = 'Аня';\nconsole.log(name);",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Какое ключевое слово для константы в JS?",
+                "options": [
+                  "let",
+                  "var",
+                  "const",
+                  "static"
+                ],
+                "correct": 2,
+                "explain": "const объявляет константу, let — переменную; var устарел."
+              },
+              {
+                "question": "Чем отличается const от let?",
+                "options": [
+                  "Ничем",
+                  "const нельзя переназначить",
+                  "const только числа",
+                  "let только строки"
+                ],
+                "correct": 1,
+                "explain": "const запрещает переназначение, let разрешает менять значение."
+              }
+            ],
+            "cheatsheet": "let x = 5; — изменяемая\nconst PI = 3.14; — константа\n'текст' — строка, true/false — boolean",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 3,
+            "title": "Условия if / else",
+            "description": "Программа принимает решения в JS",
+            "theory": [
+              "if (условие) { блок } — проверяет условие.",
+              "else выполняется, когда условие ложно.",
+              "else if — проверить ещё одно условие.",
+              "=== сравнивает и значение, и тип."
+            ],
+            "examples": [
+              {
+                "title": "Условие",
+                "code": "let age = 18;\nif (age >= 18) {\n    console.log('Взрослый');\n} else {\n    console.log('Школьник');\n}",
+                "explanation": "Если age >= 18 печатаем «Взрослый», иначе — «Школьник»."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Проверка возраста",
+                "description": "Напишите условие: если x > 10, выведите \"Большое число\".",
+                "difficulty": "easy",
+                "initial_code": "let x = 15;\n// напишите if ниже\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "if (x > 10)",
+                    "console.log('Большое число')"
+                  ]
+                },
+                "hints": [
+                  "if (x > 10) {",
+                  "внутри: console.log('Большое число');"
+                ],
+                "solution": "let x = 15;\nif (x > 10) {\n    console.log('Большое число');\n}",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Когда выполняется блок else?",
+                "options": [
+                  "Когда условие истинно",
+                  "Когда условие ложно",
+                  "Всегда",
+                  "Никогда"
+                ],
+                "correct": 1,
+                "explain": "else выполняется, когда условие if оказалось ложным."
+              },
+              {
+                "question": "Что вернёт 5 === \"5\"?",
+                "options": [
+                  "true",
+                  "false",
+                  "Ошибка",
+                  "undefined"
+                ],
+                "correct": 1,
+                "explain": "=== сравнивает без приведения типов: число 5 и строка \"5\" не равны."
+              }
+            ],
+            "cheatsheet": "if (условие) {\n    блок\n} else {\n    блок\n}\n=== — строгое сравнение",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как объявить константу в JavaScript?",
+              "options": [
+                "let x = 5",
+                "const x = 5",
+                "var const x = 5",
+                "final x = 5"
+              ],
+              "correct": 1,
+              "explain": "const объявляет константу, которую нельзя переприсвоить."
+            },
+            {
+              "question": "Что выведет: console.log(typeof \"hello\")?",
+              "options": [
+                "string",
+                "text",
+                "String",
+                "char"
+              ],
+              "correct": 0,
+              "explain": "typeof для строк возвращает \"string\"."
+            },
+            {
+              "question": "Какой оператор сравнивает и значение, И тип?",
+              "options": [
+                "==",
+                "===",
+                "=",
+                "!="
+              ],
+              "correct": 1,
+              "explain": "=== — строгое сравнение без приведения типов."
+            },
+            {
+              "question": "Что выведет: console.log(1 + \"2\")?",
+              "options": [
+                "3",
+                "\"12\"",
+                "ошибку",
+                "NaN"
+              ],
+              "correct": 1,
+              "explain": "Число приводится к строке — получится \"12\"."
+            },
+            {
+              "question": "Как выполнить цикл 5 раз?",
+              "options": [
+                "for (let i = 0; i < 5; i++)",
+                "for i in range(5)",
+                "loop 5 times",
+                "repeat(5)"
+              ],
+              "correct": 0,
+              "explain": "Синтаксис for: инициализация; условие; шаг."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      },
+      {
+        "id": 2,
+        "title": "Функции и массивы",
+        "description": "Функции, методы массивов, объекты",
+        "lessons": [
+          {
+            "id": 4,
+            "title": "Функции",
+            "description": "Пишем собственные функции и стрелочные",
+            "theory": [
+              "function имя() {} — обычная функция.",
+              "const имя = () => {} — стрелочная функция.",
+              "return возвращает результат.",
+              "Параметры указываются в скобках при объявлении."
+            ],
+            "examples": [
+              {
+                "title": "Функция сложения",
+                "code": "function add(a, b) {\n    return a + b;\n}\nconsole.log(add(2, 3)); // 5",
+                "explanation": "Функция add складывает два числа и возвращает результат."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Моя функция",
+                "description": "Напишите функцию greet(), которая выводит \"Привет!\". Вызовите её.",
+                "difficulty": "easy",
+                "initial_code": "// Напишите функцию greet\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "function greet()",
+                    "console.log('Привет!'",
+                    "greet()"
+                  ]
+                },
+                "hints": [
+                  "function greet() {",
+                  "внутри: console.log('Привет!');",
+                  "вызов: greet();"
+                ],
+                "solution": "function greet() {\n    console.log('Привет!');\n}\ngreet();",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Что делает return?",
+                "options": [
+                  "Выводит на экран",
+                  "Возвращает значение из функции",
+                  "Создаёт переменную",
+                  "Останавливает программу"
+                ],
+                "correct": 1,
+                "explain": "return возвращает результат в код, который вызвал функцию."
+              },
+              {
+                "question": "Как объявить стрелочную функцию?",
+                "options": [
+                  "def f() {}",
+                  "function f() {}",
+                  "const f = () => {}",
+                  "fun f() {}"
+                ],
+                "correct": 2,
+                "explain": "Стрелочная функция: const f = () => {} или const f = n => n * 2."
+              }
+            ],
+            "cheatsheet": "function имя(props) { тело }\nconst f = () => { тело }\nreturn — вернуть значение",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 5,
+            "title": "Массивы и методы",
+            "description": "Храним списки данных и работаем с ними",
+            "theory": [
+              "Массив — коллекция элементов в квадратных скобках.",
+              "Индексы начинаются с 0: arr[0].",
+              "push() добавляет в конец, pop() убирает последний.",
+              "length — количество элементов."
+            ],
+            "examples": [
+              {
+                "title": "Массив",
+                "code": "let nums = [3, 1, 2];\nnums.push(4);\nconsole.log(nums.length); // 4\nconsole.log(nums[0]);     // 3",
+                "explanation": "Добавили 4 в конец, проверили длину и первый элемент."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой массив",
+                "description": "Создайте массив fruits = [\"яблоко\", \"банан\"] и добавьте \"апельсин\" через push.",
+                "difficulty": "easy",
+                "initial_code": "// Создайте массив и добавьте элемент\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "let fruits",
+                    "push",
+                    "'апельсин'"
+                  ]
+                },
+                "hints": [
+                  "let fruits = [\"яблоко\", \"банан\"];",
+                  "fruits.push('апельсин');"
+                ],
+                "solution": "let fruits = ['яблоко', 'банан'];\nfruits.push('апельсин');",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как добавить элемент в конец массива?",
+                "options": [
+                  "arr.add()",
+                  "arr.push()",
+                  "arr.append()",
+                  "arr.insert()"
+                ],
+                "correct": 1,
+                "explain": "push() добавляет элемент в конец массива, unshift() — в начало."
+              },
+              {
+                "question": "С какого индекса начинается массив?",
+                "options": [
+                  "С 1",
+                  "С 0",
+                  "С -1",
+                  "С произвольного"
+                ],
+                "correct": 1,
+                "explain": "Индексы начинаются с 0, последний элемент — arr[arr.length - 1]."
+              }
+            ],
+            "cheatsheet": "arr = [1, 2, 3] — массив\narr.push(x) — в конец\narr.pop() — убрать последний\narr.length — длина",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          },
+          {
+            "id": 6,
+            "title": "Объекты и JSON",
+            "description": "Данные вида «ключ: значение»",
+            "theory": [
+              "Объект — коллекция пар «ключ: значение» в фигурных скобках.",
+              "Доступ: user.name или user[\"name\"].",
+              "JSON — текстовый формат для обмена данными.",
+              "JSON.stringify() превращает объект в строку, JSON.parse() — обратно."
+            ],
+            "examples": [
+              {
+                "title": "Объект",
+                "code": "let user = { name: 'Аня', age: 20 };\nconsole.log(user.name);\nlet json = JSON.stringify(user);",
+                "explanation": "Создали объект, прочитали поле и превратили в JSON-строку."
+              }
+            ],
+            "tasks": [
+              {
+                "id": 1,
+                "title": "Мой объект",
+                "description": "Создайте объект person с полями name и age, выведите name.",
+                "difficulty": "easy",
+                "initial_code": "// Создайте объект person\n",
+                "check": {
+                  "type": "contains",
+                  "require": [
+                    "let person",
+                    "name:",
+                    "person.name"
+                  ]
+                },
+                "hints": [
+                  "let person = { name: 'Аня', age: 20 };",
+                  "console.log(person.name);"
+                ],
+                "solution": "let person = { name: 'Аня', age: 20 };\nconsole.log(person.name);",
+                "examples": []
+              }
+            ],
+            "test": [
+              {
+                "question": "Как получить поле объекта?",
+                "options": [
+                  "obj[поле]",
+                  "obj.поле",
+                  "obj(поле)",
+                  "obj->поле"
+                ],
+                "correct": 1,
+                "explain": "Точка обращается к полю объекта: obj.поле или obj[\"поле\"]."
+              },
+              {
+                "question": "Что делает JSON.stringify()?",
+                "options": [
+                  "Превращает объект в строку",
+                  "Превращает строку в объект",
+                  "Выводит на экран",
+                  "Сравнивает объекты"
+                ],
+                "correct": 0,
+                "explain": "stringify переводит объект в строку, parse делает обратное."
+              }
+            ],
+            "cheatsheet": "obj = { key: 'value' } — объект\nobj.key — доступ\nJSON.stringify(obj) — в строку\nJSON.parse(str) — из строки",
+            "xp_reward": 15,
+            "difficulty": "easy"
+          }
+        ],
+        "test": {
+          "questions": [
+            {
+              "question": "Как объявить стрелочную функцию?",
+              "options": [
+                "function => x",
+                "const f = (x) => x * 2",
+                "x -> x * 2",
+                "lambda x: x * 2"
+              ],
+              "correct": 1,
+              "explain": "Стрелочные функции: (параметры) => выражение."
+            },
+            {
+              "question": "Что делает arr.push(x)?",
+              "options": [
+                "Удаляет элемент",
+                "Добавляет в конец массива",
+                "Сортирует массив",
+                "Копирует"
+              ],
+              "correct": 1,
+              "explain": "push() добавляет элемент в конец массива."
+            },
+            {
+              "question": "Что выведет: [1,2,3].map(x => x * 2)?",
+              "options": [
+                "[1,2,3]",
+                "[2,4,6]",
+                "6",
+                "ошибку"
+              ],
+              "correct": 1,
+              "explain": "map() применяет функцию к каждому элементу: [2,4,6]."
+            },
+            {
+              "question": "Как получить свойство \"name\" объекта obj?",
+              "options": [
+                "obj->name",
+                "obj.name или obj[\"name\"]",
+                "obj::name",
+                "obj#name"
+              ],
+              "correct": 1,
+              "explain": "Свойства доступны через точку или квадратные скобки."
+            },
+            {
+              "question": "Что вернёт typeof null?",
+              "options": [
+                "\"null\"",
+                "\"object\"",
+                "\"undefined\"",
+                "ошибку"
+              ],
+              "correct": 1,
+              "explain": "Особенность JS: typeof null === \"object\"."
+            }
+          ],
+          "pass_percent": 60,
+          "xp_reward": 30
+        }
+      }
+    ],
+    "cheatsheets": [
+      {
+        "title": "Переменные",
+        "icon": "🏷️",
+        "code": "let x = 5;          // изменяемая\nconst PI = 3.14;    // константа\nlet s = 'текст';    // строка\nlet b = true;       // boolean",
+        "note": "const нельзя переназначить, let — можно."
+      },
+      {
+        "title": "Строки и шаблоны",
+        "icon": "📝",
+        "code": "let name = 'Аня';\nname.length;                    // 3\nname.toUpperCase();             // АНЯ\nlet msg = `Привет, ${name}!`;   // шаблонная строка\nlet parts = 'a,b,c'.split(','); // ['a','b','c']",
+        "note": "Обратные кавычки позволяют вставлять значения прямо в текст."
+      },
+      {
+        "title": "Условия",
+        "icon": "🔀",
+        "code": "if (x > 0) {\n    console.log('+')\n} else if (x < 0) {\n    console.log('-')\n} else {\n    console.log('0')\n}",
+        "note": "=== сравнивает значение и тип."
+      },
+      {
+        "title": "Циклы",
+        "icon": "🔁",
+        "code": "for (let i = 0; i < 5; i++) {\n    console.log(i)\n}\n\nlet n = 0;\nwhile (n < 3) {\n    n++;\n}",
+        "note": "for — по числу шагов, while — по условию."
+      },
+      {
+        "title": "Массивы",
+        "icon": "📦",
+        "code": "let arr = [1, 2, 3];\narr.push(4);      // в конец\narr.pop();        // убрать последний\narr.length;       // длина\narr[0];           // первый",
+        "note": "Индексы с нуля. push/pop меняют массив."
+      },
+      {
+        "title": "Методы массива",
+        "icon": "🧮",
+        "code": "let nums = [1, 2, 3, 4];\nnums.map(n => n * 2);           // [2,4,6,8]\nnums.filter(n => n % 2 === 0);     // [2,4]\nnums.reduce((a, b) => a + b, 0); // 10\nnums.includes(3);               // true",
+        "note": "map меняет элементы, filter отбирает, reduce сворачивает их в одно значение."
+      },
+      {
+        "title": "Объекты и JSON",
+        "icon": "📚",
+        "code": "let user = { name: 'Аня', age: 20 };\nconsole.log(user.name);\nlet str = JSON.stringify(user);\nlet back = JSON.parse(str);",
+        "note": "JSON — текст, объект — структура. Переводим туда-обратно."
+      },
+      {
+        "title": "Функции",
+        "icon": "🛠️",
+        "code": "function add(a, b) {\n    return a + b;\n}\nconst mul = (a, b) => a * b;",
+        "note": "Можно объявлять function или стрелочной (=>)."
+      },
+      {
+        "title": "Классы",
+        "icon": "🏛️",
+        "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n  hello() {\n    return 'Привет, ' + this.name;\n  }\n}\n\nlet u = new User('Аня');\nu.hello();",
+        "note": "class и new работают так же, как в других языках."
+      },
+      {
+        "title": "Ошибки",
+        "icon": "🛡️",
+        "code": "try {\n  JSON.parse('не json');\n} catch (e) {\n  console.log('Ошибка: ' + e.message);\n} finally {\n  console.log('выполнится всегда');\n}",
+        "note": "try/catch не даёт программе упасть из-за неожиданных данных."
+      }
+    ]
+  }
+}

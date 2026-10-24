@@ -1,0 +1,1872 @@
+{
+ "csharp": {
+  "name": "C#",
+  "icon": "💜",
+  "color": "#9B4F96",
+  "description": "Язык платформы .NET: строгая типизация, классы и огромная стандартная библиотека.",
+  "difficulty": "Средний старт",
+  "final_project": "Учёт личных финансов на C#",
+  "modules": [
+   {
+    "id": 1,
+    "title": "Основы",
+    "description": "Уровень модуля: Лёгкий",
+    "difficulty": "easy",
+    "lessons": [
+     {
+      "id": 1,
+      "title": "Основы. Привет, мир!",
+      "description": "Выведи в консоль текст: Привет, мир!",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: выведи в консоль текст: привет, мир!",
+       "В задании обязательно используются: «Console.WriteLine», «Привет, мир!». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Привет, мир!»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Привет, мир!\");\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, Привет, мир!."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 101,
+        "title": "Привет, мир!",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Выведи в консоль текст: Привет, мир!",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "Привет, мир!",
+         "require": [
+          "Console.WriteLine",
+          "Привет, мир!"
+         ]
+        },
+        "hints": [
+         "Найди функцию вывода текста на экран в своём языке.",
+         "Строка должна совпадать точно: «Привет, мир!» — большая буква и восклицательный знак."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Привет, мир!\");\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 2,
+      "title": "Основы. Сумма двух чисел",
+      "description": "Даны числа 5 и 7. Выведи их сумму.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны числа 5 и 7. выведи их сумму.",
+       "В задании обязательно используются: «Console.WriteLine», «5», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма двух чисел»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 5;\n        int b = 7;\n        Console.WriteLine(a + b);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 5, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 201,
+        "title": "Сумма двух чисел",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны числа 5 и 7. Выведи их сумму.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "12",
+         "require": [
+          "Console.WriteLine",
+          "5",
+          "7"
+         ]
+        },
+        "hints": [
+         "Объяви две переменные: a = 5 и b = 7.",
+         "Выведи результат сложения оператором +."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 5;\n        int b = 7;\n        Console.WriteLine(a + b);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 3,
+      "title": "Основы. Деление с остатком",
+      "description": "Даны числа 17 и 5. Выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны числа 17 и 5. выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+       "В задании обязательно используются: «Console.WriteLine», «17», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Деление с остатком»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 17;\n        int b = 5;\n        Console.WriteLine(a / b + \" \" + a % b);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 17, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 301,
+        "title": "Деление с остатком",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны числа 17 и 5. Выведи в одной строке частное целочисленного деления и остаток через пробел: 3 2",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "3 2",
+         "require": [
+          "Console.WriteLine",
+          "17",
+          "5"
+         ]
+        },
+        "hints": [
+         "Для целочисленного деления используй оператор своего языка, остаток даёт оператор %.",
+         "Выведи два значения в одной строке через пробел."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 17;\n        int b = 5;\n        Console.WriteLine(a / b + \" \" + a % b);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 4,
+      "title": "Основы. Знакомство",
+      "description": "Создай переменные name = \"Анна\" и age = 25. Выведи ровно: Меня зовут Анна, мне 25",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: создай переменные name = \"анна\" и age = 25. выведи ровно: меня зовут анна, мне 25",
+       "В задании обязательно используются: «Console.WriteLine», «Анна», «25». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Знакомство»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        string name = \"Анна\";\n        int age = 25;\n        Console.WriteLine($\"Меня зовут {name}, мне {age}\");\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, Анна, 25."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 401,
+        "title": "Знакомство",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Создай переменные name = \"Анна\" и age = 25. Выведи ровно: Меня зовут Анна, мне 25",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "Меня зовут Анна, мне 25",
+         "require": [
+          "Console.WriteLine",
+          "Анна",
+          "25"
+         ]
+        },
+        "hints": [
+         "Подставь значения переменных в строку — интерполяцией или конкатенацией.",
+         "Вывод должен быть точно «Меня зовут Анна, мне 25» — с запятой после имени."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        string name = \"Анна\";\n        int age = 25;\n        Console.WriteLine($\"Меня зовут {name}, мне {age}\");\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 5,
+      "title": "Основы. Площадь прямоугольника",
+      "description": "Прямоугольник 6 × 4. Выведи его площадь: перемножь стороны.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: прямоугольник 6 × 4. выведи его площадь: перемножь стороны.",
+       "В задании обязательно используются: «Console.WriteLine», «6», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Площадь прямоугольника»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int width = 6;\n        int height = 4;\n        Console.WriteLine(width * height);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 6, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 501,
+        "title": "Площадь прямоугольника",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Прямоугольник 6 × 4. Выведи его площадь: перемножь стороны.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "24",
+         "require": [
+          "Console.WriteLine",
+          "6",
+          "4"
+         ]
+        },
+        "hints": [
+         "Площадь прямоугольника = ширина × высота.",
+         "Перемножь переменные width и height и выведи результат."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int width = 6;\n        int height = 4;\n        Console.WriteLine(width * height);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     },
+     {
+      "id": 6,
+      "title": "Основы. Обмен значений",
+      "description": "Даны переменные a = 5 и b = 7. Поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «основы». Разберём её на задании: даны переменные a = 5 и b = 7. поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+       "В задании обязательно используются: «Console.WriteLine», «5», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Обмен значений»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 5, b = 7;\n        int t = a;\n        a = b;\n        b = t;\n        Console.WriteLine(a + \" \" + b);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 5, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 601,
+        "title": "Обмен значений",
+        "topic": "Основы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Даны переменные a = 5 и b = 7. Поменяй их значения местами и выведи сначала новое a, потом новое b через пробел.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "7 5",
+         "require": [
+          "Console.WriteLine",
+          "5",
+          "7"
+         ]
+        },
+        "hints": [
+         "Запомни одно значение во временной переменной.",
+         "Либо используй множественное присваивание, если язык его поддерживает."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 5, b = 7;\n        int t = a;\n        a = b;\n        b = t;\n        Console.WriteLine(a + \" \" + b);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Основы",
+      "xp_reward": 10
+     }
+    ],
+    "test": {
+     "title": "Тест: Основы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Основы»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, Привет, мир!, 5."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "6",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 6 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 2,
+    "title": "Строки",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 7,
+      "title": "Строки. Длина строки",
+      "description": "Дана строка «Hello, world!». Выведи количество символов в ней.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «hello, world!». выведи количество символов в ней.",
+       "В задании обязательно используются: «Console.WriteLine», «Hello, world!». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Длина строки»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"Hello, world!\";\n        Console.WriteLine(s.Length);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, Hello, world!."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 701,
+        "title": "Длина строки",
+        "topic": "Строки",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дана строка «Hello, world!». Выведи количество символов в ней.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "13",
+         "require": [
+          "Console.WriteLine",
+          "Hello, world!"
+         ]
+        },
+        "hints": [
+         "Длину строки возвращает функция или свойство length.",
+         "Строка задана точно: «Hello, world!» — в ней 13 символов."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"Hello, world!\";\n        Console.WriteLine(s.Length);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 10
+     },
+     {
+      "id": 8,
+      "title": "Строки. Реверс строки",
+      "description": "Дана строка «hello». Выведи её символы в обратном порядке: olleh",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «hello». выведи её символы в обратном порядке: olleh",
+       "В задании обязательно используются: «Console.WriteLine», «hello». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Реверс строки»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"hello\";\n        char[] arr = s.ToCharArray();\n        Array.Reverse(arr);\n        Console.WriteLine(new string(arr));\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, hello."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 801,
+        "title": "Реверс строки",
+        "topic": "Строки",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дана строка «hello». Выведи её символы в обратном порядке: olleh",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "olleh",
+         "require": [
+          "Console.WriteLine",
+          "hello"
+         ]
+        },
+        "hints": [
+         "Во многих языках есть готовый метод переворота строки или массива символов.",
+         "Если готового метода нет — перебери символы от последнего к первому и собери новую строку."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"hello\";\n        char[] arr = s.ToCharArray();\n        Array.Reverse(arr);\n        Console.WriteLine(new string(arr));\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     },
+     {
+      "id": 9,
+      "title": "Строки. Гласные в строке",
+      "description": "Дана строка «программирование». Посчитай, сколько в ней гласных букв.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «программирование». посчитай, сколько в ней гласных букв.",
+       "В задании обязательно используются: «Console.WriteLine», «программирование». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Гласные в строке»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"программирование\";\n        string vowels = \"аеёиоуыэюя\";\n        int count = 0;\n        foreach (char ch in s) {\n            if (vowels.IndexOf(ch) >= 0) count++;\n        }\n        Console.WriteLine(count);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, программирование."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 901,
+        "title": "Гласные в строке",
+        "topic": "Строки",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дана строка «программирование». Посчитай, сколько в ней гласных букв.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "7",
+         "require": [
+          "Console.WriteLine",
+          "программирование"
+         ]
+        },
+        "hints": [
+         "Гласные русского алфавита: а, е, ё, и, о, у, ы, э, ю, я.",
+         "Перебери символы строки и проверь, входит ли символ в набор гласных."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"программирование\";\n        string vowels = \"аеёиоуыэюя\";\n        int count = 0;\n        foreach (char ch in s) {\n            if (vowels.IndexOf(ch) >= 0) count++;\n        }\n        Console.WriteLine(count);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     },
+     {
+      "id": 10,
+      "title": "Строки. Палиндром",
+      "description": "Дана строка «шалаш». Проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «строки». Разберём её на задании: дана строка «шалаш». проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+       "В задании обязательно используются: «Console.WriteLine», «шалаш». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Палиндром»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"шалаш\";\n        char[] arr = s.ToCharArray();\n        Array.Reverse(arr);\n        Console.WriteLine(s == new string(arr) ? \"палиндром\" : \"не палиндром\");\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, шалаш."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1001,
+        "title": "Палиндром",
+        "topic": "Строки",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дана строка «шалаш». Проверь, читается ли она одинаково в обе стороны, и выведи «палиндром» или «не палиндром».",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "палиндром",
+         "require": [
+          "Console.WriteLine",
+          "шалаш"
+         ]
+        },
+        "hints": [
+         "Сравни строку с её перевёрнутой версией.",
+         "«шалаш» читается одинаково слева направо и справа налево — значит, это палиндром."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        string s = \"шалаш\";\n        char[] arr = s.ToCharArray();\n        Array.Reverse(arr);\n        Console.WriteLine(s == new string(arr) ? \"палиндром\" : \"не палиндром\");\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Строки",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Строки",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Строки»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, Hello, world!, hello."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "4",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 4 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 3,
+    "title": "Условия",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 11,
+      "title": "Условия. Положительное или нет",
+      "description": "Число a = 10. Если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: число a = 10. если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+       "В задании обязательно используются: «Console.WriteLine», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Положительное или нет»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 10;\n        if (a > 0) {\n            Console.WriteLine(\"положительное\");\n        } else {\n            Console.WriteLine(\"отрицательное\");\n        }\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1101,
+        "title": "Положительное или нет",
+        "topic": "Условия",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Число a = 10. Если оно больше нуля — выведи «положительное», иначе — «отрицательное».",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "положительное",
+         "require": [
+          "Console.WriteLine",
+          "10"
+         ]
+        },
+        "hints": [
+         "Используй конструкцию if / else.",
+         "Условие: a > 0. Тело условия выделяется фигурными скобками или отступами — зависит от языка."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 10;\n        if (a > 0) {\n            Console.WriteLine(\"положительное\");\n        } else {\n            Console.WriteLine(\"отрицательное\");\n        }\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 10
+     },
+     {
+      "id": 12,
+      "title": "Условия. Чётное или нечётное",
+      "description": "Число n = 8. Выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: число n = 8. выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+       "В задании обязательно используются: «Console.WriteLine», «8», «%». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Чётное или нечётное»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 8;\n        if (n % 2 == 0) {\n            Console.WriteLine(\"чётное\");\n        } else {\n            Console.WriteLine(\"нечётное\");\n        }\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 8, %."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1201,
+        "title": "Чётное или нечётное",
+        "topic": "Условия",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Число n = 8. Выведи «чётное», если оно делится на 2 без остатка, иначе — «нечётное».",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "чётное",
+         "require": [
+          "Console.WriteLine",
+          "8",
+          "%"
+         ]
+        },
+        "hints": [
+         "Остаток от деления даёт оператор %.",
+         "Чётное число даёт остаток 0: n % 2 == 0."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 8;\n        if (n % 2 == 0) {\n            Console.WriteLine(\"чётное\");\n        } else {\n            Console.WriteLine(\"нечётное\");\n        }\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 10
+     },
+     {
+      "id": 13,
+      "title": "Условия. Максимум из трёх",
+      "description": "Даны числа 3, 9 и 5. Выведи наибольшее из них, не используя встроенную функцию максимума.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: даны числа 3, 9 и 5. выведи наибольшее из них, не используя встроенную функцию максимума.",
+       "В задании обязательно используются: «Console.WriteLine», «9», «3», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Максимум из трёх»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 3, b = 9, c = 5;\n        if (a >= b && a >= c) { Console.WriteLine(a); }\n        else if (b >= c) { Console.WriteLine(b); }\n        else { Console.WriteLine(c); }\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 9, 3, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1301,
+        "title": "Максимум из трёх",
+        "topic": "Условия",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Даны числа 3, 9 и 5. Выведи наибольшее из них, не используя встроенную функцию максимума.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "9",
+         "require": [
+          "Console.WriteLine",
+          "9",
+          "3",
+          "5"
+         ]
+        },
+        "hints": [
+         "Сравни первое число со вторым и третьим по очереди.",
+         "Если a больше b и больше c — максимум равен a."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 3, b = 9, c = 5;\n        if (a >= b && a >= c) { Console.WriteLine(a); }\n        else if (b >= c) { Console.WriteLine(b); }\n        else { Console.WriteLine(c); }\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 14,
+      "title": "Условия. День недели по номеру",
+      "description": "Дано число 3. Выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: дано число 3. выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+       "В задании обязательно используются: «Console.WriteLine», «3», «среда». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «День недели по номеру»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int day = 3;\n        if (day == 1) { Console.WriteLine(\"понедельник\"); }\n        else if (day == 2) { Console.WriteLine(\"вторник\"); }\n        else if (day == 3) { Console.WriteLine(\"среда\"); }\n        else { Console.WriteLine(\"другой день\"); }\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 3, среда."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1401,
+        "title": "День недели по номеру",
+        "topic": "Условия",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дано число 3. Выведи название дня недели: 1 — понедельник, 2 — вторник и так далее.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "среда",
+         "require": [
+          "Console.WriteLine",
+          "3",
+          "среда"
+         ]
+        },
+        "hints": [
+         "Тут удобнее цепочка условий else if.",
+         "1 — понедельник, 2 — вторник, 3 — среда."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int day = 3;\n        if (day == 1) { Console.WriteLine(\"понедельник\"); }\n        else if (day == 2) { Console.WriteLine(\"вторник\"); }\n        else if (day == 3) { Console.WriteLine(\"среда\"); }\n        else { Console.WriteLine(\"другой день\"); }\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 15,
+      "title": "Условия. Простое ли число",
+      "description": "Дано число 17. Проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: дано число 17. проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+       "В задании обязательно используются: «Console.WriteLine», «17». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Простое ли число»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 17;\n        bool isPrime = n > 1;\n        for (int d = 2; d * d <= n; d++) {\n            if (n % d == 0) { isPrime = false; break; }\n        }\n        Console.WriteLine(isPrime ? \"простое\" : \"составное\");\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 17."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1501,
+        "title": "Простое ли число",
+        "topic": "Условия",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Дано число 17. Проверь, простое ли оно (делится только на 1 и на само себя), и выведи «простое» или «составное».",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "простое",
+         "require": [
+          "Console.WriteLine",
+          "17"
+         ]
+        },
+        "hints": [
+         "Число простое, если у него нет делителей кроме 1 и самого числа.",
+         "Достаточно проверять делители до квадратного корня из числа."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 17;\n        bool isPrime = n > 1;\n        for (int d = 2; d * d <= n; d++) {\n            if (n % d == 0) { isPrime = false; break; }\n        }\n        Console.WriteLine(isPrime ? \"простое\" : \"составное\");\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     },
+     {
+      "id": 16,
+      "title": "Условия. Мини-калькулятор",
+      "description": "Даны числа a = 3 и b = 4 и код операции op = \"*\". Выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «условия». Разберём её на задании: даны числа a = 3 и b = 4 и код операции op = \"*\". выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+       "В задании обязательно используются: «Console.WriteLine», «3», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Мини-калькулятор»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 3, b = 4;\n        string op = \"*\";\n        int result = 0;\n        switch (op) {\n            case \"+\": result = a + b; break;\n            case \"-\": result = a - b; break;\n            case \"*\": result = a * b; break;\n            default: result = a / b; break;\n        }\n        Console.WriteLine(result);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 3, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1601,
+        "title": "Мини-калькулятор",
+        "topic": "Условия",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Даны числа a = 3 и b = 4 и код операции op = \"*\". Выполни соответствующее действие (поддержи +, -, *, /) и выведи результат.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "12",
+         "require": [
+          "Console.WriteLine",
+          "3",
+          "4"
+         ]
+        },
+        "hints": [
+         "Код операции хранится в переменной op.",
+         "Выбери действие через switch / match или цепочку условий."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int a = 3, b = 4;\n        string op = \"*\";\n        int result = 0;\n        switch (op) {\n            case \"+\": result = a + b; break;\n            case \"-\": result = a - b; break;\n            case \"*\": result = a * b; break;\n            default: result = a / b; break;\n        }\n        Console.WriteLine(result);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Условия",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Условия",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Условия»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, 10, 8."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "6",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 6 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 4,
+    "title": "Циклы",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 17,
+      "title": "Циклы. Сумма чисел от 1 до 10",
+      "description": "Посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+       "В задании обязательно используются: «Console.WriteLine», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма чисел от 1 до 10»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int total = 0;\n        for (int i = 1; i <= 10; i++) { total += i; }\n        Console.WriteLine(total);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1701,
+        "title": "Сумма чисел от 1 до 10",
+        "topic": "Циклы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Посчитай сумму всех целых чисел от 1 до 10 включительно и выведи результат.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "55",
+         "require": [
+          "Console.WriteLine",
+          "10"
+         ]
+        },
+        "hints": [
+         "Заведи переменную-накопитель со значением 0.",
+         "В цикле прибавляй к накопителю счётчик, потом выведи накопитель."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int total = 0;\n        for (int i = 1; i <= 10; i++) { total += i; }\n        Console.WriteLine(total);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 10
+     },
+     {
+      "id": 18,
+      "title": "Циклы. Таблица умножения на 3",
+      "description": "Выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+       "В задании обязательно используются: «Console.WriteLine», «3», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Таблица умножения на 3»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        for (int i = 1; i <= 10; i++) {\n            Console.Write(i * 3);\n            if (i < 10) Console.Write(\" \");\n        }\n        Console.WriteLine();\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 3, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1801,
+        "title": "Таблица умножения на 3",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Выведи в одну строку результаты умножения числа 3 на 1, 2, … 10, разделённые пробелом.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "3 6 9 12 15 18 21 24 27 30",
+         "require": [
+          "Console.WriteLine",
+          "3",
+          "10"
+         ]
+        },
+        "hints": [
+         "Пройди циклом от 1 до 10 и умножай счётчик на 3.",
+         "Чтобы всё было в одной строке, выводи без перевода строки и добавляй пробел между числами."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        for (int i = 1; i <= 10; i++) {\n            Console.Write(i * 3);\n            if (i < 10) Console.Write(\" \");\n        }\n        Console.WriteLine();\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 19,
+      "title": "Циклы. Факториал числа 5",
+      "description": "Посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+       "В задании обязательно используются: «Console.WriteLine», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Факториал числа 5»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 5;\n        int fact = 1;\n        for (int i = 1; i <= n; i++) { fact *= i; }\n        Console.WriteLine(fact);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 1901,
+        "title": "Факториал числа 5",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Посчитай факториал числа 5 (1 · 2 · 3 · 4 · 5) и выведи результат.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "120",
+         "require": [
+          "Console.WriteLine",
+          "5"
+         ]
+        },
+        "hints": [
+         "Факториал — это произведение всех чисел от 1 до n.",
+         "Начни накопитель с 1 и в цикле умножай его на счётчик."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 5;\n        int fact = 1;\n        for (int i = 1; i <= n; i++) { fact *= i; }\n        Console.WriteLine(fact);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 20,
+      "title": "Циклы. Сумма цифр числа",
+      "description": "Дано число 456. Посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: дано число 456. посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+       "В задании обязательно используются: «Console.WriteLine», «456». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма цифр числа»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 456;\n        int total = 0;\n        while (n > 0) { total += n % 10; n /= 10; }\n        Console.WriteLine(total);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 456."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2001,
+        "title": "Сумма цифр числа",
+        "topic": "Циклы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дано число 456. Посчитай сумму его цифр (4 + 5 + 6) и выведи её.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "15",
+         "require": [
+          "Console.WriteLine",
+          "456"
+         ]
+        },
+        "hints": [
+         "Последнюю цифру числа даёт остаток от деления на 10.",
+         "После каждой цифры уменьшай число целочисленным делением на 10, пока оно не станет нулём."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 456;\n        int total = 0;\n        while (n > 0) { total += n % 10; n /= 10; }\n        Console.WriteLine(total);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     },
+     {
+      "id": 21,
+      "title": "Циклы. Числа Фибоначчи",
+      "description": "Выведи первые 7 чисел Фибоначчи через пробел. Последовательность начинается с 0 и 1.",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «циклы». Разберём её на задании: выведи первые 7 чисел фибоначчи через пробел. последовательность начинается с 0 и 1.",
+       "В задании обязательно используются: «Console.WriteLine», «7». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Числа Фибоначчи»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 7;\n        int a = 0, b = 1;\n        string output = \"\";\n        for (int i = 0; i < n; i++) {\n            output += a + (i < n - 1 ? \" \" : \"\");\n            int next = a + b;\n            a = b;\n            b = next;\n        }\n        Console.WriteLine(output);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 7."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2101,
+        "title": "Числа Фибоначчи",
+        "topic": "Циклы",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Выведи первые 7 чисел Фибоначчи через пробел. Последовательность начинается с 0 и 1.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "0 1 1 2 3 5 8",
+         "require": [
+          "Console.WriteLine",
+          "7"
+         ]
+        },
+        "hints": [
+         "Первые два числа — 0 и 1.",
+         "Каждое следующее число — сумма двух предыдущих: сдвигай a = b, b = a + b."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int n = 7;\n        int a = 0, b = 1;\n        string output = \"\";\n        for (int i = 0; i < n; i++) {\n            output += a + (i < n - 1 ? \" \" : \"\");\n            int next = a + b;\n            a = b;\n            b = next;\n        }\n        Console.WriteLine(output);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Циклы",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Циклы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Циклы»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, 10, 3."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "5",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 5 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 5,
+    "title": "Массивы",
+    "description": "Уровень модуля: Средний",
+    "difficulty": "medium",
+    "lessons": [
+     {
+      "id": 22,
+      "title": "Массивы. Сумма элементов массива",
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи сумму всех его элементов.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5]. выведи сумму всех его элементов.",
+       "В задании обязательно используются: «Console.WriteLine», «1», «2», «3», «4», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сумма элементов массива»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5};\n        int total = 0;\n        foreach (int n in nums) { total += n; }\n        Console.WriteLine(total);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 1, 2, 3, 4, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2201,
+        "title": "Сумма элементов массива",
+        "topic": "Массивы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дан массив [1, 2, 3, 4, 5]. Выведи сумму всех его элементов.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "15",
+         "require": [
+          "Console.WriteLine",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ]
+        },
+        "hints": [
+         "Сумму массива можно посчитать циклом или готовой функцией.",
+         "Пройди по всем элементам и прибавляй их к накопителю."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5};\n        int total = 0;\n        foreach (int n in nums) { total += n; }\n        Console.WriteLine(total);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 10
+     },
+     {
+      "id": 23,
+      "title": "Массивы. Сколько чётных чисел",
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+      "difficulty": "easy",
+      "level_title": "Лёгкий",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+       "В задании обязательно используются: «Console.WriteLine», «10». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Лёгкий»: повтори синтаксис и собери программу по образцу."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Сколько чётных чисел»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int count = 0;\n        foreach (int n in nums) { if (n % 2 == 0) count++; }\n        Console.WriteLine(count);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 10."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2301,
+        "title": "Сколько чётных чисел",
+        "topic": "Массивы",
+        "difficulty": "easy",
+        "xp": 10,
+        "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Посчитай, сколько в нём чётных чисел, и выведи счётчик.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "5",
+         "require": [
+          "Console.WriteLine",
+          "10"
+         ]
+        },
+        "hints": [
+         "Счётчик начинается с нуля.",
+         "Увеличивай счётчик, когда элемент делится на 2 без остатка."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int count = 0;\n        foreach (int n in nums) { if (n % 2 == 0) count++; }\n        Console.WriteLine(count);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 10
+     },
+     {
+      "id": 24,
+      "title": "Массивы. Максимум в массиве",
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наибольший элемент.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [4, 8, 15, 16, 23, 42]. выведи его наибольший элемент.",
+       "В задании обязательно используются: «Console.WriteLine», «4», «8», «15», «16», «23», «42». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Максимум в массиве»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        foreach (int n in nums) { if (n > best) best = n; }\n        Console.WriteLine(best);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 4, 8, 15, 16, 23, 42."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2401,
+        "title": "Максимум в массиве",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наибольший элемент.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "42",
+         "require": [
+          "Console.WriteLine",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+         ]
+        },
+        "hints": [
+         "Начни с первого элемента как текущего максимума.",
+         "Сравнивай каждый элемент с текущим максимумом и обновляй его."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        foreach (int n in nums) { if (n > best) best = n; }\n        Console.WriteLine(best);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 25,
+      "title": "Массивы. Минимум в массиве",
+      "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наименьший элемент.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [4, 8, 15, 16, 23, 42]. выведи его наименьший элемент.",
+       "В задании обязательно используются: «Console.WriteLine», «4», «8», «15», «16», «23», «42». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Минимум в массиве»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        foreach (int n in nums) { if (n < best) best = n; }\n        Console.WriteLine(best);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 4, 8, 15, 16, 23, 42."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2501,
+        "title": "Минимум в массиве",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [4, 8, 15, 16, 23, 42]. Выведи его наименьший элемент.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "4",
+         "require": [
+          "Console.WriteLine",
+          "4",
+          "8",
+          "15",
+          "16",
+          "23",
+          "42"
+         ]
+        },
+        "hints": [
+         "Начни с первого элемента как текущего минимума.",
+         "Сравнивай каждый элемент с текущим минимумом и обновляй его."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {4, 8, 15, 16, 23, 42};\n        int best = nums[0];\n        foreach (int n in nums) { if (n < best) best = n; }\n        Console.WriteLine(best);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 26,
+      "title": "Массивы. Среднее арифметическое",
+      "description": "Дан массив [2, 4, 6]. Выведи среднее арифметическое его элементов целым числом.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [2, 4, 6]. выведи среднее арифметическое его элементов целым числом.",
+       "В задании обязательно используются: «Console.WriteLine», «2», «4», «6». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Среднее арифметическое»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {2, 4, 6};\n        int total = 0;\n        foreach (int n in nums) { total += n; }\n        Console.WriteLine(total / nums.Length);\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 2, 4, 6."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2601,
+        "title": "Среднее арифметическое",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [2, 4, 6]. Выведи среднее арифметическое его элементов целым числом.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "4",
+         "require": [
+          "Console.WriteLine",
+          "2",
+          "4",
+          "6"
+         ]
+        },
+        "hints": [
+         "Сначала посчитай сумму элементов.",
+         "Среднее — это сумма, делённая на количество элементов (целочисленно)."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {2, 4, 6};\n        int total = 0;\n        foreach (int n in nums) { total += n; }\n        Console.WriteLine(total / nums.Length);\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 27,
+      "title": "Массивы. Только чётные числа",
+      "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8]. Выведи в одну строку только чётные числа через пробел.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5, 6, 7, 8]. выведи в одну строку только чётные числа через пробел.",
+       "В задании обязательно используются: «Console.WriteLine», «8». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Только чётные числа»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};\n        foreach (int n in nums) {\n            if (n % 2 == 0) Console.Write(n + \" \");\n        }\n        Console.WriteLine();\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 8."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2701,
+        "title": "Только чётные числа",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [1, 2, 3, 4, 5, 6, 7, 8]. Выведи в одну строку только чётные числа через пробел.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "2 4 6 8",
+         "require": [
+          "Console.WriteLine",
+          "8"
+         ]
+        },
+        "hints": [
+         "Проверяй каждый элемент: n % 2 == 0.",
+         "Собери чётные числа и выведи их через пробел."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8};\n        foreach (int n in nums) {\n            if (n % 2 == 0) Console.Write(n + \" \");\n        }\n        Console.WriteLine();\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     },
+     {
+      "id": 28,
+      "title": "Массивы. Реверс массива",
+      "description": "Дан массив [1, 2, 3, 4, 5]. Выведи его элементы в обратном порядке через пробел.",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «массивы». Разберём её на задании: дан массив [1, 2, 3, 4, 5]. выведи его элементы в обратном порядке через пробел.",
+       "В задании обязательно используются: «Console.WriteLine», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Реверс массива»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5};\n        for (int i = nums.Length - 1; i >= 0; i--)\n            Console.Write(nums[i] + \" \");\n        Console.WriteLine();\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2801,
+        "title": "Реверс массива",
+        "topic": "Массивы",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Дан массив [1, 2, 3, 4, 5]. Выведи его элементы в обратном порядке через пробел.",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "5 4 3 2 1",
+         "require": [
+          "Console.WriteLine",
+          "5"
+         ]
+        },
+        "hints": [
+         "Можно перевернуть массив готовым методом или пройти его с конца.",
+         "Выводи элементы через пробел, чтобы получить «5 4 3 2 1»."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        int[] nums = {1, 2, 3, 4, 5};\n        for (int i = nums.Length - 1; i >= 0; i--)\n            Console.Write(nums[i] + \" \");\n        Console.WriteLine();\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Массивы",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Массивы",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Массивы»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, 1, 2."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "7",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 7 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   },
+   {
+    "id": 6,
+    "title": "Функции",
+    "description": "Уровень модуля: Сложный",
+    "difficulty": "hard",
+    "lessons": [
+     {
+      "id": 29,
+      "title": "Функции. Функция сложения",
+      "description": "Напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+      "difficulty": "medium",
+      "level_title": "Средний",
+      "theory": [
+       "Тема урока — «функции». Разберём её на задании: напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+       "В задании обязательно используются: «Console.WriteLine», «static int Add», «3», «4». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Средний»: выбери подходящий алгоритм и напиши решение сам."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Функция сложения»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(Add(3, 4));\n    }\n\n    static int Add(int a, int b) {\n        return a + b;\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, static int Add, 3, 4."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 2901,
+        "title": "Функция сложения",
+        "topic": "Функции",
+        "difficulty": "medium",
+        "xp": 15,
+        "description": "Напиши функцию add(a, b), которая возвращает сумму двух чисел, и выведи результат add(3, 4).",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "7",
+         "require": [
+          "Console.WriteLine",
+          "static int Add",
+          "3",
+          "4"
+         ]
+        },
+        "hints": [
+         "Объяви функцию с двумя параметрами и верни их сумму.",
+         "Вызови функцию с аргументами 3 и 4 и выведи результат."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(Add(3, 4));\n    }\n\n    static int Add(int a, int b) {\n        return a + b;\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Функции",
+      "xp_reward": 15
+     },
+     {
+      "id": 30,
+      "title": "Функции. Функция факториала",
+      "description": "Напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+      "difficulty": "hard",
+      "level_title": "Сложный",
+      "theory": [
+       "Тема урока — «функции». Разберём её на задании: напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+       "В задании обязательно используются: «Console.WriteLine», «5». Именно их ищет проверка, поэтому без них решение не засчитается.",
+       "Уровень «Сложный»: задача как в реальной работе — собери решение из нескольких шагов.",
+       "Совет: разбей задачу на шаги и проверь каждый шаг отдельно — так проще найти ошибку."
+      ],
+      "examples": [
+       {
+        "title": "Решение задания «Функция факториала»",
+        "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(Fact(5));\n    }\n\n    static int Fact(int n) {\n        int result = 1;\n        for (int i = 1; i <= n; i++) result *= i;\n        return result;\n    }\n}",
+        "explanation": "Разбор эталонного решения: так задание засчитывается. Сравни со своим и найди, что упустил. Обрати внимание на: Console.WriteLine, 5."
+       }
+      ],
+      "tasks": [
+       {
+        "id": 3001,
+        "title": "Функция факториала",
+        "topic": "Функции",
+        "difficulty": "hard",
+        "xp": 20,
+        "description": "Напиши функцию fact(n), которая считает факториал, и выведи fact(5).",
+        "initial_code": "using System;\n\nclass Program {\n    static void Main() {\n        // Твой код здесь\n    }\n}\n",
+        "check": {
+         "type": "stdout_csharp",
+         "expected": "120",
+         "require": [
+          "Console.WriteLine",
+          "5"
+         ]
+        },
+        "hints": [
+         "Факториал 5 — это 1 · 2 · 3 · 4 · 5.",
+         "Внутри функции используй цикл и накопитель, начиная с 1."
+        ],
+        "solution": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(Fact(5));\n    }\n\n    static int Fact(int n) {\n        int result = 1;\n        for (int i = 1; i <= n; i++) result *= i;\n        return result;\n    }\n}"
+       }
+      ],
+      "test": [],
+      "cheatsheet": "Функции",
+      "xp_reward": 15
+     }
+    ],
+    "test": {
+     "title": "Тест: Функции",
+     "questions": [
+      {
+       "question": "Что чаще всего используют в теме «Функции»?",
+       "options": [
+        "Console.WriteLine",
+        "ничего из этого",
+        "только теория",
+        "что-то совсем другое"
+       ],
+       "correct": 0,
+       "explain": "В заданиях этого модуля проверяется: Console.WriteLine, static int Add, 3."
+      },
+      {
+       "question": "Сколько заданий в этом модуле?",
+       "options": [
+        "2",
+        "одно",
+        "десять",
+        "столько же, сколько уроков"
+       ],
+       "correct": 0,
+       "explain": "В модуле 2 заданий — по одному на урок."
+      },
+      {
+       "question": "Что делать, если задание не засчитывается?",
+       "options": [
+        "Посмотреть подсказку и разобрать пример",
+        "Переписать всё с нуля",
+        "Пропустить модуль",
+        "Ничего"
+       ],
+       "correct": 0,
+       "explain": "После третьей попытки появляется подсказка, после четвёртой — полное решение."
+      }
+     ]
+    }
+   }
+  ],
+  "entrance_test": [
+   {
+    "question": "Как вывести текст в C#?",
+    "options": [
+     "print()",
+     "Console.WriteLine()",
+     "echo",
+     "console.log()"
+    ],
+    "correct": 1
+   },
+   {
+    "question": "Как называется точка входа?",
+    "options": [
+     "Main",
+     "main",
+     "Start",
+     "Run"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой тип подходит для текста?",
+    "options": [
+     "string",
+     "str",
+     "text",
+     "char"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить массив?",
+    "options": [
+     "int[] a = {1, 2};",
+     "int a[] = (1, 2);",
+     "array a = [1, 2];",
+     "a = [1, 2];"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Какой цикл перебирает коллекцию?",
+    "options": [
+     "foreach",
+     "for",
+     "while",
+     "repeat"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что подключает using System?",
+    "options": [
+     "пространство имён",
+     "пакет",
+     "класс",
+     "файл"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Как объявить переменную с автоматическим типом?",
+    "options": [
+     "var x = 5;",
+     "let x = 5;",
+     "x := 5",
+     "auto x = 5;"
+    ],
+    "correct": 0
+   },
+   {
+    "question": "Что означает static у метода?",
+    "options": [
+     "метод принадлежит классу, а не объекту",
+     "метод неизменяемый",
+     "метод вернёт число",
+     "метод приватный"
+    ],
+    "correct": 0
+   }
+  ],
+  "cheatsheets": [
+   {
+    "title": "Основы",
+    "icon": "🏗️",
+    "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Привет\");\n    }\n}",
+    "note": "Код C# живёт внутри классов.",
+    "why": "C# — язык .NET со строгой типизацией: ошибки ловятся при компиляции, а библиотеки .NET подключаются сразу.",
+    "where": "Приложения Windows, сайты и API на ASP.NET, игры на Unity, корпоративные системы."
+   },
+   {
+    "title": "Переменные",
+    "icon": "🏷️",
+    "code": "int x = 5;\nvar name = \"Аня\";\ndouble pi = 3.14;\nbool ok = true;",
+    "note": "var выводит тип из значения.",
+    "why": "C# — язык .NET со строгой типизацией: ошибки ловятся при компиляции, а библиотеки .NET подключаются сразу.",
+    "where": "Приложения Windows, сайты и API на ASP.NET, игры на Unity, корпоративные системы."
+   },
+   {
+    "title": "Строки",
+    "icon": "📝",
+    "code": "string name = \"Аня\";\nname.Length;             // 3\nname.ToUpper();          // АНЯ\nname.Contains(\"н\");      // true\nstring msg = $\"Привет, {name}!\";   // интерполяция",
+    "note": "Знак $ перед строкой включает подстановку значений в фигурных скобках.",
+    "why": "C# — язык .NET со строгой типизацией: ошибки ловятся при компиляции, а библиотеки .NET подключаются сразу.",
+    "where": "Приложения Windows, сайты и API на ASP.NET, игры на Unity, корпоративные системы."
+   },
+   {
+    "title": "Условия",
+    "icon": "🔀",
+    "code": "if (n > 0) { ... } else { ... }\nswitch (x) {\n    case 1: ...; break;\n    default: ...; break;\n}",
+    "note": "Скобки в условии обязательны.",
+    "why": "C# — язык .NET со строгой типизацией: ошибки ловятся при компиляции, а библиотеки .NET подключаются сразу.",
+    "where": "Приложения Windows, сайты и API на ASP.NET, игры на Unity, корпоративные системы."
+   },
+   {
+    "title": "Циклы",
+    "icon": "🔁",
+    "code": "for (int i = 0; i < 5; i++) { ... }\nforeach (var x in items) { ... }\nwhile (условие) { ... }",
+    "note": "foreach удобен для коллекций.",
+    "why": "C# — язык .NET со строгой типизацией: ошибки ловятся при компиляции, а библиотеки .NET подключаются сразу.",
+    "where": "Приложения Windows, сайты и API на ASP.NET, игры на Unity, корпоративные системы."
+   },
+   {
+    "title": "Массивы",
+    "icon": "📚",
+    "code": "int[] nums = {1, 2, 3};\nnums.Length\nvar list = new List<int> { 1, 2 };\nlist.Add(3);",
+    "note": "List<int> умеет расти, массив — нет.",
+    "why": "LINQ и коллекции позволяют обрабатывать данные одной строкой: Where, Select, OrderBy — как в SQL, только в коде.",
+    "where": "Загрузка списка из базы, фильтрация и сортировка на форме, сервисный слой приложения."
+   },
+   {
+    "title": "Коллекции",
+    "icon": "🗂️",
+    "code": "var list = new List<string> { \"Аня\", \"Иван\" };\nlist.Add(\"Пётр\");\nlist.Remove(\"Иван\");\nlist.Count;             // 2\nlist.Contains(\"Аня\");   // true\n\nvar ages = new Dictionary<string, int> { { \"Аня\", 20 } };\nages[\"Иван\"] = 25;\nages.Count;             // 2",
+    "note": "List — растущий список, Dictionary — словарь «ключ: значение».",
+    "why": "LINQ и коллекции позволяют обрабатывать данные одной строкой: Where, Select, OrderBy — как в SQL, только в коде.",
+    "where": "Загрузка списка из базы, фильтрация и сортировка на форме, сервисный слой приложения."
+   },
+   {
+    "title": "Методы",
+    "icon": "🧩",
+    "code": "static int Add(int a, int b) {\n    return a + b;\n}",
+    "note": "static нужен, чтобы вызывать метод из Main.",
+    "why": "LINQ и коллекции позволяют обрабатывать данные одной строкой: Where, Select, OrderBy — как в SQL, только в коде.",
+    "where": "Загрузка списка из базы, фильтрация и сортировка на форме, сервисный слой приложения."
+   },
+   {
+    "title": "Классы и объекты",
+    "icon": "🏛️",
+    "code": "class User {\n    public string Name { get; set; }\n\n    public User(string name) {\n        Name = name;\n    }\n\n    public string Hello() => \"Привет, \" + Name;\n}\n\nvar u = new User(\"Аня\");\nConsole.WriteLine(u.Hello());",
+    "note": "Свойства с get/set удобнее публичных полей.",
+    "why": "LINQ и коллекции позволяют обрабатывать данные одной строкой: Where, Select, OrderBy — как в SQL, только в коде.",
+    "where": "Загрузка списка из базы, фильтрация и сортировка на форме, сервисный слой приложения."
+   },
+   {
+    "title": "Ошибки",
+    "icon": "🛡️",
+    "code": "try {\n    int n = int.Parse(\"abc\");\n} catch (FormatException e) {\n    Console.WriteLine(\"Не число: \" + e.Message);\n} finally {\n    Console.WriteLine(\"всегда\");\n}",
+    "note": "catch ловит конкретный тип исключения, finally выполняется всегда.",
+    "why": "Исключения — стандартный способ сообщить об ошибке; их перехватывают или пробрасывают выше.",
+    "where": "Ошибка подключения к базе, некорректный ввод, отсутствие файла."
+   }
+  ],
+  "levels": {
+   "easy": 12,
+   "medium": 12,
+   "hard": 6
+  }
+ }
+}

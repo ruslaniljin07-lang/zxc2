@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Codigo{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=18">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="code-bg" id="codeBg" aria-hidden="true"></div>
+<header class="nav-shell">
+    <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand brand-mark" href="{{ url_for('index') }}">
+                <span class="mark-brace">{</span>&nbsp;Codigo&nbsp;<span class="mark-label">_</span><span class="mark-brace">}</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Меню">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarNav" class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Дашборд</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-link-style dropdown-toggle {% if request.endpoint in ('lessons','lesson','language_course') %}active{% endif %}"
+                               href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ nav_lang_info.icon }} {{ nav_lang_info.name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><h6 class="dropdown-header">Мои курсы</h6></li>
+                                {% for lang in nav_languages %}
+                                <li>
+                                    <a class="dropdown-item {% if lang.code == nav_lang %}active{% endif %}"
+                                       href="{{ url_for('language_course', lang_code=lang.code) }}">
+                                        {{ lang.icon }} {{ lang.name }}
+                                        <span class="text-muted small">· {{ lang.lessons_count }} уроков</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('index') }}">🌐 Все языки</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'test' %}active{% endif %}" href="{{ url_for('test', lang_code=nav_lang) }}">Тест</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint in ('lessons','lesson') %}active{% endif %}" href="{{ url_for('lessons', lang_code=nav_lang) }}">Уроки</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'sandbox' %}active{% endif %}" href="{{ url_for('sandbox', lang=nav_lang) }}">Песочница</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'cheat_sheet' %}active{% endif %}" href="{{ url_for('cheat_sheet', lang=nav_lang) }}">Шпаргалка</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'leaderboard' %}active{% endif %}" href="{{ url_for('leaderboard') }}">Лидеры</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-style {% if request.endpoint == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}">Профиль</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item me-2">
+                            <a class="nav-link user-chip" href="{{ url_for('profile') }}">
+                                <span class="chip-avatar">{{ current_user.username[0]|upper or '?' }}</span>
+                                <span>{{ current_user.username }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-nav-ghost btn-sm" href="{{ url_for('logout') }}">
+                                <i class="bi bi-box-arrow-left"></i> Выйти
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item me-1">
+                            <a class="btn btn-nav-ghost btn-sm" href="{{ url_for('login') }}">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm" href="{{ url_for('register') }}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container mt-4" style="min-height:60vh;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer-shell">
+    <div class="container">
+        <div class="foot-brand"><span class="mark-brace">{</span>&nbsp;Codigo&nbsp;<span class="mark-brace">}</span></div>
+    </div>
+</footer>
+
+<div class="sounddock" id="soundDock">
+    <button type="button" class="float-btn on" id="musicBtn" title="Фоновая музыка"
+            aria-label="Фоновая музыка">
+        <i class="bi bi-music-note-beamed"></i>
+    </button>
+    <button type="button" class="float-btn" id="soundsBtn" title="Звуки кликов"
+            aria-label="Звуки кликов">
+        <i class="bi bi-volume-up"></i>
+    </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}?v=14"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,75 @@
+======================================================================
+cpp.json
+  top-level type: dict  keys: ['cpp']
+  unwrapped inner keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+  modules=3 lessons=6
+  entrance_test=8
+  cheatsheets type=list len=6
+  final_project=Менеджер заметок
+    M1: 'Основы C++' lessons=2 tasks=2 quiz=4
+       L1: 'Первая программа' theory=4 ex=1 tasks=1 test=2
+       L2: 'Переменные и типы' theory=4 ex=1 tasks=1 test=2
+    M2: 'Условия и циклы' lessons=2 tasks=2 quiz=4
+       L3: 'Условия if / else' theory=4 ex=1 tasks=1 test=2
+       L4: 'Циклы for и while' theory=4 ex=1 tasks=1 test=2
+    M3: 'Массивы, строки и функции' lessons=2 tasks=2 quiz=4
+       L5: 'Массивы и строки' theory=4 ex=1 tasks=1 test=2
+       L6: 'Функции и указатели' theory=4 ex=1 tasks=1 test=2
+======================================================================
+java.json
+  top-level type: dict  keys: ['java']
+  unwrapped inner keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+  modules=3 lessons=7
+  entrance_test=8
+  cheatsheets type=list len=6
+  final_project=Система управления библиотекой
+    M1: 'Основы Java' lessons=3 tasks=3 quiz=6
+       L1: 'Первая программа' theory=4 ex=1 tasks=1 test=2
+       L2: 'Переменные и типы' theory=4 ex=1 tasks=1 test=2
+       L3: 'Условия if / else' theory=4 ex=1 tasks=1 test=2
+    M2: 'Массивы и строки' lessons=2 tasks=2 quiz=4
+       L4: 'Массивы' theory=4 ex=1 tasks=1 test=2
+       L5: 'Строки String' theory=4 ex=1 tasks=1 test=2
+    M3: 'ООП в Java' lessons=2 tasks=2 quiz=4
+       L6: 'Классы и объекты' theory=4 ex=1 tasks=1 test=2
+       L7: 'Наследование' theory=4 ex=1 tasks=1 test=2
+======================================================================
+javascript.json
+  top-level type: dict  keys: ['javascript']
+  unwrapped inner keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+  modules=2 lessons=6
+  entrance_test=8
+  cheatsheets type=list len=6
+  final_project=Интерактивный планировщик задач
+    M1: 'Основы JavaScript' lessons=3 tasks=3 quiz=6
+       L1: 'Первая программа' theory=4 ex=1 tasks=1 test=2
+       L2: 'Переменные и типы' theory=4 ex=1 tasks=1 test=2
+       L3: 'Условия if / else' theory=4 ex=1 tasks=1 test=2
+    M2: 'Функции и массивы' lessons=3 tasks=3 quiz=6
+       L4: 'Функции' theory=4 ex=1 tasks=1 test=2
+       L5: 'Массивы и методы' theory=4 ex=1 tasks=1 test=2
+       L6: 'Объекты и JSON' theory=4 ex=1 tasks=1 test=2
+======================================================================
+python.json
+  top-level type: dict  keys: ['python']
+  unwrapped inner keys: ['name', 'icon', 'color', 'description', 'difficulty', 'final_project', 'entrance_test', 'modules', 'cheatsheets']
+  modules=4 lessons=12
+  entrance_test=8
+  cheatsheets type=list len=8
+  final_project=Менеджер задач
+    M1: 'Основы Python' lessons=3 tasks=3 quiz=6
+       L1: 'Первая программа' theory=4 ex=1 tasks=1 test=2
+       L2: 'Переменные и типы данных' theory=4 ex=1 tasks=1 test=2
+       L3: 'Арифметика и строки' theory=4 ex=1 tasks=1 test=2
+    M2: 'Условия и циклы' lessons=3 tasks=3 quiz=6
+       L4: 'Условия if / else' theory=4 ex=1 tasks=1 test=2
+       L5: 'elif и логика' theory=4 ex=1 tasks=1 test=2
+       L6: 'Циклы for и while' theory=4 ex=1 tasks=1 test=2
+    M3: 'Списки и функции' lessons=3 tasks=3 quiz=6
+       L7: 'Списки' theory=4 ex=1 tasks=1 test=2
+       L8: 'Методы списков' theory=4 ex=1 tasks=1 test=2
+       L9: 'Функции' theory=4 ex=1 tasks=1 test=2
+    M4: 'Словари и ООП' lessons=3 tasks=3 quiz=6
+       L10: 'Словари' theory=4 ex=1 tasks=1 test=2
+       L11: 'Классы и объекты' theory=4 ex=1 tasks=1 test=2
+       L12: 'Наследование' theory=4 ex=1 tasks=1 test=2

@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
-{% block title %}Уроки — Codigo{% endblock %}
+{% block title %}Уроки — {{ lang_info.name }} — Codigo{% endblock %}
 
 {% block content %}
 <div class="page-head">
-    <span class="kicker">Каталог уроков</span>
+    <span class="kicker">{{ lang_info.icon }} {{ lang_info.name }} · Каталог уроков</span>
     <h1>Выбери урок — проходи в любом порядке</h1>
     <p>Ты не привязан к строгой очереди. Жми на любую карточку и начинай.</p>
     {% if total %}
     <div class="d-flex flex-wrap gap-2 mt-2">
         <span class="pill accent"><i class="bi bi-collection"></i> Всего: {{ total }}</span>
         <span class="pill done"><i class="bi bi-check2-circle"></i> Пройдено: {{ done }}</span>
+        <a class="pill accent" href="{{ url_for('language_course', lang_code=lang_code) }}"><i class="bi bi-arrow-left"></i> К курсу {{ lang_info.name }}</a>
+    </div>
+    {% endif %}
+    {% if languages %}
+    <div class="d-flex flex-wrap gap-2 mt-2 align-items-center">
+        <span class="pill accent"><i class="bi bi-book"></i> {{ lang_info.icon }} {{ lang_info.name }}</span>
+        {% for l in languages %}
+        {% if l.code != lang_code %}
+        <a class="pill idle" href="{{ url_for('lessons', lang_code=l.code) }}" title="Уроки {{ l.name }}">
+            {{ l.icon }} {{ l.name }}
+        </a>
+        {% endif %}
+        {% endfor %}
     </div>
     {% endif %}
 </div>
@@ -30,7 +43,7 @@
         {% for lesson in module.lessons %}
             {% set p = progress_map.get(lesson.id) %}
             <a class="lesson-row {% if p and p.completed %}done{% elif p %}wip{% endif %}"
-               href="{{ url_for('lesson', lesson_id=lesson.id) }}">
+               href="{{ url_for('lesson', lang_code=lang_code, lesson_id=lesson.id) }}">
                 <div class="lr-left">
                     <span class="lr-idx">
                         {% if p and p.completed %}<i class="bi bi-check-lg"></i>
@@ -53,6 +66,6 @@
 {% endfor %}
 
 <div class="text-center">
-    <a href="{{ url_for('test') }}" class="btn btn-ghost"><i class="bi bi-pencil-square"></i> Пройти входной тест</a>
+    <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost"><i class="bi bi-pencil-square"></i> Пройти входной тест для {{ lang_info.name }}</a>
 </div>
 {% endblock %}

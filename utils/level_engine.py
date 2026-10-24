@@ -28,7 +28,8 @@ TEST_QUESTIONS = {
 
 
 def determine_level(score):
-    if score >= 5:
+    """0-2: Beginner, 3-5: Elementary, 6+: Intermediate (для входного теста)."""
+    if score >= 6:
         return 2
     elif score >= 3:
         return 1

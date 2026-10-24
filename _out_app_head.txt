@@ -1,0 +1,70 @@
+1|import os
+2|import json
+3|from datetime import datetime, date
+4|from flask import (Flask, render_template, request, redirect, url_for,
+5|                   flash, jsonify)
+6|from flask_sqlalchemy import SQLAlchemy
+7|from flask_login import (LoginManager, login_user, logout_user,
+8|                         login_required, current_user)
+9|from werkzeug.security import generate_password_hash, check_password_hash
+10|
+11|from utils.code_checker import check_code, run_sandbox_code
+12|from utils.gamification import (get_status_emoji, get_status_name,
+13|                                get_status_color, check_streak_rewards,
+14|                                level_progress)
+15|from utils.level_engine import determine_level
+16|from utils.language_manager import (load_language, get_all_languages,
+17|                                    get_language_info, get_module, get_lesson,
+18|                                    get_total_lessons, get_lesson_progress,
+19|                                    get_entrance_test, get_cheatsheets,
+20|                                    get_module_progress, get_total_tasks,
+21|                                    get_file_ext, LANGUAGES,
+22|                                    get_flat_lessons)
+23|
+24|from models import (db, User, TestResult, LessonProgress, StreakReward,
+25|                    Achievement, UserAchievement, LeaderboardEntry,
+26|                    LanguageProgress, TaskProgress)
+27|
+28|app = Flask(__name__)
+29|app.config.from_object('config.Config')
+30|app.jinja_env.globals.update(enumerate=enumerate)
+31|
+32|db.init_app(app)
+33|
+34|login_manager = LoginManager()
+35|login_manager.init_app(app)
+36|login_manager.login_view = 'login'
+37|
+38|
+39|@login_manager.user_loader
+40|def load_user(user_id):
+41|    return db.session.get(User, int(user_id))
+42|
+43|
+44|@app.context_processor
+45|def inject_nav_data():
+46|    """Делает список языков доступным во всех шаблонах (меню курсов)."""
+47|    return {
+48|        'nav_languages': get_all_languages(),
+49|        'nav_current_language': (current_user.current_language
+50|                                 if current_user.is_authenticated else None),
+51|    }
+52|
+53|
+54|@app.context_processor
+55|def inject_nav_globals():
+56|    """Передаёт во все шаблоны список языков и текущий выбранный язык,
+57|    чтобы навигация и переключатель языков работали на любой странице."""
+58|    active = 'python'
+59|    if current_user.is_authenticated:
+60|        active = current_user.current_language or 'python'
+61|    if active not in LANGUAGES:
+62|        active = 'python'
+63|    return {
+64|        'nav_languages': [dict(get_language_info(code), code=code)
+65|                          for code in LANGUAGES],
+66|        'nav_lang': active,
+67|        'nav_lang_info': get_language_info(active),
+68|    }
+69|
+70|

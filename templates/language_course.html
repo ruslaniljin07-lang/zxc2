@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}{{ language.name }} — Codigo{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="kicker">{{ lang_info.icon }} {{ language.name }}</span>
+    <h1>{{ language.name }}</h1>
+    <p>{{ language.description }}</p>
+    <div class="d-flex flex-wrap gap-2 mt-2">
+        {% if current_user.is_authenticated %}
+            <span class="pill accent">Ваш прогресс: {{ progress.percent }}%</span>
+            <span class="pill idle">{{ progress.completed }} / {{ progress.total }} уроков</span>
+            <a class="pill accent" href="{{ url_for('test', lang_code=lang_code) }}"><i class="bi bi-pencil-square"></i> Входной тест</a>
+            <a class="pill idle" href="{{ url_for('lessons', lang_code=lang_code) }}"><i class="bi bi-book"></i> Все уроки</a>
+            {% if progress.next_lesson %}
+            <a class="pill done" href="{{ url_for('lesson', lang_code=lang_code, lesson_id=progress.next_lesson) }}"><i class="bi bi-play-fill"></i> Продолжить обучение</a>
+            {% endif %}
+        {% else %}
+            <a class="pill accent" href="{{ url_for('register') }}">Зарегистрируйся, чтобы начать</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    {% for module in modules %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title">Модуль {{ module.id }}. {{ module.title }}</h5>
+                    {% set mp = module_progress.get(module.id) %}
+                    <span class="badge badge-mod {% if mp and mp.done == mp.total and mp.total > 0 %}is-done{% elif mp and mp.done > 0 %}is-partial{% endif %}">
+                        {% if mp %}{{ mp.done }}/{{ mp.total }}{% else %}0/{{ module.lessons|length }}{% endif %}
+                    </span>
+                </div>
+                <p class="card-text text-muted">{{ module.description }}</p>
+
+                {% if mp %}
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: {{ mp.percent }}%"></div>
+                </div>
+                {% else %}
+                <div class="progress mb-3" style="height: 8px;" aria-hidden="true">
+                    <div class="progress-bar bg-secondary" style="width: 0%"></div>
+                </div>
+                {% endif %}
+
+                <ul class="list-unstyled">
+                    {% set mp = module_progress.get(module.id) %}
+                    {% for lsn in module.lessons %}
+                        {% set item = mp['items']|selectattr('lesson.id', 'equalto', lsn.id)|first if mp else none %}
+                        <li class="mb-2">
+                            <a href="{{ url_for('lesson', lang_code=lang_code, lesson_id=lsn.id) }}"
+                               class="text-decoration-none d-flex justify-content-between">
+                                <span>
+                                    {% if item and item.completed %}
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    {% elif item and item.attempts > 0 %}
+                                        <i class="bi bi-hourglass-split text-warning"></i>
+                                    {% else %}
+                                        <i class="bi bi-circle text-muted"></i>
+                                    {% endif %}
+                                    {{ lsn.title }}
+                                </span>
+                                <span class="xp-chip"><i class="bi bi-star"></i> +{{ lsn.xp_reward }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4">
+    <p class="text-muted">{{ language.final_project }} — финальный проект курса</p>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost btn-lg">
+            <i class="bi bi-pencil-square"></i> Пройти входной тест
+        </a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('lessons', lang_code=lang_code) }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-book"></i> Открыть уроки
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,544 @@
+   1| import os
+   2| import json
+   3| from datetime import datetime, date
+   4| from flask import (Flask, render_template, request, redirect, url_for,
+   5|                    flash, jsonify)
+   6| from flask_sqlalchemy import SQLAlchemy
+   7| from flask_login import (LoginManager, login_user, logout_user,
+   8|                          login_required, current_user)
+   9| from werkzeug.security import generate_password_hash, check_password_hash
+  10| 
+  11| from utils.code_checker import check_code, run_sandbox_code
+  12| from utils.gamification import (get_status_emoji, get_status_name,
+  13|                                 get_status_color, check_streak_rewards,
+  14|                                 level_progress)
+  15| from utils.level_engine import determine_level
+  16| from utils.language_manager import (load_language, get_all_languages,
+  17|                                     get_language_info, get_module, get_lesson,
+  18|                                     get_total_lessons, get_lesson_progress,
+  19|                                     get_entrance_test, get_cheatsheets,
+  20|                                     get_module_progress, get_total_tasks,
+  21|                                     get_file_ext)
+  22| 
+  23| from models import (db, User, TestResult, LessonProgress, StreakReward,
+  24|                     Achievement, UserAchievement, LeaderboardEntry,
+  25|                     LanguageProgress, TaskProgress)
+  26| 
+  27| app = Flask(__name__)
+  28| app.config.from_object('config.Config')
+  29| app.jinja_env.globals.update(enumerate=enumerate)
+  30| 
+  31| db.init_app(app)
+  32| 
+  33| login_manager = LoginManager()
+  34| login_manager.init_app(app)
+  35| login_manager.login_view = 'login'
+  36| 
+  37| 
+  38| @login_manager.user_loader
+  39| def load_user(user_id):
+  40|     return db.session.get(User, int(user_id))
+  41| 
+  42| 
+  43| def recalc_level(user):
+  44|     """Уровень растёт вместе с XP (та же формула, что в прогресс-баре).
+  45|     Уровень никогда не понижается: тест может дать стартовый уровень."""
+  46|     xp = user.xp
+  47|     level = 0
+  48|     need = 100
+  49|     while xp >= need:
+  50|         xp -= need
+  51|         level += 1
+  52|         need = 100 * (level + 1) ** 2
+  53|     if level > user.level:
+  54|         user.level = level
+  55|     return user.level
+  56| 
+  57| 
+  58| def grant_achievements(user, language='python'):
+  59|     """Проверяет условия достижений и выдаёт те, что выполнены.
+  60|     Возвращает список новых достижений (каждое даёт бонусный XP)."""
+  61|     achieved_ids = {ua.achievement_id for ua in
+  62|                     UserAchievement.query.filter_by(user_id=user.id)}
+  63|     completed = LessonProgress.query.filter_by(
+  64|         user_id=user.id, language=language, completed=True).count()
+  65|     has_test = TestResult.query.filter_by(
+  66|         user_id=user.id, language=language).count() > 0
+  67|     first_try = LessonProgress.query.filter_by(
+  68|         user_id=user.id, language=language, completed=True, attempts=1).count() > 0
+  69|     total_lessons = get_total_lessons(language)
+  70| 
+  71|     new = []
+  72|     for ach in Achievement.query.all():
+  73|         if ach.id in achieved_ids:
+  74|             continue
+  75|         if ach.language != 'all' and ach.language != language:
+  76|             continue
+  77|         ct = ach.condition_type or ''
+  78|         cv = ach.condition_value or 1
+  79|         got = False
+  80|         if ct == 'register':
+  81|             got = True
+  82|         elif ct == 'test':
+  83|             got = has_test
+  84|         elif ct == 'lesson':
+  85|             got = completed >= 1
+  86|         elif ct == 'all_lessons':
+  87|             got = completed >= total_lessons
+  88|         elif ct == '10_correct':
+  89|             got = completed >= cv
+  90|         elif ct == 'first_try':
+  91|             got = first_try
+  92|         elif ct.startswith('streak_'):
+  93|             got = user.streak_count >= cv
+  94|         if not got:
+  95|             continue
+  96|         db.session.add(UserAchievement(user_id=user.id,
+  97|                                        achievement_id=ach.id))
+  98|         user.xp += ach.xp_reward or 0
+  99|         new.append(ach)
+ 100|     recalc_level(user)
+ 101|     db.session.commit()
+ 102|     return new
+ 103| 
+ 104| 
+ 105| @app.route('/')
+ 106| def index():
+ 107|     languages = get_all_languages()
+ 108|     if current_user.is_authenticated:
+ 109|         return redirect(url_for('dashboard'))
+ 110|     return render_template('index.html', languages=languages)
+ 111| 
+ 112| 
+ 113| @app.route('/register', methods=['GET', 'POST'])
+ 114| def register():
+ 115|     if request.method == 'POST':
+ 116|         username = request.form.get('username', '').strip()
+ 117|         email = request.form.get('email', '').strip()
+ 118|         password = request.form.get('password', '')
+ 119|         confirm = request.form.get('confirm', '')
+ 120| 
+ 121|         if not username or not email or not password:
+ 122|             flash('Заполните все поля', 'danger')
+ 123|             return render_template('register.html')
+ 124| 
+ 125|         if password != confirm:
+ 126|             flash('Пароли не совпадают', 'danger')
+ 127|             return render_template('register.html')
+ 128| 
+ 129|         existing = User.query.filter_by(username=username).first()
+ 130|         if existing:
+ 131|             flash('Пользователь с таким именем уже существует', 'danger')
+ 132|             return render_template('register.html')
+ 133| 
+ 134|         existing_email = User.query.filter_by(email=email).first()
+ 135|         if existing_email:
+ 136|             flash('Пользователь с такой почтой уже зарегистрирован', 'danger')
+ 137|             return render_template('register.html')
+ 138| 
+ 139|         user = User(
+ 140|             username=username,
+ 141|             email=email,
+ 142|             password_hash=generate_password_hash(password),
+ 143|             xp=0, level=0, streak_count=0,
+ 144|             last_login=datetime.now()
+ 145|         )
+ 146|         try:
+ 147|             db.session.add(user)
+ 148|             db.session.commit()
+ 149|         except Exception:
+ 150|             db.session.rollback()
+ 151|             flash('Не удалось зарегистрировать пользователя', 'danger')
+ 152|             return render_template('register.html')
+ 153|         grant_achievements(user)
+ 154|         flash('Регистрация прошла успешно! Войдите в аккаунт.', 'success')
+ 155|         return redirect(url_for('login'))
+ 156| 
+ 157|     return render_template('register.html')
+ 158| 
+ 159| 
+ 160| @app.route('/login', methods=['GET', 'POST'])
+ 161| def login():
+ 162|     if request.method == 'POST':
+ 163|         username = request.form.get('username', '').strip()
+ 164|         password = request.form.get('password', '')
+ 165| 
+ 166|         user = User.query.filter_by(username=username).first()
+ 167|         if user and check_password_hash(user.password_hash, password):
+ 168|             login_user(user)
+ 169|             user.last_login = datetime.now()
+ 170|             db.session.commit()
+ 171|             grant_achievements(user)
+ 172|             flash('Добро пожаловать!', 'success')
+ 173|             return redirect(url_for('dashboard'))
+ 174| 
+ 175|         flash('Неверный логин или пароль', 'danger')
+ 176|         return render_template('login.html')
+ 177| 
+ 178|     return render_template('login.html')
+ 179| 
+ 180| 
+ 181| @app.route('/logout')
+ 182| @login_required
+ 183| def logout():
+ 184|     logout_user()
+ 185|     flash('Вы вышли из аккаунта', 'info')
+ 186|     return redirect(url_for('index'))
+ 187| 
+ 188| 
+ 189| @app.route('/dashboard')
+ 190| @login_required
+ 191| def dashboard():
+ 192|     grant_achievements(current_user)
+ 193|     streak = current_user.streak_count
+ 194|     status_emoji = get_status_emoji(streak)
+ 195|     status_name = get_status_name(streak)
+ 196|     status_color = get_status_color(streak)
+ 197|     level_xp, xp_to_next = level_progress(current_user.xp)
+ 198|     # достижения пользователя для карточки на дашборде
+ 199|     ua_rows = UserAchievement.query.filter_by(
+ 200|         user_id=current_user.id).all()
+ 201|     earned_achievements = []
+ 202|     if ua_rows:
+ 203|         ach_ids = [r.achievement_id for r in ua_rows]
+ 204|         achs = Achievement.query.filter(
+ 205|             Achievement.id.in_(ach_ids)).all()
+ 206|         earned_achievements = [{'icon': a.icon, 'name': a.name,
+ 207|                                 'xp': a.xp_reward}
+ 208|                                for a in achs]
+ 209| 
+ 210|     return render_template('dashboard.html',
+ 211|                            streak=streak, status_emoji=status_emoji,
+ 212|                            status_name=status_name, status_color=status_color,
+ 213|                            xp=current_user.xp, xp_to_next=xp_to_next,
+ 214|                            level_xp=level_xp, level=current_user.level,
+ 215|                            user=current_user,
+ 216|                            earned_achievements=earned_achievements)
+ 217| 
+ 218| 
+ 219| @app.route('/language/<lang_code>')
+ 220| def language_course(lang_code):
+ 221|     lang_data = load_language(lang_code)
+ 222|     if not lang_data:
+ 223|         flash('Язык не найден', 'danger')
+ 224|         return redirect(url_for('index'))
+ 225|     if current_user.is_authenticated:
+ 226|         current_user.current_language = lang_code
+ 227|         db.session.commit()
+ 228| 
+ 229|     lang_info = get_language_info(lang_code)
+ 230|     modules = lang_data.get('modules', [])
+ 231|     progress = {'percent': 0, 'completed': 0, 'total': 0}
+ 232|     module_progress = {}
+ 233|     if current_user.is_authenticated:
+ 234|         progress = get_lesson_progress(current_user, lang_code)
+ 235|         module_progress = {
+ 236|             m['id']: get_module_progress(current_user, lang_code, m['id'])
+ 237|             for m in modules
+ 238|         }
+ 239|     return render_template(
+ 240|         'language_course.html',
+ 241|         language=lang_data, lang_code=lang_code, lang_info=lang_info,
+ 242|         modules=modules, progress=progress, module_progress=module_progress
+ 243|     )
+ 244| 
+ 245| 
+ 246| def _grade_entrance(lang_code, form):
+ 247|     """Проверяет ответы входного теста для языка, возвращает (score, total)."""
+ 248|     questions = get_entrance_test(lang_code)
+ 249|     score = 0
+ 250|     for i, quest in enumerate(questions, 1):
+ 251|         user_answer = form.get(f'q{i}', '').strip()
+ 252|         if user_answer == str(quest.get('correct', -1)):
+ 253|             score += 1
+ 254|     return score, len(questions)
+ 255| 
+ 256| 
+ 257| @app.route('/test', methods=['GET', 'POST'])
+ 258| @app.route('/test/<lang_code>', methods=['GET', 'POST'])
+ 259| @login_required
+ 260| def test(lang_code=None):
+ 261|     lang_code = lang_code or current_user.current_language or 'python'
+ 262|     questions = get_entrance_test(lang_code)
+ 263|     if not questions:
+ 264|         flash('Тест для этого языка пока не готов', 'warning')
+ 265|         return redirect(url_for('dashboard'))
+ 266| 
+ 267|     if request.method == 'POST':
+ 268|         score, total = _grade_entrance(lang_code, request.form)
+ 269|         percent = round(score / total * 100) if total else 0
+ 270|         level = determine_level(score)
+ 271|         result = TestResult(user_id=current_user.id, score=score,
+ 272|                             language=lang_code, level=level)
+ 273|         db.session.add(result)
+ 274|         current_user.level = max(current_user.level, level)
+ 275|         current_user.xp += score * 20
+ 276|         current_user.streak_count += 1
+ 277|         check_streak_rewards(current_user)
+ 278|         recalc_level(current_user)
+ 279|         db.session.commit()
+ 280|         grant_achievements(current_user, language=lang_code)
+ 281|         flash(f'Тест пройден! Счёт: {score}/{total} ({percent}%). '
+ 282|               f'Рекомендуемый уровень: {"Beginner" if percent < 50 else "Elementary" if percent < 70 else "Intermediate" if percent < 90 else "Advanced"}',
+ 283|               'success')
+ 284|         return redirect(url_for('language_course', lang_code=lang_code))
+ 285| 
+ 286|     lang_info = get_language_info(lang_code)
+ 287|     return render_template('test.html', questions=questions,
+ 288|                            lang_code=lang_code, lang_info=lang_info)
+ 289| 
+ 290| 
+ 291| @app.route('/lessons')
+ 292| @login_required
+ 293| def lessons():
+ 294|     lang_code = current_user.current_language or 'python'
+ 295|     lang_data = load_language(lang_code)
+ 296|     if not lang_data:
+ 297|         flash('Язык не найден', 'danger')
+ 298|         return redirect(url_for('dashboard'))
+ 299|     
+ 300|     progress_map = {
+ 301|         p.lesson_id: p for p in LessonProgress.query.filter_by(
+ 302|             user_id=current_user.id,
+ 303|             language=lang_code
+ 304|         ).all()
+ 305|     }
+ 306|     total = get_total_lessons(lang_code)
+ 307|     done = sum(1 for p in progress_map.values() if p.completed)
+ 308|     lang_info = get_language_info(lang_code)
+ 309|     return render_template('lessons.html',
+ 310|                            modules=lang_data.get('modules', []),
+ 311|                            progress_map=progress_map,
+ 312|                            total=total, done=done,
+ 313|                            lang_code=lang_code, lang_info=lang_info)
+ 314| 
+ 315| 
+ 316| @app.route('/lesson/<int:lesson_id>', methods=['GET', 'POST'])
+ 317| @login_required
+ 318| def lesson(lesson_id):
+ 319|     lang_code = current_user.current_language or 'python'
+ 320|     lesson_data, module = get_lesson(lang_code, lesson_id)
+ 321|     if not lesson_data:
+ 322|         flash('Урок не найден', 'danger')
+ 323|         return redirect(url_for('lessons'))
+ 324| 
+ 325|     module_id = module['id'] if module else 0
+ 326|     tasks = lesson_data.get('tasks', [])
+ 327|     # первая задача = основная для проверки
+ 328|     task = tasks[0] if tasks else {}
+ 329| 
+ 330|     # собрать плоский список уроков для навигации
+ 331|     lang_data = load_language(lang_code)
+ 332|     all_lessons = [l for m in lang_data.get('modules', []) for l in m.get('lessons', [])]
+ 333|     order_ids = [l['id'] for l in all_lessons]
+ 334|     cur_idx = next((i for i, lid in enumerate(order_ids) if lid == lesson_id), -1)
+ 335|     prev_lesson = all_lessons[cur_idx - 1] if cur_idx > 0 else None
+ 336|     next_lesson = all_lessons[cur_idx + 1] if 0 <= cur_idx < len(order_ids) - 1 else None
+ 337| 
+ 338|     progress = LessonProgress.query.filter_by(
+ 339|         user_id=current_user.id, language=lang_code,
+ 340|         lesson_id=lesson_id, module_id=module_id
+ 341|     ).first()
+ 342| 
+ 343|     if request.method == 'POST':
+ 344|         user_code = request.form.get('code', '')
+ 345|         check = task.get('check') or lesson_data.get('test_code') or ''
+ 346|         result = check_code(user_code, check)
+ 347| 
+ 348|         if not progress:
+ 349|             progress = LessonProgress(
+ 350|                 user_id=current_user.id, language=lang_code,
+ 351|                 lesson_id=lesson_id, module_id=module_id,
+ 352|                 completed=False, attempts=0, best_code=''
+ 353|             )
+ 354|             db.session.add(progress)
+ 355|         progress.attempts += 1
+ 356| 
+ 357|         if result['success']:
+ 358|             progress.completed = True
+ 359|             progress.best_code = user_code
+ 360|             current_user.xp += lesson_data.get('xp_reward', 15)
+ 361|             check_streak_rewards(current_user)
+ 362|             recalc_level(current_user)
+ 363|             db.session.commit()
+ 364|             new_achievements = grant_achievements(current_user, language=lang_code)
+ 365|             return jsonify({
+ 366|                 'success': True,
+ 367|                 'stdout': result['stdout'],
+ 368|                 'stderr': result['stderr'],
+ 369|                 'level': current_user.level,
+ 370|                 'xp': current_user.xp,
+ 371|                 'new_achievements': [a.name for a in new_achievements]
+ 372|             })
+ 373|         else:
+ 374|             db.session.commit()
+ 375|             # прогрессивные подсказки: 1-я и 2-я ошибки — без подсказок,
+ 376|             # с 3-й ошибки — лампочка с подсказкой, с 4-й — полное решение
+ 377|             hint = None
+ 378|             solution = None
+ 379|             attempts = progress.attempts
+ 380|             if attempts >= 3 and task.get('hints'):
+ 381|                 hint = task['hints'][0]
+ 382|             if attempts >= 4:
+ 383|                 solution = task.get('solution') or task.get('initial_code', '')
+ 384|             return jsonify({
+ 385|                 'success': False,
+ 386|                 'stdout': result['stdout'],
+ 387|                 'stderr': result['stderr'],
+ 388|                 'attempts': attempts,
+ 389|                 'hint': hint,
+ 390|                 'solution': solution
+ 391|             })
+ 392| 
+ 393|     progress = LessonProgress.query.filter_by(
+ 394|         user_id=current_user.id, lesson_id=lesson_id
+ 395|     ).first()
+ 396|     # начальный код: даём заготовку из задания, а после попыток — свой код
+ 397|     if progress and progress.best_code:
+ 398|         initial_code = progress.best_code
+ 399|     else:
+ 400|         initial_code = task.get('initial_code', '')
+ 401|     # прогрессивные подсказки при повторном открытии урока:
+ 402|     # с 3-й попытки — подсказка, с 4-й — полное решение
+ 403|     attempts = progress.attempts if progress else 0
+ 404|     hint = task['hints'][0] if (attempts >= 3 and task.get('hints')) else None
+ 405|     solution = (task.get('solution') or task.get('initial_code', '')) \
+ 406|         if attempts >= 4 else None
+ 407| 
+ 408|     return render_template('lesson.html', lesson=lesson_data,
+ 409|                            initial_code=initial_code, hint=hint,
+ 410|                            solution=solution, progress=progress,
+ 411|                            prev_lesson=prev_lesson, next_lesson=next_lesson,
+ 412|                            lang_code=lang_code, lang_info=get_language_info(lang_code),
+ 413|                            task=task, file_name=get_file_ext(lang_code))
+ 414| 
+ 415| 
+ 416| @app.route('/sandbox', methods=['GET', 'POST'])
+ 417| @login_required
+ 418| def sandbox():
+ 419|     output = None
+ 420|     if request.method == 'POST':
+ 421|         # фронт шлёт JSON, подстрахуемся и читаем form-data тоже
+ 422|         if request.is_json:
+ 423|             code = (request.get_json(silent=True) or {}).get('code', '')
+ 424|         else:
+ 425|             code = request.form.get('code', '')
+ 426|         result = run_sandbox_code(code)
+ 427|         output = {
+ 428|             'success': result['success'],
+ 429|             'stdout': result['stdout'],
+ 430|             'stderr': result['stderr']
+ 431|         }
+ 432|         return jsonify(output)
+ 433|     return render_template('sandbox.html', output=output)
+ 434| 
+ 435| 
+ 436| @app.route('/profile')
+ 437| @login_required
+ 438| def profile():
+ 439|     grant_achievements(current_user)
+ 440|     achievements = UserAchievement.query.filter_by(
+ 441|         user_id=current_user.id
+ 442|     ).all()
+ 443|     earned_ids = [ta.achievement_id for ta in achievements]
+ 444|     all_achievements = Achievement.query.all()
+ 445|     progress_records = LessonProgress.query.filter_by(
+ 446|         user_id=current_user.id
+ 447|     ).all()
+ 448|     test_results = TestResult.query.filter_by(
+ 449|         user_id=current_user.id
+ 450|     ).order_by(TestResult.timestamp.desc()).all()
+ 451|     status_emoji = get_status_emoji(current_user.streak_count)
+ 452|     status_name = get_status_name(current_user.streak_count)
+ 453| 
+ 454|     return render_template('profile.html',
+ 455|                            achievements=all_achievements,
+ 456|                            earned_ids=earned_ids,
+ 457|                            progress_records=progress_records,
+ 458|                            test_results=test_results,
+ 459|                            user=current_user,
+ 460|                            status_emoji=status_emoji,
+ 461|                            status_name=status_name)
+ 462| 
+ 463| 
+ 464| @app.route('/leaderboard')
+ 465| def leaderboard():
+ 466|     update_leaderboard()
+ 467|     entries = LeaderboardEntry.query.order_by(
+ 468|         LeaderboardEntry.xp.desc()
+ 469|     ).limit(50).all()
+ 470|     return render_template('leaderboard.html', entries=entries,
+ 471|                            current_user=current_user)
+ 472| 
+ 473| 
+ 474| @app.route('/cheat_sheet')
+ 475| def cheat_sheet():
+ 476|     return render_template('cheat_sheet.html')
+ 477| 
+ 478| 
+ 479| def update_leaderboard(language='python'):
+ 480|     users = User.query.order_by(User.xp.desc()).limit(50).all()
+ 481|     for rank, user in enumerate(users, 1):
+ 482|         entry = LeaderboardEntry.query.filter_by(
+ 483|             user_id=user.id, language=language).first()
+ 484|         if not entry:
+ 485|             entry = LeaderboardEntry(
+ 486|                 user_id=user.id, language=language, rank=rank, xp=user.xp)
+ 487|         else:
+ 488|             entry.rank = rank
+ 489|             entry.xp = user.xp
+ 490|         entry.last_updated = datetime.now()
+ 491|         db.session.add(entry)
+ 492|     db.session.commit()
+ 493| 
+ 494| 
+ 495| def init_achievements():
+ 496|     if Achievement.query.count() == 0:
+ 497|         definitions = [
+ 498|             {'name': 'Первый шаг', 'description': 'Зарегистрироваться',
+ 499|              'icon': '👶', 'xp_reward': 10, 'condition_type': 'register',
+ 500|              'condition_value': 1},
+ 501|             {'name': 'Тестировщик', 'description': 'Сдать входной тест',
+ 502|              'icon': '📝', 'xp_reward': 20, 'condition_type': 'test',
+ 503|              'condition_value': 1},
+ 504|             {'name': 'Ученик', 'description': 'Пройти первый урок',
+ 505|              'icon': '📚', 'xp_reward': 30, 'condition_type': 'lesson',
+ 506|              'condition_value': 1},
+ 507|             {'name': 'Эксперт', 'description': 'Пройти все уроки',
+ 508|              'icon': '🎓', 'xp_reward': 100, 'condition_type': 'all_lessons',
+ 509|              'condition_value': 1},
+ 510|             {'name': 'Кодер', 'description': 'Написать 10 правильных решений',
+ 511|              'icon': '💻', 'xp_reward': 50, 'condition_type': '10_correct',
+ 512|              'condition_value': 10},
+ 513|             {'name': 'Без ошибок', 'description': 'Пройти урок с первого раза',
+ 514|              'icon': '🎯', 'xp_reward': 40, 'condition_type': 'first_try',
+ 515|              'condition_value': 1},
+ 516|             {'name': 'Ставровец', 'description': '7 дней подряд',
+ 517|              'icon': '🌊', 'xp_reward': 70, 'condition_type': 'streak_7',
+ 518|              'condition_value': 7},
+ 519|             {'name': 'Солнечный', 'description': '30 дней подряд',
+ 520|              'icon': '☀️', 'xp_reward': 150, 'condition_type': 'streak_30',
+ 521|              'condition_value': 30},
+ 522|             {'name': 'Бессмертный', 'description': '100 дней подряд',
+ 523|              'icon': '💎', 'xp_reward': 300, 'condition_type': 'streak_100',
+ 524|              'condition_value': 100},
+ 525|             {'name': 'Легенда', 'description': '365 дней подряд',
+ 526|              'icon': '🔥', 'xp_reward': 1000, 'condition_type': 'streak_365',
+ 527|              'condition_value': 365},
+ 528|         ]
+ 529|         for defn in definitions:
+ 530|             ach = Achievement(**defn)
+ 531|             db.session.add(ach)
+ 532|         db.session.commit()
+ 533| 
+ 534| 
+ 535| if __name__ == '__main__':
+ 536|     import socket
+ 537|     with app.app_context():
+ 538|         db.create_all()
+ 539|         init_achievements()
+ 540|     hostname = socket.gethostname()
+ 541|     local_ip = socket.gethostbyname(hostname)
+ 542|     print(f"\n🌐 Сайт доступен на других устройствах:")
+ 543|     print(f"   http://{local_ip}:5000\n")
+ 544|     app.run(debug=True, host='0.0.0.0', port=5000)

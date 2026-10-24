@@ -49,33 +49,60 @@
         <div class="row g-3 text-center">
             <div class="col-4">
                 <div class="stat-block">
-                    <div class="stat-num">{{ user.test_results | length if user.test_results|length > 0 else 0 }}</div>
+                    <div class="stat-num">{{ lessons_done }}</div>
+                    <div class="stat-lbl">Уроков пройдено</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-block">
+                    <div class="stat-num">{{ tasks_done }}</div>
+                    <div class="stat-lbl">Задач решено</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-block">
+                    <div class="stat-num text-warning">{{ tests_done }}</div>
                     <div class="stat-lbl">Тестов пройдено</div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="stat-block">
-                    <div class="stat-num">{{ user.lesson_progress | length }}</div>
-                    <div class="stat-lbl">Уроков начато</div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="stat-block">
-                    <div class="stat-num text-warning">{{ user.xp }}</div>
-                    <div class="stat-lbl">Всего XP</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<h2 class="text-center mb-4">Мои курсы</h2>
+<div class="row">
+    {% for lang in languages %}
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 language-card" style="border-top: 4px solid {{ lang.color }};">
+            <div class="card-body text-center">
+                <div class="language-icon mb-3">{{ lang.icon }}</div>
+                <h5 class="card-title">{{ lang.name }}</h5>
+                <p class="card-text text-muted small">{{ lang.description }}</p>
+                {% set p = lang_progress.get(lang.code) %}
+                <div class="progress mb-2" style="height: 12px;">
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: {{ p.percent }}%"></div>
+                </div>
+                <small class="text-muted">{{ p.completed }} / {{ p.total }} уроков · {{ p.percent }}%</small>
+            </div>
+            <div class="card-footer bg-transparent border-0 text-center pb-3">
+                <a href="{{ url_for('language_course', lang_code=lang.code) }}"
+                   class="btn btn-primary w-100">
+                    {{ 'Продолжить обучение' if p.completed > 0 else 'Начать обучение' }}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 <div class="text-center mt-5">
     <p class="text-muted mb-3">Куда дальше?</p>
     <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="{{ url_for('lessons') }}" class="btn btn-primary btn-xl">
+        <a href="{{ url_for('lessons', lang_code=lang_code) }}" class="btn btn-primary btn-xl">
             <i class="bi bi-book"></i> Выбрать урок
         </a>
-        <a href="{{ url_for('test') }}" class="btn btn-ghost btn-xl">
+        <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost btn-xl">
             <i class="bi bi-pencil-square"></i> Пройти тест
         </a>
         <a href="{{ url_for('sandbox') }}" class="btn btn-ghost btn-xl">

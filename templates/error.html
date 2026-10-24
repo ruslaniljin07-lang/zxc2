@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Ошибка {{ code }} — Codigo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="page-head text-center">
+            <span class="kicker">Что-то пошло не так</span>
+            <h1>Ошибка {{ code }}</h1>
+            <p>{{ message }}</p>
+        </div>
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <p class="mb-4">
+                    Если это случилось при отправке формы — обнови страницу,
+                    сессия могла просто устареть.
+                </p>
+                <a class="btn btn-primary" href="{{ url_for('index') }}">
+                    <i class="bi bi-house-door"></i> На главную
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+============================================================
+PYTHON | Первая программа | id 1
+description: Знакомимся с Python и учимся выводить текст
+-- theory --
+  * Python — язык программирования, который легко читается человеком.
+  * Программа — это файл с командами, которые выполняются по порядку.
+  * Функция print() выводит текст на экран.
+  * Текст для вывода берётся в кавычки: одинарные или двойные.
+-- examples --
+  # "print('Привет, мир!')\nprint(2 + 2)"
+-- task check --
+  task: Приветствие
+   check: {"type": "python", "test_code": "assert 'Привет, мир!' in open(__file__).read()"}
+   solution: "print('Привет, мир!')"
+   initial: '# Напишите код ниже\n'
+-- test --
+  Q: Что делает функция print()? | opts 4 | correct 1
+  Q: В каких кавычках может быть строка в Python? | opts 4 | correct 2
+============================================================
+JAVASCRIPT | Первая программа | id 1
+description: Знакомимся с JavaScript и console.log()
+-- theory --
+  * JavaScript — язык программирования для веба.
+  * Работает прямо в браузере и на сервере (Node.js).
+  * console.log() выводит текст в консоль.
+  * Каждая команда заканчивается точкой с запятой (по желанию).
+-- examples --
+  # "console.log('Привет, мир!');\nconsole.log(2 + 2);"
+-- task check --
+  task: Приветствие
+   check: {"type": "contains", "require": ["console.log", "'Привет, мир!'"]}
+   solution: "console.log('Привет, мир!');"
+   initial: '// Напишите код ниже\n'
+-- test --
+  Q: Что делает console.log()? | opts 4 | correct 1
+  Q: Где работает JS? | opts 4 | correct 1
+============================================================
+IDS per language:
+  python: module_ids=[1, 2, 3, 4] lesson_ids=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  javascript: module_ids=[1, 2] lesson_ids=[1, 2, 3, 4, 5, 6]
+  java: module_ids=[1, 2, 3] lesson_ids=[1, 2, 3, 4, 5, 6, 7]
+  cpp: module_ids=[1, 2, 3] lesson_ids=[1, 2, 3, 4, 5, 6]

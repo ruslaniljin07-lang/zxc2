@@ -76,43 +76,144 @@ window.addEventListener('resize', function() {
     if (_codeBgTimer) clearTimeout(_codeBgTimer);
     _codeBgTimer = setTimeout(function() { initCodeBackground(); }, 250);
 });
-// ---- Редактор в стиле PyCharm: подсветка Python + нумерация строк ----
+// ---- Редактор кода: подсветка под язык + нумерация строк ----
 (function() {
+    'use strict';
+
     var KEYWORDS = new Set(('def class return if elif else for while import from as try ' +
         'except finally with in not and or is None True False pass break continue ' +
         'lambda global nonlocal raise yield del assert async await print').split(' '));
+
+    // ключевые слова C-подобных языков (JS, TS, Java, C++, C#, Go, Rust, PHP)
+    var KEYWORDS_CLIKE = new Set((
+        'if else for while do switch case default break continue return ' +
+        'function class new this super extends implements interface static ' +
+        'public private protected final void int double float long short byte ' +
+        'boolean char string bool var let const typeof instanceof delete in of ' +
+        'try catch finally throw throws import export from as async await ' +
+        'yield null undefined true false None False True self ' +
+        'package func defer go chan map struct type range select ' +
+        'fn mut pub impl match enum use mod crate trait ref move where ' +
+        'unsafe loop dyn box extern const unsigned signed namespace using ' +
+        'override abstract virtual template echo foreach require ' +
+        'make len append println printf cout cin endl str vec fmt').split(' '));
 
     function escapeHtml(s) {
         return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    function highlightPython(code) {
-        var tokenRe = /(#[^\n]*)|("""[\s\S]*?"""|'''[\s\S]*?''')|("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|(\b\d+(?:\.\d+)?[jJ]?\b)|(\b(?:def|class|return|if|elif|else|for|while|import|from|as|try|except|finally|with|in|not|and|or|is|None|True|False|pass|break|continue|lambda|global|nonlocal|raise|yield|del|assert|async|await)\b)|([A-Za-z_][A-Za-z0-9_]*)/g;
-        var out = '';
-        var last = 0, m;
-        while ((m = tokenRe.exec(code)) !== null) {
+    // Общий движок подсветки. cfg:
+    //   hash: 'comment' (Python, PHP) | 'directive' (C/C#) | null
+    //   lineComment, blockComment, tripleQuotes, templateString — флаги синтаксиса
+    //   keywords — набор ключевых слов, caseInsensitiveKw — без учёта регистра
+    function highlightWith(code, cfg) {
+        var groups = [];
+        if (cfg.hash) {
+            groups.push(['#[^\\n]*', cfg.hash === 'comment' ? 'tok-c' : 'tok-m']);
+        }
+        if (cfg.lineComment) groups.push(['\\/\\/[^\\n]*', 'tok-c']);
+        if (cfg.blockComment) groups.push(['\\/\\*[\\s\\S]*?\\*\\/', 'tok-c']);
+        if (cfg.tripleQuotes) {
+            groups.push(['"""[\\s\\S]*?"""|\'\'\'[\\s\\S]*?\'\'\'', 'tok-s']);
+        }
+        if (cfg.templateString) groups.push(['`(?:[^`\\\\]|\\\\.)*`', 'tok-s']);
+        groups.push(['"(?:[^"\\\\\\n]|\\\\.)*"|\'(?:[^\'\\\\\\n]|\\\\.)*\'', 'tok-s']);
+        groups.push(['\\b\\d+(?:\\.\\d+)?[jJfFlLuU]?\\b', 'tok-n']);
+        groups.push(['[A-Za-z_][A-Za-z0-9_]*', 'ID']);
+
+        var pattern = groups.map(function(g) {
+            return '(' + g[0] + ')';
+        }).join('|');
+        var re = new RegExp(pattern, 'g');
+        var out = '', last = 0, m;
+        while ((m = re.exec(code)) !== null) {
             if (m.index > last) out += escapeHtml(code.slice(last, m.index));
-            if (m[1] !== undefined) out += '<span class="tok-c">' + escapeHtml(m[1]) + '</span>';
-            else if (m[2] !== undefined) out += '<span class="tok-s">' + escapeHtml(m[2]) + '</span>';
-            else if (m[3] !== undefined) out += '<span class="tok-s">' + escapeHtml(m[3]) + '</span>';
-            else if (m[4] !== undefined) out += '<span class="tok-n">' + escapeHtml(m[4]) + '</span>';
-            else if (m[5] !== undefined) out += '<span class="tok-k">' + escapeHtml(m[5]) + '</span>';
-            else if (m[6] !== undefined) {
-                var id = m[6], isCall = false;
-                var rest = code.slice(tokenRe.lastIndex).replace(/^\s*/, '');
-                if (rest.charAt(0) === '(') isCall = true;
-                if (KEYWORDS.has(id)) {
-                    out += '<span class="tok-k">' + escapeHtml(id) + '</span>';
-                } else if (isCall) {
-                    out += '<span class="tok-f">' + escapeHtml(id) + '</span>';
-                } else {
-                    out += '<span class="tok-b">' + escapeHtml(id) + '</span>';
-                }
+            var text = null, cls = null;
+            for (var g = 0; g < groups.length; g++) {
+                if (m[g + 1] === undefined) continue;
+                text = m[g + 1];
+                cls = groups[g][1];
+                break;
             }
-            last = tokenRe.lastIndex;
+            if (text === null) {
+                text = m[0];
+                cls = 'tok-b';
+            } else if (cls === 'ID') {
+                // идентификатор: ключевое слово, вызов функции или просто имя
+                var rest = code.slice(re.lastIndex).replace(/^\s*/, '');
+                var probe = cfg.caseInsensitiveKw ? text.toLowerCase() : text;
+                if (cfg.keywords.has(probe)) cls = 'tok-k';
+                else if (rest.charAt(0) === '(') cls = 'tok-f';
+                else cls = 'tok-b';
+            }
+            out += '<span class="' + cls + '">' + escapeHtml(text) + '</span>';
+            last = re.lastIndex;
         }
         if (last < code.length) out += escapeHtml(code.slice(last));
         return out;
+    }
+
+    // ключевые слова SQL: пишем в верхнем регистре, но подсветка
+    // не должна зависеть от того, как набрал ученик
+    var KEYWORDS_SQL = new Set(('select from where and or not in between like '
+        + 'is null as join left right inner outer on group by having order '
+        + 'asc desc limit offset insert into values update set delete create '
+        + 'table primary key foreign references default distinct union all '
+        + 'count sum avg min max case when then else end exists').split(' '));
+
+    var HIGHLIGHTERS = {
+        python: function(code) {
+            return highlightWith(code, {hash: 'comment', tripleQuotes: true,
+                                        keywords: KEYWORDS});
+        },
+        javascript: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        templateString: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        typescript: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        templateString: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        java: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        cpp: function(code) {
+            return highlightWith(code, {hash: 'directive', lineComment: true,
+                                        blockComment: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        csharp: function(code) {
+            return highlightWith(code, {hash: 'directive', lineComment: true,
+                                        blockComment: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        go: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        templateString: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        rust: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        keywords: KEYWORDS_CLIKE});
+        },
+        php: function(code) {
+            return highlightWith(code, {hash: 'comment', lineComment: true,
+                                        blockComment: true,
+                                        keywords: KEYWORDS_CLIKE,
+                                        caseInsensitiveKw: true});
+        },
+        sql: function(code) {
+            return highlightWith(code, {lineComment: true, blockComment: true,
+                                        keywords: KEYWORDS_SQL,
+                                        caseInsensitiveKw: true});
+        }
+    };
+
+    function makeHighlighter(lang) {
+        return HIGHLIGHTERS[lang] || HIGHLIGHTERS.python;
     }
 
     function parseMaxHeight(el) {
@@ -125,7 +226,8 @@ window.addEventListener('resize', function() {
         return parseFloat(mh) || 0;
     }
 
-    function initPyEditor(root) {
+    // Универсальный редактор: подсветка задаётся функцией highlightFn
+    function initEditor(root, highlightFn) {
         var input = root.querySelector('.pe-input');
         var gutter = root.querySelector('.pe-gutter');
         var hl = root.querySelector('.pe-highlight');
@@ -133,12 +235,12 @@ window.addEventListener('resize', function() {
         if (!input || !gutter || !hl || !body) return;
 
         // максимальная вместимость редактора (атрибут data-min-lines на .pyeditor;
-        // по умолчанию 500 — песочница; в уроках хватит 50)
+        // по умолчанию 500 — песочница; в уроках хватит 30)
         var minLines = parseInt(root.getAttribute('data-min-lines'), 10);
         if (!minLines || isNaN(minLines) || minLines < 1) minLines = 500;
 
         function render() {
-            hl.innerHTML = highlightPython(input.value);
+            hl.innerHTML = highlightFn(input.value);
             var count = (input.value.match(/\n/g) || []).length + 1;
 
             var cs = getComputedStyle(input);
@@ -168,30 +270,53 @@ window.addEventListener('resize', function() {
             for (var i = 1; i <= total; i++) nums += i + '\n';
             gutter.textContent = nums;
 
-            // высота textarea = число строк в коде + запас,
-            // но не больше максимума вместимости
-            var padTop = parseFloat(cs.paddingTop) || 0;
-            var padBottom = parseFloat(cs.paddingBottom) || 0;
-            var wantH = total * lineH + padTop + padBottom + 4;
-            var capH = (minLines + visLines) * lineH + padTop + padBottom;
-            var h = Math.min(wantH, capH);
-            input.style.height = Math.round(h) + 'px';
             syncScroll();
         }
-        // вертикаль скроллит .pe-body (нативно), горизонталь — textarea
+        // Подсветка лежит в потоке и сама задаёт размеры области, а
+        // прозрачная textarea накрывает её сверху. Обе части всегда
+        // совпадают по высоте, прокручивает только контейнер .pe-body.
+        // Раньше textarea скроллилась сама плюс контейнер — строки
+        // наезжали друг на друга, а номера не совпадали с кодом.
         function syncScroll() {
-            hl.style.transform = 'translateX(' + (-input.scrollLeft) + 'px)';
-            hl.style.height = input.offsetHeight + 'px';
+            var h = hl.offsetHeight;
+            if (h > 0) {
+                input.style.height = h + 'px';
+                input.style.minHeight = h + 'px';
+            }
         }
         input.addEventListener('input', render);
-        input.addEventListener('scroll', syncScroll);
         window.addEventListener('resize', render);
         render();
     }
 
+    function initPyEditor(root) { initEditor(root, HIGHLIGHTERS.python); }
+    function initJsEditor(root) { initEditor(root, HIGHLIGHTERS.javascript); }
+    function initJavaEditor(root) { initEditor(root, HIGHLIGHTERS.java); }
+    function initCppEditor(root) { initEditor(root, HIGHLIGHTERS.cpp); }
+
+    // подсветка доступна и другим скриптам страницы
+    window.CodigoHighlighters = HIGHLIGHTERS;
+
+    // редактор с явным языком в разметке: data-codeeditor="rust"
+    function initCodeEditor(root) {
+        var lang = root.getAttribute('data-codeeditor') || 'python';
+        initEditor(root, makeHighlighter(lang));
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        var editors = document.querySelectorAll('[data-pyeditor]');
-        for (var i = 0; i < editors.length; i++) initPyEditor(editors[i]);
+        var byAttr = [
+            ['[data-pyeditor]', initPyEditor],
+            ['[data-jseditor]', initJsEditor],
+            ['[data-javaeditor]', initJavaEditor],
+            ['[data-cppeditor]', initCppEditor],
+            ['[data-codeeditor]', initCodeEditor]
+        ];
+        for (var a = 0; a < byAttr.length; a++) {
+            var nodes = document.querySelectorAll(byAttr[a][0]);
+            for (var i = 0; i < nodes.length; i++) {
+                byAttr[a][1](nodes[i]);
+            }
+        }
     });
 })();
 // ============================================================
@@ -427,3 +552,47 @@ function updateMusicBtn() {
         if (sb) sb.addEventListener('click', function(ev) { ev.preventDefault(); toggleSounds(); });
     });
 })();
+
+// Защита запросов от подделки (CSRF).
+// Токен берётся из <meta name="csrf-token"> и добавляется ко всем fetch-
+// запросам, а к обычным POST-формам — скрытым полем. Без токена сервер
+// отклоняет запрос: чужой сайт не сможет отправить форму от твоего имени.
+(function() {
+    var meta = document.querySelector('meta[name="csrf-token"]');
+    var token = meta ? meta.getAttribute('content') : '';
+    window.CSRF_TOKEN = token || '';
+    if (!token || typeof window.fetch !== 'function') return;
+
+    var originalFetch = window.fetch.bind(window);
+    window.fetch = function(input, init) {
+        init = init || {};
+        var url = (typeof input === 'string')
+            ? input
+            : ((input && input.url) || '');
+        var sameOrigin = url.indexOf('http') !== 0 ||
+            url.indexOf(window.location.origin) === 0;
+        if (sameOrigin) {
+            init.credentials = init.credentials || 'same-origin';
+            var headers = new Headers(
+                init.headers || (input && input.headers) || {});
+            if (!headers.has('X-CSRF-Token')) {
+                headers.set('X-CSRF-Token', token);
+            }
+            init.headers = headers;
+        }
+        return originalFetch(input, init);
+    };
+
+    document.addEventListener('submit', function(event) {
+        var form = event.target;
+        if (!form || form.tagName !== 'FORM') return;
+        if ((form.getAttribute('method') || 'get').toLowerCase() !== 'post') return;
+        if (form.querySelector('input[name="csrf_token"]')) return;
+        var field = document.createElement('input');
+        field.type = 'hidden';
+        field.name = 'csrf_token';
+        field.value = token;
+        form.appendChild(field);
+    }, true);
+})();
+

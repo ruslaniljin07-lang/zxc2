@@ -1,0 +1,55 @@
+### LANGUAGE JSON FILES ###
+  cpp.json             modules=  0 lessons=  0 tasks=  0 minitests=  0 entrance=  0 cheats=0
+      keys: ['cpp']
+  java.json            modules=  0 lessons=  0 tasks=  0 minitests=  0 entrance=  0 cheats=0
+      keys: ['java']
+  javascript.json      modules=  0 lessons=  0 tasks=  0 minitests=  0 entrance=  0 cheats=0
+      keys: ['javascript']
+  python.json          modules=  0 lessons=  0 tasks=  0 minitests=  0 entrance=  0 cheats=0
+      keys: ['python']
+
+### TEMPLATE URL_FOR USAGE ###
+  base.html
+      cheat_sheet(, lang=nav_lang)
+      dashboard()
+      index()
+      language_course(, lang_code=lang.code)
+      leaderboard()
+      lessons(, lang_code=nav_lang)
+      login()
+      logout()
+      profile()
+      register()
+      sandbox(, lang=nav_lang)
+      static(, filename='script.js')
+      static(, filename='style.css')
+      test(, lang_code=nav_lang)
+  dashboard.html
+      language_course(, lang_code=lang.code)
+      lessons(, lang_code=lang_code)
+      profile()
+      sandbox()
+      test(, lang_code=lang_code)
+  index.html
+      dashboard()
+      language_course(, lang_code=lang.code)
+      login()
+      register()
+  language_course.html
+      lesson(, lang_code=lang_code, lesson_id=lsn.id)
+      lesson(, lang_code=lang_code, lesson_id=progress.next_lesson)
+      lessons(, lang_code=lang_code)
+      register()
+      test(, lang_code=lang_code)
+  lesson.html
+      lesson(, lang_code=lang_code, lesson_id=next_lesson.id)
+      lesson(, lang_code=lang_code, lesson_id=prev_lesson.id)
+      lessons(, lang_code=lang_code)
+  lessons.html
+      language_course(, lang_code=lang_code)
+      lesson(, lang_code=lang_code, lesson_id=lesson.id)
+      test(, lang_code=lang_code)
+  login.html
+      register()
+  register.html
+      login()
